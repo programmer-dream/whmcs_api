@@ -27,7 +27,7 @@ app.post('/adfs/postResponse',
 	}
 );
   
-app.get('/secure', validUser, routes.secure);
+app.get('/secure', validUser, routes.secure),
 
 function validUser(req, res, next) {
 	if (!req.user) {
