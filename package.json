@@ -13,6 +13,7 @@
     "file-system": "^2.2.2",
     "passport": "^0.4.0",
     "passport-saml": "^1.0.0",
+    "passport-saml-metadata": "^1.6.0",
     "whmcs": "^1.2.2"
   },
   "devDependencies": {},
