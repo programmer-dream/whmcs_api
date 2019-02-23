@@ -19,7 +19,7 @@ passport.use(new SamlStrategy(
 		privateCert: fs.readFileSync('/home/nick/apps/AD-saml/app.key', 'utf-8'),
     	//cert: fs.readFileSync('/home/nick/apps/AD-saml/app.cer', 'utf-8'),		
 		 cert: fs.readFileSync('/home/nick/apps/AD-saml/SSOCircleCACertificate.cer', 'utf-8'),
-		 xml: 'https://idp.ssocircle.com/idp-meta.xml',
+		 xml: 'http://idp.ssocircle.com/idp-meta.xml',
     	authnContext: 'http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password',
     	acceptedClockSkewMs: -1,
     	identifierFormat: null,
