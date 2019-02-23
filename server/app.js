@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 require('./config/passport.js');
-require(./config.metadata.js);
+require('./config/metadata.js');
   
 app.use(passport.initialize());
 app.use(passport.session());
