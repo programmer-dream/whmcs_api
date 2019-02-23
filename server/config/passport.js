@@ -2,6 +2,7 @@ const fs = require('fs');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 
+
 passport.serializeUser(function(user, done) {
 	done(null, user);
 });

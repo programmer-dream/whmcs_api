@@ -1,6 +1,7 @@
 const passport = require('passport');
 const express = require('express');
 
+
 const app = express();
 
 require('./config/passport.js');
