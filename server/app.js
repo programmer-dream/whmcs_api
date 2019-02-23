@@ -26,7 +26,8 @@ app.post('/adfs/postResponse',
 		res.redirect('/home');
 	}
 );
-  
+
+/*
 app.get('/secure', validUser, routes.secure),
 
 function validUser(req, res, next) {
@@ -35,7 +36,7 @@ function validUser(req, res, next) {
 	}
     next();
 }
-
+*/
 app.get('/home', function(req, res) {
 	res.sendFile('/client/home.html');
 });
