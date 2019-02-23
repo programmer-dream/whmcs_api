@@ -12,11 +12,12 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new SamlStrategy(
 	{
-		entryPoint: 'https://adfs.acme_tools.com/adfs/ls/',
-    	issuer: 'acme_tools_com',
-    	callbackUrl: 'https://acme_tools.com/adfs/postResponse',
-    	privateCert: fs.readFileSync('/path/to/acme_tools_com.key', 'utf-8'),
-    	cert: fs.readFileSync('/path/to/adfs.acme_tools.com.crt', 'utf-8'),
+		entryPoint: 'https://idp.ssocircle.com:443/sso/SSOPOST/metaAlias/publicidp',
+    	issuer: 'https://idp.ssocircle.com',
+    	callbackUrl: 'https://idp.ssocircle.com:443/sso/SSOPOST/metaAlias/publicidp',
+		privateCert: fs.readFileSync('../../app.key', 'utf-8'),
+    	cert: fs.readFileSync('../../app.cer', 'utf-8'),		
+    	// cert: fs.readFileSync('../../SSOCircleCACertificate.cer', 'utf-8'),
     	authnContext: 'http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password',
     	acceptedClockSkewMs: -1,
     	identifierFormat: null,
