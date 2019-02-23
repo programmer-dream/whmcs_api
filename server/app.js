@@ -10,7 +10,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', function(req, res) {
-	res.sendFile('../client/index.html');
+	res.sendFile('/home/nick/apps/AD-saml/client/index.html');
 });
 
 app.get('/login',
@@ -38,7 +38,7 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
-	res.sendFile('../client/home.html');
+	res.sendFile('/home/nick/apps/AD-saml/client/home.html');
 });
 /*
 var server = http.createServer(app);
