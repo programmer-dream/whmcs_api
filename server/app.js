@@ -40,5 +40,8 @@ function validUser(req, res, next) {
 app.get('/home', function(req, res) {
 	res.sendFile('/client/home.html');
 });
-
+/*
 var server = http.createServer(app);
+*/
+var server = app.listen(3000, function(){
+});
