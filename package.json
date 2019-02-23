@@ -16,6 +16,8 @@
     "passport-saml-metadata": "^1.6.0",
     "whmcs": "^1.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "file-system-cache": "^1.0.5"
+  },
   "description": ""
 }
