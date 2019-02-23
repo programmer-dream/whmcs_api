@@ -14,14 +14,14 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login',
-	passport.authenticate('saml', { failureRedirect: '/loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client//loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
 );
   
 app.post('/adfs/postResponse',
-	passport.authenticate('saml', { failureRedirect: '/loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client//loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
