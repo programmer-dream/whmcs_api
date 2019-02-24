@@ -6,6 +6,7 @@ const whmcs = require('whmcs');
 const app = express();
 
 require('./config/passport.js');
+require('./config/whmcs.js');
   
 app.use(passport.initialize());
 app.use(passport.session());
