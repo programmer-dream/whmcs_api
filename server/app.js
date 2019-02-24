@@ -13,6 +13,8 @@ app.get('/', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/index.html');
 });
 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 app.get('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
