@@ -24,6 +24,13 @@
     <!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
+	<script>
+			function call_login()
+			{
+				 location.href = "app.educationhost.co.uk:3000/login";
+			} 
+	</script>
+
   </head>
 
   <body class="text-center">
@@ -59,7 +66,7 @@
 							<p style="color:#ffffff">If this is the first time you have used this service, we will take you the setup on login.</p>
 							<p></p>	
 								<div class="form-group">
-									<input type="submit" value="Login" class="btn float-right login_btn">
+									<input type="submit" value="Login" class="btn float-right login_btn" onclick="call_login()">
 								</div>
 							</form>
 						</div>						
