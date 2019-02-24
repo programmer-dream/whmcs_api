@@ -19,7 +19,7 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/whmcs', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
+	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.js');
 });
 
 /* Assets folders that can be called from html */

@@ -1,10 +1,4 @@
-<html>
-<head>
-</head>
-<body>
 
-
-<script>
 var wclient = new WHMCS(config);
 
 wclient.customers.getTopCustomer = function (callback) {
@@ -19,10 +13,3 @@ wclient.customers.getTopCustomer = function (callback) {
 
   wclient.utils.modem(opts, callback);
 };       
-</script>
-
-
-
-</body>
-</html>
-
