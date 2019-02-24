@@ -13,6 +13,10 @@ app.get('/', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/index.html');
 });
 
+app.get('/test', function(req, res) {
+	res.sendFile('/home/nick/apps/AD-saml/client/test.html');
+});
+
 /* Bootstrap CSS */
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
