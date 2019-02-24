@@ -9,4 +9,3 @@ var config = {
   
 // API secret - 2saQiTPgbSIyvUtmSwVBjmqQxPJ58IpR
 
-  var wclient = new WHMCS(config); 
