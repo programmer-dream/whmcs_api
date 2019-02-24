@@ -43,5 +43,5 @@ app.get('/home', function(req, res) {
 /*
 var server = http.createServer(app);
 */
-var server = app.listen(8080, function(){
+var server = app.listen(3000, function(){
 });
