@@ -1,3 +1,5 @@
+const whmcs = require('whmcs');
+
 var config = {
     username: 'uqIfuB386o8vubPz9xTInHp25bQps8EH',
     password: '2saQiTPgbSIyvUtmSwVBjmqQxPJ58IpR',
