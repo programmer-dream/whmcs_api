@@ -15,7 +15,7 @@ passport.use(new SamlStrategy(
 	{
 		entryPoint: 'https://idp.ssocircle.com:443/sso/SSOPOST/metaAlias/publicidp',
     	issuer: 'https://idp.ssocircle.com',
-    	callbackUrl: 'https://idp.ssocircle.com:443/sso/SSORedirect/metaAlias/publicidp',
+    	callbackUrl: 'http://app.educationhost.co.uk:3000/Metadata.xml',
 		privateCert: fs.readFileSync('/home/nick/apps/AD-saml/app.key', 'utf-8'),
     	//cert: fs.readFileSync('/home/nick/apps/AD-saml/app.cer', 'utf-8'),		
 		 cert: fs.readFileSync('/home/nick/apps/AD-saml/SSOCircleCACertificate.cer', 'utf-8'),
