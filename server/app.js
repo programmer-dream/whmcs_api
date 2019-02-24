@@ -18,7 +18,7 @@ app.get('/test', function(req, res) {
 });
 
 /* Bootstrap CSS */
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use(express.static('assets'));
 
 app.get('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
