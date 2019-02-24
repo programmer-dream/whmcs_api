@@ -1,8 +1,10 @@
-/* var config = {
-    username: 'api_username',
-    password: 'password_as_md5',
-    apiKey: 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz', // if access without IP restriction
-    serverUrl: 'http://127.0.0.1/includes/api.php'
+var config = {
+    username: 'uqIfuB386o8vubPz9xTInHp25bQps8EH',
+    password: '2saQiTPgbSIyvUtmSwVBjmqQxPJ58IpR',
+    apiKey: 'uqIfuB386o8vubPz9xTInHp25bQps8EH', // if access without IP restriction
+    serverUrl: 'http://whmcs.educationhost.co.uk/includes/api.php'
   };
   
-  var wclient = new WHMCS(config); */
+// API secret - 2saQiTPgbSIyvUtmSwVBjmqQxPJ58IpR
+
+  var wclient = new WHMCS(config); 

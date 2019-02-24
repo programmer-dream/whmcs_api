@@ -1,5 +1,6 @@
 const passport = require('passport');
 const express = require('express');
+const whmcs = require('whmcs');
 
 
 const app = express();
@@ -15,6 +16,10 @@ app.get('/', function(req, res) {
 
 app.get('/test', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/test.html');
+});
+
+app.get('/whmcs', function(req, res) {
+	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
 });
 
 /* Assets folders that can be called from html */

@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+
+
+<script>
+var wclient = new WHMCS(config);
+
+wclient.customers.getTopCustomer = function (callback) {
+  var options = {
+    action: 'gettopcustomer'
+  };
+
+  var opts = {
+    client: this,
+    body: options
+  };
+
+  wclient.utils.modem(opts, callback);
+};       
+</script>
+
+
+
+</body>
+</html>
+
