@@ -45,3 +45,5 @@ var server = http.createServer(app);
 */
 var server = app.listen(8080, function(){
 });
+
+app.use(express.static(path.join(__dirname, 'client')));
