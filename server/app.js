@@ -20,21 +20,7 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/whmcs', function(req, res) {
-	var wclient = new WHMCS(config);
-
-wclient.customers.getTopCustomer = function (callback) {
-  var options = {
-    action: 'gettopcustomer'
-  };
-
-  var opts = {
-    client: this,
-    body: options
-  };
-
-  wclient.utils.modem(opts, callback);
-};
-
+	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.js');
 });
 
 /* Assets folders that can be called from html */
