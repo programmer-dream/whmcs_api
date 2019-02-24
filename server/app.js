@@ -14,14 +14,14 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login',
-	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client//loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
 );
   
 app.post('/adfs/postResponse',
-	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client//loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
@@ -38,7 +38,7 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
-	res.sendFile('http://app.educationhost.co.uk:3000/client/home.html');
+	res.sendFile('/home/nick/apps/AD-saml/client/home.html');
 });
 /*
 var server = http.createServer(app);
