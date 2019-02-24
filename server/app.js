@@ -17,7 +17,7 @@ app.get('/test', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/test.html');
 });
 
-/* Bootstrap CSS */
+/* Assets folders that can be called from html */
 app.use(express.static('assets'));
 
 app.get('/login',
