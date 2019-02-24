@@ -38,7 +38,7 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/home.html');
+	res.sendFile('http://app.educationhost.co.uk:3000/client/home.html');
 });
 /*
 var server = http.createServer(app);
