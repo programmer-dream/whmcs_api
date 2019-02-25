@@ -42,12 +42,16 @@ const { Clients } = require('whmcs-js')
 app.get('/listallwhmcsusers', function(req, res) {
 	// Set up the module with the config file
 	// and store it in this variable - can be called anything you want
-	const myClients = new Clients(config)
+	const myClients = new Clients(config);
 	
 	// Call the getClients call and store the data in the variable called invoices
-	const clients = myClients.getClients();
-	res.send(clients);
-});
+	myClients.getClients()
+		.then(function(data) {
+			res.send(data);		
+		})
+		.catch(function(error) {
+			res.send(error)
+	
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
