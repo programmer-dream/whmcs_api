@@ -1,4 +1,4 @@
-const whmcs = require('whmcs');
+const whmcs = require('../../whmcs');
 
 var config = {
     username: 'uqIfuB386o8vubPz9xTInHp25bQps8EH',
