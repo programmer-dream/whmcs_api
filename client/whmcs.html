@@ -3,13 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>FizzBuzz</title>
-      
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
 
 <script>    
-    const axios = require('axios');
-
 // Make a request for the whmcs route using axios
 axios.get('/listallwhmcsusers')
   .then(function (response) {
