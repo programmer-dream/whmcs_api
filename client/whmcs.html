@@ -3,7 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>FizzBuzz</title>
-        <script src="whmcs.js"></script>
+      
     </head>
-    <body></body>
+    <body>
+
+<script>    
+    const axios = require('axios');
+
+// Make a request for the whmcs route using axios
+axios.get('/listallwhmcsusers')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+</script>
+
+    </body>
 <html>
