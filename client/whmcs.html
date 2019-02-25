@@ -40,6 +40,7 @@
 			// Make a request for the whmcs route using axios
 			axios.get('/listallwhmcsusers')
   				.then(function (response) {
+					  console.log(response)
     				// Get the client data from the response			
 					var data = response.clients;
 
