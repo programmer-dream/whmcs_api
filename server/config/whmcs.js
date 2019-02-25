@@ -10,7 +10,7 @@ module.exports = config;
 */
 
 const config = {
-  username: 'JrRzXLAkWQt1RvZ0rhbeqRaycQoa68KV',
-  password: 'pyIeJeYa5Vdd70N4zUMnZRPQVBwNXTq9',
+  username: 'nickwilliams99',
+  password: 'Password01',
   serverUrl: 'http://whmcs.educationhost.co.uk/includes/api.php' // Remember to point to the api.php file
 }
