@@ -19,6 +19,7 @@
 				<tr>
 					{{!-- Loop through each client --}}
 					{{#each client}}
+						{{log this}}
 						<tr>
 							<td>{{id}}</td>
 							<td>{{firstname}}</td>
@@ -41,6 +42,8 @@
   				.then(function (response) {
     				// Get the client data from the response			
 					var data = response.clients;
+
+					console.log(data)
 
 					// Pass it through the template
 					var html = template(data);
