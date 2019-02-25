@@ -17,7 +17,7 @@ require('./config/whmcs.js');
   
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(whmcs.initialize());
+//app.use(whmcs.initialize());
 
 app.get('/', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/index.html');
