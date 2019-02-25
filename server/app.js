@@ -36,6 +36,10 @@ app.get('/whmcs', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
 });
 
+app.get('/handlebars', function(req, res) {
+	res.sendFile('/home/nick/apps/AD-saml/client/handlebars.html');
+});
+
 // Get the clients module from whmcs-js
 const { Clients } = require('whmcs-js');
 	

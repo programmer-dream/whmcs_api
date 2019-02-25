@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Title</title>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+
+		{{!-- This is the template --}}
+		<script id="entry-template" type="text/x-handlebars-template">
+			<table>
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>first name</th>
+						<th>last name</th>
+					</tr>
+				</thead>
+				<tr>
+					{{!-- Loop through each client --}}
+					{{#each client}}
+						<tr>
+							<td>{{id}}</td>
+							<td>{{firstname}}</td>
+							<td>{{lastname}}</td>
+						</tr>
+					{{/each}}
+				</tr>
+			</table>
+		</script>	
+
+		<script type="text/javascript">
+			// Get the template
+			var source = document.getElementById("entry-template").innerHTML;
+
+			// Compile the template
+			var template = Handlebars.compile(source);
+
+			// Make a request for the whmcs route using axios
+			axios.get('/listallwhmcsusers')
+  				.then(function (response) {
+    				// Get the client data from the response			
+					var data = response.clients;
+
+					// Pass it through the template
+					var html = template(data);
+
+					// Set our target divs html with our template html
+					document.getElementById("content").html(html);
+  				})
+  				.catch(function (error) {
+    				// handle error
+    				console.log(error);
+  				})  
+		</script>	  
+	</head>
+
+	<body>
+		<div id="content">
+
+		</div>
+	</body>
+</html>
