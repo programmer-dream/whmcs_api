@@ -14,7 +14,7 @@ const app = express();
 
 require('./config/passport.js');
 const config = require('./config/whmcs.js');
-  
+
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(whmcs.initialize());
@@ -32,13 +32,14 @@ app.get('/test', function(req, res) {
 /* 			       	Anything in the WHMCS routes can be called from axios in the html               */
 /*--------------------------------------------------------------------------------------------------*/
 
+var wclient = new WHMCS(config);
+
 app.get('/whmcs', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
 });
 
 app.get('/listallwhmcsusers', function(req, res) {
-	
-var wclient = new WHMCS(config);
+
 
 wclient.customers.getTopCustomer = function (callback) {
   var options = {
