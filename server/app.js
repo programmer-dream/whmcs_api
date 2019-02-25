@@ -32,7 +32,6 @@ app.get('/test', function(req, res) {
 /* 			       	Anything in the WHMCS routes can be called from axios in the html               */
 /*--------------------------------------------------------------------------------------------------*/
 
-var wclient = new WHMCS(config);
 
 app.get('/whmcs', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
@@ -41,18 +40,19 @@ app.get('/whmcs', function(req, res) {
 app.get('/listallwhmcsusers', function(req, res) {
 
 
-wclient.customers.getTopCustomer = function (callback) {
-  var options = {
-    action: 'gettopcustomer'
-  };
-
-  var opts = {
-    client: this,
-    body: options
-  };
-
-  wclient.utils.modem(opts, callback);
-};       
+	// Get the clients module from whmcs-js
+	const { Clients } = require('whmcs-js')
+	
+	// Set up the module with the config file
+	// and store it in this variable - can be called anything you want
+	const myClients = new Clients(config)
+	
+	app.get('/getClients', function(req, res) {
+		// Call the getClients call and store the data in the variable called invoices
+		const clients = await myClients.getClients();
+	
+		return clients;
+	});    
 
 });
 
