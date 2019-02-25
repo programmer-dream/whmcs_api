@@ -32,6 +32,10 @@ app.get('/test', function(req, res) {
 /* 			       	Anything in the WHMCS routes can be called from axios in the html               */
 /*--------------------------------------------------------------------------------------------------*/
 
+app.get('/whmcs', function(req, res) {
+	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
+});
+
 app.get('/listallwhmcsusers', function(req, res) {
 	
 var wclient = new WHMCS(config);
