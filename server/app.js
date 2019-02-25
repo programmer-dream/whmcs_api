@@ -37,6 +37,8 @@ app.get('/whmcs', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
 });
 
+app.get('/listallwhmcsusers', function(req, res) {
+
 
 	// Get the clients module from whmcs-js
 	const { Clients } = require('whmcs-js')
@@ -47,12 +49,12 @@ app.get('/whmcs', function(req, res) {
 	
 	app.get('/getClients', function(req, res) {
 		// Call the getClients call and store the data in the variable called invoices
-		const clients = await myClients.getClients();
+		const clients = myClients.getClients();
 	
 		return clients;
 	});    
 
-
+});
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
