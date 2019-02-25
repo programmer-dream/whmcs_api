@@ -45,7 +45,13 @@ app.get('/listallwhmcsusers', function(req, res) {
 	const myClients = new Clients(config);
 	
 	// Call the getClients call and store the data in the variable called invoices
-	myClients.getClients()
+	myClients.getClients(
+
+		({
+			sorting: DESC
+		})
+
+	)
 		.then(function(data) {
 			res.send(data);		
 		})
