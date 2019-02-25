@@ -37,23 +37,17 @@ app.get('/whmcs', function(req, res) {
 	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
 });
 
-app.get('/listallwhmcsusers', function(req, res) {
-
-
-	// Get the clients module from whmcs-js
-	const { Clients } = require('whmcs-js')
+// Get the clients module from whmcs-js
+const { Clients } = require('whmcs-js')
 	
+app.get('/listallwhmcsusers', function(req, res) {
 	// Set up the module with the config file
 	// and store it in this variable - can be called anything you want
 	const myClients = new Clients(config)
 	
-	app.get('/getClients', function(req, res) {
-		// Call the getClients call and store the data in the variable called invoices
-		const clients = myClients.getClients();
-	
-		return clients;
-	});    
-
+	// Call the getClients call and store the data in the variable called invoices
+	const clients = myClients.getClients();
+	res.send(clients);
 });
 
 /*--------------------------------------------------------------------------------------------------*/
