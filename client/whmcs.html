@@ -46,7 +46,7 @@
 					var html = template(data);
 
 					// Set our target divs html with our template html
-					document.getElementById("content").innerHTML(html);
+					document.getElementById("content").innerHTML = html;
   				})
   				.catch(function (error) {
     				// handle error
