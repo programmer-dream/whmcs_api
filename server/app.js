@@ -19,11 +19,11 @@ app.use(passport.session());
 //app.use(whmcs.initialize());
 
 app.get('/', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/index.html');
+	res.sendFile('/home/ehapp/apps/AD-saml/client/index.html');
 });
 
 app.get('/test', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/test.html');
+	res.sendFile('/home/ehapp/apps/AD-saml/client/test.html');
 });
 
 /*--------------------------------------------------------------------------------------------------*/
@@ -33,11 +33,11 @@ app.get('/test', function(req, res) {
 
 
 app.get('/whmcs', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/whmcs.html');
+	res.sendFile('/home/ehapp/apps/AD-saml/client/whmcs.html');
 });
 
 app.get('/handlebars', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/handlebars.html');
+	res.sendFile('/home/ehapp/apps/AD-saml/client/handlebars.html');
 });
 
 // Get the clients module from whmcs-js
@@ -65,14 +65,14 @@ app.get('/listallwhmcsusers', function(req, res) {
 app.use(express.static('assets'));
 
 app.get('/login',
-	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
 );
   
 app.post('/adfs/postResponse',
-	passport.authenticate('saml', { failureRedirect: '/home/nick/apps/AD-saml/client/loginFailed', failureFlash: true }),
+	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 		res.redirect('/home');
 	}
@@ -89,7 +89,7 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
-	res.sendFile('/home/nick/apps/AD-saml/client/home.html');
+	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 });
 /*
 var server = http.createServer(app);
