@@ -4,7 +4,7 @@
 
 const passport = require('passport');
 const express = require('express');
-const WHMCS = require('whmcs');
+const WHMCS = require('whmcs-js');
 
 const app = express();
 
