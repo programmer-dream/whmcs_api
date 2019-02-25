@@ -5,4 +5,4 @@ var config = {
   serverUrl: 'http://whmcs.educationhost.co.uk/includes/api.php'
 };
 
-export default config;
+module.exports = config;
