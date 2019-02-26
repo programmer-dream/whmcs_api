@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url('/images/mountain.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.modal-open .container-fluid, .modal-open  .container {
+        -webkit-filter: blur(35px) grayscale(90%);
+    }
+
+.close {display: none;}
+
+.container{
+    height: 100%;
+    align-content: center;
+    }
