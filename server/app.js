@@ -40,6 +40,12 @@ app.get('/handlebars', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/handlebars.html');
 });
 
+/*--------------------------------------------------------------------------------------------------*/
+/* 																					WHMCS API                                               */
+/* 			         	Anything in the WHMCS routes can be called from axios in the html                 */
+/*--------------------------------------------------------------------------------------------------*/
+
+
 // Get the clients module from whmcs-js
 const { Clients } = require('whmcs-js');
 	
@@ -57,6 +63,36 @@ app.get('/listallwhmcsusers', function(req, res) {
 			res.send(error)
 		});
 });
+
+// Add client
+
+app.get('/addclient', function(req, res) {
+	// Set up the module with the config file
+	// and store it in this variable - can be called anything you want
+	const addClient = new Clients(config);
+	
+	// Call the getClients call and store the data in the variable called invoices
+	addClient.addClient(
+		firstname = 'Nick',
+		lastname = 'Andrew',
+		email = 'nick@testingspiaddclient.com',
+		address1	= 'test',
+		address2 = 'test',
+		city = 'Worcester',
+		state = '',
+		postcode = '',
+		country = '',
+		phonenumber = '',
+		skipvalidation = true
+	)
+		.then(function(data) {
+			res.send(data);		
+		})
+		.catch(function(error) {
+			res.send(error)
+		});
+});
+
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
