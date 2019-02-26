@@ -112,7 +112,7 @@ app.get('/login',
 app.post('/adfs/postResponse',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
-		res.redirect('/home');
+		res.redirect('../home');
 	}
 );
 
