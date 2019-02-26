@@ -73,17 +73,19 @@ app.get('/addclient', function(req, res) {
 	
 	// Call the getClients call and store the data in the variable called invoices
 	addClient.addClient(
-		firstname = "Nick",
-		lastname = "Andrew",
-		email = "nick@testingspiaddclient.com",
-		address1	= "test",
-		address2 = "test",
-		city = "Worcester",
-		state = "",
-		postcode = "",
-		country = "",
-		phonenumber = "",
-		skipvalidation = true
+		opts = {
+				firstname = 'Nick',
+				lastname = 'Andrew',
+				email = 'nick@testingspiaddclient.com',
+				address1	= 'test',
+				address2 = 'test',
+				city = 'Worcester',
+				state = '',
+				postcode = '',
+				country = '',
+				phonenumber = '',
+				skipvalidation = true 
+			}
 	)
 		.then(function(data) {
 			res.send(data);		
