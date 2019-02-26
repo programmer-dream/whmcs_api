@@ -25,16 +25,38 @@
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	
 	<!-- Add some blur to the background-->
-	<style>
-		body.modal-open .background-container{
-			-webkit-filter: blur(4px);
-			-moz-filter: blur(4px);
-			-o-filter: blur(4px);
-			-ms-filter: blur(4px);
-			filter: blur(4px);			
-		}
+<script>/* blur on modal open, unblur on close */
+		$('#myModal').on('show.bs.modal', function () {
+		   $('.container').addClass('blur');
+		})
+		
+		$('#myModal').on('hide.bs.modal', function () {
+		   $('.container').removeClass('blur');
+		})</script>
 
-			.close {display: none;}
+	<style>
+
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');
+
+body {
+	background: url('/assets/64531/green_suburb.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  	background-color:#333;
+  	font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+}
+
+a:link, a:visited {
+	color:#eee;
+}
+
+.blur {
+    -webkit-filter: blur(5px) grayscale(50%);
+}
+
+
 
 	</style>
 
@@ -75,6 +97,48 @@
 		  </div>
 		</div>
 	  </div>
+
+
+
+	  <div class="container">
+			<div class="row">
+			
+				<h1 class="text-center">Hello</h1>
+			  
+			  <h1 class="text-center"><a href="#myModal" role="button" class="btn btn-lg btn-primary" data-toggle="modal">Learn More</a></h1>
+			
+			</div>
+		  </div>
+		  
+		  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		  <div class="modal-content">
+			  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					  <h3 id="myModalLabel">Modal header</h3>
+			  </div>
+			  <div class="modal-body">
+				  <p>One fine body…</p>
+			  </div>
+			  <div class="modal-footer">
+				  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				  <button class="btn btn-primary">Save changes</button>
+			  </div>
+		  </div>
+		  </div>
+		  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 	</body>
 </html> 
