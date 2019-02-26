@@ -25,17 +25,6 @@
 
 			<script  src="/js/bootstrap.js"></script>
 
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$(".show-modal").click(function(){
-						$("#newuser").modal({
-							backdrop: 'static',
-							keyboard: false
-						});
-					});
-				});
-				</script>
-
 	</head>
 	
 	<body>
@@ -48,7 +37,7 @@
 	  </button>
 	  
 	  <!-- Modal -->
-	  <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true">
+	  <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static>
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
 			<div class="modal-header">
