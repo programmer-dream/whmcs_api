@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0"?>
 <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" validUntil="2019-02-26T13:37:04Z" cacheDuration="PT604800S" entityID="samlapplicationnw" ID="pfx5f5c383d-5a65-8ba6-5a6e-586a8fc278e8"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
@@ -26,4 +27,6 @@
     <md:GivenName>Nicholas Williams</md:GivenName>
     <md:EmailAddress>n.a.williams@outlook.com</md:EmailAddress>
   </md:ContactPerson>
-</md:EntityDescriptor>
+</md:EntityDescriptor> -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><EntityDescriptor entityID="samlehapp" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"><SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</NameIDFormat><AssertionConsumerService index="0" isDefault="true" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="app.educationhost.co.uk:8080/home"/></SPSSODescriptor></EntityDescriptor>
