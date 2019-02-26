@@ -23,7 +23,16 @@
 		
 			<!--Fontawesome CDN-->
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-			
+	
+	<!-- Add some blur to the background-->
+	<style>
+			.modal-open .container-fluid, .modal-open  .container {
+					-webkit-filter: blur(5px) grayscale(90%);
+				}
+
+			.close {display: none;}
+
+	</style>
 
 			<script  src="/js/bootstrap.js"></script>
 	</head>
@@ -52,7 +61,7 @@
 			  <p></p>
 			  Your website domain will be:
 			  <p></p>
-			  <p class="center"<b><i>studentid.universitydomain.com</i></b></p>
+			  <p class="center"><b><i>studentid.universitydomain.com</i></b></p>
 			  <p></p>
 			</div>
 			<div class="modal-footer">
