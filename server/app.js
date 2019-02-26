@@ -133,6 +133,9 @@ app.get('/home', function(req, res) {
 app.post('/home', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 	console.log(req);
+
+	/* get the email back from the post, loop through all users and see if they exist already */
+	/* if not then show them the new user modal on the home page*/
 	
 });
 
