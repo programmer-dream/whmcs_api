@@ -105,14 +105,14 @@ app.use(express.static('assets'));
 app.get('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
-		res.redirect('../home');
+		res.redirect('/home');
 	}
 );
   
 app.post('/adfs/postResponse',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
-		res.redirect('../home');
+		res.redirect('/home');
 	}
 );
 

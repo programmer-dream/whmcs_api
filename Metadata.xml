@@ -20,7 +20,7 @@
       </ds:KeyInfo>
     </md:KeyDescriptor>
     <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
-    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://app.educationhost.co.uk:3000/client/home.html" index="1"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="/home" index="1"/>
   </md:SPSSODescriptor>
   <md:ContactPerson contactType="technical">
     <md:GivenName>Nicholas Williams</md:GivenName>
