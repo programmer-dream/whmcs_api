@@ -114,6 +114,11 @@ app.get('/login',
 							var parsedObject = parser.asObject();
 							//console.log(parsedObject);
 							console.log(parser.asObject());
+							var firstName = parser.get('first name');
+							console.log(firstName); //=> 'John'
+							var firstName = parser.get('email');
+							console.log(email); //=> 'John'
+
 		res.redirect('/home');
 	}
 );
