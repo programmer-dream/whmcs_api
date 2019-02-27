@@ -115,9 +115,8 @@ app.post('/adfs/postResponse',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 
-							// Get the user data out of the saml response
-							var parser = new Saml2js(res.body.SAMLResponse);
-							res.json(parser.asObject());
+						// Get the user data out of the saml response
+						var parser = new Saml2js(res.body.SAMLResponse);
 						var parsedObject = parser.asObject();
 						console.log(parsedObject);
 		
