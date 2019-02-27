@@ -4,6 +4,7 @@
 
 const passport = require('passport');
 const express = require('express');
+Saml2js = require('saml2js');
 
 const app = express();
 
@@ -112,6 +113,12 @@ app.get('/login',
 app.post('/adfs/postResponse',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
+		
+		// Get the user data out of the saml response
+		var parser = new Saml2js(res.body.SAMLResponse);
+		res.json(parser.asObject());
+		var parsedObject = parser.asObject();
+		// redirect them to the home screen to signup or be signed in
 		res.redirect('/home');
 	}
 );
@@ -132,7 +139,7 @@ app.get('/home', function(req, res) {
 
 app.post('/home', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
-	console.log(req);
+	console.log(parsedObject);
 
 	/* get the email back from the post, loop through all users and see if they exist already */
 	/* if not then show them the new user modal on the home page*/
