@@ -130,7 +130,7 @@ app.post('/adfs/postResponse',
     function(req, res) {
 
 	/* get the email back from the post, loop through all users and see if they exist already 
-	 if not then show them the new user modal on the home page */
+	 if not then show them the new user modal on the home page 
 
 							// Get the user data out of the saml response
 							var parser = new Saml2js(res.body.SAMLResponse);
@@ -141,7 +141,7 @@ app.post('/adfs/postResponse',
 							console.log(firstName); //=> 'John'
 							var firstName = parser.get('email');
 							console.log(email); //=> 'John'
-							console.log(req.body);
+							console.log(req.body);*/
 		
 		// redirect them to the home screen to signup or be signed in
 		res.redirect('/home');
