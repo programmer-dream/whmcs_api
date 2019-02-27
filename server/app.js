@@ -103,7 +103,7 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
-app.get('/login',
+app.post('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
 		/* get the email back from the post, loop through all users and see if they exist already */
