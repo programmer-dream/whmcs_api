@@ -5,7 +5,6 @@
 const passport = require('passport');
 const express = require('express');
 var Saml2js = require('saml2js');
-app.use(require('helmet')());
 
 const app = express();
 
@@ -182,4 +181,5 @@ const options = {
 
 
 app.listen(8080);
+app.use(require('helmet')());
 https.createServer(options, app).listen(8443);
