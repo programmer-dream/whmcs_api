@@ -118,6 +118,7 @@ app.get('/login',
 							console.log(firstName); //=> 'John'
 							var firstName = parser.get('email');
 							console.log(email); //=> 'John'
+							console.log(req.body);
 
 		res.redirect('/home');
 	}
@@ -135,6 +136,11 @@ app.post('/adfs/postResponse',
 							var parsedObject = parser.asObject();
 							//console.log(parsedObject);
 							console.log(parser.asObject());
+							var firstName = parser.get('first name');
+							console.log(firstName); //=> 'John'
+							var firstName = parser.get('email');
+							console.log(email); //=> 'John'
+							console.log(req.body);
 		
 		// redirect them to the home screen to signup or be signed in
 		res.redirect('/home');
