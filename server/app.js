@@ -174,8 +174,8 @@ app.post('/home', function(req, res) {
 var server = http.createServer(app);
 */
 const options = {
-	cert: fs.readFileSync('./sslcert/fullchain1.pem'),
-	key: fs.readFileSync('./sslcert/privkey1.pem')
+	cert: fs.readFileSync('/etc/letsencrypt/archive/app.educationhost.co.uk'),
+	key: fs.readFileSync('/etc/letsencrypt/archive/app.educationhost.co.uk/privkey1.pem')
 };
 
 
