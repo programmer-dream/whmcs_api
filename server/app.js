@@ -118,7 +118,8 @@ app.post('/adfs/postResponse',
 						// Get the user data out of the saml response
 						var parser = new Saml2js(res.body.SAMLResponse);
 						var parsedObject = parser.asObject();
-						console.log(parsedObject);
+						//console.log(parsedObject);
+						console.log(parser.asObject());
 		
 		// redirect them to the home screen to signup or be signed in
 		res.redirect('/home');
