@@ -106,6 +106,7 @@ app.use(express.static('assets'));
 app.get('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
+
 		res.redirect('/home');
 	}
 );
@@ -113,6 +114,12 @@ app.get('/login',
 app.post('/adfs/postResponse',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
+
+							// Get the user data out of the saml response
+							var parser = new Saml2js(res.body.SAMLResponse);
+							res.json(parser.asObject());
+						var parsedObject = parser.asObject();
+						console.log(parsedObject);
 		
 		// redirect them to the home screen to signup or be signed in
 		res.redirect('/home');
@@ -138,11 +145,7 @@ app.post('/home', function(req, res) {
 
 	/* get the email back from the post, loop through all users and see if they exist already */
 	/* if not then show them the new user modal on the home page*/
-		// Get the user data out of the saml response
-		var parser = new Saml2js(res.body.SAMLResponse);
-		res.json(parser.asObject());
-	var parsedObject = parser.asObject();
-	console.log(parsedObject);
+
 	
 });
 
