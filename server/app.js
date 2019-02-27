@@ -174,8 +174,8 @@ app.post('/home', function(req, res) {
 var server = http.createServer(app);
 */
 const options = {
-	cert: fs.readFileSync('/assets/cert.pem'),
-	key: fs.readFileSync('/assets/privkey.pem')
+	cert: fs.readFileSync('/cert.pem'),
+	key: fs.readFileSync('/privkey.pem')
 };
 
 
