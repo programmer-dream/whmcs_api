@@ -5,6 +5,7 @@
 const passport = require('passport');
 const express = require('express');
 var Saml2js = require('saml2js');
+app.use(require('helmet')());
 
 const app = express();
 
@@ -173,5 +174,12 @@ app.post('/home', function(req, res) {
 /*
 var server = http.createServer(app);
 */
-var server = app.listen(443, function(){
-});
+const options = {
+	cert: fs.readFileSync('/cert.pem'),
+	key: fs.readFileSync('/privkey.pem')
+};
+
+
+
+app.listen(8080);
+https.createServer(options, app).listen(8443);
