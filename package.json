@@ -13,7 +13,6 @@
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "file-system": "^2.2.2",
-    "fs": "0.0.1-security",
     "fs-js": "^1.0.6",
     "helmet": "^3.15.1",
     "https": "^1.0.0",
