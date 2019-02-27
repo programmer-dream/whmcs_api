@@ -103,6 +103,27 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
+app.get('/login',
+	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
+    function(req, res) {
+		/* get the email back from the post, loop through all users and see if they exist already */
+	/* if not then show them the new user modal on the home page*/
+
+							// Get the user data out of the saml response
+							var parser = new Saml2js(res.body.SAMLResponse);
+							var parsedObject = parser.asObject();
+							//console.log(parsedObject);
+							console.log(parser.asObject());
+							var firstName = parser.get('first name');
+							console.log(firstName); //=> 'John'
+							var firstName = parser.get('email');
+							console.log(email); //=> 'John'
+							console.log(req.body);
+		
+		// redirect them to the home screen to signup or be signed in
+		res.redirect('/home');
+	}
+);
 app.post('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {
