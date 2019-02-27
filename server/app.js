@@ -5,7 +5,7 @@
 const passport = require('passport');
 const express = require('express');
 var Saml2js = require('saml2js');
-const fs = require('fs-js');
+const fs = require('fs');
 const app = express();
 
 /*--------------------------------------------------------------------------------------------------*/
@@ -174,8 +174,8 @@ app.post('/home', function(req, res) {
 var server = http.createServer(app);
 */
 const options = {
-	cert: fs.readFileSync('/cert.pem'),
-	key: fs.readFileSync('/privkey.pem')
+	cert: fs.readFileSync('/assets/cert.pem'),
+	key: fs.readFileSync('/assets/privkey.pem')
 };
 
 
