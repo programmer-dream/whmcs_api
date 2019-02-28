@@ -5,7 +5,7 @@
 const passport = require('passport');
 const express = require('express');
 var Saml2js = require('saml2js');
-var fs = require('fs-js');
+var fs = require('fs');
 const app = express();
 
 /*--------------------------------------------------------------------------------------------------*/
