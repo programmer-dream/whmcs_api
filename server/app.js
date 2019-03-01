@@ -7,6 +7,7 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const app = express();
+const bodyParser = require('body-parser');
 
 
  // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
