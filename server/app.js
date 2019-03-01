@@ -104,6 +104,7 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
+/*
 app.get('/login',
 	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
     function(req, res) {	
@@ -128,12 +129,62 @@ app.post('/adfs/postResponse',
 							console.log(firstName); //=> 'John'
 							var firstName = parser.get('email');
 							console.log(email); //=> 'John'
-							console.log(req.body);*/
+							console.log(req.body);
 		
 		// redirect them to the home screen to signup or be signed in
 		res.redirect('/whmcs');
 	}
+); */
+
+
+
+
+
+
+
+app.get("/login",
+    passport.authenticate("saml", (err, profile) => {
+        // control will not come here ????   
+        console.log("Profile : ", profile);
+    })
 );
+app.post("/login/callback",
+         (req, res, next) => {
+            passport.authenticate("saml", { session: false }, (err, user) => {
+                req.user = user;
+                next();
+            })(req, res, next);
+         },
+         RouteHandler.sendResponse
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 app.get('/secure', validUser, routes.secure),
