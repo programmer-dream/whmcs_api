@@ -156,8 +156,9 @@ app.post("/login/callback",
 			})
 			//-------------------------------
 			// Get the user data out of the saml response
+
 			var parser = new Saml2js(res.body.SAMLResponse);
-			var parsedObject = parser.asObject();
+			res.json(parser.asObject());
 			//console.log(parsedObject);
 			console.log(parser.asObject());
 			var firstName = parser.get('first name');
