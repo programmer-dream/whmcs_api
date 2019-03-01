@@ -1,12 +1,12 @@
 {
-  "name": "saml",
+  "name": "Education Host AD-saml",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/app.js"
   },
-  "author": "",
+  "author": "Nick Williams - nick@educationhost.co.uk",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
