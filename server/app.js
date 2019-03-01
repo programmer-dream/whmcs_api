@@ -174,8 +174,10 @@ app.post("/login/callback",
 			//var firstName = parser.get('emailAddress');
 			//res.send(emailAddress); //=> 'John'
 			
-			var myObj = JSON.parse(parser);
-			res.send(myObj);
+			var myObj = jQuery.parseJSON(JSON.stringify(parser));
+						res.send(myObj);
+
+			
 
 			res.redirect('/home');
 			(req, res, next);
