@@ -172,7 +172,7 @@ app.post("/login/callback",
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
 
-			var emailAddress = parsedObject.get('emailAddress');
+			var emailAddress = parsedObject('emailAddress');
 			res.send(emailAddress); //=> 'John'
 
 
