@@ -141,7 +141,8 @@ app.post('/adfs/postResponse',
 app.get("/login",
     passport.authenticate("saml", {		
 		successRedirect: '/home',
-        failureRedirect: '/failedlogin'
+		failureRedirect: '/failedlogin'
+		
     })
 );
 
@@ -151,9 +152,9 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
-				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().email);
-				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
-				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
+				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials());
+				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
+				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
 
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
