@@ -138,13 +138,8 @@ app.post('/adfs/postResponse',
 
 
 
-
-
-
-
 app.get("/login",
-    passport.authenticate("saml", {
-		
+    passport.authenticate("saml", {		
 		successRedirect: '/home',
         failureRedirect: '/failedlogin'
     })
