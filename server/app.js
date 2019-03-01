@@ -164,7 +164,7 @@ app.post("/login/callback",
 			//res.send(res.body);
 
 
-			var parser = new Saml2js(res.send(req.body));
+			var parser = new Saml2js(req.body.SAMLResponse);
 			res.json(parser.asObject());
 			//console.log(parsedObject);
 			res.send(parser.asObject());
