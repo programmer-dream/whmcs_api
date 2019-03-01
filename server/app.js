@@ -164,12 +164,16 @@ app.post("/login/callback",
 			})
 			//res.send(res.body);
 
-			var parser = new Saml2js(res.body.SAMLResponse);
+
+			var parser = new Saml2js(req.body.SAMLResponse);
 			//res.json(parser.toObject());
 			var parsedObject = parser.toObject();
-
+			
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
+
+			var emailAddress = parser.get('emailAddress');
+			res.send(emailAddress); //=> 'John'
 			
 			//var myObj = jQuery.parseJSON(JSON.stringify(parser));
 			//			res.send(myObj);
