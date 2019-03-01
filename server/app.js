@@ -170,10 +170,13 @@ app.post("/login/callback",
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
 
-			var firstName = parser.get('emailAddress');
-			res.send(emailAddress); //=> 'John'
+			//var firstName = parser.get('emailAddress');
+			//res.send(emailAddress); //=> 'John'
 
+			var obj = JSON.parse(parser);
 
+			var firstName = obj.get('emailAddress');
+			res.send(emailAddress); //=> 'John'dddd
 
 
 
