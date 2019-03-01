@@ -152,9 +152,7 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
-				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials());
-				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
-				res.body(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
+				Res.send(req.body);
 
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
