@@ -176,14 +176,16 @@ app.post("/login/callback",
 			//res.send(emailAddress); //=> 'John'
 
 			const email = parsedObject.emailAddress
+			const firstname = parsedObject.firstName
+			const userid = parsedObject.userId
+			const lastname = parsedObject.lastName
 
-			res.send(email)
+			res.send(email, firstname, userid, lastname)
 
+////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
 
-			userId
+// Code here
 			
-			//var myObj = jQuery.parseJSON(JSON.stringify(parser));
-			//			res.send(myObj);
 
 
 
