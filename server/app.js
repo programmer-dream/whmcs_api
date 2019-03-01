@@ -171,9 +171,6 @@ app.post("/login/callback",
 			
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
-
-			var emailAddress = parser.get('emailAddress');
-			res.send(emailAddress); //=> 'John'
 			
 			//var myObj = jQuery.parseJSON(JSON.stringify(parser));
 			//			res.send(myObj);
