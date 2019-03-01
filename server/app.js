@@ -160,7 +160,7 @@ app.post("/login/callback",
 				next();		
 
 			})
-			res.send(req.body);
+			
 			res.redirect('/home');
 			(req, res, next);
          },
@@ -208,11 +208,13 @@ app.get('/home', function(req, res) {
 
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 	
+
 });
 
 app.post('/home', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 	console.log(req.body);
+	res.send(req.user);
 	
 });
 
