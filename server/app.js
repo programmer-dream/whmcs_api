@@ -150,9 +150,10 @@ app.get("/login",
 app.post("/login/callback",
          (req, res, next) => {
             passport.authenticate("saml", { session: false }, (err, user) => {
-                req.user = user;
-				next();
+				req.user = user;
 				Res.send(req.body);
+				next();
+				
 
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
