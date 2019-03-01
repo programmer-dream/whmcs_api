@@ -9,6 +9,7 @@ const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
 const Saml2js = require('saml2js');
+const jQuery = require('jquery');
 
 
  // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
