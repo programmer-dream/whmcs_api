@@ -167,20 +167,18 @@ app.post("/login/callback",
 
 			var parser = new Saml2js(req.body.SAMLResponse);
 			//res.json(parser);
-			//var parsedObject = parser.asObject();
+			var parsedObject = parser.asObject();
 			
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
 
-			//var firstName = parser.get('emailAddress');
-			//res.send(emailAddress); //=> 'John'
+			var emailAddress = parser.get('emailAddress');
+			res.send(emailAddress); //=> 'John'
 			
 			//var myObj = jQuery.parseJSON(JSON.stringify(parser));
 			//			res.send(myObj);
 
-			var x = parser;
-			x.emailAddress = emailAddress;  
-			res.send(emailAddress);
+
 
 			res.redirect('/home');
 			(req, res, next);
