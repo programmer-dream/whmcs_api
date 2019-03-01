@@ -162,19 +162,10 @@ app.post("/login/callback",
 				next();		
 
 			})
-			//res.send(res.body);
-
-
 			var parser = new Saml2js(req.body.SAMLResponse);
-			//res.json(parser.toObject());
 			var parsedObject = parser.toObject();
-			
-			//console.log(parsedObject);
-					//res.send(parser.asObject());
 
-			//var emailAddress = parsedObject.get('emailAddress');
-			//res.send(emailAddress); //=> 'John'
-
+			// Put the tems from the object into js variable
 			const email = parsedObject.emailAddress
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
@@ -193,33 +184,6 @@ app.post("/login/callback",
 			(req, res, next);
          },
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
