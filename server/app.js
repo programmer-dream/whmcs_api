@@ -8,6 +8,7 @@ const https = require('https');
 const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
+const Saml2js = require('saml2js');
 
 
  // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
@@ -160,7 +161,29 @@ app.post("/login/callback",
 				next();		
 
 			})
-			res.send('Error');
+			//res.send('Error');
+
+
+			var parser = new Saml2js(res.body.SAMLResponse);
+			var parsedObject = parser.asObject();
+			//console.log(parsedObject);
+			res.send(parser.asObject());
+			var firstName = parser.get('first name');
+			res.send(firstName); //=> 'John'
+			var firstName = parser.get('email');
+			res.send(email); //=> 'John'
+			res.send(req.body);
+
+
+
+
+
+
+
+
+
+
+
 			res.redirect('/home');
 			(req, res, next);
          },
