@@ -180,7 +180,7 @@ app.post("/login/callback",
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-			res.send(email, firstname, userid, lastname)
+			res.send(parsedObject)
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
 
