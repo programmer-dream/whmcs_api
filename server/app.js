@@ -153,9 +153,10 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
                 next();
-            })(req, res, next);
+			})
+			res.redirect('/whmcs');
+			(req, res, next);
          },
-         RouteHandler.sendResponse
 );
 
 
