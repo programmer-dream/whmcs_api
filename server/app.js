@@ -144,14 +144,17 @@ app.get("/login",
         failureRedirect: '/failedlogin'
     })
 );
+
+
 app.post("/login/callback",
          (req, res, next) => {
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
-				console.log(SAMLCredential.email);
-				console.log(SAMLCredential.user);
-				console.log(SAMLCredential.name);
+				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().email);
+				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
+				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
+
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
 																					var parsedObject = parser.asObject();
