@@ -154,7 +154,19 @@ app.post("/login/callback",
                 req.user = user;
                 next();
 			})
-			res.redirect('/whmcs');
+			//-------------------------------
+			// Get the user data out of the saml response
+			var parser = new Saml2js(res.body.SAMLResponse);
+			var parsedObject = parser.asObject();
+			//console.log(parsedObject);
+			console.log(parser.asObject());
+			var firstName = parser.get('first name');
+			console.log(firstName); //=> 'John'
+			var firstName = parser.get('email');
+			console.log(email); //=> 'John'
+			console.log(req.body);
+			//-------------------------------
+			res.redirect('/home');
 			(req, res, next);
          },
 );
