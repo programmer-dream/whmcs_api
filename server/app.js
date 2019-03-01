@@ -22,7 +22,7 @@ app.use(passport.session());
 
 app.get('/', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/index.html');
-	console.log(TEST);
+	console.log('TEST');
 });
 
 app.get('/test', function(req, res) {
