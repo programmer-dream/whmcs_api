@@ -143,9 +143,10 @@ app.post('/adfs/postResponse',
 
 
 app.get("/login",
-    passport.authenticate("saml", (err, profile) => {
-        // control will not come here ????   
-        console.log("Profile : ", profile);
+    passport.authenticate("saml", {
+		
+		successRedirect: '/home',
+        failureRedirect: '/failedlogin'
     })
 );
 app.post("/login/callback",
@@ -153,17 +154,17 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
-				var parser = new Saml2js(res.body.SAMLResponse);
-				res.json(parser.asObject());
-				var parsedObject = parser.asObject();
-				var firstName = parser.get('first name');
-				console.log(firstName); //=> 'John'	
-				var firstName = parser.get('email');
-				console.log(firstName); //=> 'John'	
-				var firstName = parser.get('UserID');
-				console.log(firstName); //=> 'John'	
-				var firstName = parser.get('userid');
-				console.log(firstName); //=> 'John'	
+																					/*var parser = new Saml2js(res.body.SAMLResponse);
+																					res.json(parser.asObject());
+																					var parsedObject = parser.asObject();
+																					var firstName = parser.get('first name');
+																					console.log(firstName); //=> 'John'	
+																					var firstName = parser.get('email');
+																					console.log(firstName); //=> 'John'	
+																					var firstName = parser.get('UserID');
+																					console.log(firstName); //=> 'John'	
+																					var firstName = parser.get('userid');
+																					console.log(firstName); //=> 'John'	*/
 			})
 			res.redirect('/home');
 			(req, res, next);
@@ -217,6 +218,12 @@ app.post('/home', function(req, res) {
 	console.log(req.body);
 	
 });
+
+
+app.get('/failedlogin', function(req, res) {
+	res.sendFile('/home/ehapp/apps/AD-saml/client/loginFailed');
+});
+
 
 app.get('/logout', function(req, res){
 	req.logout();
