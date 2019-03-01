@@ -143,10 +143,11 @@ app.post('/adfs/postResponse',
 
 
 app.get("/login",
-    passport.authenticate("saml", (err, profile) => {
-        // control will not come here ????   
-        console.log("Profile : ", profile);
-    })
+passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
+function(req, res) {	
+	// redirect them to the home screen to signup or be signed in
+	res.redirect('/home');
+}
 );
 app.post("/login/callback",
          (req, res, next) => {
