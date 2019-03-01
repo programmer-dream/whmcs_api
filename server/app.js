@@ -172,8 +172,12 @@ app.post("/login/callback",
 			//console.log(parsedObject);
 					//res.send(parser.asObject());
 
-			var emailAddress = parsedObject('emailAddress');
-			res.send(emailAddress); //=> 'John'
+			//var emailAddress = parsedObject.get('emailAddress');
+			//res.send(emailAddress); //=> 'John'
+
+			const email = parsedObject.emailAddress
+
+			res.send(email)
 
 
 			userId
