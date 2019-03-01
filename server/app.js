@@ -22,7 +22,6 @@ app.use(passport.session());
 
 app.get('/', function(req, res) {
 	res.sendFile('/home/ehapp/apps/AD-saml/client/index.html');
-	res.send('TEST');
 });
 
 app.get('/test', function(req, res) {
@@ -152,9 +151,9 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
-				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().email);
-				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
-				console.log(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
+				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().email);
+				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().user);
+				res.send(SecurityContextHolder.getContext().getAuthentication().getCredentials().name);
 
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
