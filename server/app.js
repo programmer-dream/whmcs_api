@@ -151,7 +151,6 @@ app.post("/login/callback",
          (req, res, next) => {
             passport.authenticate("saml", { session: false }, (err, user) => {
 				req.user = user;
-				Res.send(req.body);
 				next();
 				
 
@@ -211,7 +210,13 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
+
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
+
+	if (!req.user) {
+		res.redirect('/login');
+	}
+    next();
 });
 
 app.post('/home', function(req, res) {
