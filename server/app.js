@@ -161,10 +161,10 @@ app.post("/login/callback",
 				next();		
 
 			})
-			res.send(res.body);
+			//res.send(res.body);
 
-/*
-			var parser = new Saml2js(res.body.SAMLResponse);
+
+			var parser = new Saml2js(res.send(req.user));
 			res.json(parser.asObject());
 			//console.log(parsedObject);
 			res.send(parser.asObject());
@@ -174,7 +174,7 @@ app.post("/login/callback",
 			res.send(email); //=> 'John'
 			res.send(req.body);
 
-*/
+
 
 
 
