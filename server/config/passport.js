@@ -30,8 +30,13 @@ passport.use(new SamlStrategy(
     	return done(null,
 			{
         		upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
-        		group: profile['http://schemas.xmlsoap.org/claims/Group']
-    		}
+				group: profile['http://schemas.xmlsoap.org/claims/Group'],
+				id: profile.uid,
+				email: profile.email,
+				displayName: profile.cn,
+				firstName: profile.givenName,
+				lastName: profile.sn
+			}
 		);
   	}
 ));

@@ -4,10 +4,15 @@
 
 const passport = require('passport');
 const express = require('express');
-var Saml2js = require('saml2js');
 const https = require('https');
 const fs = require('fs');
 const app = express();
+
+
+ // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
+app.use(bodyParser.json());
+// use querystring library to parse x-www-form-urlencoded data for flat data structure (not nested data)
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
@@ -151,20 +156,9 @@ app.post("/login/callback",
          (req, res, next) => {
             passport.authenticate("saml", { session: false }, (err, user) => {
 				req.user = user;
-				next();
-				
+				res.send(user);			
+				next();		
 
-																					/*var parser = new Saml2js(res.body.SAMLResponse);
-																					res.json(parser.asObject());
-																					var parsedObject = parser.asObject();
-																					var firstName = parser.get('first name');
-																					console.log(firstName); //=> 'John'	
-																					var firstName = parser.get('email');
-																					console.log(firstName); //=> 'John'	
-																					var firstName = parser.get('UserID');
-																					console.log(firstName); //=> 'John'	
-																					var firstName = parser.get('userid');
-																					console.log(firstName); //=> 'John'	*/
 			})
 			res.redirect('/home');
 			(req, res, next);
