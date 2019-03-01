@@ -149,6 +149,9 @@ app.post("/login/callback",
             passport.authenticate("saml", { session: false }, (err, user) => {
                 req.user = user;
 				next();
+				console.log(SAMLCredential.email);
+				console.log(SAMLCredential.user);
+				console.log(SAMLCredential.name);
 																					/*var parser = new Saml2js(res.body.SAMLResponse);
 																					res.json(parser.asObject());
 																					var parsedObject = parser.asObject();
@@ -205,18 +208,6 @@ function validUser(req, res, next) {
 }
 */
 app.get('/home', function(req, res) {
-
-	var parser = new Saml2js(res.body.SAMLResponse);
-		res.json(parser.asObject());
-		var parsedObject = parser.asObject();
-		var firstName = parser.get('first name');
-		console.log(firstName); //=> 'John'	
-		var firstName = parser.get('email');
-		console.log(firstName); //=> 'John'	
-		var firstName = parser.get('UserID');
-		console.log(firstName); //=> 'John'	
-		var firstName = parser.get('userid');
-		console.log(firstName); //=> 'John'
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 });
 
