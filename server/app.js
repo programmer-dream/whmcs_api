@@ -160,7 +160,7 @@ app.post("/login/callback",
 				next();		
 
 			})
-			res.send(req.user);
+			res.send(req.body);
 			res.redirect('/home');
 			(req, res, next);
          },
