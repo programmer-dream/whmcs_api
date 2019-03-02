@@ -182,11 +182,11 @@ app.post("/login/callback",
 		//if no result is passed back then the user data should be stored
 			if(!result.length){
 					 //new user logic
-					// res.send('New User logic');
+					 res.send('New User logic');
 
 
 
-//////////////// Store the variables in the db for later use
+/*/////////////// Store the variables in the db for later use
 
 let connection = mysql.createConnection(mysqlconfig);
  
@@ -205,7 +205,7 @@ connection.query(stmt, todo, (err, results, fields) => {
 
 connection.end();
 
-			res.redirect('/home');
+			res.redirect('/home');*/
 
 
 
