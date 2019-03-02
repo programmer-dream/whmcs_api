@@ -195,7 +195,8 @@ app.post("/login/callback",
 			con.connect(function(err) {
 				if (err) throw err;
 				console.log("Connected!");
-				var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('parsedObject.emailAddress', 'Highway 37', '', '')";
+				var sql = ("INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES (?, ?, ?, ?)", [email], [firstname], [userid, [lastname], function(err,info){ });
+
 				con.query(sql, function (err, result) {
 				  if (err) throw err;
 				  res.send("1 record inserted");
