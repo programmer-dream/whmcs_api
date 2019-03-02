@@ -169,7 +169,7 @@ app.post("/login/callback",
 
 																			});
 res.redirect('/home');
-//connection.end();	 
+connection.end();	 
 
 
 	 }else{  
@@ -193,16 +193,6 @@ res.redirect('/home');
 );
 
 app.get('/newusersvariables', function(req, res) {
-/*
-	let newuser = mysql.createConnection(mysqlconfig);
-
-	newuser.query("SELECT ID, userid, email, firstname, lastname FROM user_idpdetails"), function(err, result, field){
-	
-	//var newuseremail = result.email;
-	
-	res.send(result);
-	}
-*/
 
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
@@ -210,6 +200,7 @@ app.get('/newusersvariables', function(req, res) {
 		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
+			connection.end();	
 		});
 	});
 
