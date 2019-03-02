@@ -158,7 +158,7 @@ app.get("/sqltest"), (req, res, next) => {
 	con.connect(function(err) {
 		if (err) throw err;
 		console.log("Connected!");
-		var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('parsedObject.emailAddress', 'Highway 37'. ''. '')";
+		var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('padfdf', 'Highway 37'. ''. '')";
 		con.query(sql, function (err, result) {
 		  if (err) throw err;
 		  console.log("1 record inserted");
