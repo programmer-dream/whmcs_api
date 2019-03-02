@@ -180,7 +180,7 @@ app.post("/login/callback",
 let connection = mysql.createConnection(mysqlconfig);
  
 let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
-						VALUES(?,?,?,?)`;
+						VALUES(?,?,?,?) WHERE NOT EXISTS (SELECT email FROM user_idpdetails)`;
 let todo = [email, firstname, userid, lastname];
  
 // execute the insert statment
