@@ -173,7 +173,7 @@ app.post("/login/callback",
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-		
+		res.send(email);
 		// Decide where the user is going to go, are they new or existing?
 
 		let connection = mysql.createConnection(config);
