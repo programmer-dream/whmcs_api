@@ -168,7 +168,7 @@ app.post("/login/callback",
 			var parsedObject = parser.toObject();
 
 			// Put the tems from the object into js variable
-			const email = 'noaudhaf'//parsedObject.emailAddress
+			const email = parsedObject.emailAddress
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
@@ -182,34 +182,28 @@ app.post("/login/callback",
 		//if no result is passed back then the user data should be stored
 			if(!result){
 					 //new user logic
-					 res.send('New User logic');
+					 //res.send('New User logic');
 
+																			/////////////// Store the variables in the db for later use
 
+																			let connection = mysql.createConnection(mysqlconfig);
+																			
+																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
+																									VALUES(?,?,?,?)`;
+																			let todo = [email, firstname, userid, lastname];
+																			
+																			// execute the insert statment
+																			connection.query(stmt, todo, (err, results, fields) => {
+																				if (err) {
+																					return res.send(err.message);
+																				}
+																				
 
-/*/////////////// Store the variables in the db for later use
-
-let connection = mysql.createConnection(mysqlconfig);
- 
-let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
-						VALUES(?,?,?,?)`;
-let todo = [email, firstname, userid, lastname];
- 
-// execute the insert statment
-connection.query(stmt, todo, (err, results, fields) => {
-	if (err) {
-		return res.send(err.message);
-	}
-	
-
-});
+																			});
 
 connection.end();
 
-			res.redirect('/home');*/
-
-
-
-
+			res.redirect('/home');
 
 
 
@@ -217,7 +211,8 @@ connection.end();
 	 }else{  
 			 //existing user, redirect to another page 
 			 //res.send(result);
-			 res.send('Existing User logic');
+			 //res.send('Existing User logic');
+			 res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');
 		}
 					 });
 
