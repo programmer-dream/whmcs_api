@@ -203,12 +203,12 @@ app.post("/login/callback",
 
 connection.end();
 
-	//	res.redirect('/home');
+			res.redirect('/home');
 
 
 
 
-	 }else{  
+	 }else if (result) {  
 			 //existing user, redirect to another page 
 			 //res.send(result);
 			 //res.send('Existing User logic');
