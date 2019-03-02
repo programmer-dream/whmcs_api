@@ -29,6 +29,7 @@ let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 //app.use(whmcs.initialize());
 
 app.get('/', function(req, res) {
@@ -204,7 +205,8 @@ app.get('/newusersvariables', function(req, res) {
 		});
 	});
 */
-req.send(req.user);
+res.render('administrator/dashboard',{title: 'Dashboard', user:req.user.username });
+  res.send(req.user.username);
 
 
 });
