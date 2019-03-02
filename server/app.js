@@ -194,25 +194,17 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
-	var parser = new Saml2js(req.body.SAMLResponse);
-	var parsedObject = parser.toObject();
-
-	// Put the tems from the object into js variable
-	const email = parsedObject.emailAddress
-	const firstname = parsedObject.firstName
-	const userid = parsedObject.userId
-	const lastname = parsedObject.lastName
-
-	let newuser = mysql.createConnection(mysqlconfig);
+/*	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
-		newuser.query("SELECT * FROM user_idpdetails WHERE email = ?", [email], function (err, result, fields) {
+		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
 			newuser.end();	
 		});
 	});
-
+*/
+req.send(req.user);
 
 
 });
