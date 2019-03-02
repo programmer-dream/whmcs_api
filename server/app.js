@@ -177,20 +177,22 @@ app.post("/login/callback",
 //////////////// Store th variables in the db for later use
 
 			var con = mysql.createConnection({
-				host: 'educationhost.co.uk',
-				user: 'williams_app',
-				password: 'PUKrJoka5ZtR',
-				database: 'williams_ehapp',
-				port: '3306'
+				host: "educationhost.co.uk",
+				user: "williams_ehapp",
+				password: "Password01",
+				database: "williams_app",
+				port: 3306
 			});
 
-	
+			/*
+			//Test the connection and if it works then show connected in the page
 			con.connect(function(err) {
 			if (err) throw err;
 			res.send("Connected!");
 			});
-			
-		/*	con.connect(function(err) {
+			*/
+
+			con.connect(function(err) {
 				if (err) throw err;
 				console.log("Connected!");
 				var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('parsedObject.emailAddress', 'Highway 37'. ''. '')";
@@ -198,7 +200,7 @@ app.post("/login/callback",
 				  if (err) throw err;
 				  res.send("1 record inserted");
 				});
-			  }); */
+			  }); 
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
 
