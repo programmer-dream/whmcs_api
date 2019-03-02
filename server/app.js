@@ -146,7 +146,25 @@ app.post('/adfs/postResponse',
 	}
 ); */
 
+app.get("/sqltest"), (req, res, next) => {
 
+	var con = mysql.createConnection({
+		host: "educationhost.co.uk",
+		user: "williams_app",
+		password: "PUKrJoka5ZtR",
+		database: "williams_ehapp"
+	});
+	
+	con.connect(function(err) {
+		if (err) throw err;
+		console.log("Connected!");
+		var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('parsedObject.emailAddress', 'Highway 37'. ''. '')";
+		con.query(sql, function (err, result) {
+		  if (err) throw err;
+		  console.log("1 record inserted");
+		});
+	  });
+}
 
 app.get("/login",
     passport.authenticate("saml", {		
@@ -177,17 +195,22 @@ app.post("/login/callback",
 
 //////////////// Store th variables in the db for later use
 
-var con = mysql.createConnection({
-	host: "educationhost.co.uk",
-	user: "williams_app",
-	password: "PUKrJoka5ZtR",
-	database: "williams_ehapp"
-  });
-  
-  con.connect(function(err) {
-	if (err) throw err;
-	res.send("Connected!");
-  });
+			var con = mysql.createConnection({
+				host: "educationhost.co.uk",
+				user: "williams_app",
+				password: "PUKrJoka5ZtR",
+				database: "williams_ehapp"
+			});
+			
+			con.connect(function(err) {
+				if (err) throw err;
+				console.log("Connected!");
+				var sql = "INSERT INTO user_idpdetails (email, firstname, userid, lastname) VALUES ('parsedObject.emailAddress', 'Highway 37'. ''. '')";
+				con.query(sql, function (err, result) {
+				  if (err) throw err;
+				  console.log("1 record inserted");
+				});
+			  });
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
 
