@@ -28,6 +28,7 @@ const config = require('./config/whmcs.js');
 let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
+app.use(express.session());
 app.use(passport.session());
 
 //app.use(whmcs.initialize());
