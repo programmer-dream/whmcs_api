@@ -180,7 +180,7 @@ app.post("/login/callback",
 
 		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if(!result){
+			if (!result || result.length != 0){
 					 //new user logic
 					 //res.send('New User logic');
 
