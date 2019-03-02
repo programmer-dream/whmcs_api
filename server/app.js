@@ -190,7 +190,7 @@ connection.query(stmt, todo, (err, results, fields) => {
 	}
 	// get inserted id
 	//res.send('Todo Id:' + results.insertId);
-	res.send("1 record inserted");
+	//res.send("1 record inserted");
 
 });
 connection.end();
@@ -206,8 +206,6 @@ connection.end();
 
 // Code here
 			
-
-
 
 			res.redirect('/home');
 			(req, res, next);
