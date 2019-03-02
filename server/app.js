@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./config/passport.js');
 const config = require('./config/whmcs.js');
+let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -174,36 +175,34 @@ app.post("/login/callback",
 
 			//res.send(parsedObject)
 
-//////////////// Store th variables in the db for later use
+//////////////// Store the variables in the db for later use
 
-			var con = mysql.createConnection({
-				host: "educationhost.co.uk",
-				user: "williams_ehapp",
-				password: "Password01",
-				database: "williams_app",
-				port: 3306
-			});
+let connection = mysql.createConnection(mysqlconfig);
+ 
+let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
+						VALUES(?,?,?,?)`;
+let todo = [email, firstname, userid, lastname];
+ 
+// execute the insert statment
+connection.query(stmt, todo, (err, results, fields) => {
+	if (err) {
+		return res.send(err.message);
+	}
+	// get inserted id
+	//res.send('Todo Id:' + results.insertId);
+	res.send("1 record inserted");
 
-			/*
-			//Test the connection and if it works then show connected in the page
-			con.connect(function(err) {
-			if (err) throw err;
-			res.send("Connected!");
-			});
-			*/
-
-			con.connect(function(err) {
-				if (err) throw err;
-				console.log("Connected!");
-				var sql = ("INSERT INTO user_idpdetails (email) VALUES (?)", [email], function(err,info){ });
-
-				con.query(sql, function (err, result) {
-				  if (err) throw err;
-				  res.send("1 record inserted");
-				});
-			  }); 
+});
+connection.end();
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
+// Cycle through to see if the user exists in the database already 
+ 
+// if they exist then 
+		// send to the whmcs page
+// if they do not exist
+	// send to the signup page to register a new account
+
 
 // Code here
 			
