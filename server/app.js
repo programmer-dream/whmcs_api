@@ -196,18 +196,31 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
-/*	let newuser = mysql.createConnection(mysqlconfig);
-	newuser.connect(function(err) {
+	let newuser = mysql.createConnection(mysqlconfig);
+	/*newuser.connect(function(err) {
 		if (err) throw err;
+		
 		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
 			newuser.end();	
 		});
-	});
-*/
-var emailAddress = req.user.emailAddress;
-  res.send(emailAddress);
+	});*/
+
+
+	passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function (user, done) {
+    //If using Mongoose with MongoDB; if other you will need JS specific to that schema.
+   		
+		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
+			if (err) throw err;
+			res.send(result);
+			newuser.end();	
+		});
+});
 
 
 });
