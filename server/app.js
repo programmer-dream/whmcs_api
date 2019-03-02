@@ -28,7 +28,6 @@ const config = require('./config/whmcs.js');
 let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
-app.use(express.session());
 app.use(passport.session());
 
 //app.use(whmcs.initialize());
@@ -180,6 +179,7 @@ connection.end();
 			//res.send(result);
 			 //res.send('Existing User logic');
 			res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
+			connection.end();	
 
 
 
