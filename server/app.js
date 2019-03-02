@@ -145,13 +145,13 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email]), function(err, result, field){
+		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
 			if (!result){
 
 					//new user logic
-					 //res.send('New User logic');
-
+					 res.send(result);
+/*
 																			/////////////// Store the variables in the db for later use
 
 																			let connection = mysql.createConnection(mysqlconfig);
@@ -170,14 +170,14 @@ app.post("/login/callback",
 																			});
 res.redirect('/home');
 connection.end();	 
-
+*/
 
 	 }else{  
 
 //existing user, redirect to another page 
-			 //res.send(result);
+			res.send(result);
 			 //res.send('Existing User logic');
-			 res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
+			// res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
 
 
 
@@ -195,20 +195,7 @@ connection.end();
          },
 );
 
-app.get('/newusersvariables', function(req, res) {
-	
-	let connection = mysql.createConnection(config);
 
-	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails"), function(err, result, field){
-	
-	var newuseremail = result.email;
-	var newuseruserid = result.userid;
-	var newuserfirstname = result.firstname;
-	var newuserlastname = result.lastname;
-
-	res.send(newuseremail);
-	}
-});
 
 
 
