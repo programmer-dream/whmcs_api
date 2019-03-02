@@ -169,7 +169,7 @@ app.post("/login/callback",
 
 																			});
 res.redirect('/home');
-connection.end();	 
+//connection.end();	 
 
 
 	 }else{  
