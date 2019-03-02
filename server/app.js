@@ -183,6 +183,18 @@ connection.end();
 //existing user, redirect to another page 
 			//res.send(result);
 			 //res.send('Existing User logic');
+
+/*
+			var whmcsurl = 'http://whmcs.educationhost.co.uk/dologin.php';
+			var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
+			var date = new Date();
+			var timestamp = date.getTime();
+			var urlemail = parsedObject.emailAddress;
+			var goto = 'clientarea.php';
+
+			var hashed = hash(date + timestamp + email);
+			*/
+
 			res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
 			connection.end();	
 
