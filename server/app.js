@@ -197,9 +197,9 @@ res.redirect('/home');
 
 app.get('/newusersvariables', function(req, res) {
 
-	let connection = mysql.createConnection(mysqlconfig);
+	let newuser = mysql.createConnection(mysqlconfig);
 
-	connection.query("SELECT * FROM user_idpdetails"), function(err, result, field){
+	newuser.query("SELECT * FROM user_idpdetails"), function(err, result, field){
 	
 	//var newuseremail = result.email;
 	
