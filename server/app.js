@@ -168,19 +168,19 @@ app.post("/login/callback",
 			var parsedObject = parser.toObject();
 
 			// Put the tems from the object into js variable
-			const email = parsedObject.emailAddress
+			const email = 'noaudhaf'//parsedObject.emailAddress
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-		res.send(email);
+		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
 
 		let connection = mysql.createConnection(config);
 
 		connection.query("SELECT ID FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if(result.length === 0){
+			if(!result.length){
 					 //new user logic
 					 res.send('New User logic');
 
