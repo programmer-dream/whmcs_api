@@ -197,7 +197,7 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 
-	res.send(req.req.user);
+	res.send(data);
 
 
 	let newuser = mysql.createConnection(mysqlconfig);
