@@ -145,7 +145,7 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email]), function(err, result, field){
 		//if no result is passed back then the user data should be stored
 			if (!result){
 
@@ -199,15 +199,15 @@ app.get('/newusersvariables', function(req, res) {
 	
 	let connection = mysql.createConnection(config);
 
-	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails");
-		
+	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails"), function(err, result, field){
+	
 	var newuseremail = result.email;
 	var newuseruserid = result.userid;
 	var newuserfirstname = result.firstname;
 	var newuserlastname = result.lastname;
 
 	res.send(newuseremail);
-	
+	}
 });
 
 
