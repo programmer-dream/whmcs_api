@@ -178,7 +178,7 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT ID FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
 			if(!result){
 					 //new user logic
@@ -208,7 +208,7 @@ connection.end();
 
 
 
-	 }else if (result) {  
+	 }else{  
 			 //existing user, redirect to another page 
 			 //res.send(result);
 			 //res.send('Existing User logic');
