@@ -150,8 +150,8 @@ app.post("/login/callback",
 			if (!result){
 
 					//new user logic
-					 res.send(result);
-/*
+					 //res.send(result);
+
 																			/////////////// Store the variables in the db for later use
 
 																			let connection = mysql.createConnection(mysqlconfig);
@@ -170,14 +170,14 @@ app.post("/login/callback",
 																			});
 res.redirect('/home');
 connection.end();	 
-*/
+
 
 	 }else{  
 
 //existing user, redirect to another page 
-			res.send(result);
+			//res.send(result);
 			 //res.send('Existing User logic');
-			// res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
+			res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
 
 
 
