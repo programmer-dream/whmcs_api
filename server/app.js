@@ -200,7 +200,7 @@ app.get('/newusersvariables', function(req, res) {
 		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
-			connection.end();	
+			newuser.end();	
 		});
 	});
 
