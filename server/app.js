@@ -168,7 +168,7 @@ app.post("/login/callback",
 			var parsedObject = parser.toObject();
 
 			// Put the tems from the object into js variable
-			const email = parsedObject.emailAddress
+			const email = 'n.a.williams@outlook.com'//parsedObject.emailAddress
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
