@@ -195,13 +195,12 @@ connection.end();
          },
 );
 
-
 app.get('/newusersvariables', function(req, res) {
 	
 	let connection = mysql.createConnection(config);
 
-	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails", function(err, result, field){
-	
+	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails");
+		
 	var newuseremail = result.email;
 	var newuseruserid = result.userid;
 	var newuserfirstname = result.firstname;
@@ -210,6 +209,7 @@ app.get('/newusersvariables', function(req, res) {
 	res.send(newuseremail);
 	
 });
+
 
 
 /*
