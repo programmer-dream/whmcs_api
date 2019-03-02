@@ -178,9 +178,9 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		connection.query("CASE WHEN (SELECT email FROM user_idpdetails WHERE email = ?) ELSE 'No Email' END",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if (err){
+			if (!result.length){
 					 //new user logic
 					 //res.send('New User logic');
 
