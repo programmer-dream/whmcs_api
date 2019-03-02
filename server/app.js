@@ -180,7 +180,7 @@ app.post("/login/callback",
 let connection = mysql.createConnection(mysqlconfig);
  
 let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
-						VALUES(?,?,?,?) WHERE NOT EXISTS (SELECT email FROM user_idpdetails)`;
+						VALUES(?,?,?,?)`;
 let todo = [email, firstname, userid, lastname];
  
 // execute the insert statment
@@ -190,22 +190,19 @@ connection.query(stmt, todo, (err, results, fields) => {
 	}
 	// get inserted id
 	//res.send('Todo Id:' + results.insertId);
-	//res.send("1 record inserted");
+	res.send("1 record inserted");
+
 
 });
+ 
 connection.end();
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
-// Cycle through to see if the user exists in the database already 
- 
-// if they exist then 
-		// send to the whmcs page
-// if they do not exist
-	// send to the signup page to register a new account
-
 
 // Code here
 			
+
+
 
 			res.redirect('/home');
 			(req, res, next);
