@@ -173,7 +173,18 @@ app.post("/login/callback",
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-			//res.send(parsedObject)
+		
+		// Decide where the user is going to go, are they new or existing?
+
+		let connection = mysql.createConnection(config);
+
+		connection.query("SELECT ID FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		//if no result is passed back then the user data should be stored
+			if(!result.length){
+					 //new user logic
+					 res.send('New User logic');
+
+
 
 //////////////// Store the variables in the db for later use
 
@@ -188,23 +199,32 @@ connection.query(stmt, todo, (err, results, fields) => {
 	if (err) {
 		return res.send(err.message);
 	}
-	// get inserted id
-	//res.send('Todo Id:' + results.insertId);
-	res.send("1 record inserted");
-
+	
 
 });
- 
+
 connection.end();
 
-////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
-
-// Code here
-			
-
-
-
 			res.redirect('/home');
+
+
+
+
+
+
+
+
+	 }else{  
+			 //existing user, redirect to another page 
+			 //res.send(result);
+			 res.send('Existing User logic');
+		}
+					 });
+
+
+
+ 
+
 			(req, res, next);
          },
 );
