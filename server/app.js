@@ -207,7 +207,7 @@ app.get('/newusersvariables', function(req, res) {
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
-		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
+		newuser.query("SELECT * FROM user_idpdetails WHERE email = ?", [email], function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
 		});
