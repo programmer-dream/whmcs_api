@@ -177,11 +177,11 @@ app.post("/login/callback",
 //////////////// Store th variables in the db for later use
 
 			var con = mysql.createConnection({
-				host: "educationhost.co.uk",
-				user: "williams_app",
-				password: "PUKrJoka5ZtR",
-				database: "williams_ehapp",
-				port: "3306"
+				host: 'educationhost.co.uk',
+				user: 'williams_app',
+				password: 'PUKrJoka5ZtR',
+				database: 'williams_ehapp',
+				port: '3306'
 			});
 
 	
