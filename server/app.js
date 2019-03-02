@@ -143,7 +143,7 @@ app.post("/login/callback",
 		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
 
-		let connection = mysql.createConnection(config);
+		let connection = mysql.createConnection(mysqlconfig);
 
 		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
