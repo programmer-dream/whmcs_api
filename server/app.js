@@ -205,8 +205,8 @@ app.get('/newusersvariables', function(req, res) {
 		});
 	});
 */
-var username = req.user.username;
-  res.send(username);
+var emailAddress = req.user.emailAddress;
+  res.send(emailAddress);
 
 
 });
