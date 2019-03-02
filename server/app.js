@@ -178,9 +178,9 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT IFNULL(email,1) FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		connection.query("SELECT ID FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if (result.length === 0){
+			if (!result.length){
 					 //new user logic
 					 //res.send('New User logic');
 
@@ -191,7 +191,7 @@ app.post("/login/callback",
 																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
 																									VALUES(?,?,?,?)`;
 																			let todo = [email, firstname, userid, lastname];
-																			
+																			res.redirect('/home');
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
 																				if (err) {
@@ -203,7 +203,7 @@ app.post("/login/callback",
 
 connection.end();
 
-			res.redirect('/home');
+			
 
 
 
