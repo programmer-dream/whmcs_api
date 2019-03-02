@@ -171,16 +171,7 @@ app.post("/login/callback",
 																			});
 
 
-																			passport.serializeUser(function(user, done) {
-																				done(null, emailAddress);
-																			});
-																			
-																			passport.deserializeUser(function(id, done) {
-																				User.findById(id, function(err, user) {
-																					done(err, user);
-																				});
-																			});
-
+																	
 
 
 res.redirect('/home');
@@ -211,9 +202,8 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 
-	res.send(res.user);
-
-
+	// hard coded variable for now - need to somehow get the data from the session - http://www.passportjs.org/docs/configure/
+/*
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
@@ -223,9 +213,12 @@ app.get('/newusersvariables', function(req, res) {
 			newuser.end();	
 		});
 	});
+*/
 
-
-
+var newuserfirstname = 'Nick';
+var newuserlastname = 'Williams';
+var newuseremail = 'n.a.williams@outlook.com';
+var newuseruserid = 'nick.williams';
 
 });
 
