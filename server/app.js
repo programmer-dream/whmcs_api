@@ -188,15 +188,12 @@ res.redirect('/home');
 					 });
 
 
-
- 
-
 			(req, res, next);
          },
 );
 
 app.get('/newusersvariables', function(req, res) {
-
+/*
 	let newuser = mysql.createConnection(mysqlconfig);
 
 	newuser.query("SELECT ID, userid, email, firstname, lastname FROM user_idpdetails"), function(err, result, field){
@@ -205,6 +202,19 @@ app.get('/newusersvariables', function(req, res) {
 	
 	res.send(result);
 	}
+*/
+
+	let newuser = mysql.createConnection(mysqlconfig);
+	newuser.connect(function(err) {
+		if (err) throw err;
+		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
+			if (err) throw err;
+			res.send(result);
+		});
+	});
+
+
+
 });
 
 
