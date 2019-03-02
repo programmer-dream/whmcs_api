@@ -182,7 +182,7 @@ app.post("/login/callback",
 		//if no result is passed back then the user data should be stored
 			if(!result.length){
 					 //new user logic
-					 res.send('New User logic');
+					// res.send('New User logic');
 
 
 
