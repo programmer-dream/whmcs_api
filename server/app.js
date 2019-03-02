@@ -205,8 +205,8 @@ app.get('/newusersvariables', function(req, res) {
 		});
 	});
 */
-res.render('administrator/dashboard',{title: 'Dashboard', user:req.user.username });
-  res.send(req.user.username);
+var username = req.user.username;
+  res.send(username);
 
 
 });
