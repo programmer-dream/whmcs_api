@@ -115,39 +115,6 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
-/*
-app.get('/login',
-	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
-    function(req, res) {	
-		// redirect them to the home screen to signup or be signed in
-		res.redirect('/home');
-	}
-);
-  
-app.post('/adfs/postResponse',
-	passport.authenticate('saml', { failureRedirect: '/home/ehapp/apps/AD-saml/client/loginFailed', failureFlash: true }),
-    function(req, res) {
-
-	/* get the email back from the post, loop through all users and see if they exist already 
-	 if not then show them the new user modal on the home page 
-
-							// Get the user data out of the saml response
-							var parser = new Saml2js(res.body.SAMLResponse);
-							var parsedObject = parser.asObject();
-							//console.log(parsedObject);
-							console.log(parser.asObject());
-							var firstName = parser.get('first name');
-							console.log(firstName); //=> 'John'
-							var firstName = parser.get('email');
-							console.log(email); //=> 'John'
-							console.log(req.body);
-		
-		// redirect them to the home screen to signup or be signed in
-		res.redirect('/whmcs');
-	}
-); */
-
-
 app.get("/login",
     passport.authenticate("saml", {		
 		successRedirect: '/home',
@@ -182,7 +149,7 @@ app.post("/login/callback",
 		//if no result is passed back then the user data should be stored
 			if (!result){
 
-							 //new user logic
+					//new user logic
 					 //res.send('New User logic');
 
 																			/////////////// Store the variables in the db for later use
@@ -227,6 +194,22 @@ connection.end();
 			(req, res, next);
          },
 );
+
+
+app.get('/newusersvariables', function(req, res) {
+	
+	let connection = mysql.createConnection(config);
+
+	connection.query("SELECT userid, email, firstname, lastname FROM user_idpdetails", function(err, result, field){
+	
+	var newuseremail = result.email;
+	var newuseruserid = result.userid;
+	var newuserfirstname = result.firstname;
+	var newuserlastname = result.lastname;
+
+	res.send(newuseremail);
+	
+});
 
 
 /*
