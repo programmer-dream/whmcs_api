@@ -10,6 +10,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const Saml2js = require('saml2js');
 const jQuery = require('jquery');
+var mysql = require('mysql');
+
 
 
  // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
@@ -171,7 +173,21 @@ app.post("/login/callback",
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-			res.send(parsedObject)
+			//res.send(parsedObject)
+
+//////////////// Store th variables in the db for later use
+
+var con = mysql.createConnection({
+	host: "educationhost.co.uk",
+	user: "williams_app",
+	password: "PUKrJoka5ZtR",
+	database: "williams_ehapp"
+  });
+  
+  con.connect(function(err) {
+	if (err) throw err;
+	res.send("Connected!");
+  });
 
 ////////////////NOW CHECK IF THE EMAIL EXISTS AND SEND THE USER TO THE CORRECT PAGE..
 
