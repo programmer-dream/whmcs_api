@@ -168,7 +168,7 @@ app.post("/login/callback",
 			var parsedObject = parser.toObject();
 
 			// Put the tems from the object into js variable
-			const email = 'n.a.williams@outlook.com'//parsedObject.emailAddress
+			const email = 'n.a.willieeams@outlook.com'//parsedObject.emailAddress
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
@@ -180,7 +180,7 @@ app.post("/login/callback",
 
 		connection.query("SELECT CASE WHEN ISNULL(email) THEN 1 ELSE 0 END AS 'Status' FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if (result === 0){
+			if (result === 1){
 					 //new user logic
 					 //res.send('New User logic');
 
