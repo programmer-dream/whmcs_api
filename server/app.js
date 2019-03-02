@@ -178,7 +178,7 @@ app.post("/login/callback",
 
 		let connection = mysql.createConnection(config);
 
-		connection.query("SELECT IFNULL(email,0) FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
+		connection.query("SELECT IFNULL(email,1) FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
 			if (result.length === 0){
 					 //new user logic
