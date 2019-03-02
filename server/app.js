@@ -180,18 +180,9 @@ app.post("/login/callback",
 
 		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
-			if (result === email){
+			if (!result === email){
 
-			 //existing user, redirect to another page 
-			 //res.send(result);
-			 //res.send('Existing User logic');
-			 res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
-
-
-	 }else{  
-
-
-					 //new user logic
+							 //new user logic
 					 //res.send('New User logic');
 
 																			/////////////// Store the variables in the db for later use
@@ -211,7 +202,16 @@ app.post("/login/callback",
 
 																			});
 res.redirect('/home');
-connection.end();
+connection.end();	 
+
+
+	 }else{  
+
+//existing user, redirect to another page 
+			 //res.send(result);
+			 //res.send('Existing User logic');
+			 res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
+
 
 
 
