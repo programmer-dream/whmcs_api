@@ -169,6 +169,20 @@ app.post("/login/callback",
 																				
 
 																			});
+
+
+																			passport.serializeUser(function(user, done) {
+																				done(null, user.id);
+																			});
+																			
+																			passport.deserializeUser(function(id, done) {
+																				User.findById(id, function(err, user) {
+																					done(err, user);
+																				});
+																			});
+
+
+
 res.redirect('/home');
 connection.end();	 
 
@@ -197,7 +211,7 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 
-	res.send(data);
+	res.send(res.user);
 
 
 	let newuser = mysql.createConnection(mysqlconfig);
