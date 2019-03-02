@@ -172,7 +172,7 @@ app.post("/login/callback",
 
 
 																			passport.serializeUser(function(user, done) {
-																				done(null, user.id);
+																				done(null, emailAddress);
 																			});
 																			
 																			passport.deserializeUser(function(id, done) {
