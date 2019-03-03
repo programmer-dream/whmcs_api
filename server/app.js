@@ -179,10 +179,9 @@ app.post("/login/callback",
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
 																				if (err) {
-																					return res.send(err.message);
-																					connection.end();	 
+																					return res.send(err.message); 
 																				}
-																				
+																				connection.end();	 
 
 																			});
 
@@ -236,9 +235,10 @@ app.get('/newusersvariables', function(req, res) {
 			// connection end
 			newuser.end();	
 		});
+			newuser.end();
 	});	
 
-
+	
 
 });
 
