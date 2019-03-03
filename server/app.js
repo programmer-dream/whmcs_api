@@ -232,18 +232,7 @@ app.get('/newusersvariables', function(req, res) {
 		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
 			if (err) throw err;
 			//res.send(result);
-
-
-			// Put the result from the retured sql into a data object 
-			result.then(function(userdata) {
-				res.send(userdata);		
-			})
-			.catch(function(error) {
-				res.send(error)
-			});
-
-
-
+			
 			// connection end
 			newuser.end();	
 		});
