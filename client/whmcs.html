@@ -62,10 +62,11 @@
 			axios.get('/newusersvariables')
   				.then(function (response) {
     				// Get the client data from the response			
-					var data = response.session;
+					var data1 = response.session;
 
 					// Pass it through the template
 					var html = template(data);
+					var html = template(data1);
 
 					// Set our target divs html with our template html
 					document.getElementById("content").innerHTML = html;
