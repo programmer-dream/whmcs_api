@@ -22,7 +22,8 @@
             <th>Company name</th>
             <th>Email</th>
             <th>Date created</th>
-            <th>Status</th>
+						<th>Status</th>
+						<th>Session ID</th>
 					</tr>
 				</thead>
 				<tr>
@@ -36,7 +37,8 @@
               <td>{{companyname}}</td>
               <td>{{email}}</td>
               <td>{{datecreated}}</td>
-              <td>{{status}}</td>
+							<td>{{status}}</td>
+							<td>{{session}}</td>
 						</tr>
 					{{/each}}
 				</tr>
@@ -56,6 +58,12 @@
     				// Get the client data from the response			
 					var data = response.data.clients;
 
+			// Make a request for the whmcs route using axios
+			axios.get('/newusersvariables')
+  				.then(function (response) {
+    				// Get the client data from the response			
+					var data = response.session;
+
 					// Pass it through the template
 					var html = template(data);
 
@@ -67,6 +75,9 @@
     				console.log(error);
   				})  
 		</script>	  
+
+
+
 	</head>
 
 	<body>
