@@ -128,7 +128,7 @@ app.get("/login",
 
 app.post("/login/callback",
          (req, res, next) => {
-            passport.authenticate("saml", { session: true }, (err, user) => {
+            passport.authenticate("saml", { session: false }, (err, user) => {
 				req.user = user;
 				next();		
 

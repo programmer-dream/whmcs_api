@@ -23,6 +23,7 @@
             <th>Email</th>
             <th>Date created</th>
 						<th>Status</th>
+						<th>Session ID</th>
 					</tr>
 				</thead>
 				<tr>
@@ -41,26 +42,6 @@
 					{{/each}}
 				</tr>
 			</table>
-			
-			<script id="entry-template1" type="text/x-handlebars-template">
-				<table class="table table-striped">
-					<thead class="thead-dark">
-						<tr>
-							<th>title</th>
-						<th>Session</th>
-						</tr>
-					</thead>
-					<tr>
-						{{!-- Loop through each client --}}
-						{{#each client}}
-							{{log this}}
-							<tr>
-								<td>Hello</td>
-								<td>{{session}}</td>
-							</tr>
-						{{/each}}
-					</tr>
-				</table>
 		</script>	
 
 		<script type="text/javascript">
