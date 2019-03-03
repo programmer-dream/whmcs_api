@@ -227,8 +227,8 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 	
-//	var sessionidnewuser = sessionStorage.getItem(userid);
-res.send(req.session);
+var sessionidnewuser = req.session(userId);
+res.send(sessionidnewuser);
 
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
