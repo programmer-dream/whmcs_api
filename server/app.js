@@ -28,7 +28,7 @@ const config = require('./config/whmcs.js');
 let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
 var session = require('express-session');
 
 //app.use(whmcs.initialize());
@@ -141,6 +141,7 @@ app.post("/login/callback",
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
+			const sessionid = req.session.passport;
 
 		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
@@ -158,9 +159,9 @@ app.post("/login/callback",
 
 																			let connection = mysql.createConnection(mysqlconfig);
 																			
-																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname)
-																									VALUES(?,?,?,?)`;
-																			let todo = [email, firstname, userid, lastname];
+																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
+																									VALUES(?,?,?,?,?)`;
+																			let todo = [email, firstname, userid, lastname, sessionid];
 																			
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
