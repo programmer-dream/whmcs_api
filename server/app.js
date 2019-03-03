@@ -230,7 +230,7 @@ app.get('/newusersvariables', function(req, res) {
 		if (err) throw err;
 		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
 			if (err) throw err;
-			//console.log(result);
+			console.log(result);
 			// connection end
 			newuser.end();	
 		});
