@@ -117,6 +117,12 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
+app.use(session({
+	resave: true,
+	saveUninitialized: true,
+	secret: "secret",
+	store: store
+}));
 
 app.get("/login",
     passport.authenticate("saml", {		
@@ -223,7 +229,7 @@ app.get('/newusersvariables', function(req, res) {
 
 	
 //	var sessionidnewuser = sessionStorage.getItem(userid);
-res.send(req.session.userid);
+res.send(req.session);
 
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
