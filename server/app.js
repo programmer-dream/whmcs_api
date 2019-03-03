@@ -120,7 +120,8 @@ app.use(express.static('assets'));
 app.use(session({
 	resave: true,
 	saveUninitialized: true,
-	secret: "secret"
+	secret: "EHsecret",
+	expires: new Date(Date.now() + (30 * 86400 * 1000))
 	
 }));
 
@@ -224,7 +225,7 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 	const sessionid = req.session.id;
-	res.send(sessionid);
+	//res.send(sessionid);
 	
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
