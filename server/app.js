@@ -170,7 +170,16 @@ app.post("/login/callback",
 
 																			});
 
-
+																			var session = function (req, res) {
+																				var temp = req.session.passport; // {user: 1}
+																				req.session.regenerate(function(err){
+																						//req.session.passport is now undefined
+																						req.session.passport = temp;
+																						req.session.save(function(err){
+																								res.send(200);
+																						});
+																				});
+																		};
 																	
 
 
@@ -211,11 +220,15 @@ connection.end();
          },
 );
 
-app.get('/newusersvariables', function(req, res) {
+
+app.post('/newusersvariables', passport.authenticate('local'), session), function(req, res){res.send(session)};
+
+/*app.get('/newusersvariables', function(req, res) {
 
 
+	
 	// hard coded variable for now - need to somehow get the data from the session - http://www.passportjs.org/docs/configure/
-/*
+
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
@@ -225,14 +238,10 @@ app.get('/newusersvariables', function(req, res) {
 			newuser.end();	
 		});
 	});
-*/
 
-var newuserfirstname = 'Nick';
-var newuserlastname = 'Williams';
-var newuseremail = 'n.a.williams@outlook.com';
-var newuseruserid = 'nick.williams';
+ 
 
-});
+});*/
 
 
 
