@@ -170,7 +170,7 @@ app.post("/login/callback",
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
 																				if (err) {
-																					return res.send(err.message);
+																					connection.end();	
 																				}
 																				
 
