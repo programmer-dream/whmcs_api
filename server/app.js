@@ -181,7 +181,6 @@ app.post("/login/callback",
 																				if (err) {
 																					return res.send(err.message); 
 																				}
-																				connection.end();	 
 
 																			});
 
