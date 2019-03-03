@@ -226,12 +226,14 @@ app.get('/newusersvariables', function(req, res) {
 //	res.send(sessionid);
 
 	//let newuser = mysql.createConnection(mysqlconfig);
+	let connection = mysql.createConnection(mysqlconfig);
+
 	connection.connect(function(err) {
 		if (err) throw err;
 		connection.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
 			if (err) throw err;
 			
-			//console.log(result);
+			console.log(result);
 			// connection end
 			//newuser.end();	
 		});
