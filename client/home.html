@@ -51,7 +51,7 @@
 				axios.get('/newusersvariables')
 						.then(function (result) {
 							// Get the client data from the response			
-						var data = result;
+					var data = result[0].RowDataPacket
 	
 						// Pass it through the template
 						var html = template(data);
