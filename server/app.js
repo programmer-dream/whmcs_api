@@ -120,8 +120,7 @@ app.use(express.static('assets'));
 app.use(session({
 	resave: true,
 	saveUninitialized: true,
-	secret: "secret",
-	store: store
+	secret: "secret"
 }));
 
 app.get("/login",
