@@ -121,6 +121,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true,
 	secret: "secret"
+	
 }));
 
 app.get("/login",
@@ -148,7 +149,7 @@ app.post("/login/callback",
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
 
-			req.session = {};
+		//	req.session = {};
 			req.session.user = { 'id': userid }; 
 			const sessionid = req.session.id;
 			
