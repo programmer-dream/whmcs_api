@@ -222,6 +222,7 @@ app.get('/newusersvariables', function(req, res) {
 
 	
 	// hard coded variable for now - need to somehow get the data from the session - http://www.passportjs.org/docs/configure/
+	req.session = {};
 	req.session.id = userid;
 	const sessionidnewuser = req.session.id
 	let newuser = mysql.createConnection(mysqlconfig);
