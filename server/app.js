@@ -235,7 +235,6 @@ app.get('/newusersvariables', function(req, res) {
 			// connection end
 			newuser.end();	
 		});
-			newuser.end();
 	});	
 
 	
