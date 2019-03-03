@@ -31,6 +31,46 @@
 				});
 			</script>
 
+
+
+
+<script id="entry-template" type="text/x-handlebars-template">
+
+					<td>{{userid}}</td>
+		
+</script>	
+
+
+
+
+
+
+
+<script type="text/javascript">
+	// Get the template
+	var source = document.getElementById("entry-template").innerHTML;
+
+	// Compile the template
+	var template = Handlebars.compile(source);
+
+	// Make a request for the whmcs route using axios
+	axios.get('/newusersvariables')
+			.then(function (response) {
+				// Get the client data from the response			
+			var data = response.data.result;
+
+			// Pass it through the template
+			var html = template(userdata);
+
+			// Set our target divs html with our template html
+			document.getElementById("content").innerHTML = html;
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})  
+</script>	  
+
 	</head>
 	
 	<body>
@@ -48,7 +88,9 @@
 			<div class="modal-body">
 			  The first time you use the service we have a few things to setup for you...
 			  <p></p>
-			  Your website domain will be:
+				Your website domain will be:
+				<p></p>
+				<div id="content">
 			  <p></p>
 			  <p class="text-center"><b><i>studentid.universitydomain.com</i></b></p>
 			  <p></p>
@@ -59,6 +101,7 @@
 		  </div>
 		</div>
 	  </div>
+
 
 	</body>
 </html> 
