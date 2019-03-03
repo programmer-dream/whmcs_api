@@ -211,11 +211,6 @@ connection.end();
 			res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
 			connection.end();	
 
-
-
-
-
-
 		}
 					 });
 
@@ -227,7 +222,7 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
-
+// This needs to be set to the session user id when i can get it working!
 var sessionidnewuser = 'nick.williams'//req.session(userId);
 //res.send(sessionidnewuser);
 
@@ -240,8 +235,16 @@ var sessionidnewuser = 'nick.williams'//req.session(userId);
 			newuser.end();	
 		});
 	});
-
  
+	
+	// Put the result from the retured sql into a data object 
+	result.then(function(userdata) {
+			res.send(userdata);		
+		})
+		.catch(function(error) {
+			res.send(error)
+		});
+
 
 });
 
