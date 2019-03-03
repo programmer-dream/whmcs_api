@@ -165,6 +165,7 @@ app.post("/login/callback",
 																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
 																									VALUES(?,?,?,?,?)`;
 																			let todo = [email, firstname, userid, lastname, sessionid];
+																			connection.end();	
 																			
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
@@ -175,17 +176,7 @@ app.post("/login/callback",
 
 																			});
 
-																			var session = function (req, res) {
-																				var temp = req.session.passport; // {user: 1}
-																				req.session.regenerate(function(err){
-																						//req.session.passport is now undefined
-																						req.session.passport = temp;
-																						req.session.save(function(err){
-																								res.send(200);
-																						});
-																				});
-																		};
-																	
+																																			
 
 
 res.redirect('/home');
