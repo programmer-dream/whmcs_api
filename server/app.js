@@ -145,6 +145,7 @@ app.post("/login/callback",
 			req.session = {};
 			req.session.id = userid;
 			const sessionid = req.session.id
+			sessionStorage.setItem(userid);
 
 		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
@@ -219,12 +220,9 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
-
 	
-	// hard coded variable for now - need to somehow get the data from the session - http://www.passportjs.org/docs/configure/
-	req.session = {};
-	req.session.id = userid;
-	const sessionidnewuser = req.session.id
+	var sessionidnewuser = sessionStorage.getItem(userid);
+
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
