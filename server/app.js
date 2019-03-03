@@ -141,7 +141,10 @@ app.post("/login/callback",
 			const firstname = parsedObject.firstName
 			const userid = parsedObject.userId
 			const lastname = parsedObject.lastName
-			const sessionid = req.session.id;
+
+			req.session = {};
+			req.session.id = userid;
+			const sessionid = req.session.id
 
 		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
