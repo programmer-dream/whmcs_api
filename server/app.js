@@ -222,7 +222,9 @@ connection.end();
 );
 
 
-app.post('/newusersvariables', passport.authenticate('local'), session), function(req, res){res.send(session)};
+app.post('/newusersvariables', passport.authenticate('local'), session);
+
+app.get('/newusersvariables'), function(req, res){res.send(session)};
 
 /*app.get('/newusersvariables', function(req, res) {
 
