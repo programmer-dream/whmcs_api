@@ -29,7 +29,7 @@ let mysqlconfig = require('./config/sql.js');
 
 app.use(passport.initialize());
 //app.use(passport.session());
-session = require('express-session');
+const session = require('express-session');
 
 //app.use(whmcs.initialize());
 
