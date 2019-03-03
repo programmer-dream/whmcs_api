@@ -231,14 +231,17 @@ app.get('/newusersvariables', function(req, res) {
 	connection.connect(function(err) {
 		if (err) throw err;
 		connection.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
+							
+			// connection end
+			connection.end();	
+			
 			if (err) throw err;
 			
 			console.log(result);
-
+			// tried here 
 		});
 
-					// connection end
-					connection.end();	
+	// tried here
 	});	
 	
 
