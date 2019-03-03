@@ -223,7 +223,7 @@ app.get('/newusersvariables', function(req, res) {
 
 	
 //	var sessionidnewuser = sessionStorage.getItem(userid);
-res.send(req.session.name);
+res.send(req.session.userid);
 
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
