@@ -58,15 +58,8 @@
     				// Get the client data from the response			
 					var data = response.data.clients;
 
-			// Make a request for the whmcs route using axios
-			axios.get('/newusersvariables')
-  				.then(function (response) {
-    				// Get the client data from the response			
-					var data1 = response.session;
-
 					// Pass it through the template
 					var html = template(data);
-					var html = template(data1);
 
 					// Set our target divs html with our template html
 					document.getElementById("content").innerHTML = html;
@@ -76,6 +69,34 @@
     				console.log(error);
   				})  
 		</script>	  
+
+<script>
+
+			// Get the template
+			var source = document.getElementById("entry-template").innerHTML;
+
+			// Compile the template
+			var template = Handlebars.compile(source);
+
+// Make a request for the whmcs route using axios
+		axios.get('/newusersvariables')
+		.then(function (response) {
+					// Get the client data from the response			
+					var data1 = response.session;
+
+					// Pass it through the template
+					var html = template(data1);
+
+					// Set our target divs html with our template html
+					document.getElementById("content").innerHTML = html;
+  				})
+  				.catch(function (error) {
+    				// handle error
+    				console.log(error);
+  				})  
+
+</script>
+
 
 
 
