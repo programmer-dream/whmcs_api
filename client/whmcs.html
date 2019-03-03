@@ -23,7 +23,6 @@
             <th>Email</th>
             <th>Date created</th>
 						<th>Status</th>
-						<th>Session ID</th>
 					</tr>
 				</thead>
 				<tr>
@@ -38,11 +37,28 @@
               <td>{{email}}</td>
               <td>{{datecreated}}</td>
 							<td>{{status}}</td>
-							<td>{{session}}</td>
 						</tr>
 					{{/each}}
 				</tr>
 			</table>
+			
+			<script id="entry-template1" type="text/x-handlebars-template">
+				<table class="table table-striped">
+					<thead class="thead-dark">
+						<tr>
+						<th>Session</th>
+						</tr>
+					</thead>
+					<tr>
+						{{!-- Loop through each client --}}
+						{{#each client}}
+							{{log this}}
+							<tr>
+								<td>{{session}}</td>
+							</tr>
+						{{/each}}
+					</tr>
+				</table>
 		</script>	
 
 		<script type="text/javascript">
@@ -73,7 +89,7 @@
 <script>
 
 			// Get the template
-			var source = document.getElementById("entry-template").innerHTML;
+			var source = document.getElementById("entry-template1").innerHTML;
 
 			// Compile the template
 			var template = Handlebars.compile(source);
