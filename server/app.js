@@ -118,10 +118,11 @@ app.get('/addclient', function(req, res) {
 app.use(express.static('assets'));
 
 app.use(session({
-	resave: true,
-	saveUninitialized: true,
-	secret: "secret"
-}));
+  genid: function(req) {
+    return genuuid() // use UUIDs for session IDs
+  },
+  secret: 'keyboard cat sfdsad as'
+}))
 
 app.get("/login",
     passport.authenticate("saml", {		
@@ -227,10 +228,10 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 	
-var sessionidnewuser = req.session(userId);
-res.send(sessionidnewuser);
+//var sessionidnewuser = req.session(userId);
+res.send(session.genid);
 
-	let newuser = mysql.createConnection(mysqlconfig);
+/*	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
 		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionidnewuser], function (err, result, fields) {
@@ -239,6 +240,7 @@ res.send(sessionidnewuser);
 			newuser.end();	
 		});
 	});
+	*/
 
  
 
