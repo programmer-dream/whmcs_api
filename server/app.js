@@ -232,8 +232,7 @@ app.get('/newusersvariables', function(req, res) {
 		if (err) throw err;
 		connection.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
 							
-			// connection end
-			connection.end();	
+			// tried here
 			
 			if (err) throw err;
 			
@@ -243,7 +242,9 @@ app.get('/newusersvariables', function(req, res) {
 
 	// tried here
 	});	
-	
+
+	// connection end
+	connection.end();	
 
 });
 
