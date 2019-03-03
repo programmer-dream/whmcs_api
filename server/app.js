@@ -170,7 +170,7 @@ app.post("/login/callback",
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
 																				if (err) {
-																					connection.end();	
+																					return res.send(err.message);
 																				}
 																				
 
@@ -178,9 +178,9 @@ app.post("/login/callback",
 
 																																			
 
-connection.end();	
+
 res.redirect('/home');
- 
+connection.end();	 
 
 
 	 }else{  
@@ -217,19 +217,17 @@ res.redirect('/home');
 );
 
 
-app.post('/newusersvariables', passport.authenticate('local'), session);
-
-
-/*app.get('/newusersvariables', function(req, res) {
+app.get('/newusersvariables', function(req, res) {
 
 
 	
 	// hard coded variable for now - need to somehow get the data from the session - http://www.passportjs.org/docs/configure/
-
+	req.session.id = userid;
+	const sessionidnewuser = req.session.id
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
-		newuser.query("SELECT * FROM user_idpdetails", function (err, result, fields) {
+		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionidnewuser], function (err, result, fields) {
 			if (err) throw err;
 			res.send(result);
 			newuser.end();	
@@ -238,7 +236,7 @@ app.post('/newusersvariables', passport.authenticate('local'), session);
 
  
 
-});*/
+});
 
 
 
@@ -260,6 +258,7 @@ app.get('/home', function(req, res) {
 });
 
 app.post('/home', function(req, res) {
+	
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');
 	
 });
