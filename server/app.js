@@ -165,7 +165,7 @@ app.post("/login/callback",
 																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
 																									VALUES(?,?,?,?,?)`;
 																			let todo = [email, firstname, userid, lastname, sessionid];
-																			connection.end();	
+																			
 																			
 																			// execute the insert statment
 																			connection.query(stmt, todo, (err, results, fields) => {
@@ -178,9 +178,9 @@ app.post("/login/callback",
 
 																																			
 
-
+connection.end();	
 res.redirect('/home');
-connection.end();	 
+ 
 
 
 	 }else{  
