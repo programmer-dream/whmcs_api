@@ -179,6 +179,7 @@ app.post("/login/callback",
 																			connection.query(stmt, todo, (err, results, fields) => {
 																				if (err) {
 																					return res.send(err.message);
+																					connection.end();	 
 																				}
 																				
 
@@ -223,18 +224,15 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 	const sessionid = req.session.id;
-	res.send(sessionid);
-	/*
-// This needs to be set to the session user id when i can get it working!
-var sessionidnewuser = 'nick.williams'//req.session(userId);
-//res.send(sessionidnewuser);
-
+	//res.send(sessionid);
+	
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
 		if (err) throw err;
-		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionidnewuser], function (err, result, fields) {
+		newuser.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
 			if (err) throw err;
 			//res.send(result);
+
 
 			// Put the result from the retured sql into a data object 
 			result.then(function(userdata) {
@@ -246,12 +244,13 @@ var sessionidnewuser = 'nick.williams'//req.session(userId);
 
 
 
-
+			connection.end();	
 			newuser.end();	
 		});
+	connection.end();	
 	});
  
-	*/
+	
 
 
 
