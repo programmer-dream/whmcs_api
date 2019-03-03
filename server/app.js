@@ -244,7 +244,7 @@ app.get('/newusersvariables', function(req, res) {
 	});	
 
 	// connection end
-	connection.end();	
+	//connection.end();	
 
 });
 
