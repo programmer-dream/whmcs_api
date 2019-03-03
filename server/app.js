@@ -227,8 +227,8 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
-/*	
-var sessionidnewuser = req.session(userId);
+
+var sessionidnewuser = 'nick.williams'//req.session(userId);
 //res.send(sessionidnewuser);
 
 	let newuser = mysql.createConnection(mysqlconfig);
@@ -240,7 +240,7 @@ var sessionidnewuser = req.session(userId);
 			newuser.end();	
 		});
 	});
-*/
+
  
 
 });
