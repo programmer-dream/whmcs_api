@@ -117,6 +117,7 @@ app.get('/addclient', function(req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 app.use(express.static('assets'));
 
+
 app.get("/login",
     passport.authenticate("saml", {		
 		successRedirect: '/home',
@@ -221,7 +222,8 @@ connection.end();
 app.get('/newusersvariables', function(req, res) {
 
 	
-	var sessionidnewuser = sessionStorage.getItem(userid);
+//	var sessionidnewuser = sessionStorage.getItem(userid);
+res.send(req.session.name);
 
 	let newuser = mysql.createConnection(mysqlconfig);
 	newuser.connect(function(err) {
