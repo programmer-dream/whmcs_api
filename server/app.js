@@ -222,6 +222,9 @@ connection.end();
 
 app.get('/newusersvariables', function(req, res) {
 
+	const sessionid = req.session.id;
+	res.send(sessionid);
+	/*
 // This needs to be set to the session user id when i can get it working!
 var sessionidnewuser = 'nick.williams'//req.session(userId);
 //res.send(sessionidnewuser);
@@ -248,7 +251,7 @@ var sessionidnewuser = 'nick.williams'//req.session(userId);
 		});
 	});
  
-	
+	*/
 
 
 
