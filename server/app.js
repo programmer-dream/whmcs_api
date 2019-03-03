@@ -149,7 +149,7 @@ app.post("/login/callback",
 			const lastname = parsedObject.lastName
 
 			req.session = {};
-			req.session.id = userid;
+			req.session.id = req.param(userid);
 			const sessionid = req.session.id
 			sessionStorage.setItem(userid);
 
