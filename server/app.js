@@ -150,8 +150,7 @@ app.post("/login/callback",
 
 			req.session = {};
 			req.session.id = req.param(userid);
-			const sessionid = req.session.id
-			sessionStorage.setItem(userid);
+			const sessionid = req.session.id;
 			
 
 		//res.send(email);
