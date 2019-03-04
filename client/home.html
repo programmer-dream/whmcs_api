@@ -11,6 +11,26 @@
 
 
 	<title>Home</title>
+	
+	
+		<!--BSStepper CDN-->
+		<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
+		<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
+	
+		<script>
+		
+		document.addEventListener('DOMContentLoaded', function () {
+		myStepper = new Stepper(document.querySelector('#stepper-example'))
+		})
+	
+		myStepper = new Stepper(document.querySelector('#stepper-example'),{
+		linear: false,
+		animation: true
+		})
+		
+		
+		</script>
+	
 	<!---->
 			<base href="/">
 		
@@ -39,23 +59,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 
-	<!--BSStepper CDN-->
-	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
-	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
-	<script>
-	
-	document.addEventListener('DOMContentLoaded', function () {
-    myStepper = new Stepper(document.querySelector('#stepper-example'))
-	})
-
-	myStepper = new Stepper(document.querySelector('#stepper-example'),{
-	linear: false,
-	animation: true
-	})
-	
-	
-	</script>
 
 	<script id="newuser-template" type="text/x-handlebars-template">
 		<p>{{sessionid}}</p>
