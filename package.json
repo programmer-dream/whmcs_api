@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
+    "bs-stepper": "^1.4.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "file-system": "^2.2.2",

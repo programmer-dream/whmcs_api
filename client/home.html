@@ -34,9 +34,28 @@
 				});
 			</script>			
 	<style>.content {min-height: 200px;}</style>
-
+	
+	<!--Axios and handlebars CDNs-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+
+	<!--BSStepper CDN-->
+	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
+	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+	<script>
+	
+	document.addEventListener('DOMContentLoaded', function () {
+    myStepper = new Stepper(document.querySelector('#stepper-example'))
+	})
+
+	myStepper = new Stepper(document.querySelector('#stepper-example'),{
+	linear: false,
+	animation: true
+	})
+	
+	
+	</script>
 
 	<script id="newuser-template" type="text/x-handlebars-template">
 		<p>{{sessionid}}</p>
@@ -45,7 +64,7 @@
 		<p>{{firstname}}</p>	
 		<p>{{lastname}}</p>		
 		
-			<!-- Modal start-->
+			<!-- Modal start -->
 			<div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
@@ -56,14 +75,67 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						The first time you use the service we have a few things to setup for you...
+														<div id="stepper-example" class="bs-stepper">
+																<div class="bs-stepper-header">
+																<div class="step" data-target="#test-l-1">
+																	<a href="#">
+																	<span class="bs-stepper-circle">1</span>
+																	<span class="bs-stepper-label">First step</span>
+																	</a>
+																</div>
+																<div class="line"></div>
+																<div class="step" data-target="#test-l-2">
+																	<a href="#">
+																	<span class="bs-stepper-circle">2</span>
+																	<span class="bs-stepper-label">Second step</span>
+																	</a>
+																</div>
+																<div class="line"></div>
+																<div class="step" data-target="#test-l-3">
+																	<a href="#">
+																	<span class="bs-stepper-circle">3</span>
+																	<span class="bs-stepper-label">Third step</span>
+																	</a>
+																</div>
+																</div>
+																<div class="bs-stepper-content">
+																<div id="test-l-1" class="content">
+																	<p class="text-center">
+																		
+
+
+																			The first time you use the service we have a few things to setup for you...
+																			<p></p>
+																			Your website domain will be:
+																			<p></p>
+																			<div id="content">
+																			<p></p>
+																			<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
+																			<p></p>
+
+
+
+																	</p>
+																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
+																</div>
+																<div id="test-l-2" class="content">
+																	<p class="text-center">test 2</p>
+																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
+																</div>
+																<div id="test-l-3" class="content">
+																	<p class="text-center">test 3</p>
+																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
+																	<button class="btn btn-primary" onclick="myStepper.previous()">Previous</button>
+																</div>
+																</div>
+						<!--The first time you use the service we have a few things to setup for you...
 						<p></p>
 						Your website domain will be:
 						<p></p>
 						<div id="content">
 						<p></p>
 						<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
-						<p></p>
+						<p></p>-->
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary">Next</button>
@@ -73,8 +145,6 @@
 				</div>
 			</div>
 		<!-- End of modal -->
-
-
 
 	</script>
 
@@ -110,7 +180,7 @@
 
 <body>
 	<p></p>
-	<div id="content">
+	<div id="content"></div>
 </body>
 
 </html>
