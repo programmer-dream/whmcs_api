@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-			<meta name="description" content="Login">
-			<meta name="author" content="">
-			<link rel="icon" href="favicon.ico">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Login">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
 
 
-		
-			<title>Home</title>
-		<!--
+
+	<title>Home</title>
+	<!--
 			<base href="/">
 		
 			 Bootstrap core CSS 
@@ -32,48 +33,51 @@
 					$('#newuser').modal('show');
 				});
 			</script>			-->
-			<style>.content {min-height: 200px;}</style>
-			
-			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<style>.content {min-height: 200px;}</style>
 
-			<script id="newuser-template" type="text/x-handlebars-template">
-								<p>{{sessionid}}</p>
-								<p>{{userid}}</p>	
-								<p>{{email}}</p>					
-			</script>	
-			<script type="text/javascript">
-				// Get the template
-				var source = document.getElementById("newuser-template").innerHTML;
-	
-				// Compile the template
-				var template = Handlebars.compile(source);
-	
-				// Make a request for the whmcs route using axios
-				axios.get('/newusersvariables')
-						.then(function (userdetails) {
-							// Get the client data from the response			
-					var data = userdetails.data[0].RowDataPacket;
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+
+	<script id="newuser-template" type="text/x-handlebars-template">
+		<p>{{sessionid}}</p>
+		<p>{{userid}}</p>	
+		<p>{{email}}</p>					
+	</script>
+
+	<script type="text/javascript">
+		// Get the template
+		var source = document.getElementById("newuser-template").innerHTML;
+
+		// Compile the template
+		var template = Handlebars.compile(source);
+
+		// Make a request for the whmcs route using axios
+		axios.get('/newusersvariables')
+			.then(function (userdetails) {
+
+				console.log(userdetails)
+				// Get the client data from the response			
+				var data = userdetails.data[0].RowDataPacket;
 
 				//	console.log(data);
-							
-						// Pass it through the template
-						var html = template(JSON.stringify(data));
-	
-						// Set our target divs html with our template html
-						document.getElementById("content").innerHTML = html;
-						})
-						.catch(function (error) {
-							// handle error
-							console.log(error);
-						})  
-			</script>	  
 
-	</head>
-	
-	<body>
-	  
-	  <!-- Modal 
+				// Pass it through the template
+				var html = template(JSON.stringify(data));
+
+				// Set our target divs html with our template html
+				document.getElementById("content").innerHTML = html;
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+	</script>
+
+</head>
+
+<body>
+
+	<!-- Modal 
 	  <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
@@ -99,8 +103,9 @@
 		  </div>
 		</div>
 	  </div>-->
-		<p></p>
-		<div id="content"></div>
+	<p></p>
+	<div id="content"></div>
 
-	</body>
-</html> 
+</body>
+
+</html>
