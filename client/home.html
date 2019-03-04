@@ -37,9 +37,9 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 
 			<script id="newuser-template" type="text/x-handlebars-template">
-								<p>{{[0]sessionid}}</p>
-								<p>{{[0]userid}}</p>	
-								<p>{{[0]email}}</p>					
+								<p>{{sessionid}}</p>
+								<p>{{userid}}</p>	
+								<p>{{email}}</p>					
 			</script>	
 			<script type="text/javascript">
 				// Get the template
@@ -52,7 +52,7 @@
 				axios.get('/newusersvariables')
 						.then(function (userdetails) {
 							// Get the client data from the response			
-					var data = userdetails;
+					var data = userdetails.data.result;
 				//	console.log(data);
 							
 						// Pass it through the template
