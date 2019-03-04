@@ -33,7 +33,6 @@
 					$('#newuser').modal('show');
 				});
 			</script>			
-	<style>.content {min-height: 200px;}</style>
 	
 	<!--Axios and handlebars CDNs-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -56,18 +55,34 @@
 	
 	
 	</script>
-	
+	<style>
+	.modal{
+		padding: 0 !important;
+	   }
+	   .modal-dialog {
+		 max-width: 80% !important;
+		 height: 100%;
+		 padding: 0;
+		 margin: 0;
+	   }
+	   
+	   .modal-content {
+		 border-radius: 0 !important;
+		 height: 100%;
+	   }
 
+	</style>
+	
 	<script id="newuser-template" type="text/x-handlebars-template">
-		<p>{{sessionid}}</p>
+	<!--<p>{{sessionid}}</p>
 		<p>{{userid}}</p>	
 		<p>{{email}}</p>		
 		<p>{{firstname}}</p>	
-		<p>{{lastname}}</p>		
+		<p>{{lastname}}</p>	-->	
 		
 			<!-- Modal start -->
 			<div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-				<div class="modal-dialog modal-dialog-centered" style="max-width: 700px!important; display: block;" role="document">
+				<div class="modal-dialog modal-dialog-centered" style="display: block;" role="document">
 					<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="newuser">New user - Getting started</h5>
@@ -184,7 +199,7 @@
 				console.log(error);
 			})
 	</script>
-<style>.modal {display: block};</style>
+
 </head>
 
 <body>
