@@ -158,7 +158,7 @@ app.post("/login/callback",
 		//res.send(email);
 		// Decide where the user is going to go, are they new or existing?
 
-		let connection = mysql.createConnection(mysqlconfig);
+		var connection = mysql.createConnection(mysqlconfig);
 
 		connection.query("SELECT email FROM user_idpdetails WHERE email = ?",[email], function(err, result, field){
 		//if no result is passed back then the user data should be stored
@@ -169,7 +169,7 @@ app.post("/login/callback",
 
 																			/////////////// Store the variables in the db for later use
 
-																			let connection = mysql.createConnection(mysqlconfig);
+																			//let connection = mysql.createConnection(mysqlconfig);
 																			
 																			let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
 																									VALUES(?,?,?,?,?)`;
@@ -230,21 +230,16 @@ app.get('/newusersvariables', function(req, res) {
 
 	connection.connect(function(err) {
 		if (err) throw err;
-		connection.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {
-							
-			// tried here
-			
+		connection.query("SELECT * FROM user_idpdetails WHERE sessionid = ?", [sessionid], function (err, result, fields) {		
 			if (err) throw err;
 			
 			console.log(result);
-			// tried here 
+			connection.end();	
 		});
 
-	// tried here
+
 	});	
 
-	// connection end
-	//connection.end();	
 
 });
 
