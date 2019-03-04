@@ -234,10 +234,10 @@ app.get('/newusersvariables', function(req, res) {
 			if (err) throw err;
 			
 			console.log(result);
-			connection.end();	
+			
 		});
 
-
+connection.end();	
 	});	
 
 
