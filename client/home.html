@@ -53,11 +53,11 @@
 
 		// Make a request for the whmcs route using axios
 		axios.get('/newusersvariables')
-			.then(function (userdetails) {
+			.then(function (response) {
 
-				console.log(userdetails)
+				console.log(response)
 				// Get the client data from the response			
-				var data = userdetails.data[0].RowDataPacket;
+				var data = response;
 
 				//	console.log(data);
 
