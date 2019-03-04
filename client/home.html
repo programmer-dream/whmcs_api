@@ -11,34 +11,12 @@
 
 
 	<title>Home</title>
-	
-	
-		<!--BSStepper CDN-->
-		<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
-		<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
-	
-		<script>
-		
-		document.addEventListener('DOMContentLoaded', function () {
-		myStepper = new Stepper(document.querySelector('#stepper-example'))
-		})
-	
-		myStepper = new Stepper(document.querySelector('#stepper-example'),{
-		linear: false,
-		animation: true
-		})
-		
-		
-		</script>
-	
 	<!---->
 			<base href="/">
 		
 		<!--	 Bootstrap core CSS  -->
 			<link href="css/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
-			
-			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 		
 		<!--	Fontawesome CDN -->
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -59,7 +37,23 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 
+	<!--BSStepper CDN-->
+	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
+	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
+	<script>
+	
+	document.addEventListener('DOMContentLoaded', function () {
+    myStepper = new Stepper(document.querySelector('#stepper-example'))
+	})
+
+	myStepper = new Stepper(document.querySelector('#stepper-example'),{
+	linear: false,
+	animation: true
+	})
+	
+	
+	</script>
 
 	<script id="newuser-template" type="text/x-handlebars-template">
 		<p>{{sessionid}}</p>
