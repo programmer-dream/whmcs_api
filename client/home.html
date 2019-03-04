@@ -52,7 +52,7 @@
 				axios.get('/newusersvariables')
 						.then(function (userdetails) {
 							// Get the client data from the response			
-					var data = userdetails.values(JSON.parse(JSON.stringify(userdetails)));
+				var data = userdetails[0].RowDataPacket;
 
 				//	console.log(data);
 							
