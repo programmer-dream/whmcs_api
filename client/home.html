@@ -54,10 +54,11 @@
 		// Make a request for the whmcs route using axios
 		axios.get('/newusersvariables')
 			.then(function (response) {
-
-				console.log(response)
 				// Get the client data from the response			
 				var data = response.data[0];
+
+				// log all data thats returned
+				console.log(data);
 
 				// Pass it through the template
 				var html = template(data);
