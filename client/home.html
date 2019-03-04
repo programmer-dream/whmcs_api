@@ -45,8 +45,6 @@
 	</script>
 
 	<script type="text/javascript">
-		console.log('page loaded?')
-
 		// Get the template
 		var source = document.getElementById("newuser-template").innerHTML;
 
@@ -59,9 +57,7 @@
 
 				console.log(response)
 				// Get the client data from the response			
-				var data = response;
-
-				//	console.log(data);
+				var data = response.data[0];
 
 				// Pass it through the template
 				var html = template(JSON.stringify(data));
