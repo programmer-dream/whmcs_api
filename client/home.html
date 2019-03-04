@@ -50,9 +50,9 @@
 	
 				// Make a request for the whmcs route using axios
 				axios.get('/newusersvariables')
-						.then(function (result) {
+						.then(function (userdetails) {
 							// Get the client data from the response			
-					var data = result.data[0].RowDataPacket
+					var data = userdetails
 				//	console.log(data);
 	
 						// Pass it through the template
