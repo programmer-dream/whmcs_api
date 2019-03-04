@@ -234,9 +234,27 @@ app.get('/newusersvariables', function(req, res) {
 			if (err) throw err;
 			
 		//res.send(result);
-		var userdetails = result;		
-		res.send(userdetails);
+		
+		// the two below are actually passing data through
+		//var userdetails = result;		
+		//res.send(userdetails);
 			
+
+	
+		var userdetails = result;
+		console.log(userdetails);
+		res.render('userdetails', {
+			userdetails: userdetails
+		});
+
+
+
+
+
+
+
+
+
 		});
 
 connection.end();	
