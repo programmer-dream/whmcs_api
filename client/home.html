@@ -60,7 +60,7 @@
 				var data = response.data[0];
 
 				// Pass it through the template
-				var html = template(JSON.stringify(data));
+				var html = template(data);
 
 				// Set our target divs html with our template html
 				document.getElementById("content").innerHTML = html;
