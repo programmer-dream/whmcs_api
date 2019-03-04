@@ -29,10 +29,14 @@
 			<script  src="/js/bootstrap.js"></script>
 
 			<script type="text/javascript">
-				$(window).on('load',function(){
-					$('#newuser').modal('show');
+
+				$(document).ready(function(){
+			
+					$("#myModal").modal('show');
+			
 				});
-			</script>			
+			
+			</script>		
 	
 	<!--Axios and handlebars CDNs-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -64,93 +68,49 @@
 		<p>{{lastname}}</p>	-->	
 		
 			<!-- Modal start -->
-			<div class="modal newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-					<div class="modal-dialog modal-xl">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="newuser">New user - Getting started</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
+			<div id="myModal" class="modal fade">
+
+					<div class="modal-dialog">
+				
+						<div class="modal-content">
+				
+							<div class="modal-header">
+				
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				
+								<h4 class="modal-title">Subscribe our Newsletter</h4>
+				
+							</div>
+				
+							<div class="modal-body">
+				
+								<p>Subscribe to our mailing list to get the latest updates straight in your inbox.</p>
+				
+								<form>
+				
+									<div class="form-group">
+				
+										<input type="text" class="form-control" placeholder="Name">
+				
+									</div>
+				
+									<div class="form-group">
+				
+										<input type="email" class="form-control" placeholder="Email Address">
+				
+									</div>
+				
+									<button type="submit" class="btn btn-primary">Subscribe</button>
+				
+								</form>
+				
+							</div>
+				
+						</div>
+				
 					</div>
-					<div class="modal-body">
-														<div id="stepper-example" class="bs-stepper">
-																<div class="bs-stepper-header">
-																<div class="step" data-target="#test-l-1">
-																	<a href="#">
-																	<span class="bs-stepper-circle">1</span>
-																	<span class="bs-stepper-label">First step</span>
-																	</a>
-																</div>
-																<div class="line"></div>
-																<div class="step" data-target="#test-l-2">
-																	<a href="#">
-																	<span class="bs-stepper-circle">2</span>
-																	<span class="bs-stepper-label">Second step</span>
-																	</a>
-																</div>
-																<div class="line"></div>
-																<div class="step" data-target="#test-l-3">
-																	<a href="#">
-																	<span class="bs-stepper-circle">3</span>
-																	<span class="bs-stepper-label">Third step</span>
-																	</a>
-																</div>
-																</div>
-																<div class="bs-stepper-content">
-																<div id="test-l-1" class="content">
-																	<p class="text-center">
-																		
-
-
-																			The first time you use the service we have a few things to setup for you...
-																			<p></p>
-																			Your website domain will be:
-																			<p></p>
-																			<div id="content">
-																			<p></p>
-																			<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
-																			<p></p>
-
-
-
-																	</p>
-																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-																</div>
-																<div id="test-l-2" class="content">
-																	<p class="text-center">test 2</p>
-																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-																</div>
-																<div id="test-l-3" class="content">
-																	<p class="text-center">test 3</p>
-																	<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-																	<button class="btn btn-primary" onclick="myStepper.previous()">Previous</button>
-																</div>
-																</div>
-						<!--The first time you use the service we have a few things to setup for you...
-						<p></p>
-						Your website domain will be:
-						<p></p>
-						<div id="content">
-						<p></p>
-						<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
-						<p></p>-->
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">Next</button>
-					</div>
-					</div>
+				
 				</div>
-				</div>
-			</div>
 		<!-- End of modal -->
 
 	</script>
