@@ -234,7 +234,7 @@ app.get('/newusersvariables', function(req, res) {
 			if (err) throw err;
 			
 		//res.send(result);
-		var userdetails = result;		
+		var userdetails = JSON.stringify(result);		
 		res.send(userdetails);
 			
 		});
