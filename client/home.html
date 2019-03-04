@@ -52,9 +52,9 @@
 				axios.get('/newusersvariables')
 						.then(function (userdetails) {
 							// Get the client data from the response			
-					var data = userdetails.data;
+					var data = data.userdetails;
 				//	console.log(data);
-						res.send(data);		
+							
 						// Pass it through the template
 						var html = template(data);
 	
