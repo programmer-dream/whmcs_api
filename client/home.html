@@ -11,7 +11,7 @@
 
 
 	<title>Home</title>
-	<!--
+	<!---->
 			<base href="/">
 		
 			 Bootstrap core CSS 
@@ -32,7 +32,7 @@
 				$(window).on('load',function(){
 					$('#newuser').modal('show');
 				});
-			</script>			-->
+			</script>			
 	<style>.content {min-height: 200px;}</style>
 
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -43,7 +43,39 @@
 		<p>{{userid}}</p>	
 		<p>{{email}}</p>		
 		<p>{{firstname}}</p>	
-		<p>{{lastname}}</p>			
+		<p>{{lastname}}</p>		
+		
+			<!-- Modal start-->
+			<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="newuser">New user - Getting started</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						The first time you use the service we have a few things to setup for you...
+						<p></p>
+						Your website domain will be:
+						<p></p>
+						<div id="content">
+						<p></p>
+						<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">Next</button>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		<!-- End of modal -->
+
+
+
 	</script>
 
 	<script type="text/javascript">
@@ -77,36 +109,8 @@
 </head>
 
 <body>
-
-	<!-- Modal 
-	  <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h5 class="modal-title" id="newuser">New user - Getting started</h5>
-			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			  </button>
-			</div>
-			<div class="modal-body">
-			  The first time you use the service we have a few things to setup for you...
-			  <p></p>
-				Your website domain will be:
-				<p></p>
-				<div id="content">
-			  <p></p>
-			  <p class="text-center"><b><i>studentid.universitydomain.com</i></b></p>
-			  <p></p>
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-primary">Next</button>
-			</div>
-		  </div>
-		</div>
-	  </div>-->
 	<p></p>
-	<div id="content"></div>
-
+	<div id="content">
 </body>
 
 </html>
