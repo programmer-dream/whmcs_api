@@ -54,12 +54,10 @@
 							// Get the client data from the response			
 				var data = userdetails[0].RowDataPacket;
 
-				var html = {    doctors: JSON.stringify(data) }
-
 				//	console.log(data);
 							
 						// Pass it through the template
-						//var html = template(data);
+						var html = template(JSON.stringify(data));
 	
 						// Set our target divs html with our template html
 						document.getElementById("content").innerHTML = html;
