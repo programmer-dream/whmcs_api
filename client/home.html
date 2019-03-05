@@ -48,14 +48,16 @@
 			<script  src="/js/bootstrap.js"></script>
 
 
-<script type="text/javascript">
-	$(window).on('load',function(){
-		$('#newuser').modal('show');
-	});
-</script>	
+
 
 	<script id="newuser-template" type="text/x-handlebars-template">
-	
+		{{#if openloginmodal}}
+		<script type="text/javascript">
+			$(window).on('load',function(){
+				$('#newuser').modal('show');
+			});
+		</script>	
+		{{/if}}
 		<!-- Modal start -->
 <div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -132,7 +134,7 @@
 		</div>
 	</div>
 	</div>
-</div>
+	</div>
 <!-- End of modal -->	
 			
 	</script>
