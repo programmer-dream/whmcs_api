@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const Saml2js = require('saml2js');
 const jQuery = require('jquery');
 var mysql = require('mysql');
-
+var sha1 = require('sha1');
 
 
  // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
@@ -197,7 +197,7 @@ connection.end();
 			//res.send(result);
 			 //res.send('Existing User logic');
 
-/*
+
 			var whmcsurl = 'http://whmcs.educationhost.co.uk/dologin.php';
 			var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
 			var date = new Date();
@@ -205,10 +205,13 @@ connection.end();
 			var urlemail = parsedObject.emailAddress;
 			var goto = 'clientarea.php';
 
-			var hashed = hash(date + timestamp + email);
-			*/
+			var hashedstrings = (email + timestamp + autoauthkey);
+ 
+			var hash = sha1(hashedstrings);
 
-			res.redirect('http://whmcs.educationhost.co.uk/clientarea.php');	
+			res.redirect(whmcsurl + '?email=' + urlemail + '&timestamp=' + timestamp + '&hash=' + hash + '&goto=' + goto);
+
+
 			connection.end();	
 
 		}
