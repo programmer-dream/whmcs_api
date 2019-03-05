@@ -55,7 +55,45 @@
 </script>	
 
 	<script id="newuser-template" type="text/x-handlebars-template">
-	<!-- Modal start -->
+	
+		
+			
+	</script>
+
+	<script type="text/javascript">
+		// Get the template
+		var source = document.getElementById("newuser-template").innerHTML;
+
+		// Compile the template
+		var template = Handlebars.compile(source);
+
+		// Make a request for the whmcs route using axios
+		axios.get('/newusersvariables')
+			.then(function (response) {
+				// Get the client data from the response			
+				var data = response.data[0];
+
+				// log all data thats returned
+				console.log(data);
+
+				// Pass it through the template
+				var html = template(data);
+
+				// Set our target divs html with our template html
+				document.getElementById("hbcontent").innerHTML = html;
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+	</script>
+
+</head>
+
+<body>
+	<p></p>
+	<div id="hbcontent"></div>
+<!-- Modal start -->
 <div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -127,48 +165,16 @@
 			<p></p>
 			<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
 			<p></p>-->
-		</div>		
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary">Next</button>
+		</div>
 		</div>
 	</div>
 	</div>
 </div>
-<!-- End of modal -->			
-			
-	</script>
+<!-- End of modal -->	
 
-	<script type="text/javascript">
-		// Get the template
-		var source = document.getElementById("newuser-template").innerHTML;
-
-		// Compile the template
-		var template = Handlebars.compile(source);
-
-		// Make a request for the whmcs route using axios
-		axios.get('/newusersvariables')
-			.then(function (response) {
-				// Get the client data from the response			
-				var data = response.data[0];
-
-				// log all data thats returned
-				console.log(data);
-
-				// Pass it through the template
-				var html = template(data);
-
-				// Set our target divs html with our template html
-				document.getElementById("hbcontent").innerHTML = html;
-			})
-			.catch(function (error) {
-				// handle error
-				console.log(error);
-			})
-	</script>
-
-</head>
-
-<body>
-	<p></p>
-	<div id="hbcontent"></div>
 </body>
 
 </html>
