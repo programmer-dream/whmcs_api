@@ -55,48 +55,6 @@
 </script>	
 
 	<script id="newuser-template" type="text/x-handlebars-template">
-		<p>{{sessionid}}</p>
-		<p>{{userid}}</p>	
-		<p>{{email}}</p>		
-		<p>{{firstname}}</p>	
-		<p>{{lastname}}</p>		
-		
-			
-	</script>
-
-	<script type="text/javascript">
-		// Get the template
-		var source = document.getElementById("newuser-template").innerHTML;
-
-		// Compile the template
-		var template = Handlebars.compile(source);
-
-		// Make a request for the whmcs route using axios
-		axios.get('/newusersvariables')
-			.then(function (response) {
-				// Get the client data from the response			
-				var data = response.data[0];
-
-				// log all data thats returned
-				console.log(data);
-
-				// Pass it through the template
-				var html = template(data);
-
-				// Set our target divs html with our template html
-				document.getElementById("content").innerHTML = html;
-			})
-			.catch(function (error) {
-				// handle error
-				console.log(error);
-			})
-	</script>
-
-</head>
-
-<body>
-	<p></p>
-	<div id="content"></div>
 	<!-- Modal start -->
 	<div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -177,7 +135,45 @@
 		</div>
 		</div>
 	</div>
-<!-- End of modal -->
+<!-- End of modal -->	
+		
+			
+	</script>
+
+	<script type="text/javascript">
+		// Get the template
+		var source = document.getElementById("newuser-template").innerHTML;
+
+		// Compile the template
+		var template = Handlebars.compile(source);
+
+		// Make a request for the whmcs route using axios
+		axios.get('/newusersvariables')
+			.then(function (response) {
+				// Get the client data from the response			
+				var data = response.data[0];
+
+				// log all data thats returned
+				console.log(data);
+
+				// Pass it through the template
+				var html = template(data);
+
+				// Set our target divs html with our template html
+				document.getElementById("content").innerHTML = html;
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+	</script>
+
+</head>
+
+<body>
+	<p></p>
+	<div id="content"></div>
+
 
 </body>
 
