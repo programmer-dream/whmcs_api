@@ -202,7 +202,7 @@ connection.end();
 			var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
 			var date = new Date();
 			//var timestamp = date.getTime();
-			var timestamp = Date.now();
+			var timestamp = Math.floor(Date.now() / 1000);
 			var urlemail = parsedObject.emailAddress;
 			var goto = 'clientarea.php';
 
