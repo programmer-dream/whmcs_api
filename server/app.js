@@ -201,7 +201,8 @@ connection.end();
 			var whmcsurl = 'http://whmcs.educationhost.co.uk/dologin.php';
 			var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
 			var date = new Date();
-			var timestamp = date.getTime();
+			//var timestamp = date.getTime();
+			var timestamp = Date(Date.now() - 20000);
 			var urlemail = parsedObject.emailAddress;
 			var goto = 'clientarea.php';
 
