@@ -118,7 +118,14 @@
 												</i>
 											</b>
 										</p>
-							
+										<select multiple>
+												{{#select colors}}
+												<option value="">None</option>
+												<option value="Red">Red</option>
+												<option value="Blue">Blue</option>
+												<option value="Orange">Orange</option>
+												{{/select}}
+											</select>
 										<p></p>		
 									</p>
 					
@@ -218,6 +225,22 @@
 				console.log(error);
 			})
 	</script>
+	<script>
+	Handlebars.registerHelper('select', function(value, options) {
+
+var select = document.createElement('select');
+select.innerHTML = options.fn(this);
+
+[].forEach.call(select.options, function(option) {
+	if (value.indexOf(option.value) > -1) {
+		option.setAttribute('selected', 'selected');
+	}
+});
+
+return select.innerHTML;
+});
+	</script>
+
 </head>
 
 <body>
