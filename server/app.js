@@ -241,6 +241,7 @@ app.get('/newusersvariables', function(req, res) {
 		//res.send(result);
 		var userdetails = result;		
 		res.send(userdetails);
+
 	
 		});
 
