@@ -34,6 +34,10 @@
 
 	<script src="/js/bootstrap.js"></script>
 
+	<!-- Include bootstrap-multiselect CSS and JS: -->
+	<script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css"/>
+
 	<script type="text/javascript">
 		$(document).ready(function () {
 			// Make a request for the whmcs route using axios
@@ -64,6 +68,14 @@
 
 					// Show the modal
 					$('#newuser').modal('show');
+
+					$('#example-dropRight').multiselect({
+						buttonWidth: '400px',
+						dropRight: true
+        			});		
+
+
+
 				})
 				.catch(function (error) {
 					// handle error
@@ -166,36 +178,16 @@
 								<p class="text-center">
 									sdfdf
 									<p>
-										<form>
-											<div class="form-group">
-												<label for="exampleFormControlInput1">Email address</label>
-												<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-											</div>
-											<div class="form-group">
-												<label for="exampleFormControlSelect1">Example select</label>
-												<select class="form-control" id="exampleFormControlSelect1">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label for="exampleFormControlSelect2">Example multiple select</label>
-												<select multiple class="form-control" id="exampleFormControlSelect2">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label for="exampleFormControlTextarea1">Example textarea</label>
-												<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-											</div>
-										</form>
+										
+										<!-- Build your select: -->
+										<select id="example-dropright" multiple="multiple">
+												<option value="cheese">Cheese</option>
+												<option value="tomatoes">Tomatoes</option>
+												<option value="mozarella">Mozzarella</option>
+												<option value="mushrooms">Mushrooms</option>
+												<option value="pepperoni">Pepperoni</option>
+												<option value="onions">Onions</option>
+											</select>
 
 									</p>
 									<p></p>
