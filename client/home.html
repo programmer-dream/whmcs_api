@@ -131,15 +131,15 @@
 									<p class="text-center">
 										sdfdf
 										<p>
-											<!-- Build your select: -->
-											<select id="example-dropRight" multiple="multiple">
+										<!-- Build your select: -->
+											<select id="example-getting-started" multiple="multiple">
 													<option value="cheese">Cheese</option>
 													<option value="tomatoes">Tomatoes</option>
 													<option value="mozarella">Mozzarella</option>
 													<option value="mushrooms">Mushrooms</option>
 													<option value="pepperoni">Pepperoni</option>
 													<option value="onions">Onions</option>
-												</select>	
+												</select>
 
 										</p>
 										<p></p>
@@ -206,13 +206,10 @@
 				// Show the modal
 				$('#newuser').modal('show');
 
-				// load the multiselect
-				$(document).ready(function() {
-        		$('#example-dropRight').multiselect({
-            	buttonWidth: '400px',
-            	dropRight: true
-        });
-    });
+						$(document).ready(function() {
+       					$('#example-getting-started').multiselect();
+						   });
+						   
 			})
 			.catch(function (error) {
 				// handle error
