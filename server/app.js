@@ -235,7 +235,7 @@ app.get('/newusersvariables', function(req, res) {
 
 	connection.connect(function(err) {
 		if (err) throw err;
-		connection.query("SELECT * FROM user_idpdetails uidp LEFT JOIN user_modules um ON uidp.userid = um.userid WHERE sessionid = ?", [sessionid], function (err, result, fields) {		
+		connection.query("SELECT * FROM user_idpdetails uidp WHERE sessionid = ?", [sessionid], function (err, result, fields) {		
 			if (err) throw err;
 			
 		//res.send(result);
