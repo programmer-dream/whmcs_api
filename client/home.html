@@ -100,7 +100,8 @@ $.ajax({
 					dataType: 'json',
 					success: function( json ) {
 						$.each(json, function(i, value) {
-							$('#example-dropright').append($('<option>').text(value).attr('value', value.Mode));
+							$('#example-dropright').append($('<option>').text(module1).attr('value', module1));
+							$('#example-dropright').append($('<option>').text(data.module1).attr('value', data.module1));
 								});
 							}
 						});
@@ -208,12 +209,7 @@ $.ajax({
 										<!-- Build your select: -->
 										<p class="text-center">
 										<select id="example-dropright" multiple="multiple">
-												<option value=data.module1><i id='data.module1'></i></option>
-												<option value="data.module1"><i id='#modop1'></option>
-												<option value='data.module1'><i id=data.module1></option>
-												<option value="module1"><i id='module1'></option>
-												<option value="modop5"><i id='modop5'></option>
-												<option value="modop6"><i id='modop6'></option>
+
 											</select>
 										</p>
 
