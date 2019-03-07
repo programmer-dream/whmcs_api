@@ -17,19 +17,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
 	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
-	<script>
-	
-	document.addEventListener('DOMContentLoaded', function () {
-    myStepper = new Stepper(document.querySelector('#stepper-example'))
-	})
 
-	myStepper = new Stepper(document.querySelector('#stepper-example'),{
-	linear: false,
-	animation: true
-	})
-	
-	
-	</script>
 	<!--	 Custom styles for this template-->
 	<link rel="stylesheet" href="/css/home.css" type="text/css" />
 	<!---->
@@ -154,6 +142,12 @@
 
 				// Set our target divs html with our template html
 				document.getElementById("hbcontent").innerHTML = html;
+
+				// Load stepper after template
+				myStepper = new Stepper(document.querySelector('#stepper-example'),{
+					linear: false,
+					animation: true
+				});
 			})
 			.catch(function (error) {
 				// handle error
