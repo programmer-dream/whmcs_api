@@ -52,7 +52,10 @@
 					});
 
 					// Set text for the domain
-					$("#txtDomain").text('NIck' + '.' + 'W');
+					if (data) {
+						// Set text for the domain
+						$("#txtDomain").text(data.userid + '.' + data.domainname);
+					}
 
 					// Show the modal
 					$('#newuser').modal('show');
