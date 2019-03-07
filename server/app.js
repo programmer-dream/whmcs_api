@@ -251,6 +251,28 @@ connection.end();
 });
 
 
+// SIGNUP DATA - MODULES & UNIVERSITY DOMAIN
+
+app.get('/signupdata', function(req, res) {
+
+	let connection = mysql.createConnection(mysqlconfig);
+
+	connection.connect(function(err) {
+		if (err) throw err;
+		connection.query("SELECT * FROM client_details cd LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid", [sessionid], function (err, result, fields) {		
+			if (err) throw err;
+			
+		//res.send(result);
+		var clientdetails = result;		
+		res.send(clientdetails);
+	
+		});
+
+connection.end();	
+	});	
+	
+
+});
 
 /*
 app.get('/secure', validUser, routes.secure),
