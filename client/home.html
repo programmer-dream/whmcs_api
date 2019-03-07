@@ -133,7 +133,6 @@
 										<p>
 											<!-- Build your select: -->
 											<select id="example-dropRight" multiple="multiple">
-													<option value="{{status}}" hidden="hidden" selected="selected">{{status}}</option>
 													<option value="cheese">Cheese</option>
 													<option value="tomatoes">Tomatoes</option>
 													<option value="mozarella">Mozzarella</option>
@@ -206,13 +205,13 @@
 				// Show the modal
 				$('#newuser').modal('show');
 
-				// load the multiselect
-				$(document).ready(function() {
+				// load the multiselect	
+				
         		$('#example-dropRight').multiselect({
             	buttonWidth: '400px',
             	dropRight: true
         });
-    });
+    
 			})
 			.catch(function (error) {
 				// handle error
