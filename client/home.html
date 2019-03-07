@@ -65,6 +65,14 @@
 					
 						// Set text for the domain
 						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
+
+						$('#modop1').text(data.module1);
+						$('#modop2').text(data.module2);
+						$('#modop3').text(data.module3);
+						$('#modop4').text(data.module4);
+						$('#modop5').text(data.module5);
+						$('#modop6').text(data.module6);
+
 					}
 
 					// Show the modal
@@ -182,12 +190,12 @@
 										
 										<!-- Build your select: -->
 										<select id="example-dropright" multiple="multiple">
-												<option value="cheese">Cheese</option>
-												<option value="tomatoes">Tomatoes</option>
-												<option value="mozarella">Mozzarella</option>
-												<option value="mushrooms">Mushrooms</option>
-												<option value="pepperoni">Pepperoni</option>
-												<option value="onions">Onions</option>
+												<option value="#modop1"><i id='modop1'></i>></option>
+												<option value="tomatoes"><i id='modop2'></option>
+												<option value="mozarella"><i id='modop3'></option>
+												<option value="mushrooms"><i id='modop4'></option>
+												<option value="pepperoni"><i id='modop5'></option>
+												<option value="onions"><i id='modop6'></option>
 											</select>
 
 									</p>
