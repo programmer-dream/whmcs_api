@@ -55,13 +55,13 @@
 						animation: true
 					});
 
-
+					if (data) {
 					// Remove special characters for the userid (to set the domain)
 
 					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
 					// Set text for the domain
-					if (data) {
+					
 						// Set text for the domain
 						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
 					}
