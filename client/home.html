@@ -9,116 +9,160 @@
 	<link rel="icon" href="favicon.ico">
 	<title>Home</title>
 
-	<!--Axios and handlebars CDNs-->
+	<!-- Axios and handlebars CDNs -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 
-	<!--BSStepper CDN-->
+	<!--BSStepper CDN -->
 	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
 	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
 
-	<!--	 Custom styles for this template-->
+	<!-- Custom styles for this template -->
 	<link rel="stylesheet" href="/css/home.css" type="text/css" />
-	<!---->
-			<base href="/">
+	
+	<base href="/">
 		
-		<!--	 Bootstrap core CSS  -->
-			<link href="css/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
 			
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
-		<!--	Fontawesome CDN -->
-			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!-- Fontawesome CDN -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	
+	<script src="/js/bootstrap.js"></script>
 
-			<script  src="/js/bootstrap.js"></script>
-
-
-
-
-	<script id="newuser-template" type="text/x-handlebars-template">
-	
+	<script id="newuser-template" type="text/x-handlebars-template">	
 		<!-- Modal start -->
-<div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="newuser">New user - Getting started</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body">
-			<div id="stepper-example" class="bs-stepper">
-				<div class="bs-stepper-header">
-				<div class="step" data-target="#test-l-1">
-					<a href="#">
-					<span class="bs-stepper-circle">1</span>
-					<span class="bs-stepper-label">First step</span>
-					</a>
-				</div>
-				<div class="line"></div>
-				<div class="step" data-target="#test-l-2">
-					<a href="#">
-					<span class="bs-stepper-circle">2</span>
-					<span class="bs-stepper-label">Second step</span>
-					</a>
-				</div>
-				<div class="line"></div>
-				<div class="step" data-target="#test-l-3">
-					<a href="#">
-					<span class="bs-stepper-circle">3</span>
-					<span class="bs-stepper-label">Third step</span>
-					</a>
-				</div>
-				</div>
-				<div class="bs-stepper-content">
-				<div id="test-l-1" class="content">
-					<p class="text-center">
-						
-	
-	
-							The first time you use the service we have a few things to setup for you...
-							<p></p>
-							Your website domain will be:
-							<p></p>
-							<div id="content">
-							<p></p>
-							<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
-							<p></p>
-	
-	
-	
-					</p>
-					<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-				</div>
-				<div id="test-l-2" class="content">
-					<p class="text-center">test 2</p>
-					<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-				</div>
-				<div id="test-l-3" class="content">
-					<p class="text-center">test 3</p>
-					<button class="btn btn-primary" onclick="myStepper.next()">Next</button>
-					<button class="btn btn-primary" onclick="myStepper.previous()">Previous</button>
-				</div>
-				</div>
-	<!--The first time you use the service we have a few things to setup for you...
-	<p></p>
-	Your website domain will be:
-	<p></p>
-	<div id="content">
-	<p></p>
-	<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
-	<p></p>-->
-	</div>
-		</div>
-	</div>
-	</div>
-	</div>
-<!-- End of modal -->	
+		<div class="modal" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="newuser">
+							New user - Getting started
+						</h5>
 			
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">
+								&times;
+							</span>
+						</button>
+					</div>
+		
+					<div class="modal-body">
+						<div id="stepper-example" class="bs-stepper">
+							<div class="bs-stepper-header">
+								<div class="step" data-target="#test-l-1">
+									<a href="#">
+										<span class="bs-stepper-circle">
+											1
+										</span>
+					
+										<span class="bs-stepper-label">
+											First step
+										</span>
+									</a>
+								</div>
+				
+								<div class="line"></div>
+
+								<div class="step" data-target="#test-l-2">
+									<a href="#">
+										<span class="bs-stepper-circle">
+											2
+										</span>
+					
+										<span class="bs-stepper-label">
+											Second step
+										</span>
+									</a>
+								</div>
+				
+								<div class="line"></div>
+
+								<div class="step" data-target="#test-l-3">
+									<a href="#">
+										<span class="bs-stepper-circle">
+											3
+										</span>
+					
+										<span class="bs-stepper-label">
+											Third step
+										</span>
+									</a>
+								</div>
+							</div>
+					
+							<div class="bs-stepper-content">
+								<div id="test-l-1" class="content">
+									<p class="text-center">								
+										The first time you use the service we have a few things to setup for you...
+										
+										<p></p>
+										Your website domain will be:
+										<p></p>
+							
+										<div id="content">
+										<p></p>
+							
+										<p class="text-center">
+											<b>
+												<i>
+													{{userid}}.universitydomain.com
+												</i>
+											</b>
+										</p>
+							
+										<p></p>		
+									</p>
+					
+									<button class="btn btn-primary" onclick="myStepper.next()">
+										Next
+									</button>
+								</div>
+					
+								<div id="test-l-2" class="content">
+									<p class="text-center">
+										test 2
+									</p>
+					
+									<button class="btn btn-primary" onclick="myStepper.next()">
+										Next
+									</button>
+								</div>
+				
+								<div id="test-l-3" class="content">
+									<p class="text-center">
+										test 3
+									</p>
+					
+									<button class="btn btn-primary" onclick="myStepper.next()">
+										Next
+									</button>
+					
+									<button class="btn btn-primary" onclick="myStepper.previous()">
+										Previous
+									</button>
+								</div>
+							</div>
+	
+							<!--The first time you use the service we have a few things to setup for you...
+								<p></p>
+								Your website domain will be:
+								<p></p>
+								<div id="content">
+								<p></p>
+								<p class="text-center"><b><i>{{userid}}.universitydomain.com</i></b></p>
+								<p></p>
+							-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of modal -->				
 	</script>
 
 	<script type="text/javascript">
@@ -148,27 +192,20 @@
 					linear: false,
 					animation: true
 				});
+
+				// Show the modal
+				$('#newuser').modal('show');
 			})
 			.catch(function (error) {
 				// handle error
 				console.log(error);
 			})
 	</script>
-<script type="text/javascript">
-	$(window).on('load',function(){
-		$('#newuser').modal('show');
-	});
-</script>	
 </head>
 
 <body>
 	<p></p>
-	<div id="hbcontent">
-		
-
-	</div>
-
-
+	
+	<div id="hbcontent"></div>
 </body>
-
 </html>
