@@ -51,10 +51,15 @@
 						animation: true
 					});
 
+
+					// Remove special characters for the userid (to set the domain)
+
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+
 					// Set text for the domain
 					if (data) {
 						// Set text for the domain
-						$("#txtDomain").text(data.userid + '.' + data.domainname);
+						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
 					}
 
 					// Show the modal
