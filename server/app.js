@@ -235,7 +235,7 @@ app.get('/newusersvariables', function(req, res) {
 
 	connection.connect(function(err) {
 		if (err) throw err;
-		connection.query("SELECT * FROM user_idpdetails uidp WHERE sessionid = ?", [sessionid], function (err, result, fields) {		
+		connection.query("SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?", [sessionid], function (err, result, fields) {		
 			if (err) throw err;
 			
 		//res.send(result);
@@ -250,29 +250,6 @@ connection.end();
 
 });
 
-
-// SIGNUP DATA - MODULES & UNIVERSITY DOMAIN
-
-app.get('/signupdata', function(req, res) {
-
-	let connection = mysql.createConnection(mysqlconfig);
-
-	connection.connect(function(err) {
-		if (err) throw err;
-		connection.query("SELECT * FROM client_details cd LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid", [sessionid], function (err, result, fields) {		
-			if (err) throw err;
-			
-		//res.send(result);
-		var clientdetails = result;		
-		res.send(clientdetails);
-	
-		});
-
-connection.end();	
-	});	
-	
-
-});
 
 /*
 app.get('/secure', validUser, routes.secure),
