@@ -74,7 +74,7 @@
 
 						$.each(modulenames, function(i, modulenames) {
 							// works but doesnt select properly - $('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
-							$('#example-dropright').append('<option').attr('value', modulenames[0]).append('>').text(modulenames[0]).append($('</option>'));
+							$('#example-dropright').append($('<option>').attr('value', modulenames[0]).append('>').text(modulenames).append($('</option>')));
 
 								// this is how it looks in bootstrap-multiple - <option value="mozarella">Mozzarella</option>
 
