@@ -257,7 +257,7 @@ connection.end();
 app.get('/newstudentroute', {
 
 		})
-		.then(function (data) {
+		.then(function (student) {
 			res.send(data);
 		})
 		.catch(function (error) {
