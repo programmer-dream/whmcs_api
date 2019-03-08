@@ -65,15 +65,7 @@
 					
 						// Set text for the domain
 						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
-
-						$('#modop1').text(data.module1);
-						$('#modop2').text(data.module2);
-						$('#modop3').text(data.module3);
-						$('#modop4').text(data.module4);
-						$('#modop5').text(data.module5);
-						$('#modop6').text(data.module6);
-
-					
+				
 
 					// Show the modal
 					$('#newuser').modal('show');
@@ -81,8 +73,7 @@
 					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
 						$.each(modulenames, function(i, modulenames) {
-							// didnt work $('#example-dropright').append($('<option>').text(module1).attr('value', module1));
-									$('#example-dropright').append($('<option>').text(modulenames[0]).attr('value', modulenames[0]));
+							$('#example-dropright').append($('<option>').text(modulenames[0]).attr('value', modulenames[0]).append('</option>'));
 								});
 					}		
 
