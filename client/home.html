@@ -85,7 +85,7 @@
 					type:'GET',
 					dataType: 'json',
 					success: function( json ) {
-						$.each(json, function(i, value) {
+						$.each(json, function(i, data) {
 							// didnt work $('#example-dropright').append($('<option>').text(module1).attr('value', module1));
 									$('#example-dropright').append($('<option>').text(data.module1).attr('value', data.module1));
 								});
