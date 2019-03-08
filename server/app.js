@@ -251,17 +251,21 @@ connection.end();
 
 });
 
+// The route used to create the student account within WHMCS
+// This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
-/*
-app.get('/secure', validUser, routes.secure),
+axios.post('/newstudentroute', {
+			firstName: 'Fred',
+			lastName: 'Flintstone'
+		})
+		.then(function (response) {
+			res.send(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+});
 
-function validUser(req, res, next) {
-	if (!req.user) {
-		res.redirect('/login');
-	}
-    next();
-}
-*/
+
 app.get('/home', function(req, res) {
 
 	res.sendFile('/home/ehapp/apps/AD-saml/client/home.html');

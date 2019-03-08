@@ -79,12 +79,6 @@
 								});
 					}		
 
-/*
-					$('#example-dropright').multiselect({
-						buttonWidth: '400px',
-						dropRight: true
-        			});		*/
-
 					$('#example-dropright').multiselect({
 						checkboxName: function(option) {
 							return 'multiselect[]';
@@ -96,11 +90,45 @@
 					
 
 				})
+
+
 				.catch(function (error) {
 					// handle error
 					console.log(error);
 				})
-		});
+		});// emd of doc ready
+
+				/// STUDENT FUNCTION
+
+				function student() {
+
+						// Send a POST request
+						axios({
+						method: 'post',
+						url: '/newstudentroute',
+						data: {
+							firstName: 'Fred',
+							lastName: 'Flintstone'
+						}
+						});
+
+				// STAFF FUNCTION WILL GO HERE
+				//
+				//
+				//
+				// ----------------------------
+
+				}; // End of student function
+
+		// STAFF FUNCTION WILL GO HERE
+		//
+		//
+		//
+		// ----------------------------
+
+
+
+
 	</script>
 
 
@@ -235,14 +263,14 @@
 																<div class="card-body">
 																<h5 class="card-title border-bottom pb-3">Student account</a></h5>
 																<p class="card-text">If you are a student, select this account. Your web hosting package will be available to you during your time at university.</p>
-																<button type="button" class="btn btn-success float-right" onclick="myStepper.previous()">Click Here</button>
+																<button type="button" class="btn btn-success float-right" onclick="student">Click Here</button>
 																</div>
 												</div>
 												<div class="card">
 																<img class="card-img-top" src="/images/staff.jpg" alt="Staff account" width="100%" height="50%">
 																<div class="card-body">
 																<h5 class="card-title border-bottom pb-3">Staff account</h5>
-																<p class="card-text">Select this if you are a member of teaching staff, this account type requires email validation.</p>
+																<p class="card-text">If you are a member of teaching staff, select this account. This account type requires email validation.</p>
 																<button type="button" class="btn btn-secondary float-right" onclick="myStepper.previous()">Click Here</button>
 																</div>
 												</div>
