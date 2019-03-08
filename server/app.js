@@ -254,15 +254,21 @@ connection.end();
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
-app.get('/newstudentroute', {
+app.get('/newstudentroute', function(req, res) {
 
 		})
-		.then(function (student) {
+		.then(function (request) {
 			res.send(data);
 		})
 		.catch(function (error) {
 			console.log(error);
 });
+
+
+app.get('/iamroute', function(req, res) {
+	//callback
+});
+
 
 
 app.get('/home', function(req, res) {
