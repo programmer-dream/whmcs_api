@@ -78,12 +78,11 @@
 					// Show the modal
 					$('#newuser').modal('show');
 
-					JSON.stringify(data); 
-					JSON.parse(data);
+					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
-						$.each(json, function(i, data) {
+						$.each(json, function(i, modulenames) {
 							// didnt work $('#example-dropright').append($('<option>').text(module1).attr('value', module1));
-									$('#example-dropright').append($('<option>').text(data.module1).attr('value', data.module1));
+									$('#example-dropright').append($('<option>').text(modulenames[0]).attr('value', modulenames[0]));
 								});
 					}		
 
