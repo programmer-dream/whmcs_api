@@ -73,18 +73,25 @@
 					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
 						$.each(modulenames, function(i, modulenames) {
-							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]).append($('</option>')));
+							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
 
 
 								});
 					}		
 
-
+/*
 					$('#example-dropright').multiselect({
 						buttonWidth: '400px',
 						dropRight: true
-        			});		
+        			});		*/
 
+					$('#example-dropright').multiselect({
+						checkboxName: function(option) {
+							return 'multiselect[]';
+							},
+							buttonWidth: '400px',
+							dropRight: true
+						});
 
 					
 
