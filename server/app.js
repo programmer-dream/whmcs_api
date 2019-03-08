@@ -33,11 +33,11 @@ var session = require("express-session");
 
 //app.use(whmcs.initialize());
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/index.html");
 });
 
-app.get("/test", function(req, res) {
+app.get("/test", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/test.html");
 });
 
@@ -46,11 +46,11 @@ app.get("/test", function(req, res) {
 /* 			       	Anything in the WHMCS routes can be called from axios in the html               */
 /*--------------------------------------------------------------------------------------------------*/
 
-app.get("/whmcs", function(req, res) {
+app.get("/whmcs", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/whmcs.html");
 });
 
-app.get("/handlebars", function(req, res) {
+app.get("/handlebars", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/handlebars.html");
 });
 
@@ -62,7 +62,7 @@ app.get("/handlebars", function(req, res) {
 // Get the clients module from whmcs-js
 const { Clients } = require("whmcs-js");
 
-app.get("/listallwhmcsusers", function(req, res) {
+app.get("/listallwhmcsusers", function (req, res) {
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
   const myClients = new Clients(config);
@@ -70,17 +70,17 @@ app.get("/listallwhmcsusers", function(req, res) {
   // Call the getClients call and store the data in the variable called invoices
   myClients
     .getClients()
-    .then(function(data) {
+    .then(function (data) {
       res.send(data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       res.send(error);
     });
 });
 
 // Add client
 
-app.get("/addclient", function(req, res) {
+app.get("/addclient", function (req, res) {
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(config);
@@ -100,10 +100,10 @@ app.get("/addclient", function(req, res) {
       phonenumber: "",
       skipvalidation: true
     })
-    .then(function(data) {
+    .then(function (data) {
       res.send(data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       res.send(error);
     });
 });
@@ -157,7 +157,7 @@ app.post("/login/callback", (req, res, next) => {
   connection.query(
     "SELECT email FROM user_idpdetails WHERE email = ?",
     [email],
-    function(err, result, field) {
+    function (err, result, field) {
       //if no result is passed back then the user data should be stored
       if (!result.length) {
         //new user logic
@@ -203,14 +203,14 @@ app.post("/login/callback", (req, res, next) => {
         // create the URL to pass and redirect the user
         res.redirect(
           whmcsurl +
-            "?email=" +
-            urlemail +
-            "&timestamp=" +
-            timestamp +
-            "&hash=" +
-            hash +
-            "&goto=" +
-            goto
+          "?email=" +
+          urlemail +
+          "&timestamp=" +
+          timestamp +
+          "&hash=" +
+          hash +
+          "&goto=" +
+          goto
         );
 
         // close the mysql connection
@@ -222,19 +222,19 @@ app.post("/login/callback", (req, res, next) => {
   req, res, next;
 });
 
-app.get("/newusersvariables", function(req, res) {
+app.get("/newusersvariables", function (req, res) {
   const sessionid = req.session.id;
   //	res.send(sessionid);
 
   //let newuser = mysql.createConnection(mysqlconfig);
   let connection = mysql.createConnection(mysqlconfig);
 
-  connection.connect(function(err) {
+  connection.connect(function (err) {
     if (err) throw err;
     connection.query(
       "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
       [sessionid],
-      function(err, result, fields) {
+      function (err, result, fields) {
         if (err) throw err;
 
         //res.send(result);
@@ -250,27 +250,27 @@ app.get("/newusersvariables", function(req, res) {
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
-app.use("/newstudentroute", {})
-  .then(function(request) {
-    res.send(data);
+app.get("/newstudentroute", {})
+  .then(function (data) {
+    res.send(data.firstName);
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log(error);
   });
 
-app.get("/home", function(req, res) {
+app.get("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
-app.post("/home", function(req, res) {
+app.post("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
-app.get("/failedlogin", function(req, res) {
+app.get("/failedlogin", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/loginFailed");
 });
 
-app.get("/logout", function(req, res) {
+app.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
