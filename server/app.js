@@ -254,12 +254,11 @@ connection.end();
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
-axios.post('/newstudentroute', {
-			firstName: 'Fred',
-			lastName: 'Flintstone'
+app.get('/newstudentroute', {
+
 		})
-		.then(function (response) {
-			res.send(response);
+		.then(function (data) {
+			res.send(data);
 		})
 		.catch(function (error) {
 			console.log(error);
