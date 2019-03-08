@@ -73,7 +73,11 @@
 					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
 						$.each(modulenames, function(i, modulenames) {
-							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
+							// works but doesnt select properly - $('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
+							$('#example-dropright').append('<option').attr('value', modulenames[0]).append('>').text(modulenames[0]).append($('</option>'));
+
+								// this is how it looks in bootstrap-multiple - <option value="mozarella">Mozzarella</option>
+
 								});
 					}		
 
@@ -193,7 +197,7 @@
 									<p>
 									<p class="text-center">We will use this to setup folders for you to put your work!</p>
 									<p></p>
-									<p class="text-center">Staff will use this to know where your work is!</p>
+									<p class="text-center">Staff will use this to know locate your work!</p>
 										
 										<!-- Build your select: -->
 										<p class="text-center">
