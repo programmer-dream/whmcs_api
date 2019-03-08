@@ -73,7 +73,7 @@
 					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
 						$.each(modulenames, function(i, modulenames) {
-							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
+							$('#example-dropright').append($('<option>').text(modulenames[0]).attr('value', modulenames[0]));
 
 
 								});
@@ -221,7 +221,7 @@
 								<p class="text-center">
 									test 3
 								</p>
-
+								<p class="text-right">	
 								<button class="btn btn-primary" onclick="myStepper.next()">
 									Next
 								</button>
@@ -229,6 +229,7 @@
 								<button class="btn btn-primary" onclick="myStepper.previous()">
 									Previous
 								</button>
+								</p>
 							</div>
 						</div>
 					</div>
