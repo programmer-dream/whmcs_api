@@ -78,10 +78,27 @@
 					// Show the modal
 					$('#newuser').modal('show');
 
+					JSON.stringify(data); 
+
+				$.ajax({
+					url:'/newusersvariables',
+					type:'GET',
+					dataType: 'json',
+					success: function( json ) {
+						$.each(json, function(i, value) {
+							// didnt work $('#example-dropright').append($('<option>').text(module1).attr('value', module1));
+									$('#example-dropright').append($('<option>').text(data.module1).attr('value', data.module1));
+								});
+							}
+						});
+
+
 					$('#example-dropright').multiselect({
 						buttonWidth: '400px',
 						dropRight: true
         			});		
+
+
 
 					
 
@@ -93,22 +110,6 @@
 		});
 	</script>
 
-<script>
-var value=response.data[0];
-JSON.stringify(userdetails); 
-
-$.ajax({
-					url:'/newusersvariables',
-					type:'GET',
-					dataType: 'json',
-					success: function( json ) {
-						$.each(json, function(i, value) {
-							// didnt work $('#example-dropright').append($('<option>').text(module1).attr('value', module1));
-									$('#example-dropright').append($('<option>').text(userdetails.module1).attr('value', userdetails.module1));
-								});
-							}
-						});
-</script>
 
 
 </head>
