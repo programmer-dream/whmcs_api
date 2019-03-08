@@ -89,18 +89,13 @@
 
 					
 
-				})
+				
 
 
-				.catch(function (error) {
-					// handle error
-					console.log(error);
-				})
-		});// emd of doc ready
 
-				/// STUDENT FUNCTION
+						/// STUDENT FUNCTION
 
-				function student() {
+						function student() {
 
 						// Send a POST request
 						axios({
@@ -112,19 +107,32 @@
 						}
 						});
 
-				// STAFF FUNCTION WILL GO HERE
-				//
-				//
-				//
-				// ----------------------------
+						// STAFF FUNCTION WILL GO HERE
+						//
+						//
+						//
+						// ----------------------------
 
-				}; // End of student function
+						}; // End of student function
 
-		// STAFF FUNCTION WILL GO HERE
-		//
-		//
-		//
-		// ----------------------------
+						// STAFF FUNCTION WILL GO HERE
+						//
+						//
+						//
+						// ----------------------------
+
+
+
+})
+
+
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
+		});// end of doc ready
+
+				
 
 
 
@@ -263,7 +271,7 @@
 																<div class="card-body">
 																<h5 class="card-title border-bottom pb-3">Student account</a></h5>
 																<p class="card-text">If you are a student, select this account. Your web hosting package will be available to you during your time at university.</p>
-																<button type="button" class="btn btn-success float-right" onclick="student">Click Here</button>
+																<button type="button" class="btn btn-success float-right" onclick="student()">Click Here</button>
 																</div>
 												</div>
 												<div class="card">
