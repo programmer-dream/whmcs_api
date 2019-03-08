@@ -73,18 +73,24 @@
 					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
 
 						$.each(modulenames, function(i, modulenames) {
-							$('#example-dropright').append($('<option>').text(modulenames[0]).attr('value', modulenames[0]));
+							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames[0]));
 
 
 								});
 					}		
 
-
+/*
 					$('#example-dropright').multiselect({
 						buttonWidth: '400px',
 						dropRight: true
-        			});		
-
+					});		
+					*/
+					$('#example-dropright').multiselect({
+					buttonContainer: '<div id="dropdownContainer"/>',
+					onChange: function(element, checked) {
+						$('#dropdownContainer').removeClass('open');
+								}
+							});
 
 
 					
