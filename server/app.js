@@ -249,17 +249,15 @@ app.get("/newusersvariables", function(req, res) {
 
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
-/*
-app.get('/newstudentroute', {
 
-		})
-		.then(function (request) {
-			res.send(data);
-		})
-		.catch(function (error) {
-			console.log(error);
-});
-*/
+app
+  .use("/newstudentroute", {})
+  .then(function(request) {
+    res.send(data);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
 
 app.get("/home", function(req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
