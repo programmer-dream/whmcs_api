@@ -294,6 +294,13 @@ app.post('/newstudentroute', (req, res) => {
     paymentmethod: 'Bank'
 
   })
+    .then(function (response) {
+      console.log(response);
+
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
 
 
 
