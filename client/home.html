@@ -98,44 +98,53 @@
 					// handle error
 					console.log(error);
 				})
-		});// end of doc ready
 
 
-		/// STUDENT FUNCTION
+			/// STUDENT FUNCTION
 
-		function student() {
+			function student() {
 
 
-			///HERE
+				///HERE
 
-			axios.get('/newusersvariables')
-				.then(function (response) {
-					// Get the client data from the response
-					var data = response.data[0];
+				axios.get('/newusersvariables')
+					.then(function (response) {
+						// Get the client data from the response
+						var data = response.data[0];
 
-					// log all data thats returned
-					console.log(data);
+						// log all data thats returned
+						console.log(data);
+
+					});
+
+				// Send a POST request
+				axios({
+					method: 'post',
+					url: '/newstudentroute',
+					data: {
+						firstName: data.domainname,
+						lastName: 'Flintstone'
+					}
+
+						.then(function (response) {
+							console.log(response);
+						})
+						.catch(function (error) {
+							console.log(error);
+
+						})
 
 				});
 
-			// Send a POST request
-			axios({
-				method: 'post',
-				url: '/newstudentroute',
-				data: {
-					firstName: data.domainname,
-					lastName: 'Flintstone'
-				}
 
-					.then(function (response) {
-						console.log(response);
-					})
-					.catch(function (error) {
-						console.log(error);
 
-					})
 
-			});
+
+
+			});// end of doc ready
+
+
+
 
 			// STAFF FUNCTION WILL GO HERE
 			//
