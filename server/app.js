@@ -311,6 +311,8 @@ app.post('/newstudentroute', (req, res) => {
           clientid: response.clientid,
           pid: 1,
           domain: req.body.fulldomain,
+          nameserver1: req.body.nameserver1,
+          nameserver2: req.body.nameserver2,
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
