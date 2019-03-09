@@ -122,7 +122,7 @@ app.get("/addorder", function (req, res) {
       clientid: 25,
       pid: 1,
       domain: 'dddnick.com',
-      paymentmethod: 'Bank',
+      paymentmethod: 'banktransfer',
       noemail: true,
       noinvoice: true,
       noinvoiceemail: true
