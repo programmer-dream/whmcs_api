@@ -113,14 +113,13 @@ app.get("/addclient", function (req, res) {
 });
 
 /* Route used for testing adding an order
-
 app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
 
   addOrder
     .addOrder({
-      clientid: 31,
+      clientid: 25,
       pid: 1,
       domain: 'dddnick.com',
       paymentmethod: 'banktransfer',
@@ -136,7 +135,8 @@ app.get("/addorder", function (req, res) {
     });
 
 
-});*/
+}); */
+
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
@@ -305,13 +305,12 @@ app.post('/newstudentroute', (req, res) => {
       console.log(response);
 
       const addOrder = new Orders(config);
-      var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
       addOrder
         .addOrder({
           clientid: response.clientid,
           pid: 1,
-          domain: useridrmspchar,
+          domain: 'dddnick.com',
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
