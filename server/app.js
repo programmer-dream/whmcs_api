@@ -112,20 +112,21 @@ app.get("/addclient", function (req, res) {
     });
 });
 
-/* Route used for testing adding an order
+/* Route used for testing adding an order */
 app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
 
   addOrder
     .addOrder({
-      clientid: 25,
-      pid: 1,
-      domain: 'dddnick.com',
+      clientid: 28,
+      domaintype: subdomain,
       paymentmethod: 'banktransfer',
       noemail: true,
       noinvoice: true,
-      noinvoiceemail: true
+      noinvoiceemail: true,
+      nameserver1: 'ns1' + '.' + req.body.domainname,
+      nameserver2: 'ns2' + '.' + req.body.domainname,
     })
     .then(function (data) {
       res.send(data);
@@ -135,7 +136,7 @@ app.get("/addorder", function (req, res) {
     });
 
 
-}); */
+});
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
