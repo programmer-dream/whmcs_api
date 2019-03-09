@@ -63,7 +63,8 @@ app.get("/handlebars", function (req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 
 // Get the clients module from whmcs-js
-const { Clients, Orders } = require("whmcs-js");
+const { Clients } = require("whmcs-js");
+const { Orders } = require("whmcs-js");
 
 app.get("/listallwhmcsusers", function (req, res) {
   // Set up the module with the config file
@@ -116,14 +117,24 @@ app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
 
-  addOrder.addOrder({
+  addOrder
+    .addOrder({
+      clientid: 25,
+      pid: 1,
+      domain: 'dddnick.com',
+      paymentmethod: 'Bank',
+      noemail: true,
+      noinvoice: true,
+      noinvoiceemail: true
+    })
+    .then(function (data) {
+      res.send(data);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
 
-    clientid: 25,
-    pid: 1,
-    domain: 'dddnick.com',
-    paymentmethod: 'Bank'
 
-  })
 });
 
 /*--------------------------------------------------------------------------------------------------*/
