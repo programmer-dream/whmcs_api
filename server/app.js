@@ -257,6 +257,9 @@ app.post('/newstudentroute', (req, res) => {
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(config);
+  const addOrder = new Orders(config);
+
+
 
   // Call the getClients call and store the data in the variable called 
   addClient
@@ -278,22 +281,24 @@ app.post('/newstudentroute', (req, res) => {
     .then(function (response) {
       console.log(response);
 
+
+      addOrder.addOrder({
+
+        clientid: response.clientid,
+        pid: 1,
+        domain: 'dddnick.com',
+        paymentmethod: 'Bank'
+
+
+
+      })
     })
     .catch(function (error) {
       res.send(error);
     });
 
 
-  const addOrder = new Orders(config);
 
-  addOrder.addOrder({
-
-    clientid: response.clientid,
-    pid: 1,
-    domain: 'dddnick.com',
-    paymentmethod: 'Bank'
-
-  })
 
 
 
