@@ -63,7 +63,7 @@ app.get("/handlebars", function (req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 
 // Get the clients module from whmcs-js
-const { Clients } = require("whmcs-js");
+const { Clients, Orders } = require("whmcs-js");
 
 app.get("/listallwhmcsusers", function (req, res) {
   // Set up the module with the config file
@@ -276,18 +276,19 @@ app.post('/newstudentroute', (req, res) => {
       skipvalidation: true
     })
 
-    .getClientsDetails({
+  addClient.getClientsDetails({
 
-      clientid
+    clientid
 
-    })
+  })
+  const addOrder = new Orders(config);
 
-    .addOrder({
+  addOrder.addOrder({
 
-      clientid: clientid,
-      paymentmethod: 'none'
+    clientid: clientid,
+    paymentmethod: 'none'
 
-    })
+  })
 
     .then(function (data) {
 
