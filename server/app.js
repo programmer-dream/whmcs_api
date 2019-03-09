@@ -14,6 +14,8 @@ var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 
+
+
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
 // use querystring library to parse x-www-form-urlencoded data for flat data structure (not nested data)
@@ -29,6 +31,12 @@ let mysqlconfig = require("./config/sql.js");
 
 app.use(passport.initialize());
 app.use(passport.session());
+// to pass data from axios to express route
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
+
+// to handle the session
 var session = require("express-session");
 
 //app.use(whmcs.initialize());
@@ -250,7 +258,7 @@ app.get("/newusersvariables", function (req, res) {
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 /*
-app.get("/newstudentroute", {
+app.post("/newstudentroute", {
 
 })
   .then(function (data) {
@@ -259,6 +267,11 @@ app.get("/newstudentroute", {
   .catch(function (error) {
     console.log(error);
   }); */
+
+app.post('/newstudentroute', (req, res) => {
+  console.log(req.body) //undefined
+  res.end("Success")
+})
 
 app.get("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
