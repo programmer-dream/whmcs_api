@@ -277,27 +277,28 @@ app.post('/newstudentroute', (req, res) => {
     })
     .then(function (response) {
       console.log(response);
+      var resclientid = response.clientid;
+
+      const addOrder = new Orders(config);
+
+      addOrder.addOrder({
+
+        clientid: resclientid.clientid,
+        paymentmethod: 'none'
+
+      })
+
+
+
     })
     .catch(function (error) {
       res.send(error);
     });
 
-  /* 
-   addClient.getClientsDetails({
- 
-     clientid: clientid
- 
-   })
-   const addOrder = new Orders(config);
- 
-   addOrder.addOrder({
- 
-     clientid: clientid,
-     paymentmethod: 'none'
- 
-   })
- 
- */
+
+
+
+
 
 })
 
