@@ -112,21 +112,21 @@ app.get("/addclient", function (req, res) {
     });
 });
 
-/* Route used for testing adding an order 
+/* Route used for testing adding an order*/
+
 app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
 
   addOrder
     .addOrder({
-      clientid: 28,
-      domain: 'test.test.com',
+      clientid: 25,
+      pid: 1,
+      domain: 'dddnick.com',
       paymentmethod: 'banktransfer',
       noemail: true,
       noinvoice: true,
-      noinvoiceemail: true,
-      nameserver1: 'ns1' + '.' + req.body.domainname,
-      nameserver2: 'ns2' + '.' + req.body.domainname,
+      noinvoiceemail: true
     })
     .then(function (data) {
       res.send(data);
@@ -136,8 +136,7 @@ app.get("/addorder", function (req, res) {
     });
 
 
-});*/
-
+});
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
@@ -307,22 +306,16 @@ app.post('/newstudentroute', (req, res) => {
 
       const addOrder = new Orders(config);
       var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-      var domainnameformatted = useridrmspchar + '.' + req.body.domainname;
-      var ns1 = 'ns1' + '.' + req.body.domainname;
-      var ns2 = 'ns2' + '.' + req.body.domainname
 
       addOrder
         .addOrder({
           clientid: response.clientid,
           pid: 1,
-          domain: domainnameformatted,
-          //domaintype: subdomain,
+          domain: useridrmspchar,
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
-          noinvoiceemail: true,
-          nameserver1: ns1,
-          nameserver2: ns2,
+          noinvoiceemail: true
         })
         .then(function (data) {
           res.send(data);
