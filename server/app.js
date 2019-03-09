@@ -266,14 +266,15 @@ app.post('/newstudentroute', (req, res) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
-      address1: "N/A",
-      address2: "N/A",
-      city: "N/A",
-      state: "N/A",
-      postcode: "N/A",
-      country: "N/A",
-      phonenumber: "N/A",
+      address1: req.body.Address1,
+      address2: req.body.Address2,
+      city: req.body.City,
+      state: req.body.State,
+      postcode: req.body.Postcode,
+      country: req.body.Country,
+      phonenumber: req.body.Phone,
       notes: 'Created through Education Host AD login',
+      language: 'english',
       skipvalidation: true
     })
     .then(function (data) {
