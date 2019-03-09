@@ -88,7 +88,7 @@ app.get("/addclient", function (req, res) {
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called invoices
+  // Call the getClients call and store the data in the variable called
   addClient
     .addClient({
       firstname: "Nick",
@@ -254,13 +254,11 @@ app.get("/newusersvariables", function (req, res) {
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
 app.post('/newstudentroute', (req, res) => {
-  console.log(req.body) //undefined
-
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called invoices
+  // Call the getClients call and store the data in the variable called 
   addClient
     .addClient({
       firstname: req.body.firstname,
@@ -278,15 +276,14 @@ app.post('/newstudentroute', (req, res) => {
       skipvalidation: true
     })
     .then(function (data) {
-      res.send('SUCCESSFULLY ADDED USER TO WHMCS');
+      // redirect the user to the login callback, which should see that they are already a user and automatically log them in
+      res.redirect("/login/callback");
     })
     .catch(function (error) {
       res.send(error);
     });
 
 
-
-  res.end("Success")
 })
 
 app.get("/home", function (req, res) {
