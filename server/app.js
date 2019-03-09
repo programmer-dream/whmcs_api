@@ -304,30 +304,34 @@ app.post('/newstudentroute', (req, res) => {
     .then(function (response) {
       console.log(response);
 
+      const addOrder = new Orders(config);
+
+      addOrder
+        .addOrder({
+          clientid: response.clientid,
+          pid: 1,
+          domain: 'dddnick.com',
+          paymentmethod: 'banktransfer',
+          noemail: true,
+          noinvoice: true,
+          noinvoiceemail: true
+        })
+        .then(function (data) {
+          res.send(data);
+        })
+        .catch(function (error) {
+          res.send(error);
+        });
+
+
+
     })
     .catch(function (error) {
       res.send(error);
     });
 
 
-  const addOrder = new Orders(config);
 
-  addOrder
-    .addOrder({
-      clientid: response.clientid,
-      pid: 1,
-      domain: 'dddnick.com',
-      paymentmethod: 'banktransfer',
-      noemail: true,
-      noinvoice: true,
-      noinvoiceemail: true
-    })
-    .then(function (data) {
-      res.send(data);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
 
 
 
