@@ -276,8 +276,7 @@ app.post('/newstudentroute', (req, res) => {
       skipvalidation: true
     })
     .then(function (data) {
-      // redirect the user to the login callback, which should see that they are already a user and automatically log them in
-      res.redirect("/login/callback");
+
     })
     .catch(function (error) {
       res.send(error);
