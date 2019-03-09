@@ -112,7 +112,7 @@ app.get("/addclient", function (req, res) {
 });
 
 
-app.get("/addclient", function (req, res) {
+app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
 
