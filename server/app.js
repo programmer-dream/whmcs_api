@@ -13,8 +13,6 @@ const jQuery = require("jquery");
 var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
-var routes = require('routes');
-
 
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
@@ -32,10 +30,6 @@ let mysqlconfig = require("./config/sql.js");
 
 app.use(passport.initialize());
 app.use(passport.session());
-// to pass data from axios to express route
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(routes);
 
 // to handle the session
 var session = require("express-session");

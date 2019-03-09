@@ -27,7 +27,6 @@
     "passport-saml": "^1.0.0",
     "passport-saml-metadata": "^1.6.0",
     "popper.js": "^1.14.7",
-    "routes": "^2.1.0",
     "saml2js": "^0.1.2",
     "sha1": "^1.1.1",
     "whmcs-js": "^2.0.0"
