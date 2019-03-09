@@ -262,7 +262,7 @@ app.post("/newstudentroute", {})
   });*/
 
 app.post('/newstudentroute', (req, res) => {
-  console.log(req.body) //undefined
+  console.log(req.body.firstName) //undefined
   res.end("Success")
 })
 
