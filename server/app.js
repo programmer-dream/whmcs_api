@@ -308,6 +308,8 @@ app.post('/newstudentroute', (req, res) => {
       const addOrder = new Orders(config);
       var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
       var domainnameformatted = useridrmspchar + '.' + req.body.domainname;
+      var ns1 = 'ns1' + '.' + req.body.domainname;
+      var ns2 = 'ns2' + '.' + req.body.domainname
 
       addOrder
         .addOrder({
@@ -319,8 +321,8 @@ app.post('/newstudentroute', (req, res) => {
           noemail: true,
           noinvoice: true,
           noinvoiceemail: true,
-          nameserver1: 'ns1' + '.' + req.body.domainname,
-          nameserver2: 'ns2' + '.' + req.body.domainname,
+          nameserver1: ns1,
+          nameserver2: ns2,
         })
         .then(function (data) {
           res.send(data);
