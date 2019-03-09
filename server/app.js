@@ -255,6 +255,36 @@ app.get("/newusersvariables", function (req, res) {
 
 app.post('/newstudentroute', (req, res) => {
   console.log(req.body) //undefined
+
+  // Set up the module with the config file
+  // and store it in this variable - can be called anything you want
+  const addClient = new Clients(config);
+
+  // Call the getClients call and store the data in the variable called invoices
+  addClient
+    .addClient({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      address1: "N/A",
+      address2: "N/A",
+      city: "N/A",
+      state: "N/A",
+      postcode: "N/A",
+      country: "N/A",
+      phonenumber: "N/A",
+      notes: 'Created through Education Host AD login',
+      skipvalidation: true
+    })
+    .then(function (data) {
+      res.send('SUCCESSFULLY ADDED USER TO WHMCS');
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+
+
+
   res.end("Success")
 })
 
