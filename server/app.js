@@ -112,7 +112,7 @@ app.get("/addclient", function (req, res) {
     });
 });
 
-/* Route used for testing adding an order */
+/* Route used for testing adding an order 
 app.get("/addorder", function (req, res) {
 
   const addOrder = new Orders(config);
@@ -136,7 +136,7 @@ app.get("/addorder", function (req, res) {
     });
 
 
-});
+});*/
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
@@ -313,7 +313,7 @@ app.post('/newstudentroute', (req, res) => {
           clientid: response.clientid,
           pid: 1,
           domain: useridrmspchar + '.' + req.body.domainname,
-          domaintype: subdomain,
+          //domaintype: subdomain,
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
