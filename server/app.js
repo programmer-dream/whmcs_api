@@ -290,7 +290,7 @@ app.post('/newstudentroute', (req, res) => {
 
     clientid: 19,
     pid: 1,
-    domain: 'nick.com',
+    domain: 'dddnick.com',
     paymentmethod: 'Bank'
 
   })
