@@ -288,7 +288,7 @@ app.post('/newstudentroute', (req, res) => {
 
   addOrder.addOrder({
 
-    clientid: response.clientid,
+    clientid: 19,
     pid: 1,
     domain: 'nick.com',
     paymentmethod: 'Bank'
