@@ -278,27 +278,22 @@ app.post('/newstudentroute', (req, res) => {
     .then(function (response) {
       console.log(response);
 
-
-      const addOrder = new Orders(config);
-
-      addOrder.addOrder({
-
-        action: "AddOrder",
-        clientid: response.clientid,
-        pid: 1,
-        domain: 'dddnick.com',
-        paymentmethod: 'Bank'
-
-      })
-
-
-
     })
     .catch(function (error) {
       res.send(error);
     });
 
 
+  const addOrder = new Orders(config);
+
+  addOrder.addOrder({
+
+    clientid: response.clientid,
+    pid: 1,
+    domain: 'dddnick.com',
+    paymentmethod: 'Bank'
+
+  })
 
 
 
