@@ -277,18 +277,6 @@ app.post('/newstudentroute', (req, res) => {
     })
     .then(function (response) {
       console.log(response);
-      var resclientid = response.clientid;
-
-      const addOrder = new Orders(config);
-
-      addOrder.addOrder({
-
-        clientid: resclientid.clientid,
-        paymentmethod: 'none'
-
-      })
-
-
 
     })
     .catch(function (error) {
@@ -296,7 +284,15 @@ app.post('/newstudentroute', (req, res) => {
     });
 
 
+  const addOrder = new Orders(config);
 
+  addOrder.addOrder({
+
+    clientid: response.clientid,
+    domain: 'nick@nick.com',
+    paymentmethod: 'none'
+
+  })
 
 
 
