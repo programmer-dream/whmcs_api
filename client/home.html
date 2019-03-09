@@ -125,28 +125,28 @@
 					// log all data thats returned
 					console.log(data);
 
+
+
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/newstudentroute',
+						data: {
+							firstName: data.domainname,
+							lastName: 'Flintstone'
+						}
+
+							.then(function (response) {
+								console.log(response);
+							})
+							.catch(function (error) {
+								console.log(error);
+
+							})
+
+					});
+
 				});
-			var data = response.data[0];
-			// Send a POST request
-			axios({
-				method: 'post',
-				url: '/newstudentroute',
-				data: {
-					firstName: data.domainname,
-					lastName: 'Flintstone'
-				}
-
-					.then(function (response) {
-						console.log(response);
-					})
-					.catch(function (error) {
-						console.log(error);
-
-					})
-
-			});
-
-
 
 		}; // End of student function
 
