@@ -112,7 +112,7 @@ app.get("/addclient", function (req, res) {
     });
 });
 
-/* Route used for testing adding an order*/
+/* Route used for testing adding an order
 
 app.get("/addorder", function (req, res) {
 
@@ -136,7 +136,7 @@ app.get("/addorder", function (req, res) {
     });
 
 
-});
+});*/
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
