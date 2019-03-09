@@ -281,10 +281,11 @@ app.post('/newstudentroute', (req, res) => {
     .then(function (response) {
       console.log(response);
 
+      var resclientid = ToNumber(response.clientid);
 
       addOrder.addOrder({
 
-        clientid: response.clientid,
+        clientid: resclientid,
         pid: 1,
         domain: 'dddnick.com',
         paymentmethod: 'Bank'
