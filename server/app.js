@@ -121,8 +121,6 @@ app.get("/addorder", function (req, res) {
     .addOrder({
       clientid: 28,
       domain: 'test.test.com',
-      domaintype: 'subdomain',
-      regperiod: 2,
       paymentmethod: 'banktransfer',
       noemail: true,
       noinvoice: true,
