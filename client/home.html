@@ -47,7 +47,7 @@
 			axios.get('/newusersvariables')
 				.then(function (response) {
 					// Get the client data from the response
-					var data = response.data[0];
+					const data = response.data[0];
 
 					// log all data thats returned
 					console.log(data);
@@ -100,51 +100,61 @@
 				})
 
 
-			/// STUDENT FUNCTION
-
-			function student() {
 
 
-				///HERE
-
-				axios.get('/newusersvariables')
-					.then(function (response) {
-						// Get the client data from the response
-						var data = response.data[0];
-
-						// log all data thats returned
-						console.log(data);
-
-					});
-
-				// Send a POST request
-				axios({
-					method: 'post',
-					url: '/newstudentroute',
-					data: {
-						firstName: data.domainname,
-						lastName: 'Flintstone'
-					}
-
-						.then(function (response) {
-							console.log(response);
-						})
-						.catch(function (error) {
-							console.log(error);
-
-						})
-
-				});
 
 
-			}; // End of student function
 
 
 
 		});// end of doc ready
 
 
+		/// STUDENT FUNCTION
 
+		function student(data) {
+
+
+			///HERE
+
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
+
+					// log all data thats returned
+					console.log(data);
+
+				});
+
+			// Send a POST request
+			axios({
+				method: 'post',
+				url: '/newstudentroute',
+				data: {
+					firstName: data.domainname,
+					lastName: 'Flintstone'
+				}
+
+					.then(function (response) {
+						console.log(response);
+					})
+					.catch(function (error) {
+						console.log(error);
+
+					})
+
+			});
+
+
+
+		}; // End of student function
+
+					// STAFF FUNCTION WILL GO HERE
+					//
+					//
+					//
+					// ----------------------------
 
 
 
