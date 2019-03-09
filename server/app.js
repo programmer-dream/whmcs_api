@@ -121,7 +121,7 @@ app.get("/addorder", function (req, res) {
     .addOrder({
       clientid: 28,
       domaintype: 'subdomain',
-      regperiod: 100000,
+      regperiod: 2,
       paymentmethod: 'banktransfer',
       noemail: true,
       noinvoice: true,
