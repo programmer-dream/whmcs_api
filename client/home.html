@@ -91,7 +91,23 @@
 
 
 
-				})
+					/// STUDENT FUNCTION
+
+					function student() {
+
+						// Send a POST request
+						axios({
+							method: 'post',
+							url: '/newstudentroute',
+							data: {
+								firstName: data.domainname,
+								lastName: 'Flintstone'
+							}
+						});
+
+
+
+					})
 
 
 				.catch(function (error) {
@@ -101,27 +117,14 @@
 		});// end of doc ready
 
 
-		/// STUDENT FUNCTION
 
-		function student() {
+					// STAFF FUNCTION WILL GO HERE
+					//
+					//
+					//
+					// ----------------------------
 
-			// Send a POST request
-			axios({
-				method: 'post',
-				url: '/newstudentroute',
-				data: {
-					firstName: data.domainname,
-					lastName: 'Flintstone'
-				}
-			});
-
-			// STAFF FUNCTION WILL GO HERE
-			//
-			//
-			//
-			// ----------------------------
-
-		}; // End of student function
+					}; // End of student function
 
 					// STAFF FUNCTION WILL GO HERE
 					//
