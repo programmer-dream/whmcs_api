@@ -305,16 +305,20 @@ app.post('/newstudentroute', (req, res) => {
       console.log(response);
 
       const addOrder = new Orders(config);
+      var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
       addOrder
         .addOrder({
           clientid: response.clientid,
           pid: 1,
-          domain: 'dddnick.com',
+          domain: useridrmspchar + '.' + req.body.domainname,
+          domaintype: subdomain,
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
-          noinvoiceemail: true
+          noinvoiceemail: true,
+          nameserver1: 'ns1' + '.' + req.body.domainname,
+          nameserver2: 'ns2' + '.' + req.body.domainname,
         })
         .then(function (data) {
           res.send(data);
