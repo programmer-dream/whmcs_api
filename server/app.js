@@ -111,6 +111,21 @@ app.get("/addclient", function (req, res) {
     });
 });
 
+
+app.get("/addclient", function (req, res) {
+
+  const addOrder = new Orders(config);
+
+  addOrder.addOrder({
+
+    clientid: 25,
+    pid: 1,
+    domain: 'dddnick.com',
+    paymentmethod: 'Bank'
+
+  })
+});
+
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
