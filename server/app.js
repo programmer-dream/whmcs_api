@@ -275,27 +275,29 @@ app.post('/newstudentroute', (req, res) => {
       language: 'english',
       skipvalidation: true
     })
-
-  addClient.getClientsDetails({
-
-    clientid
-
-  })
-  const addOrder = new Orders(config);
-
-  addOrder.addOrder({
-
-    clientid: clientid,
-    paymentmethod: 'none'
-
-  })
-
-    .then(function (data) {
-
+    .then(function (response) {
+      console.log(response);
     })
     .catch(function (error) {
       res.send(error);
     });
+
+  /* 
+   addClient.getClientsDetails({
+ 
+     clientid: clientid
+ 
+   })
+   const addOrder = new Orders(config);
+ 
+   addOrder.addOrder({
+ 
+     clientid: clientid,
+     paymentmethod: 'none'
+ 
+   })
+ 
+ */
 
 })
 
