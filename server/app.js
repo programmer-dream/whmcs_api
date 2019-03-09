@@ -307,12 +307,13 @@ app.post('/newstudentroute', (req, res) => {
 
       const addOrder = new Orders(config);
       var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+      var domainnameformatted = useridrmspchar + '.' + req.body.domainname;
 
       addOrder
         .addOrder({
           clientid: response.clientid,
           pid: 1,
-          domain: useridrmspchar + '.' + req.body.domainname,
+          domain: domainnameformatted,
           //domaintype: subdomain,
           paymentmethod: 'banktransfer',
           noemail: true,
