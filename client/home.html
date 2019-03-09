@@ -125,7 +125,8 @@
 					// log all data thats returned
 					console.log(data);
 
-
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+					var fulldomain = useridrmspchar + '.' + data.domainname;
 
 					// Send a POST request
 					axios({
@@ -135,6 +136,7 @@
 							ID: data.ID,
 							userid: data.userid,
 							domainname: data.domainname,
+							fulldomain: fulldomain,
 							email: data.email,
 							firstname: data.firstname,
 							lastname: data.lastname,

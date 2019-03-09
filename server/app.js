@@ -310,7 +310,7 @@ app.post('/newstudentroute', (req, res) => {
         .addOrder({
           clientid: response.clientid,
           pid: 1,
-          domain: 'dddnick.com',
+          domain: req.body.fulldomain,
           paymentmethod: 'banktransfer',
           noemail: true,
           noinvoice: true,
