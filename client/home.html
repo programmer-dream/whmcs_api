@@ -47,7 +47,7 @@
 			axios.get('/newusersvariables')
 				.then(function (response) {
 					// Get the client data from the response
-					const data = response.data[0];
+					var data = response.data[0];
 
 					// log all data thats returned
 					console.log(data);
@@ -126,7 +126,7 @@
 					console.log(data);
 
 				});
-
+			var data = response.data[0];
 			// Send a POST request
 			axios({
 				method: 'post',
