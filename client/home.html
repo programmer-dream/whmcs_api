@@ -113,6 +113,8 @@
 					// Get the client data from the response
 					var data = response.data[0];
 
+					var postdata = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
+
 					// log all data thats returned
 					console.log(data);
 
@@ -123,7 +125,7 @@
 				method: 'post',
 				url: '/newstudentroute',
 				data: {
-					firstName: data.domainname,
+					firstName: postdata.module1,
 					lastName: 'Flintstone'
 				}
 
