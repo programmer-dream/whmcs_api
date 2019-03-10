@@ -325,7 +325,7 @@ app.post('/newstudentroute', (req, res) => {
           moduleCreate
             .moduleCreate({
 
-              serviceid: response.serviceid
+              serviceid: response.productids
 
             })
         })
