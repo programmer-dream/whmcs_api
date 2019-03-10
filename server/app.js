@@ -364,6 +364,22 @@ app.post('/newstudentroute', (req, res) => {
               res.send(error);
             });
 
+          const updateClientProduct = new Services(config);
+          const randomstring = Math.random().toString(36).substring(2, 8);
+
+          updateClientProduct.updateClientProduct({
+            serviceid: response.productids,
+            serviceusername: randomstring
+          })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
+
+
+
           // create the accepted order
           const moduleCreate = new Services(config);
 
