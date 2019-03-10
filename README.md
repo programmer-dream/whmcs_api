@@ -7,3 +7,4 @@ Active Directory SAML - WHMCS authentication &amp; setup
 
 Add payment gateway (Bank transfer) and call it Bank
 Make sure the Client Signup Email in WHMCS is altered to reflect the actual login URL
+Add server to WHMCS solution

@@ -65,6 +65,7 @@ app.get("/handlebars", function (req, res) {
 // Get the clients module from whmcs-js
 const { Clients } = require("whmcs-js");
 const { Orders } = require("whmcs-js");
+const { Services } = require("whmcs-js");
 
 app.get("/listallwhmcsusers", function (req, res) {
   // Set up the module with the config file
@@ -321,7 +322,12 @@ app.post('/newstudentroute', (req, res) => {
         .then(function (response) {
           console.log(response);
           // Once the service is added approve the service automatically
+          moduleCreate
+            .moduleCreate({
 
+              serviceid: response.serviceid
+
+            })
         })
         .catch(function (error) {
           res.send(error);
