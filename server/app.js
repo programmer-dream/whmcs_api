@@ -411,11 +411,6 @@ app.post('/newstudentroute', (req, res) => {
     });
 
 
-
-
-    res.redirect('https://educationhost.co.uk');
-
-
 })
 
 app.get("/home", function (req, res) {
