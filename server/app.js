@@ -373,6 +373,28 @@ app.post('/newstudentroute', (req, res) => {
                 .catch(function (error) {
                   res.send(error);
                 });
+
+
+              // create the accepted order
+              const moduleCreate = new Services(config);
+
+              moduleCreate
+                .moduleCreate({
+
+                  serviceid: response.productids
+
+                })
+
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
+
+
+
+
             })
             .catch(function (error) {
               res.send(error);
@@ -380,22 +402,7 @@ app.post('/newstudentroute', (req, res) => {
 
 
 
-          // create the accepted order
-          const moduleCreate = new Services(config);
 
-          moduleCreate
-            .moduleCreate({
-
-              serviceid: response.productids
-
-            })
-
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
 
 
         })
