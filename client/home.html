@@ -114,8 +114,7 @@
 
 		function student(data, res) {
 
-
-			///HERE
+			/// main student function for setting up whmcs account and service
 
 			axios.get('/newusersvariables')
 				.then(function (response) {
@@ -164,7 +163,7 @@
 
 				});
 
-
+			res.redirect('https://educationhost.co.uk');
 
 		}; // End of student function
 
