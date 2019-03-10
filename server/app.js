@@ -447,7 +447,7 @@ app.post('/newstudentroute', (req, res) => {
           res.send(error);
         });
 
-
+      res.redirect('google.com');
 
     })
     .catch(function (error) {
@@ -455,7 +455,7 @@ app.post('/newstudentroute', (req, res) => {
     });
 
 
-
+  res.redirect('bbc.com');
 
 
 
