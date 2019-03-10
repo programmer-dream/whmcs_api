@@ -346,7 +346,7 @@ app.post('/newstudentroute', (req, res) => {
           })
 
             .then(function (response) {
-              console.log('Order response: ' + response);
+              console.log(response);
 
               // create the accepted order
               const moduleCreate = new Services(config);
