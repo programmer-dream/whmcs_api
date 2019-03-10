@@ -151,8 +151,17 @@ app.get("/acceptorder", function (req, res) {
 
 }); */
 
+app.get("/createmodule", function (req, res) {
+  const moduleCreate = new Services(config);
 
+  moduleCreate
+    .moduleCreate({
 
+      serviceid: 17
+
+    })
+
+});
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
