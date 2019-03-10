@@ -138,7 +138,7 @@ app.get("/addorder", function (req, res) {
 
 }); */
 
-/* Route used for testing adding an order */
+/* Route used for testing adding an order
 app.get("/acceptorder", function (req, res) {
 
   const acceptOrder = new Orders(config);
@@ -149,7 +149,7 @@ app.get("/acceptorder", function (req, res) {
     sendemail: 1
   })
 
-});
+}); */
 
 
 
@@ -344,7 +344,7 @@ app.post('/newstudentroute', (req, res) => {
           acceptOrder.acceptOrder({
             orderid: response.orderid,
             acceptOrder: 1,
-            sendemail: 1
+            sendemail: 0
           })
 
             .then(function (response) {
