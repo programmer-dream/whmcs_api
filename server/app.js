@@ -364,8 +364,10 @@ app.post('/newstudentroute', (req, res) => {
               res.send(error);
             });
 
+          // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+          // This will be a random string with the mat.random function
           const updateClientProduct = new Services(config);
-          const randomstring = Math.random().toString(36).substring(2, 8);
+          const randomstring = Math.random().toString(36).substring(1, 8);
 
           updateClientProduct.updateClientProduct({
             serviceid: response.productids,
@@ -397,6 +399,36 @@ app.post('/newstudentroute', (req, res) => {
               res.send(error);
             });
 
+
+          // Store the variables
+          // URL of the WHMCS installation
+          var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+          // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+          var autoauthkey = "V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q";
+          // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+          var timestamp = Math.floor(Date.now() / 1000);
+          // get the email address that is returned from the IDP
+          var urlemail = req.body.email;
+          // URL to where the user is to go once logged into WHMCS
+          var goto = "clientarea.php";
+          // add the three variables together that are required for the WHMCS hash
+          var hashedstrings = email + timestamp + autoauthkey;
+          // use the sha1 node module to hash the variable
+          var hash = sha1(hashedstrings);
+          // create the URL to pass and redirect the user
+          res.redirect(
+            whmcsurl +
+            "?email=" +
+            urlemail +
+            "&timestamp=" +
+            timestamp +
+            "&hash=" +
+            hash +
+            "&goto=" +
+            goto
+
+
+          );
 
         })
         .catch(function (error) {
