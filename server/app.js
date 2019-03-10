@@ -413,7 +413,7 @@ app.post('/newstudentroute', (req, res) => {
 
 
 
-
+    res.redirect('https://educationhost.co.uk');
 
 
 })
