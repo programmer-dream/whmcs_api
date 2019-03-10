@@ -337,23 +337,41 @@ app.post('/newstudentroute', (req, res) => {
         })
         .then(function (response) {
           console.log(response);
+
+
           // Once the service is added approve the service automatically
 
-          const moduleCreate = new Services(config);
-
-          moduleCreate
-            .moduleCreate({
-
-              serviceid: response.productids
-
-            })
+          acceptOrder.acceptOrder({
+            orderid: response.orderid
+          })
 
             .then(function (response) {
-              console.log(response);
+              console.log('Order response: ' + response);
+
+              // create the accepted order
+              const moduleCreate = new Services(config);
+
+              moduleCreate
+                .moduleCreate({
+
+                  serviceid: response.productids
+
+                })
+
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
+
             })
             .catch(function (error) {
               res.send(error);
             });
+
+
+
 
         })
         .catch(function (error) {
