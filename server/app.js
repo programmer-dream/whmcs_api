@@ -141,7 +141,7 @@ app.get("/addorder", function (req, res) {
 /* Route used for testing adding an order */
 app.get("/acceptorder", function (req, res) {
 
-  const addOrder = new Orders(config);
+  const acceptOrder = new Orders(config);
 
   acceptOrder.acceptOrder({
     orderid: 16,
@@ -339,7 +339,7 @@ app.post('/newstudentroute', (req, res) => {
 
 
           // Once the service is added approve the service automatically
-          const addOrder = new Orders(config);
+          const acceptOrder = new Orders(config);
 
           acceptOrder.acceptOrder({
             orderid: response.orderid,
