@@ -138,19 +138,18 @@ app.get("/addorder", function (req, res) {
 
 }); */
 
-/* Route used for testing adding an order
-app.get("/addorder", function (req, res) {
+/* Route used for testing adding an order */
+app.get("/acceptorder", function (req, res) {
 
-  const moduleCreate = new Services(config);
+  const addOrder = new Orders(config);
 
-  moduleCreate
-  .moduleCreate({
-
-    serviceid: response.productids
-
+  acceptOrder.acceptOrder({
+    orderid: 16,
+    acceptOrder: 1,
+    sendemail: 1
   })
 
-}); */
+});
 
 
 
@@ -340,9 +339,12 @@ app.post('/newstudentroute', (req, res) => {
 
 
           // Once the service is added approve the service automatically
+          const addOrder = new Orders(config);
 
           acceptOrder.acceptOrder({
-            orderid: response.orderid
+            orderid: response.orderid,
+            acceptOrder: 1,
+            sendemail: 1
           })
 
             .then(function (response) {
