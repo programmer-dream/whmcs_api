@@ -138,6 +138,22 @@ app.get("/addorder", function (req, res) {
 
 }); */
 
+/* Route used for testing adding an order
+app.get("/addorder", function (req, res) {
+
+  const moduleCreate = new Services(config);
+
+  moduleCreate
+  .moduleCreate({
+
+    serviceid: response.productids
+
+  })
+
+}); */
+
+
+
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
@@ -322,12 +338,23 @@ app.post('/newstudentroute', (req, res) => {
         .then(function (response) {
           console.log(response);
           // Once the service is added approve the service automatically
+
+          const moduleCreate = new Services(config);
+
           moduleCreate
             .moduleCreate({
 
               serviceid: response.productids
 
             })
+
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
+
         })
         .catch(function (error) {
           res.send(error);
