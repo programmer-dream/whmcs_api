@@ -371,32 +371,34 @@ app.post('/newstudentroute', (req, res) => {
           const randomstring = Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
           console.log(randomstring);
           updateClientProduct.updateClientProduct({
-            serviceid: response.productids,
+            productids: response.productids,
             serviceusername: randomstring
           })
             .then(function (response) {
               console.log(response);
+
+              // create the accepted order
+              const moduleCreate = new Services(config);
+
+              moduleCreate
+                .moduleCreate({
+
+                  serviceid: response.productids
+
+                })
+
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
             })
             .catch(function (error) {
               res.send(error);
             });
 
-          // create the accepted order
-          const moduleCreate = new Services(config);
 
-          moduleCreate
-            .moduleCreate({
-
-              serviceid: response.productids
-
-            })
-
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
 
 
 
