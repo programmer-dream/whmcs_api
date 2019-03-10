@@ -303,7 +303,7 @@ app.post('/newstudentroute', (req, res) => {
     })
     .then(function (response) {
       console.log(response);
-
+      // Once the user is added in WHMCS, then add the service
       const addOrder = new Orders(config);
 
       addOrder
@@ -318,8 +318,10 @@ app.post('/newstudentroute', (req, res) => {
           noinvoice: true,
           noinvoiceemail: true
         })
-        .then(function (data) {
-          res.send(data);
+        .then(function (response) {
+          console.log(response);
+          // Once the service is added approve the service automatically
+
         })
         .catch(function (error) {
           res.send(error);
