@@ -149,7 +149,7 @@ app.get("/acceptorder", function (req, res) {
     sendemail: 1
   })
 
-}); */
+});
 
 app.get("/createmodule", function (req, res) {
   const moduleCreate = new Services(config);
@@ -161,7 +161,7 @@ app.get("/createmodule", function (req, res) {
 
     })
 
-});
+}); */
 /*--------------------------------------------------------------------------------------------------*/
 /* 							Assets folders that can be called from html                             */
 /* 			       	Anything in the assets folder can be referenced in the html                     */
@@ -359,29 +359,27 @@ app.post('/newstudentroute', (req, res) => {
             .then(function (response) {
               console.log(response);
 
-              // create the accepted order
-              const moduleCreate = new Services(config);
-
-              moduleCreate
-                .moduleCreate({
-
-                  serviceid: response.productids
-
-                })
-
-                .then(function (response) {
-                  console.log(response);
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
-
             })
             .catch(function (error) {
               res.send(error);
             });
 
+          // create the accepted order
+          const moduleCreate = new Services(config);
 
+          moduleCreate
+            .moduleCreate({
+
+              serviceid: response.productids
+
+            })
+
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
 
 
         })
