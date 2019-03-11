@@ -319,10 +319,21 @@ app.get("/newusersvariables", function (req, res) {
 app.post('/newstudentroute', (req, res) => {
 
 
-  // Add 0 flag to the isStaff column in the database (value = 0)
   // Add modules that the student has selected to the database
-
-  // INSERT INTO DB
+  //var selectedmodules = ARRAY;
+  /*
+    var con = mysql.createConnection(mysqlconfig);
+    con.connect(function (err) {
+      if (err) throw err;
+      console.log("Connected!");
+      var sql = "INSERT INTO user_idpdetails (isStaff) VALUES ('0')";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
+    });
+    connection.end();
+    */
 
 
   // Set up the module with the config file
