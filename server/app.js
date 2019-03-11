@@ -327,6 +327,12 @@ app.post('/newstudentroute', (req, res) => {
       skipvalidation: true
     })
     .then(function (response) {
+
+      /* RETURNS 
+      { result: 'success', 
+      clientid: 72 } */
+
+
       console.log(response);
       // Once the user is added in WHMCS, then add the service
       const addOrder = new Orders(config);
@@ -344,6 +350,15 @@ app.post('/newstudentroute', (req, res) => {
           noinvoiceemail: true
         })
         .then(function (response) {
+
+
+          /* RETURNS 
+          { result: 'success',
+          orderid: 47,
+          productids: '43',
+          addonids: '',
+          domainids: '' } */
+
           console.log(response);
 
 
@@ -357,6 +372,13 @@ app.post('/newstudentroute', (req, res) => {
           })
 
             .then(function (response) {
+
+              /* 
+              RETURNS 
+              { result: 'success' }
+              
+              */
+
               console.log(response);
 
 
@@ -375,28 +397,40 @@ app.post('/newstudentroute', (req, res) => {
             serviceusername: randomstring
           })
             .then(function (response) {
+
+              /* 
+              RETURNS 
+              sonsfa9
+              { result: 'success', serviceid: '34' }
+
+              
+              */
+
               console.log(response);
+
+              // create the accepted order
+              const moduleCreate = new Services(config);
+              moduleCreate
+                .moduleCreate({
+
+                  serviceid: response.serviceid
+
+                })
+
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
+
 
             })
             .catch(function (error) {
               res.send(error);
             });
 
-          // create the accepted order
-          const moduleCreate = new Services(config);
-          moduleCreate
-            .moduleCreate({
 
-              serviceid: response.productids
-
-            })
-
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
         })
         .catch(function (error) {
           res.send(error);
