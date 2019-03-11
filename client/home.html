@@ -48,7 +48,8 @@
 		$(document).ready(function () {
 			// Spinner
 			$('#spinner').click(function () {
-				$(this).toggleClass('active'); student();
+				$(this).toggleClass('active'); //student();
+				console.log($(this));
 			});
 
 			// Make a request for the whmcs route using axios
