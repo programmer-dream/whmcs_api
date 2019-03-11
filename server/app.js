@@ -425,7 +425,8 @@ app.post('/newstudentroute', (req, res) => {
 										})
 
 										.then(function (moduleCreateResponse) {
-											console.log(moduleCreateResponse);
+                      console.log(moduleCreateResponse);
+                      res.setHeader("Content-Type", "text/html");
 											res.redirect('/');
 										})
 										.catch(function (error) {
