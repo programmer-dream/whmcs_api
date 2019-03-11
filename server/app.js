@@ -360,25 +360,22 @@ app.post('/newstudentroute', (req, res) => {
               console.log(response);
 
 
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
 
-              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
-              // This will be a random string with the mat.random function
-              const updateClientProduct = new Services(config);
-              const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-              console.log(randomstring);
-              updateClientProduct.updateClientProduct({
-                serviceid: response.productids,
-                serviceusername: randomstring
-              })
-                .then(function (response) {
-                  console.log(response);
-
-
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
-
+          // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+          // This will be a random string with the mat.random function
+          const updateClientProduct = new Services(config);
+          const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+          console.log(randomstring);
+          updateClientProduct.updateClientProduct({
+            serviceid: response.productids,
+            serviceusername: randomstring
+          })
+            .then(function (response) {
+              console.log(response);
 
             })
             .catch(function (error) {
@@ -396,13 +393,10 @@ app.post('/newstudentroute', (req, res) => {
 
             .then(function (response) {
               console.log(response);
-              res.redirect('/')
             })
             .catch(function (error) {
               res.send(error);
             });
-
-
         })
         .catch(function (error) {
           res.send(error);
