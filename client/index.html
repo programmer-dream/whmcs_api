@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="Login" />
-    <meta name="author" content="" />
-    <link rel="icon" href="favicon.ico" />
 
-    <title>Welcome</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Login" />
+  <meta name="author" content="" />
+  <link rel="icon" href="favicon.ico" />
 
-    <base href="/" />
+  <title>Single Sign On</title>
 
-    <!-- Bootstrap core CSS 
+  <base href="/" />
+
+  <!-- Bootstrap core CSS 
     <link href="css/bootstrap.min.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/css/signin.css" type="text/css" />
-    <!--<link href="signin.css" rel="stylesheet">-->
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="/css/signin.css" type="text/css" />
+  <!--<link href="signin.css" rel="stylesheet">-->
 
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <!--Fontawesome CDN-->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-      crossorigin="anonymous"
-    />
-  </head>
+  <!--Fontawesome CDN-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+</head>
 
-  <body class="text-center">
-    <div class="container">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="card-header">
-            <p></p>
-            <img src="Education_host_ltd_logo.png" alt="Logo" width="300px" />
-            <p></p>
-            <h4 style="color:#ffffff">Single Sign On</h4>
-          </div>
-          <div class="card-body">
-            <form>
-              <!--<div class="input-group form-group">
+<body class="text-center">
+  <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <p></p>
+          <img src="Education_host_ltd_logo.png" alt="Logo" width="300px" />
+          <p></p>
+          <h4 style="color:#ffffff">Single Sign On</h4>
+        </div>
+        <div class="card-body">
+          <form>
+            <!--<div class="input-group form-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fas fa-user"></i></span>
 									</div>
@@ -62,32 +56,28 @@
 									<input type="checkbox">Remember Me
 								</div>
 							-->
-              <p style="color:#ffffff">
-                Sign into your web hosting account with your university account.
-              </p>
-              <p style="color:#ffffff">
-                If this is the first time you have used this service, we will
-                take you through the setup on login.
-              </p>
-              <p></p>
-              <div class="form-group">
-                <input
-                  type="button"
-                  value="Login"
-                  class="btn float-right login_btn"
-                  onclick="call_login()"
-                />
-              </div>
-            </form>
-          </div>
+            <p style="color:#ffffff">
+              Sign into your web hosting account with your university account.
+            </p>
+            <p style="color:#ffffff">
+              If this is the first time you have used this service, we will
+              take you through the setup on login.
+            </p>
+            <p></p>
+            <div class="form-group">
+              <input type="button" value="Login" class="btn float-right login_btn" onclick="call_login()" />
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      function call_login() {
-        location.href = "/login";
-      }
-    </script>
-  </body>
+  <script>
+    function call_login() {
+      location.href = "/login";
+    }
+  </script>
+</body>
+
 </html>

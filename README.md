@@ -24,6 +24,7 @@ Assign the product to the server and package
 
 # Server setup
 
+Make sure the location hosting the app and the server are the same time (for the autoauth)\
 Setup a reseller user in WHM\
 Add API Token to the reseller account - Make sure the api access allows access to packages\
 Setup a package in WHM - make sure a module is assigned (cpanel and package)
