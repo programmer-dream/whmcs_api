@@ -13,7 +13,6 @@ const jQuery = require("jquery");
 var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
-const fa = require("font-awesome");
 
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
