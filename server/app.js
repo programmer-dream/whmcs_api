@@ -419,6 +419,7 @@ app.post('/newstudentroute', (req, res) => {
 
                 .then(function (response) {
                   console.log(response);
+                  res.redirect('/');
                 })
                 .catch(function (error) {
                   res.send(error);
