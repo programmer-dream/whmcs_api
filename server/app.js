@@ -390,13 +390,13 @@ app.post('/newstudentroute', (req, res) => {
           moduleCreate
             .moduleCreate({
 
-              serviceid: response.orderid
+              serviceid: response.productids
 
             })
 
             .then(function (response) {
               console.log(response);
-              res.redirect('https://www.educationhost.co.uk')
+              res.redirect('/')
             })
             .catch(function (error) {
               res.send(error);
