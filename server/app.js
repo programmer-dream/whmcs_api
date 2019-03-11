@@ -396,7 +396,6 @@ app.post('/newstudentroute', (req, res) => {
 
             .then(function (response) {
               console.log(response);
-              // res.redirect('https://www.educationhost.co.uk');
             })
             .catch(function (error) {
               res.send(error);
