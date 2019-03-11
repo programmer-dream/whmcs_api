@@ -18,7 +18,9 @@ const handlebars = require("express-handlebars");
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
 // use querystring library to parse x-www-form-urlencoded data for flat data structure (not nested data)
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
@@ -37,11 +39,11 @@ var session = require("express-session");
 //app.use(whmcs.initialize());
 
 app.get("/", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/index.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/index.html");
 });
 
 app.get("/test", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/test.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/test.html");
 });
 
 /*--------------------------------------------------------------------------------------------------*/
@@ -50,11 +52,11 @@ app.get("/test", function (req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 
 app.get("/whmcs", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/whmcs.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/whmcs.html");
 });
 
 app.get("/handlebars", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/handlebars.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/handlebars.html");
 });
 
 /*--------------------------------------------------------------------------------------------------*/
@@ -63,54 +65,60 @@ app.get("/handlebars", function (req, res) {
 /*--------------------------------------------------------------------------------------------------*/
 
 // Get the clients module from whmcs-js
-const { Clients } = require("whmcs-js");
-const { Orders } = require("whmcs-js");
-const { Services } = require("whmcs-js");
+const {
+	Clients
+} = require("whmcs-js");
+const {
+	Orders
+} = require("whmcs-js");
+const {
+	Services
+} = require("whmcs-js");
 
 app.get("/listallwhmcsusers", function (req, res) {
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const myClients = new Clients(config);
+	// Set up the module with the config file
+	// and store it in this variable - can be called anything you want
+	const myClients = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called invoices
-  myClients
-    .getClients()
-    .then(function (data) {
-      res.send(data);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
+	// Call the getClients call and store the data in the variable called invoices
+	myClients
+		.getClients()
+		.then(function (data) {
+			res.send(data);
+		})
+		.catch(function (error) {
+			res.send(error);
+		});
 });
 
 // Add client
 
 app.get("/addclient", function (req, res) {
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const addClient = new Clients(config);
+	// Set up the module with the config file
+	// and store it in this variable - can be called anything you want
+	const addClient = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called
-  addClient
-    .addClient({
-      firstname: "Nick",
-      lastname: "Andrew",
-      email: "nick@testingspiaddclient.com",
-      address1: "test",
-      address2: "test",
-      city: "Worcester",
-      state: "",
-      postcode: "",
-      country: "",
-      phonenumber: "",
-      skipvalidation: true
-    })
-    .then(function (data) {
-      res.send(data);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
+	// Call the getClients call and store the data in the variable called
+	addClient
+		.addClient({
+			firstname: "Nick",
+			lastname: "Andrew",
+			email: "nick@testingspiaddclient.com",
+			address1: "test",
+			address2: "test",
+			city: "Worcester",
+			state: "",
+			postcode: "",
+			country: "",
+			phonenumber: "",
+			skipvalidation: true
+		})
+		.then(function (data) {
+			res.send(data);
+		})
+		.catch(function (error) {
+			res.send(error);
+		});
 });
 
 /* Route used for testing adding an order
@@ -169,305 +177,309 @@ app.get("/createmodule", function (req, res) {
 app.use(express.static("assets"));
 
 app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: "EHsecret",
-    expires: new Date(Date.now() + 30 * 86400 * 1000)
-  })
+	session({
+		resave: true,
+		saveUninitialized: true,
+		secret: "EHsecret",
+		expires: new Date(Date.now() + 30 * 86400 * 1000)
+	})
 );
 
 app.get(
-  "/login",
-  passport.authenticate("saml", {
-    successRedirect: "/home",
-    failureRedirect: "/failedlogin"
-  })
+	"/login",
+	passport.authenticate("saml", {
+		successRedirect: "/home",
+		failureRedirect: "/failedlogin"
+	})
 );
 
 app.post("/login/callback", (req, res, next) => {
-  passport.authenticate("saml", { session: false }, (err, user) => {
-    req.user = user;
-    next();
-  });
-  var parser = new Saml2js(req.body.SAMLResponse);
-  var parsedObject = parser.toObject();
+	passport.authenticate("saml", {
+		session: false
+	}, (err, user) => {
+		req.user = user;
+		next();
+	});
+	var parser = new Saml2js(req.body.SAMLResponse);
+	var parsedObject = parser.toObject();
 
-  // Put the tems from the object into js variable
-  const email = parsedObject.emailAddress;
-  const firstname = parsedObject.firstName;
-  const userid = parsedObject.userId;
-  const lastname = parsedObject.lastName;
+	// Put the tems from the object into js variable
+	const email = parsedObject.emailAddress;
+	const firstname = parsedObject.firstName;
+	const userid = parsedObject.userId;
+	const lastname = parsedObject.lastName;
 
-  //	req.session = {};
-  req.session.user = { id: userid };
-  const sessionid = req.session.id;
+	//	req.session = {};
+	req.session.user = {
+		id: userid
+	};
+	const sessionid = req.session.id;
 
-  //res.send(email);
-  // Decide where the user is going to go, are they new or existing?
+	//res.send(email);
+	// Decide where the user is going to go, are they new or existing?
 
-  var connection = mysql.createConnection(mysqlconfig);
+	var connection = mysql.createConnection(mysqlconfig);
 
-  connection.query(
-    "SELECT email FROM user_idpdetails WHERE email = ?",
-    [email],
-    function (err, result, field) {
-      //if no result is passed back then the user data should be stored
-      if (!result.length) {
-        //new user logic
-        //res.send(result);
+	connection.query(
+		"SELECT email FROM user_idpdetails WHERE email = ?",
+		[email],
+		function (err, result, field) {
+			//if no result is passed back then the user data should be stored
+			if (!result.length) {
+				//new user logic
+				//res.send(result);
 
-        /////////////// Store the variables in the db for later use
+				/////////////// Store the variables in the db for later use
 
-        //let connection = mysql.createConnection(mysqlconfig);
+				//let connection = mysql.createConnection(mysqlconfig);
 
-        let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
+				let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
 																									VALUES(?,?,?,?,?)`;
-        let todo = [email, firstname, userid, lastname, sessionid];
+				let todo = [email, firstname, userid, lastname, sessionid];
 
-        // execute the insert statment
-        connection.query(stmt, todo, (err, results, fields) => {
-          if (err) {
-            return res.send(err.message);
-          }
-        });
+				// execute the insert statment
+				connection.query(stmt, todo, (err, results, fields) => {
+					if (err) {
+						return res.send(err.message);
+					}
+				});
 
-        // Redirect the user to the home page (signup page)
-        res.redirect("/home");
-        // close the mysql connection
-        connection.end();
-      } else {
-        //existing user, get the email back from the IDP and auto login to WHMCS
+				// Redirect the user to the home page (signup page)
+				res.redirect("/home");
+				// close the mysql connection
+				connection.end();
+			} else {
+				//existing user, get the email back from the IDP and auto login to WHMCS
 
-        // Store the variables
-        // URL of the WHMCS installation
-        var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
-        // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-        var autoauthkey = "V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q";
-        // get the timestamp in milliseconds and convert it to seconds for WHMCS url
-        var timestamp = Math.floor(Date.now() / 1000);
-        // get the email address that is returned from the IDP
-        var urlemail = parsedObject.emailAddress;
-        // URL to where the user is to go once logged into WHMCS
-        var goto = "clientarea.php";
-        // add the three variables together that are required for the WHMCS hash
-        var hashedstrings = email + timestamp + autoauthkey;
-        // use the sha1 node module to hash the variable
-        var hash = sha1(hashedstrings);
-        // create the URL to pass and redirect the user
-        res.redirect(
-          whmcsurl +
-          "?email=" +
-          urlemail +
-          "&timestamp=" +
-          timestamp +
-          "&hash=" +
-          hash +
-          "&goto=" +
-          goto
-        );
+				// Store the variables
+				// URL of the WHMCS installation
+				var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+				// Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+				var autoauthkey = "V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q";
+				// get the timestamp in milliseconds and convert it to seconds for WHMCS url
+				var timestamp = Math.floor(Date.now() / 1000);
+				// get the email address that is returned from the IDP
+				var urlemail = parsedObject.emailAddress;
+				// URL to where the user is to go once logged into WHMCS
+				var goto = "clientarea.php";
+				// add the three variables together that are required for the WHMCS hash
+				var hashedstrings = email + timestamp + autoauthkey;
+				// use the sha1 node module to hash the variable
+				var hash = sha1(hashedstrings);
+				// create the URL to pass and redirect the user
+				res.redirect(
+					whmcsurl +
+					"?email=" +
+					urlemail +
+					"&timestamp=" +
+					timestamp +
+					"&hash=" +
+					hash +
+					"&goto=" +
+					goto
+				);
 
-        // close the mysql connection
-        connection.end();
-      }
-    }
-  );
+				// close the mysql connection
+				connection.end();
+			}
+		}
+	);
 
-  req, res, next;
+	req, res, next;
 });
 
 app.get("/newusersvariables", function (req, res) {
-  const sessionid = req.session.id;
-  //	res.send(sessionid);
+	const sessionid = req.session.id;
+	//	res.send(sessionid);
 
-  //let newuser = mysql.createConnection(mysqlconfig);
-  let connection = mysql.createConnection(mysqlconfig);
+	//let newuser = mysql.createConnection(mysqlconfig);
+	let connection = mysql.createConnection(mysqlconfig);
 
-  connection.connect(function (err) {
-    if (err) throw err;
-    connection.query(
-      "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
-      [sessionid],
-      function (err, result, fields) {
-        if (err) throw err;
+	connection.connect(function (err) {
+		if (err) throw err;
+		connection.query(
+			"SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+			[sessionid],
+			function (err, result, fields) {
+				if (err) throw err;
 
-        //res.send(result);
-        var userdetails = result;
-        res.send(userdetails);
-      }
-    );
+				//res.send(result);
+				var userdetails = result;
+				res.send(userdetails);
+			}
+		);
 
-    connection.end();
-  });
+		connection.end();
+	});
 });
 
 // The route used to create the student account within WHMCS
 // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
 
 app.post('/newstudentroute', (req, res) => {
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const addClient = new Clients(config);
+	// Set up the module with the config file
+	// and store it in this variable - can be called anything you want
+	const addClient = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called 
-  addClient
-    .addClient({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      address1: req.body.Address1,
-      address2: req.body.Address2,
-      city: req.body.City,
-      state: req.body.State,
-      postcode: req.body.Postcode,
-      country: req.body.Country,
-      phonenumber: req.body.Phone,
-      notes: 'Created through Education Host AD login',
-      language: 'english',
-      skipvalidation: true
-    })
-    .then(function (response) {
+	// Call the getClients call and store the data in the variable called 
+	addClient
+		.addClient({
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			email: req.body.email,
+			address1: req.body.Address1,
+			address2: req.body.Address2,
+			city: req.body.City,
+			state: req.body.State,
+			postcode: req.body.Postcode,
+			country: req.body.Country,
+			phonenumber: req.body.Phone,
+			notes: 'Created through Education Host AD login',
+			language: 'english',
+			skipvalidation: true
+		})
+		.then(function (addClientResponse) {
 
-      /* RETURNS 
-      { result: 'success', 
-      clientid: 72 } */
-
-
-      console.log(response);
-      // Once the user is added in WHMCS, then add the service
-      const addOrder = new Orders(config);
-
-      addOrder
-        .addOrder({
-          clientid: response.clientid,
-          pid: 1,
-          domain: req.body.fulldomain,
-          nameserver1: req.body.nameserver1,
-          nameserver2: req.body.nameserver2,
-          paymentmethod: 'banktransfer',
-          noemail: true,
-          noinvoice: true,
-          noinvoiceemail: true
-        })
-        .then(function (response) {
+			/* RETURNS 
+			{ result: 'success', 
+			clientid: 72 } */
 
 
-          /* RETURNS 
-          { result: 'success',
-          orderid: 47,
-          productids: '43',
-          addonids: '',
-          domainids: '' } */
+			console.log(addClientResponse);
+			// Once the user is added in WHMCS, then add the service
+			const addOrder = new Orders(config);
 
-          console.log(response);
+			addOrder
+				.addOrder({
+					clientid: addClientResponse.clientid,
+					pid: 1,
+					domain: req.body.fulldomain,
+					nameserver1: req.body.nameserver1,
+					nameserver2: req.body.nameserver2,
+					paymentmethod: 'banktransfer',
+					noemail: true,
+					noinvoice: true,
+					noinvoiceemail: true
+				})
+				.then(function (addOrderResponse) {
 
 
-          // Once the service is added approve the service automatically
-          const acceptOrder = new Orders(config);
+					/* RETURNS 
+					{ result: 'success',
+					orderid: 47,
+					productids: '43',
+					addonids: '',
+					domainids: '' } */
 
-          acceptOrder.acceptOrder({
-            orderid: response.orderid,
-            acceptOrder: 1,
-            sendemail: 0
-          })
+					console.log(addOrderResponse);
 
-            .then(function (response) {
 
-              /* 
-              RETURNS 
-              { result: 'success' }
+					// Once the service is added approve the service automatically
+					const acceptOrder = new Orders(config);
+
+					acceptOrder.acceptOrder({
+							orderid: addOrderResponse.orderid,
+							acceptOrder: 1,
+							sendemail: 0
+						})
+
+						.then(function (acceptOrder) {
+
+							/* 
+							RETURNS 
+							{ result: 'success' }
               
-              */
+							*/
 
-              console.log(response);
+							console.log(acceptOrder);
 
+							// Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+							// This will be a random string with the mat.random function
+							const updateClientProduct = new Services(config);
+							const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+							console.log(randomstring);
 
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
+							updateClientProduct.updateClientProduct({
+									serviceid: addOrderResponse.productids,
+									serviceusername: randomstring
+								})
+								.then(function (updateClientProductResponse) {
 
-          // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
-          // This will be a random string with the mat.random function
-          const updateClientProduct = new Services(config);
-          const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-          console.log(randomstring);
-          updateClientProduct.updateClientProduct({
-            serviceid: response.productids,
-            serviceusername: randomstring
-          })
-            .then(function (response) {
-
-              /* 
-              RETURNS 
-              sonsfa9
-              { result: 'success', serviceid: '34' }
+									/* 
+									RETURNS 
+									sonsfa9
+									{ result: 'success', serviceid: '34' }
 
               
-              */
+									*/
 
-              console.log(response);
+									console.log(updateClientProductResponse);
 
-              // create the accepted order
-              const moduleCreate = new Services(config);
-              moduleCreate
-                .moduleCreate({
+									// create the accepted order
+									const moduleCreate = new Services(config);
+									moduleCreate
+										.moduleCreate({
 
-                  serviceid: response.serviceid
+											serviceid: updateClientProductResponse.serviceid
 
-                })
+										})
 
-                .then(function (response) {
-                  console.log(response);
-                  res.redirect('/');
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
-
-
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
+										.then(function (moduleCreateResponse) {
+											console.log(moduleCreateResponse);
+											res.redirect('/');
+										})
+										.catch(function (error) {
+											res.send(error);
+										});
 
 
-        })
-        .catch(function (error) {
-          res.send(error);
-        });
+								})
+								.catch(function (error) {
+									res.send(error);
+								});
 
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
+
+						})
+						.catch(function (error) {
+							res.send(error);
+						});
+
+				})
+				.catch(function (error) {
+					res.send(error);
+				});
+
+		})
+		.catch(function (error) {
+			res.send(error);
+		});
 
 
 })
 
 app.get("/home", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
 app.post("/home", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
 app.get("/failedlogin", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/loginFailed");
+	res.sendFile("/home/ehapp/apps/AD-saml/client/loginFailed");
 });
 
 app.get("/logout", function (req, res) {
-  req.logout();
-  res.redirect("/");
+	req.logout();
+	res.redirect("/");
 });
 
 /*
 var server = http.createServer(app);
 */
 const options = {
-  cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
-  key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
+	cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
+	key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
 };
 
 app.listen(8080);
