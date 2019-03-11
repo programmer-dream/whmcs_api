@@ -46,6 +46,11 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
+			// Spinner
+			$('#stepper').click(function () {
+				$(this).toggleClass('active'); student();
+			});
+
 			// Make a request for the whmcs route using axios
 			axios.get('/newusersvariables')
 				.then(function (response) {
@@ -82,23 +87,18 @@
 
 
 						});
-
-
-						$('#example-dropright').multiselect({
-							checkboxName: function (option) {
-								return 'multiselect[]';
-							},
-							buttonWidth: '400px',
-							dropRight: true
-						});
-
-						// Spinner
-						$(function () {
-							$('a, button').click(function () {
-								$(this).toggleClass('active');
-							});
-						});
 					}
+
+					$('#example-dropright').multiselect({
+						checkboxName: function (option) {
+							return 'multiselect[]';
+						},
+						buttonWidth: '400px',
+						dropRight: true
+					});
+
+
+
 				})
 
 
@@ -121,6 +121,7 @@
 		/// STUDENT FUNCTION
 
 		function student(data, res) {
+
 
 			/// main student function for setting up whmcs account and service
 
@@ -321,8 +322,9 @@
 												<p class="card-text">If you are a student, select this account. Your web
 													hosting package will be available to you during your time at
 													university.</p>
-												<button type="button" class="btn btn-success float-right has-spinner"
-													onclick="student()"><span class="spinner"><i
+												<button type="button" id="spinner"
+													class="btn btn-success float-right has-spinner"><span
+														class="spinner"><i
 															class="fa fa-refresh fa-spin"></i></span>Click Here</button>
 											</div>
 										</div>
@@ -333,8 +335,9 @@
 												<h5 class="card-title border-bottom pb-3">Staff account</h5>
 												<p class="card-text">If you are a member of teaching staff, select this
 													account. This account type requires email validation.</p>
-												<button type="button" class="btn btn-secondary float-right has-spinner"
-													onclick="myStepper.previous()"><span class="spinner"><i
+												<button type="button"
+													class="btn btn-secondary float-right has-spinner"><span
+														class="spinner"><i
 															class="fa fa-refresh fa-spin"></i></span>Click Here</button>
 											</div>
 										</div>
