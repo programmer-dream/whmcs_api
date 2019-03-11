@@ -379,27 +379,24 @@ app.post('/newstudentroute', (req, res) => {
                   res.send(error);
                 });
 
-              // create the accepted order
-              const moduleCreate = new Services(config);
-              moduleCreate
-                .moduleCreate({
 
-                  serviceid: response.orderid
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
 
-                })
+          // create the accepted order
+          const moduleCreate = new Services(config);
+          moduleCreate
+            .moduleCreate({
 
-                .then(function (response) {
-                  console.log(response);
-                  res.redirect('https://www.educationhost.co.uk')
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
+              serviceid: response.orderid
 
+            })
 
-
-
-
+            .then(function (response) {
+              console.log(response);
+              res.redirect('https://www.educationhost.co.uk')
             })
             .catch(function (error) {
               res.send(error);
