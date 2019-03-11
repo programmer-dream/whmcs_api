@@ -82,23 +82,23 @@
 
 
 						});
-					}
 
-					$('#example-dropright').multiselect({
-						checkboxName: function (option) {
-							return 'multiselect[]';
-						},
-						buttonWidth: '400px',
-						dropRight: true
-					});
 
-					// Spinner
-					$(function () {
-						$('a, button').click(function () {
-							$(this).toggleClass('active');
+						$('#example-dropright').multiselect({
+							checkboxName: function (option) {
+								return 'multiselect[]';
+							},
+							buttonWidth: '400px',
+							dropRight: true
 						});
-					});
 
+						// Spinner
+						$(function () {
+							$('a, button').click(function () {
+								$(this).toggleClass('active');
+							});
+						});
+					}
 				})
 
 
