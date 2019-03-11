@@ -45,9 +45,14 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
-			// Spinner
-			$('#spinner').click(function () {
+			// Student Spinner
+			$('#studentspinner').click(function () {
 				$(this).toggleClass('active'); //student();
+				console.log($(this));
+			});
+			// Staff Spinner
+			$('#staffspinner').click(function () {
+				$(this).toggleClass('active'); //staff();
 				console.log($(this));
 			});
 
@@ -322,7 +327,7 @@
 												<p class="card-text">If you are a student, select this account. Your web
 													hosting package will be available to you during your time at
 													university.</p>
-												<button type="button" id="spinner"
+												<button type="button" id="studentspinner"
 													class="btn btn-success float-right has-spinner"><span
 														class="spinner"><i class="fa fa-spinner fa-spin">
 														</i></span> Click Here</button>
@@ -335,7 +340,7 @@
 												<h5 class="card-title border-bottom pb-3">Staff account</h5>
 												<p class="card-text">If you are a member of teaching staff, select this
 													account. This account type requires email validation.</p>
-												<button type="button"
+												<button type="button" id="staffspinner"
 													class="btn btn-secondary float-right has-spinner"><span
 														class="spinner"><i class="fa fa-spinner fa-spin">
 														</i></span> Click Here</button>
