@@ -41,6 +41,9 @@
 	<script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
 	<link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css" />
 
+	<!-- Spinner css for buttons -->
+	<link rel="stylesheet" href="/css/spinner.css" type="text/css" />
+
 	<script type="text/javascript">
 		$(document).ready(function () {
 			// Make a request for the whmcs route using axios
@@ -89,7 +92,12 @@
 						dropRight: true
 					});
 
-
+					// Spinner
+					$(function () {
+						$('a, button').click(function () {
+							$(this).toggleClass('active');
+						});
+					});
 
 				})
 
@@ -313,8 +321,9 @@
 												<p class="card-text">If you are a student, select this account. Your web
 													hosting package will be available to you during your time at
 													university.</p>
-												<button type="button" class="btn btn-success float-right"
-													onclick="student()">Click Here</button>
+												<button type="button" class="btn btn-success float-right has-spinner"
+													onclick="student()"><span class="spinner"><i
+															class="fa fa-refresh fa-spin"></i></span>Click Here</button>
 											</div>
 										</div>
 										<div class="card">
@@ -324,8 +333,9 @@
 												<h5 class="card-title border-bottom pb-3">Staff account</h5>
 												<p class="card-text">If you are a member of teaching staff, select this
 													account. This account type requires email validation.</p>
-												<button type="button" class="btn btn-secondary float-right"
-													onclick="myStepper.previous()">Click Here</button>
+												<button type="button" class="btn btn-secondary float-right  has-spinner"
+													onclick="myStepper.previous()"><span class="spinner"><i
+															class="fa fa-refresh fa-spin"></i></span>Click Here</button>
 											</div>
 										</div>
 									</div>
