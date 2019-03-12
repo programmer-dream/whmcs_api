@@ -456,19 +456,21 @@ app.post('/newstaffroute', (req, res) => {
 
   var con = mysql.createConnection(mysqlconfig);
   const StaffEmail = req.body.email;
+  var staffnumber = 1;
   con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
     //var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", StaffEmail;
-    var sql = "update user_idpdetails set isStaff=1 WHERE email = :email", { email: StaffEmail };
-
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-      res.send('SUCCESS');
+    //var sql = "update user_idpdetails set isStaff=1 WHERE email = :email", { email: StaffEmail };
+    connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
+      if (error) {
+        console.log("error", error);
+        res.send('SUCCESS');
+      }
     });
+    connection.end();
   });
-  connection.end();
+
 
 })
 
