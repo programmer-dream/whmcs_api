@@ -14,7 +14,6 @@ var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 
-
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
 // use querystring library to parse x-www-form-urlencoded data for flat data structure (not nested data)
@@ -46,10 +45,13 @@ app.get("/test", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/test.html");
 });
 
-/*--------------------------------------------------------------------------------------------------*/
-/* 										WHMCS Routes                                                */
-/* 			       	Anything in the WHMCS routes can be called from axios in the html               */
-/*--------------------------------------------------------------------------------------------------*/
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////// WHMCS Routes /////////////////////////////////////////
+/////////////////Anything in the WHMCS routes can be called from axios in the html//////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
 
 app.get("/whmcs", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/whmcs.html");
@@ -59,67 +61,34 @@ app.get("/handlebars", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/handlebars.html");
 });
 
-/*--------------------------------------------------------------------------------------------------*/
-/* 																					WHMCS API                                               */
-/* 			         	Anything in the WHMCS routes can be called from axios in the html                 */
-/*--------------------------------------------------------------------------------------------------*/
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////// WHMCS API /////////////////////////////////////////
+/////////////////Anything in the WHMCS routes can be called from axios in the html//////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 // Get the clients module from whmcs-js
 const {
   Clients
 } = require("whmcs-js");
+
+// Get the Orders module from whmcs-js
 const {
   Orders
 } = require("whmcs-js");
+
+// Get the Services module from whmcs-js
 const {
   Services
 } = require("whmcs-js");
 
-app.get("/listallwhmcsusers", function (req, res) {
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const myClients = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called invoices
-  myClients
-    .getClients()
-    .then(function (data) {
-      res.send(data);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
-});
-
-// Add client
-
-app.get("/addclient", function (req, res) {
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const addClient = new Clients(config);
-
-  // Call the getClients call and store the data in the variable called
-  addClient
-    .addClient({
-      firstname: "Nick",
-      lastname: "Andrew",
-      email: "nick@testingspiaddclient.com",
-      address1: "test",
-      address2: "test",
-      city: "Worcester",
-      state: "",
-      postcode: "",
-      country: "",
-      phonenumber: "",
-      skipvalidation: true
-    })
-    .then(function (data) {
-      res.send(data);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
-});
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// WHMCS API TESTING ROUTES //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 /* Route used for testing adding an order
 app.get("/addorder", function (req, res) {
@@ -144,36 +113,33 @@ app.get("/addorder", function (req, res) {
     });
 
 
-}); */
+}); 
 
-/* Route used for testing adding an order
-app.get("/acceptorder", function (req, res) {
+app.get("/listallwhmcsusers", function (req, res) {
+  // Set up the module with the config file
+  // and store it in this variable - can be called anything you want
+  const myClients = new Clients(config);
 
-  const acceptOrder = new Orders(config);
-
-  acceptOrder.acceptOrder({
-    orderid: 16,
-    acceptOrder: 1,
-    sendemail: 1
-  })
-
-});
-
-app.get("/createmodule", function (req, res) {
-  const moduleCreate = new Services(config);
-
-  moduleCreate
-    .moduleCreate({
-
-      serviceid: 17
-
+  // Call the getClients call and store the data in the variable called invoices
+  myClients
+    .getClients()
+    .then(function (data) {
+      res.send(data);
     })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+*/
 
-}); */
-/*--------------------------------------------------------------------------------------------------*/
-/* 							Assets folders that can be called from html                             */
-/* 			       	Anything in the assets folder can be referenced in the html                     */
-/*--------------------------------------------------------------------------------------------------*/
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////Assets folders that can be called from html//////////////////////
+//////////////////Anything in the assets folder can be referenced in the html///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
 app.use(express.static("assets"));
 
 app.use(
@@ -192,6 +158,13 @@ app.get(
     failureRedirect: "/failedlogin"
   })
 );
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////// MAIN LOGIN ROUTE /////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post("/login/callback", (req, res, next) => {
   passport.authenticate("saml", {
@@ -315,12 +288,12 @@ app.get("/newusersvariables", function (req, res) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// API FOR EXPIRING ACCOUNTS /////////////////////////////////
+///////////////////////////////// API FOR EXPIRED ACCOUNTS /////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+/*
 //rest api to update record into mysql database
 app.put('/api/expiredaccounts/', function (req, res) {
   var connection = mysql.createConnection(mysqlconfig);
@@ -331,8 +304,7 @@ app.put('/api/expiredaccounts/', function (req, res) {
   });
   connection.end();
 });
-//connection.end();
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 // The route used to create the student account within WHMCS
@@ -505,10 +477,6 @@ app.get("/home", function (req, res) {
 
 app.post("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
-});
-
-app.get("/failedlogin", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/loginFailed");
 });
 
 app.get("/logout", function (req, res) {
