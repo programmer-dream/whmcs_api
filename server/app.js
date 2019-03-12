@@ -459,7 +459,8 @@ app.post('/newstaffroute', (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", [StaffEmail];
+    //var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", StaffEmail;
+    var sql = "update user_idpdetails set isStaff=1 WHERE email=?", [StaffEmail];
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
