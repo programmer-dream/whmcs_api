@@ -454,10 +454,10 @@ app.post('/newstudentroute', (req, res) => {
 app.post('/newstaffroute', (req, res) => {
   // STAFF ROUTE 
 
-  var con = mysql.createConnection(mysqlconfig);
+  var connection = mysql.createConnection(mysqlconfig);
   const StaffEmail = req.body.email;
   var staffnumber = 1;
-  con.connect(function (err) {
+  connection.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
     //var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", StaffEmail;
