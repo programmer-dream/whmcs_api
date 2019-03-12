@@ -204,8 +204,6 @@ app.post("/login/callback", (req, res, next) => {
 
         /////////////// Store the variables in the db for later use
 
-        //let connection = mysql.createConnection(mysqlconfig);
-
         let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
 																									VALUES(?,?,?,?,?)`;
         let todo = [email, firstname, userid, lastname, sessionid];
@@ -307,30 +305,13 @@ app.put('/api/expiredaccounts/', function (req, res) {
 */
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-// The route used to create the student account within WHMCS
-// This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module
+////////////// The route used to create the student account within WHMCS ///////////////////
+// This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module/
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+//STUDENT ROUTE 
 app.post('/newstudentroute', (req, res) => {
-
-
-  // Add modules that the student has selected to the database
-  //var selectedmodules = ARRAY;
-  /*
-    var con = mysql.createConnection(mysqlconfig);
-    con.connect(function (err) {
-      if (err) throw err;
-      console.log("Connected!");
-      var sql = "INSERT INTO user_idpdetails (isStaff) VALUES ('0')";
-      con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
-      });
-    });
-    connection.end();
-    */
-
 
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
@@ -470,6 +451,31 @@ app.post('/newstudentroute', (req, res) => {
 
 
 })
+app.post('/newstaffroute', (req, res) => {
+  // STAFF ROUTE 
+
+  var con = mysql.createConnection(mysqlconfig);
+  const StaffEmail = req.body.email;
+  const idvalue = 1;
+  con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(?) WHERE email = ?", [idvalue, StaffEmail];
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+      res.send('SUCCESS');
+    });
+  });
+  connection.end();
+
+})
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// Other routes ////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
@@ -484,13 +490,22 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-/*
-var server = http.createServer(app);
-*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// Link to fullchain and private cert /////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
 const options = {
   cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
   key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
 };
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// Create server and HTTPS connection//////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(8080);
 app.use(require("helmet")());
