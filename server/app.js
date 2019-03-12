@@ -324,7 +324,7 @@ app.get("/newusersvariables", function (req, res) {
 //rest api to update record into mysql database
 app.put('/api/expiredaccounts/', function (req, res) {
   var connection = mysql.createConnection(mysqlconfig);
-  connection.query('UPDATE `user_idpdetails` SET `isActive`=?,`expiryDate`=? where `email`=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
+  connection.query('UPDATE user_idpdetails SET isActive=?, expiryDate=? where email=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
     if (error) throw error;
     res.end(JSON.stringify(results));
     console.log(results);
