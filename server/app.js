@@ -327,6 +327,7 @@ app.put('/api/expiredaccounts/', function (req, res) {
   connection.query('UPDATE `user_idpdetails` SET `isActive`=?,`expiryDate`=? where `email`=?', [req.body.isActive, Date(), req.body.email], function (error, results, fields) {
     if (error) throw error;
     res.end(JSON.stringify(results));
+    console.log(results);
   });
   connection.end();
 });
