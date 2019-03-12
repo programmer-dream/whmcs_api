@@ -34,6 +34,24 @@ Download the latest version of the database:
 - Add server to WHMCS solution
 - Setup the package in WHMCS, one for Students mapped to the student WHM product and one for staff mapped to the staf product (different allocation of space and bandwidth)
 - Get the IDs for the products/serices and add this into the routes in the app.js file (usually a low number such as 1 for the student account and 3 for staff account)
+
+- Staff need to have an email validation setup to validate their account 
+-- In WHMCS - set the product/service email to Other 'Product/Service Welcome Email'.
+-- Edit the Other 'Product/Service Welcome Email' to show the following:
+
+`Subject: Please validate your staff account`
+`Dear {$client_name},
+
+TO VALIDATE THIS ACCOUNT YOU NEED TO GO TO THE FOLLOWING URL:
+
+APP ROUTE
+
+Once validated you can log in by navigating to:
+
+APP URL
+
+{$signature}`
+
 - Assign the product to the server and package
 
 # Server setup
