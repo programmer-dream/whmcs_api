@@ -319,6 +319,19 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+app.get("/account", function (req, res) {
+  var accountMock = {
+    "username": "nick",
+    "password": "1234"
+  }
+  if (!req.query.username) {
+    return res.send({ "status": "error", "message": "missing username" });
+  } else if (req.query.username != accountMock.username) {
+    return res.send({ "status": "error", "message": "wrong username" });
+  } else {
+    return res.send(accountMock);
+  }
+});
 
 app.post("/api/test", function (req, res) {
   console.log(req.body);
