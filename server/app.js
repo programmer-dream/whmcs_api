@@ -328,6 +328,7 @@ app.put('/api/expiredaccounts/', function (req, res) {
     if (error) throw error;
     res.end(JSON.stringify(results));
   });
+  connection.end();
 });
 //connection.end();
 
