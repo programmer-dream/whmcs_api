@@ -54,6 +54,10 @@ APP URL
 
 - Assign the product to the server and package
 
+# Other WHMCS setup items 
+
+- Edit the email headers and footer to reflect Single Sign On links - Hover over the Setup tab and click General Settings. => Click on the Mail tab.
+
 # Server setup
 
 - Make sure the location hosting the app and the server are the same time (for the autoauth)
