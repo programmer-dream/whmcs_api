@@ -319,16 +319,17 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-var connection = mysql.createConnection(mysqlconfig);
+
 
 //rest api to update record into mysql database
 app.put('/api/expiredaccounts/', function (req, res) {
+  var connection = mysql.createConnection(mysqlconfig);
   connection.query('UPDATE `user_idpdetails` SET `isExpired`=?,`expiryDate`=? where `email`=?', [req.body.isExpired, Date(), req.body.email], function (error, results, fields) {
     if (error) throw error;
-    //res.end(JSON.stringify(results));
+    res.end(JSON.stringify(results));
   });
 });
-connection.end();
+//connection.end();
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
