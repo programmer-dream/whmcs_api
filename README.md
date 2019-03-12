@@ -1,6 +1,10 @@
 # AD-saml
 Active Directory SAML - WHMCS authentication &amp; setup
 
+# Setup hosting account for the application
+
+This is currently done on dgital ocean but needs to be on the same server as the database. Needs testing.
+
 # Setup SSL for the application
 
 SSL setup instructions here...
