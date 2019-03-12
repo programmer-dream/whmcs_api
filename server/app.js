@@ -319,28 +319,16 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get("/api/test", function (req, res) {
-  var accountMock = {
-    "username": "nick",
-    "password": "1234"
-  }
-  if (!req.query.username) {
-    return res.send({ "status": "error", "message": "missing username" });
-  } else if (req.query.username != accountMock.username) {
-    return res.send({ "status": "error", "message": "wrong username" });
-  } else {
-    return res.send(accountMock);
-  }
-});
+var connection = mysql.createConnection(mysqlconfig);
 
-app.post("/api/test", function (req, res) {
-  console.log(req.body);
-  if (!req.body.username || !req.body.password) {
-    return res.send({ "status": "error", "message": "missing a parameter" });
-  } else {
-    return res.send(req.body);
-  }
+//rest api to update record into mysql database
+app.put('/api/expiredaccounts/', function (req, res) {
+  connection.query('UPDATE `user_idpdetails` SET `isExpired`=?,`expiryDate`=? where `email`=?', [req.body.isExpired, Date(), req.body.email], function (error, results, fields) {
+    if (error) throw error;
+    res.end(JSON.stringify(results));
+  });
 });
+connection.end();
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
