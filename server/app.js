@@ -319,11 +319,13 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/api/expiredaccounts', function (req, res) {
-  var email = req.query('email');
-  //var token = req.param('token');
 
-  res.send(email);// + ' ' + token );
+app.post('/api/expiredaccounts', function (req, res) {
+  var email = req.body.email;
+  //var token = req.body.token;
+  //var geo = req.body.geo;
+
+  res.send(email); //+ ' ' + token + ' ' + geo);
 });
 
 
