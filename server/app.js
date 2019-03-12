@@ -348,6 +348,7 @@ app.post('/newstudentroute', (req, res) => {
       addOrder
         .addOrder({
           clientid: addClientResponse.clientid,
+          // This product id relates to the student service
           pid: 1,
           domain: req.body.fulldomain,
           nameserver1: req.body.nameserver1,
@@ -454,23 +455,157 @@ app.post('/newstudentroute', (req, res) => {
 app.post('/newstaffroute', (req, res) => {
   // STAFF ROUTE 
 
+  // Set the isStaff value in the database to 1
   var connection = mysql.createConnection(mysqlconfig);
   const StaffEmail = req.body.email;
   var staffnumber = 1;
   connection.connect(function (err) {
     if (err) throw err;
-    console.log("Connected!");
-    //var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", StaffEmail;
-    //var sql = "update user_idpdetails set isStaff=1 WHERE email = :email", { email: StaffEmail };
     connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
       if (error) {
         console.log("error", error);
-        res.send('SUCCESS');
       }
     });
     connection.end();
   });
 
+  // Set the staff user up on WHMCS - this account will require manual approval
+  // The thing that will change here is that there will be a different product ID and it will require approval by admin user
+
+  const addClient = new Clients(config);
+
+  // Call the getClients call and store the data in the variable called 
+  addClient
+    .addClient({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      address1: req.body.Address1,
+      address2: req.body.Address2,
+      city: req.body.City,
+      state: req.body.State,
+      postcode: req.body.Postcode,
+      country: req.body.Country,
+      phonenumber: req.body.Phone,
+      notes: 'Staff account - Created through Education Host AD login',
+      language: 'english',
+      skipvalidation: true
+    })
+    .then(function (addClientResponse) {
+
+			/* RETURNS 
+			{ result: 'success', 
+			clientid: 72 } */
+
+
+      console.log(addClientResponse);
+      // Once the user is added in WHMCS, then add the service
+      const addOrder = new Orders(config);
+
+      addOrder
+        .addOrder({
+          clientid: addClientResponse.clientid,
+          // This product id relates to the student service
+          pid: 3,
+          domain: req.body.fulldomain,
+          nameserver1: req.body.nameserver1,
+          nameserver2: req.body.nameserver2,
+          paymentmethod: 'banktransfer',
+          noemail: true,
+          noinvoice: true,
+          noinvoiceemail: true
+        })
+        .then(function (addOrderResponse) {
+
+
+					/* RETURNS 
+					{ result: 'success',
+					orderid: 47,
+					productids: '43',
+					addonids: '',
+					domainids: '' } */
+
+          console.log(addOrderResponse);
+
+
+          // Once the service is added approve the service automatically
+          const acceptOrder = new Orders(config);
+
+          acceptOrder.acceptOrder({
+            orderid: addOrderResponse.orderid,
+            acceptOrder: 1,
+            sendemail: 0
+          })
+
+            .then(function (acceptOrder) {
+
+							/* 
+							RETURNS 
+							{ result: 'success' }
+              
+							*/
+
+              console.log(acceptOrder);
+
+              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+              // This will be a random string with the mat.random function
+              const updateClientProduct = new Services(config);
+              const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+              console.log(randomstring);
+
+              updateClientProduct.updateClientProduct({
+                serviceid: addOrderResponse.productids,
+                serviceusername: randomstring
+              })
+                .then(function (updateClientProductResponse) {
+
+									/* 
+									RETURNS 
+									sonsfa9
+									{ result: 'success', serviceid: '34' }
+
+              
+									*/
+
+                  console.log(updateClientProductResponse);
+
+                  // create the accepted order
+                  const moduleCreate = new Services(config);
+                  moduleCreate
+                    .moduleCreate({
+
+                      serviceid: updateClientProductResponse.serviceid
+
+                    })
+
+                    .then(function (moduleCreateResponse) {
+                      res.send('SUCCESS');
+                    })
+                    .catch(function (error) {
+                      res.send(error);
+                    });
+
+
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
+
+
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
+
+        })
+        .catch(function (error) {
+          res.send(error);
+        });
+
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
 
 })
 

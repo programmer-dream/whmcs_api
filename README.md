@@ -32,6 +32,8 @@ Download the latest version of the database:
 - Make sure the Client Signup Email in WHMCS is altered to reflect the actual login URL
 - Modify the 'WHMCS New Order Notification' email template
 - Add server to WHMCS solution
+- Setup the package in WHMCS, one for Students mapped to the student WHM product and one for staff mapped to the staf product (different allocation of space and bandwidth)
+- Get the IDs for the products/serices and add this into the routes in the app.js file (usually a low number such as 1 for the student account and 3 for staff account)
 - Assign the product to the server and package
 
 # Server setup
