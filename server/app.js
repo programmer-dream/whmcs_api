@@ -320,7 +320,7 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/api/expiredaccounts', function (req, res) {
-  var email = req.params('email');
+  var email = req.param('email');
   //var token = req.param('token');
 
   res.send(email);// + ' ' + token );
