@@ -320,7 +320,7 @@ app.get("/newusersvariables", function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-app.get("/api/test", function (req, res) {
+app.post("/api/test", function (req, res) {
   console.log(req.body);
   if (!req.body.username || !req.body.password) {
     return res.send({ "status": "error", "message": "missing a parameter" });
