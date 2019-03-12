@@ -325,7 +325,7 @@ var connection = mysql.createConnection(mysqlconfig);
 app.put('/api/expiredaccounts/', function (req, res) {
   connection.query('UPDATE `user_idpdetails` SET `isExpired`=?,`expiryDate`=? where `email`=?', [req.body.isExpired, Date(), req.body.email], function (error, results, fields) {
     if (error) throw error;
-    res.end(JSON.stringify(results));
+    //res.end(JSON.stringify(results));
   });
 });
 connection.end();
