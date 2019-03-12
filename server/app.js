@@ -456,11 +456,10 @@ app.post('/newstaffroute', (req, res) => {
 
   var con = mysql.createConnection(mysqlconfig);
   const StaffEmail = req.body.email;
-  const idvalue = 1;
   con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(?) WHERE email = ?", [idvalue, StaffEmail];
+    var sql = "INSERT INTO user_idpdetails (isStaff) VALUES(1) WHERE email = ?", [StaffEmail];
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
