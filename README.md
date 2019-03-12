@@ -57,6 +57,7 @@ APP URL
 # Other WHMCS setup items 
 
 - Edit the email headers and footer to reflect Single Sign On links - Hover over the Setup tab and click General Settings. => Click on the Mail tab.
+- Modify 'New Account Information' Email template to remove any payment items and make sure links are correct 
 
 # Server setup
 
