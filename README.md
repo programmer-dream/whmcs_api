@@ -9,7 +9,15 @@ SSL setup instructions here...
 
 Passport.js is used to allow for ADFS functionality ...
 
-# Setting up the application variables for a new client
+# Setting up the application 
+
+## Database
+
+Download the latest version of the database: 
+
+`https://educationhost.co.uk/williams_app.sql`
+
+## variables for a new client
 
 
 
