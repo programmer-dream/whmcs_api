@@ -231,14 +231,9 @@ app.post("/login/callback", (req, res, next) => {
 
         // update session id on staff login
 
-        connection.connect(function (err) {
-          if (err) throw err;
-          connection.query('UPDATE user_idpdetails SET sessionid = ? WHERE email = ?', [sessionid, email], function (error, results, fields) {
-            if (error) {
-              console.log("error", error);
-            }
-          });
-        });
+
+
+
 
         connection.query(
           "SELECT * FROM user_idpdetails WHERE email = ?",
@@ -252,7 +247,11 @@ app.post("/login/callback", (req, res, next) => {
 
 
 
-
+              connection.query('UPDATE user_idpdetails SET sessionid = ? WHERE email = ?', [sessionid, email], function (error, results, fields) {
+                if (error) {
+                  console.log("error", error);
+                }
+              });
 
 
 
