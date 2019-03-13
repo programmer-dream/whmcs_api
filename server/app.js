@@ -265,7 +265,7 @@ app.post("/login/callback", (req, res, next) => {
               // URL to where the user is to go once logged into WHMCS
               var goto = "clientarea.php";
               // add the three variables together that are required for the WHMCS hash
-              var hashedstrings = email + timestamp + autoauthkey;
+              var hashedstrings = urlemail + timestamp + autoauthkey;
               // use the sha1 node module to hash the variable
               var hash = sha1(hashedstrings);
               // create the URL to pass and redirect the user
