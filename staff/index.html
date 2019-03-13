@@ -92,18 +92,6 @@
         function whmcsaccount(data, res) {
 
 
-            axios.get('/newusersvariables')
-                .then(function (response) {
-                    // Get the client data from the response
-                    var data = response.data[0];
-
-                    // log all data thats returned
-                    console.log(data);
-
-
-                });
-
-
 
             axios.get('/stafflogintowhmcs')
                 .then(function (response) {
