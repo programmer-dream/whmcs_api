@@ -13,6 +13,9 @@ const jQuery = require("jquery");
 var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
+var cors = require('cors');
+
+app.use(cors()) // Use this after the variable declaration
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
@@ -671,15 +674,6 @@ app.get("/logout", function (req, res) {
 });
 
 
-app.all('/stafflogintowhmcs', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
-app.get('/stafflogintowhmcs', function (req, res, next) {
-  // Handle the get for this route
-});
 
 app.post('/stafflogintowhmcs', (req, res) => {
   var whmcsurl = 'https://whmcs.educationhost.co.uk/dologin.php';
