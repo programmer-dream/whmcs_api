@@ -105,32 +105,32 @@
                     axios({
                         method: 'post',
                         url: '/stafflogin',
-                        data: {
-                            urlemail: response.data.urlemail,
-                            whmcsurl: response.data.whmcsurl,
-                            timestamp: response.data.timestamp,
-                            hash: response.data.hash,
-                            goto: response.data.goto
+                        list: {
+                            urlemail: list.urlemail,
+                            whmcsurl: list.whmcsurl,
+                            timestamp: list.timestamp,
+                            hash: list.hash,
+                            goto: list.goto
                         }
 
                     }).then(function (response) {
-                        if (response.data === 'SUCCESS') {
+                        if (response.list === 'SUCCESS') {
 
-                            console.log(data);
+                            console.log(list);
                             //existing user, get the email back from the IDP and auto login to WHMCS
                             // Store the variables
                             // URL of the WHMCS installation
 
                             window.location.href = (
-                                whmcsurl +
+                                list.whmcsurl +
                                 "?email=" +
-                                urlemail +
+                                list.urlemail +
                                 "&timestamp=" +
-                                timestamp +
+                                list.timestamp +
                                 "&hash=" +
-                                hash +
+                                list.hash +
                                 "&goto=" +
-                                goto
+                                list.goto
                             );
 
 

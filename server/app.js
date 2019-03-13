@@ -267,7 +267,7 @@ app.post("/login/callback", (req, res, next) => {
               // use the sha1 node module to hash the variable
               var hash = sha1(hashedstrings);
               // create the URL to pass and redirect the user
-              res.redirect (
+              res.redirect(
                 whmcsurl +
                 "?email=" +
                 urlemail +
@@ -685,7 +685,9 @@ app.post('/stafflogin', (req, res) => {
   // use the sha1 node module to hash the variable
   var hash = sha1(hashedstrings);
   // create the URL to pass and redirect the user
-  res.send('SUCCESS');
+
+  var list = [whmcsurl, autoauthkey, timestamp, urlemail, goto, hashedstrings, hash];
+  res.send(list);
 
 
 });
