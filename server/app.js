@@ -686,9 +686,18 @@ app.get('/stafflogintowhmcs', (req, res) => {
   var hash = sha1(hashedstrings);
   // create the URL to pass and redirect the user
 
-  var list = [whmcsurl, autoauthkey, timestamp, urlemail, goto, hashedstrings, hash];
-  res.send(list);
+  //  var list = [whmcsurl, autoauthkey, timestamp, urlemail, goto, hashedstrings, hash];
+  // res.send(list);
 
+  var list = new Object();
+  list.whmcsurl = whmcsurl;
+  list.autoauthkey = autoauthkey;
+  list.timestamp = timestamp;
+  list.urlemail = urlemail;
+  list.goto = goto;
+  list.hashedstrings = hashedstrings;
+  list.hash = hash;
+  san.events.push(list);
 
 });
 
