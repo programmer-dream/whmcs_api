@@ -47,8 +47,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Log into admin dashboard
-            $('#admindashboard').click(function () {
-                $(this).toggleClass('active'); admindashboard();
+            $('#adminaccount').click(function () {
+                $(this).toggleClass('active'); adminaccount();
                 $(this).prop('disabled', true);
                 console.log($(this));
             });
@@ -157,7 +157,7 @@
                                     <h5 class="card-title border-bottom pb-3">Admin dashboard</a></h5>
                                     <p class="card-text">Log into the staff dashboard to administer your students.
                                     </p>
-                                    <button type="button" id="admindashboard"
+                                    <button type="button" id="adminaccount"
                                         class="btn btn-primary float-right has-spinner"><span class="spinner"><i
                                                 class="fa fa-spinner fa-spin">
                                             </i></span> Click Here</button>

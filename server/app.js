@@ -182,7 +182,7 @@ app.post("/login/callback", (req, res, next) => {
   var parser = new Saml2js(req.body.SAMLResponse);
   var parsedObject = parser.toObject();
 
-  // Put the tems from the object into js variable
+  // Put the items from the object into js variable
   const email = parsedObject.emailAddress;
   const firstname = parsedObject.firstName;
   const userid = parsedObject.userId;
