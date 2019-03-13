@@ -106,7 +106,11 @@
                         method: 'post',
                         url: '/stafflogin',
                         data: {
-                            email: data.email
+                            urlemail: response.data.urlemail,
+                            whmcsurl: response.data.whmcsurl,
+                            timestamp: response.data.timestamp,
+                            hash: response.data.hash,
+                            goto: response.data.goto
                         }
 
                     }).then(function (response) {
@@ -118,15 +122,15 @@
                             // URL of the WHMCS installation
 
                             res.redirect(
-                                response.data.whmcsurl +
+                                whmcsurl +
                                 "?email=" +
-                                response.data.urlemail +
+                                urlemail +
                                 "&timestamp=" +
-                                response.data.timestamp +
+                                timestamp +
                                 "&hash=" +
-                                response.data.hash +
+                                hash +
                                 "&goto=" +
-                                response.data.goto
+                                goto
                             );
 
 
