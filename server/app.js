@@ -234,7 +234,7 @@ app.post("/login/callback", (req, res, next) => {
           "SELECT email, isStaff FROM user_idpdetails WHERE email = ?",
           [email],
           function (err, result, field) {
-
+            console.log(result.isStaff);
             if (result.isStaff = 1) {
               res.redirect('/stafflogin')
             } else {
