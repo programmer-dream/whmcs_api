@@ -203,22 +203,24 @@ app.post("/login/callback", (req, res, next) => {
     [email],
     function (err, result, field) {
       //if no result is passed back then the user data should be stored
+
+
+      /////////////// Store the variables in the db for later use
+
+      let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
+																									VALUES(?,?,?,?,?)`;
+      let todo = [email, firstname, userid, lastname, sessionid];
+
+      // execute the insert statment
+      connection.query(stmt, todo, (err, results, fields) => {
+        if (err) {
+          return res.send(err.message);
+        }
+      });
+
       if (!result.length) {
         //new user logic
         console.log(result);
-
-        /////////////// Store the variables in the db for later use
-
-        let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
-																									VALUES(?,?,?,?,?)`;
-        let todo = [email, firstname, userid, lastname, sessionid];
-
-        // execute the insert statment
-        connection.query(stmt, todo, (err, results, fields) => {
-          if (err) {
-            return res.send(err.message);
-          }
-        });
 
         // Redirect the user to the home page (signup page)
         res.redirect("/home");
