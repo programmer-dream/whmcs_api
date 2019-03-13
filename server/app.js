@@ -230,64 +230,65 @@ app.post("/login/callback", (req, res, next) => {
 
       } else {
 
-        // update session id on staff login
+        // update session id in the database on user login - this is used to pass data from this route to the staff login route
 
         connection.query('UPDATE user_idpdetails SET sessionid = ? WHERE email = ?', [sessionid, email], function (error, results, fields) {
           if (error) {
             console.log("error", error);
-          } });
+          }
+        });
 
 
-          connection.query(
-            "SELECT * FROM user_idpdetails WHERE email = ?",
-            [email],
-            function (err, result, field) {
-              //console.log(result);
-              //var data = result.data[0];
-              //console.log(result[0].email);
-              //console.log(result[0].isStaff);
-              if (result[0].isStaff == 1 && result[0].isActive == 1) {
+        connection.query(
+          "SELECT * FROM user_idpdetails WHERE email = ?",
+          [email],
+          function (err, result, field) {
+            //console.log(result);
+            //var data = result.data[0];
+            //console.log(result[0].email);
+            //console.log(result[0].isStaff);
+            if (result[0].isStaff == 1 && result[0].isActive == 1) {
 
-                res.redirect('/stafflogin')
-              } else if (result[0].isActive == 1) {
+              res.redirect('/stafflogin')
+            } else if (result[0].isActive == 1) {
 
-                //existing user, get the email back from the IDP and auto login to WHMCS
-                // Store the variables
-                // URL of the WHMCS installation
-                var whmcsurl = global.whmcsURL;
-                // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-                var autoauthkey = global.autoauth;
-                // get the timestamp in milliseconds and convert it to seconds for WHMCS url
-                var timestamp = Math.floor(Date.now() / 1000);
-                // get the email address that is returned from the IDP
-                var urlemail = parsedObject.emailAddress;
-                // URL to where the user is to go once logged into WHMCS
-                var goto = "clientarea.php";
-                // add the three variables together that are required for the WHMCS hash
-                var hashedstrings = email + timestamp + autoauthkey;
-                // use the sha1 node module to hash the variable
-                var hash = sha1(hashedstrings);
-                // create the URL to pass and redirect the user
-                res.redirect(
-                  whmcsurl +
-                  "?email=" +
-                  urlemail +
-                  "&timestamp=" +
-                  timestamp +
-                  "&hash=" +
-                  hash +
-                  "&goto=" +
-                  goto
-                );
+              //existing user, get the email back from the IDP and auto login to WHMCS
+              // Store the variables
+              // URL of the WHMCS installation
+              var whmcsurl = global.whmcsURL;
+              // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+              var autoauthkey = global.autoauth;
+              // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+              var timestamp = Math.floor(Date.now() / 1000);
+              // get the email address that is returned from the IDP
+              var urlemail = parsedObject.emailAddress;
+              // URL to where the user is to go once logged into WHMCS
+              var goto = "clientarea.php";
+              // add the three variables together that are required for the WHMCS hash
+              var hashedstrings = email + timestamp + autoauthkey;
+              // use the sha1 node module to hash the variable
+              var hash = sha1(hashedstrings);
+              // create the URL to pass and redirect the user
+              res.redirect(
+                whmcsurl +
+                "?email=" +
+                urlemail +
+                "&timestamp=" +
+                timestamp +
+                "&hash=" +
+                hash +
+                "&goto=" +
+                goto
+              );
 
-              } else { res.redirect('/'); }
+            } else { res.redirect('/'); }
 
 
-            });
-            
+          });
 
-          connection.end();
-        }
+
+        connection.end();
+      }
 
 
 
@@ -679,7 +680,7 @@ app.post('/stafflogin', (req, res) => {
   // get the timestamp in milliseconds and convert it to seconds for WHMCS url
   var timestamp = Math.floor(Date.now() / 1000);
   // get the email address that is returned from the IDP
-  var urlemail = parsedObject.emailAddress;
+  var urlemail = req.body.email;
   // URL to where the user is to go once logged into WHMCS
   var goto = "clientarea.php";
   // add the three variables together that are required for the WHMCS hash
