@@ -122,15 +122,15 @@
                             // URL of the WHMCS installation
 
                             res.redirect(
-                                whmcsurl +
+                                response.data.whmcsurl +
                                 "?email=" +
-                                urlemail +
+                                response.data.urlemail +
                                 "&timestamp=" +
-                                timestamp +
+                                response.data.timestamp +
                                 "&hash=" +
-                                hash +
+                                response.data.hash +
                                 "&goto=" +
-                                goto
+                                response.data.goto
                             );
 
 
