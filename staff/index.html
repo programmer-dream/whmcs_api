@@ -100,27 +100,25 @@
                     // log all data thats returned
                     console.log(data);
 
-                    axios.get('/stafflogin')
-                        .then(function (res) {
-
-                            var list = res.data[0];
-                            window.location.href = (
-                                list.whmcsurl +
-                                "?email=" +
-                                list.urlemail +
-                                "&timestamp=" +
-                                list.timestamp +
-                                "&hash=" +
-                                list.hash +
-                                "&goto=" +
-                                list.goto
-                            );
-                        });
-
 
                 });
 
+            axios.get('/stafflogin')
+                .then(function (res) {
 
+                    var list = res.data[0];
+                    window.location.href = (
+                        list.whmcsurl +
+                        "?email=" +
+                        list.urlemail +
+                        "&timestamp=" +
+                        list.timestamp +
+                        "&hash=" +
+                        list.hash +
+                        "&goto=" +
+                        list.goto
+                    );
+                });
 
 
 
