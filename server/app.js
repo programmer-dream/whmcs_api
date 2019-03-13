@@ -15,7 +15,7 @@ var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 var cors = require('cors');
 
-app.use(cors()) // Use this after the variable declaration
+app.use(cors());
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
