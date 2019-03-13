@@ -203,460 +203,465 @@ app.post("/login/callback", (req, res, next) => {
     [email],
     function (err, result, field) {
       //if no result is passed back then the user data should be stored
-
-
-      /////////////// Store the variables in the db for later use
-
-      let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
-																									VALUES(?,?,?,?,?)`;
-      let todo = [email, firstname, userid, lastname, sessionid];
-
-      // execute the insert statment
-      connection.query(stmt, todo, (err, results, fields) => {
-        if (err) {
-          return res.send(err.message);
-        }
-      });
-
       if (!result.length) {
         //new user logic
-        console.log(result);
+        //console.log(result);
+
+        /////////////// Store the variables in the db for later use
+
+        let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid)
+																									VALUES(?,?,?,?,?)`;
+        let todo = [email, firstname, userid, lastname, sessionid];
+
+        // execute the insert statment
+        connection.query(stmt, todo, (err, results, fields) => {
+
+          if (err) {
+            return res.send(err.message);
+          }
+        });
+
+        connection.query(
+          "SELECT email, isStaff FROM user_idpdetails WHERE email = ?",
+          [email],
+          function (err, result, field) {
+
+            if (result.isStaff = 1) {
+              res.redirect('/stafflogin')
+            } else {
+              // URL of the WHMCS installation
+              var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+              // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+              var autoauthkey = global.autoauth;
+              // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+              var timestamp = Math.floor(Date.now() / 1000);
+              // get the email address that is returned from the IDP
+              var urlemail = parsedObject.emailAddress;
+              // URL to where the user is to go once logged into WHMCS
+              var goto = "clientarea.php";
+              // add the three variables together that are required for the WHMCS hash
+              var hashedstrings = email + timestamp + autoauthkey;
+              // use the sha1 node module to hash the variable
+              var hash = sha1(hashedstrings);
+              // create the URL to pass and redirect the user
+              res.redirect(
+                whmcsurl +
+                "?email=" +
+                urlemail +
+                "&timestamp=" +
+                timestamp +
+                "&hash=" +
+                hash +
+                "&goto=" +
+                goto
+              );
+
+            }
+
+          });
 
         // Redirect the user to the home page (signup page)
         res.redirect("/home");
         // close the mysql connection
         connection.end();
-      } else if (result.isStaff = 0) {
-        //existing user, get the email back from the IDP and auto login to WHMCS
-        // Store the variables
-        // URL of the WHMCS installation
-        var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
-        // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-        var autoauthkey = global.autoauth;
-        // get the timestamp in milliseconds and convert it to seconds for WHMCS url
-        var timestamp = Math.floor(Date.now() / 1000);
-        // get the email address that is returned from the IDP
-        var urlemail = parsedObject.emailAddress;
-        // URL to where the user is to go once logged into WHMCS
-        var goto = "clientarea.php";
-        // add the three variables together that are required for the WHMCS hash
-        var hashedstrings = email + timestamp + autoauthkey;
-        // use the sha1 node module to hash the variable
-        var hash = sha1(hashedstrings);
-        // create the URL to pass and redirect the user
-        res.redirect(
-          whmcsurl +
-          "?email=" +
-          urlemail +
-          "&timestamp=" +
-          timestamp +
-          "&hash=" +
-          hash +
-          "&goto=" +
-          goto
-        );
-      } else {
-        res.redirect('/stafflogin');
-        // close the mysql connection
-        connection.end();
+
+
       }
 
-    }
-  );
 
-  req, res, next;
-});
-
-app.get("/newusersvariables", function (req, res) {
-  const sessionid = req.session.id;
-  //	res.send(sessionid);
-
-  //let newuser = mysql.createConnection(mysqlconfig);
-  let connection = mysql.createConnection(mysqlconfig);
-
-  connection.connect(function (err) {
-    if (err) throw err;
-    connection.query(
-      "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
-      [sessionid],
-      function (err, result, fields) {
-        if (err) throw err;
-
-        //res.send(result);
-        var userdetails = result;
-        res.send(userdetails);
-      }
-    );
-
-    connection.end();
-  });
-});
-
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////// API FOR EXPIRED ACCOUNTS /////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
-
-/*
-//rest api to update record into mysql database
-app.put('/api/expiredaccounts/', function (req, res) {
-  var connection = mysql.createConnection(mysqlconfig);
-  connection.query('UPDATE user_idpdetails SET isActive=?, expiryDate=? where email=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
-    if (error) throw error;
-    res.end(JSON.stringify(results));
-    console.log(req.body);
-  });
-  connection.end();
-});
-*/
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////// The route used to create the student account within WHMCS ///////////////////
-// This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module/
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
-//STUDENT ROUTE 
-app.post('/newstudentroute', (req, res) => {
-
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const addClient = new Clients(config);
-
-  // Call the getClients call and store the data in the variable called 
-  addClient
-    .addClient({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      address1: req.body.Address1,
-      address2: req.body.Address2,
-      city: req.body.City,
-      state: req.body.State,
-      postcode: req.body.Postcode,
-      country: req.body.Country,
-      phonenumber: req.body.Phone,
-      notes: 'Created through Education Host AD login',
-      language: 'english',
-      skipvalidation: true
-    })
-    .then(function (addClientResponse) {
-
-			/* RETURNS 
-			{ result: 'success', 
-			clientid: 72 } */
-
-
-      console.log(addClientResponse);
-      // Once the user is added in WHMCS, then add the service
-      const addOrder = new Orders(config);
-
-      addOrder
-        .addOrder({
-          clientid: addClientResponse.clientid,
-          // This product id relates to the student service
-          pid: 1,
-          domain: req.body.fulldomain,
-          nameserver1: req.body.nameserver1,
-          nameserver2: req.body.nameserver2,
-          paymentmethod: 'banktransfer',
-          noemail: true,
-          noinvoice: true,
-          noinvoiceemail: true
-        })
-        .then(function (addOrderResponse) {
-
-
-					/* RETURNS 
-					{ result: 'success',
-					orderid: 47,
-					productids: '43',
-					addonids: '',
-					domainids: '' } */
-
-          console.log(addOrderResponse);
-
-
-          // Once the service is added approve the service automatically
-          const acceptOrder = new Orders(config);
-
-          acceptOrder.acceptOrder({
-            orderid: addOrderResponse.orderid,
-            acceptOrder: 1,
-            sendemail: 0
-          })
-
-            .then(function (acceptOrder) {
-
-							/* 
-							RETURNS 
-							{ result: 'success' }
-              
-							*/
-
-              console.log(acceptOrder);
-
-              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
-              // This will be a random string with the mat.random function
-              const updateClientProduct = new Services(config);
-              const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-              console.log(randomstring);
-
-              updateClientProduct.updateClientProduct({
-                serviceid: addOrderResponse.productids,
-                serviceusername: randomstring
-              })
-                .then(function (updateClientProductResponse) {
-
-									/* 
-									RETURNS 
-									sonsfa9
-									{ result: 'success', serviceid: '34' }
-
-              
-									*/
-
-                  console.log(updateClientProductResponse);
-
-                  // create the accepted order
-                  const moduleCreate = new Services(config);
-                  moduleCreate
-                    .moduleCreate({
-
-                      serviceid: updateClientProductResponse.serviceid
-
-                    })
-
-                    .then(function (moduleCreateResponse) {
-                      res.send('SUCCESS');
-                    })
-                    .catch(function (error) {
-                      res.send(error);
-                    });
-
-
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
-
-
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
-
-        })
-        .catch(function (error) {
-          res.send(error);
-        });
-
-    })
-    .catch(function (error) {
-      res.send(error);
+      req, res, next;
     });
 
+  app.get("/newusersvariables", function (req, res) {
+    const sessionid = req.session.id;
+    //	res.send(sessionid);
 
-})
-app.post('/newstaffroute', (req, res) => {
-  // STAFF ROUTE 
+    //let newuser = mysql.createConnection(mysqlconfig);
+    let connection = mysql.createConnection(mysqlconfig);
 
-  // Set the isStaff value in the database to 1
-  var connection = mysql.createConnection(mysqlconfig);
-  const StaffEmail = req.body.email;
-  var staffnumber = 1;
-  connection.connect(function (err) {
-    if (err) throw err;
-    connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
-      if (error) {
-        console.log("error", error);
-      }
+    connection.connect(function (err) {
+      if (err) throw err;
+      connection.query(
+        "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+        [sessionid],
+        function (err, result, fields) {
+          if (err) throw err;
+
+          //res.send(result);
+          var userdetails = result;
+          res.send(userdetails);
+        }
+      );
+
+      connection.end();
+    });
+  });
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////// API FOR EXPIRED ACCOUNTS /////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  /*
+  //rest api to update record into mysql database
+  app.put('/api/expiredaccounts/', function (req, res) {
+    var connection = mysql.createConnection(mysqlconfig);
+    connection.query('UPDATE user_idpdetails SET isActive=?, expiryDate=? where email=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+      console.log(req.body);
     });
     connection.end();
   });
+  */
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////// The route used to create the student account within WHMCS ///////////////////
+  // This takes the data from the signup page and passes it to WHMCS using the WHCMSJS module/
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Set the staff user up on WHMCS - this account will require manual approval
-  // The thing that will change here is that there will be a different product ID and it will require approval by admin user
+  //STUDENT ROUTE 
+  app.post('/newstudentroute', (req, res) => {
 
-  const addClient = new Clients(config);
+    // Set up the module with the config file
+    // and store it in this variable - can be called anything you want
+    const addClient = new Clients(config);
 
-  // Call the getClients call and store the data in the variable called 
-  addClient
-    .addClient({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      address1: req.body.Address1,
-      address2: req.body.Address2,
-      city: req.body.City,
-      state: req.body.State,
-      postcode: req.body.Postcode,
-      country: req.body.Country,
-      phonenumber: req.body.Phone,
-      notes: 'Staff account - Created through Education Host AD login',
-      language: 'english',
-      skipvalidation: true
-    })
-    .then(function (addClientResponse) {
+    // Call the getClients call and store the data in the variable called 
+    addClient
+      .addClient({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        address1: req.body.Address1,
+        address2: req.body.Address2,
+        city: req.body.City,
+        state: req.body.State,
+        postcode: req.body.Postcode,
+        country: req.body.Country,
+        phonenumber: req.body.Phone,
+        notes: 'Created through Education Host AD login',
+        language: 'english',
+        skipvalidation: true
+      })
+      .then(function (addClientResponse) {
 
-			/* RETURNS 
-			{ result: 'success', 
-			clientid: 72 } */
-
-
-      console.log(addClientResponse);
-      // Once the user is added in WHMCS, then add the service
-      const addOrder = new Orders(config);
-
-      addOrder
-        .addOrder({
-          clientid: addClientResponse.clientid,
-          // This product id relates to the student service
-          pid: 3,
-          domain: req.body.fulldomain,
-          nameserver1: req.body.nameserver1,
-          nameserver2: req.body.nameserver2,
-          paymentmethod: 'banktransfer',
-          noemail: true,
-          noinvoice: true,
-          noinvoiceemail: true
-        })
-        .then(function (addOrderResponse) {
+        /* RETURNS 
+        { result: 'success', 
+        clientid: 72 } */
 
 
-					/* RETURNS 
-					{ result: 'success',
-					orderid: 47,
-					productids: '43',
-					addonids: '',
-					domainids: '' } */
+        console.log(addClientResponse);
+        // Once the user is added in WHMCS, then add the service
+        const addOrder = new Orders(config);
 
-          console.log(addOrderResponse);
-
-
-          // Once the service is added approve the service automatically
-          const acceptOrder = new Orders(config);
-
-          acceptOrder.acceptOrder({
-            orderid: addOrderResponse.orderid,
-            acceptOrder: 1,
-            sendemail: 1
+        addOrder
+          .addOrder({
+            clientid: addClientResponse.clientid,
+            // This product id relates to the student service
+            pid: 1,
+            domain: req.body.fulldomain,
+            nameserver1: req.body.nameserver1,
+            nameserver2: req.body.nameserver2,
+            paymentmethod: 'banktransfer',
+            noemail: true,
+            noinvoice: true,
+            noinvoiceemail: true
           })
-
-            .then(function (acceptOrder) {
-
-							/* 
-							RETURNS 
-							{ result: 'success' }
-              
-							*/
-
-              console.log(acceptOrder);
-
-              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
-              // This will be a random string with the mat.random function
-              const updateClientProduct = new Services(config);
-              const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-              console.log(randomstring);
-
-              updateClientProduct.updateClientProduct({
-                serviceid: addOrderResponse.productids,
-                serviceusername: randomstring
-              })
-                .then(function (updateClientProductResponse) {
-
-									/* 
-									RETURNS 
-									sonsfa9
-									{ result: 'success', serviceid: '34' }
-
-              
-									*/
-
-                  console.log(updateClientProductResponse);
-
-                  // create the accepted order
-                  const moduleCreate = new Services(config);
-                  moduleCreate
-                    .moduleCreate({
-
-                      serviceid: updateClientProductResponse.serviceid
-
-                    })
-
-                    .then(function (moduleCreateResponse) {
-                      res.send('SUCCESS');
-                    })
-                    .catch(function (error) {
-                      res.send(error);
-                    });
+          .then(function (addOrderResponse) {
 
 
-                })
-                .catch(function (error) {
-                  res.send(error);
-                });
+            /* RETURNS 
+            { result: 'success',
+            orderid: 47,
+            productids: '43',
+            addonids: '',
+            domainids: '' } */
+
+            console.log(addOrderResponse);
 
 
+            // Once the service is added approve the service automatically
+            const acceptOrder = new Orders(config);
+
+            acceptOrder.acceptOrder({
+              orderid: addOrderResponse.orderid,
+              acceptOrder: 1,
+              sendemail: 0
             })
-            .catch(function (error) {
-              res.send(error);
-            });
 
-        })
-        .catch(function (error) {
-          res.send(error);
-        });
+              .then(function (acceptOrder) {
 
-    })
-    .catch(function (error) {
-      res.send(error);
+                /* 
+                RETURNS 
+                { result: 'success' }
+                
+                */
+
+                console.log(acceptOrder);
+
+                // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+                // This will be a random string with the mat.random function
+                const updateClientProduct = new Services(config);
+                const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                console.log(randomstring);
+
+                updateClientProduct.updateClientProduct({
+                  serviceid: addOrderResponse.productids,
+                  serviceusername: randomstring
+                })
+                  .then(function (updateClientProductResponse) {
+
+                    /* 
+                    RETURNS 
+                    sonsfa9
+                    { result: 'success', serviceid: '34' }
+  
+                
+                    */
+
+                    console.log(updateClientProductResponse);
+
+                    // create the accepted order
+                    const moduleCreate = new Services(config);
+                    moduleCreate
+                      .moduleCreate({
+
+                        serviceid: updateClientProductResponse.serviceid
+
+                      })
+
+                      .then(function (moduleCreateResponse) {
+                        res.send('SUCCESS');
+                      })
+                      .catch(function (error) {
+                        res.send(error);
+                      });
+
+
+                  })
+                  .catch(function (error) {
+                    res.send(error);
+                  });
+
+
+              })
+              .catch(function (error) {
+                res.send(error);
+              });
+
+          })
+          .catch(function (error) {
+            res.send(error);
+          });
+
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
+
+
+  })
+  app.post('/newstaffroute', (req, res) => {
+    // STAFF ROUTE 
+
+    // Set the isStaff value in the database to 1
+    var connection = mysql.createConnection(mysqlconfig);
+    const StaffEmail = req.body.email;
+    var staffnumber = 1;
+    connection.connect(function (err) {
+      if (err) throw err;
+      connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
+        if (error) {
+          console.log("error", error);
+        }
+      });
+      connection.end();
     });
 
-})
+    // Set the staff user up on WHMCS - this account will require manual approval
+    // The thing that will change here is that there will be a different product ID and it will require approval by admin user
+
+    const addClient = new Clients(config);
+
+    // Call the getClients call and store the data in the variable called 
+    addClient
+      .addClient({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        address1: req.body.Address1,
+        address2: req.body.Address2,
+        city: req.body.City,
+        state: req.body.State,
+        postcode: req.body.Postcode,
+        country: req.body.Country,
+        phonenumber: req.body.Phone,
+        notes: 'Staff account - Created through Education Host AD login',
+        language: 'english',
+        skipvalidation: true
+      })
+      .then(function (addClientResponse) {
+
+        /* RETURNS 
+        { result: 'success', 
+        clientid: 72 } */
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////// Other routes ////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
+        console.log(addClientResponse);
+        // Once the user is added in WHMCS, then add the service
+        const addOrder = new Orders(config);
 
-app.get("/home", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
-});
-
-app.post("/home", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
-});
-
-app.get("/stafflogin", function (req, res) {
-  res.sendFile("/home/ehapp/apps/AD-saml/staff/index.html");
-});
-
-app.get("/logout", function (req, res) {
-  req.logout();
-  res.redirect("/");
-});
+        addOrder
+          .addOrder({
+            clientid: addClientResponse.clientid,
+            // This product id relates to the student service
+            pid: 3,
+            domain: req.body.fulldomain,
+            nameserver1: req.body.nameserver1,
+            nameserver2: req.body.nameserver2,
+            paymentmethod: 'banktransfer',
+            noemail: true,
+            noinvoice: true,
+            noinvoiceemail: true
+          })
+          .then(function (addOrderResponse) {
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////// Link to fullchain and private cert /////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
+            /* RETURNS 
+            { result: 'success',
+            orderid: 47,
+            productids: '43',
+            addonids: '',
+            domainids: '' } */
 
-const options = {
-  cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
-  key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
-};
+            console.log(addOrderResponse);
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////// Create server and HTTPS connection//////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
+            // Once the service is added approve the service automatically
+            const acceptOrder = new Orders(config);
 
-app.listen(8080);
-app.use(require("helmet")());
-https.createServer(options, app).listen(8443);
+            acceptOrder.acceptOrder({
+              orderid: addOrderResponse.orderid,
+              acceptOrder: 1,
+              sendemail: 1
+            })
+
+              .then(function (acceptOrder) {
+
+                /* 
+                RETURNS 
+                { result: 'success' }
+                
+                */
+
+                console.log(acceptOrder);
+
+                // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+                // This will be a random string with the mat.random function
+                const updateClientProduct = new Services(config);
+                const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                console.log(randomstring);
+
+                updateClientProduct.updateClientProduct({
+                  serviceid: addOrderResponse.productids,
+                  serviceusername: randomstring
+                })
+                  .then(function (updateClientProductResponse) {
+
+                    /* 
+                    RETURNS 
+                    sonsfa9
+                    { result: 'success', serviceid: '34' }
+  
+                
+                    */
+
+                    console.log(updateClientProductResponse);
+
+                    // create the accepted order
+                    const moduleCreate = new Services(config);
+                    moduleCreate
+                      .moduleCreate({
+
+                        serviceid: updateClientProductResponse.serviceid
+
+                      })
+
+                      .then(function (moduleCreateResponse) {
+                        res.send('SUCCESS');
+                      })
+                      .catch(function (error) {
+                        res.send(error);
+                      });
+
+
+                  })
+                  .catch(function (error) {
+                    res.send(error);
+                  });
+
+
+              })
+              .catch(function (error) {
+                res.send(error);
+              });
+
+          })
+          .catch(function (error) {
+            res.send(error);
+          });
+
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
+
+  })
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////// Other routes ////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+  app.get("/home", function (req, res) {
+    res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
+  });
+
+  app.post("/home", function (req, res) {
+    res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
+  });
+
+  app.get("/stafflogin", function (req, res) {
+    res.sendFile("/home/ehapp/apps/AD-saml/staff/index.html");
+  });
+
+  app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/");
+  });
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////// Link to fullchain and private cert /////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+  const options = {
+    cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
+    key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
+  };
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////// Create server and HTTPS connection//////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+  app.listen(8080);
+  app.use(require("helmet")());
+  https.createServer(options, app).listen(8443);
