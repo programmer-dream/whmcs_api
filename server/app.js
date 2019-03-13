@@ -664,6 +664,14 @@ app.post("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
+app.get("/staffdashboard", function (req, res) {
+  res.sendFile("/home/ehapp/apps/AD-saml/staff/dashboard.html");
+});
+
+app.post("/staffdashboard", function (req, res) {
+  res.sendFile("/home/ehapp/apps/AD-saml/staff/dashboard.html");
+});
+
 app.get("/stafflogin", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/staff/index.html");
 });
