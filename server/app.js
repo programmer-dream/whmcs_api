@@ -670,7 +670,7 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.post('/stafflogin', (req, res) => {
+app.post('/stafflogintowhmcs', (req, res) => {
   var whmcsurl = 'https://whmcs.educationhost.co.uk/dologin.php';
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
   var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
