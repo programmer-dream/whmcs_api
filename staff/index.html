@@ -107,6 +107,7 @@
                 .then(function (res) {
 
                     var list = res.data[0];
+                    console.log(res.data[0]);
                     window.location.href = (
                         list.whmcsurl +
                         "?email=" +
