@@ -106,18 +106,18 @@
             axios.get('/stafflogintowhmcs')
                 .then(function (response) {
 
-                    var list = response.data[0];
-                    console.log(response.data[0]);
+                    var data = response.data[0];
+
                     window.location.href = (
-                        list.whmcsurl +
+                        data.whmcsurl +
                         "?email=" +
-                        list.urlemail +
+                        data.urlemail +
                         "&timestamp=" +
-                        list.timestamp +
+                        data.timestamp +
                         "&hash=" +
-                        list.hash +
+                        data.hash +
                         "&goto=" +
-                        list.goto
+                        data.goto
                     );
                 });
 
