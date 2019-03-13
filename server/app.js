@@ -231,8 +231,8 @@ app.post("/login/callback", (req, res, next) => {
 
 
         connection.query(
-          "SELECT * FROM user_idpdetails WHERE email = ?",
-          [email],
+          "SELECT * FROM user_idpdetails WHERE email = 'n.a.williams@outlook.com'",
+
           function (err, result, field) {
             console.log(result);
             var data = result.data[0];
