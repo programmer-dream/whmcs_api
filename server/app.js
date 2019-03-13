@@ -239,6 +239,31 @@ app.post("/login/callback", (req, res, next) => {
             //console.log(result[0].email);
             //console.log(result[0].isStaff);
             if (result[0].isStaff == 1 && result[0].isActive == 1) {
+
+
+
+              // update session id on staff login
+
+              connection.connect(function (err) {
+                if (err) throw err;
+                connection.query('UPDATE user_idpdetails SET sessionid = ? WHERE email = ?', [sessionid, email], function (error, results, fields) {
+                  if (error) {
+                    console.log("error", error);
+                  }
+                });
+                connection.end();
+              });
+
+
+
+
+
+
+
+
+
+
+
               res.redirect('/stafflogin')
             } else if (result[0].isActive == 1) {
 
