@@ -231,12 +231,12 @@ app.post("/login/callback", (req, res, next) => {
 
 
         connection.query(
-          "SELECT * FROM user_idpdetails WHERE email = 'n.a.williams@outlook.com'",
-
+          "SELECT * FROM user_idpdetails WHERE email = ?",
+          [email],
           function (err, result, field) {
             console.log(result);
-            var data = result.data[0];
-            if (data.isStaff = 1) {
+            //var data = result.data[0];
+            if (results[0].isStaff = 1) {
               res.redirect('/stafflogin')
             } else {
 
