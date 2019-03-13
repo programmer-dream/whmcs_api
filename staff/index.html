@@ -59,28 +59,20 @@
                 console.log($(this));
             });
 
-            /* Make a request for the whmcs route using axios
-             axios.get('/newusersvariables')
-                 .then(function (response) {
-                     // Get the client data from the response
-                     var data = response.data[0];
- 
-                     // log all data thats returned
-                     console.log(data);
- 
-                     // Load stepper after template
-                     myStepper = new Stepper(document.querySelector('#stepper-example'), {
-                         linear: false,
-                         animation: true
-                     });
- 
-                 })
- 
- 
-                 .catch(function (error) {
-                     // handle error
-                     console.log(error);
-                 })*/
+            /* Make a request for the whmcs route using axios*/
+            axios.get('/newusersvariables')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
+
+                    // log all data thats returned
+                    console.log(data);
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
 
             // Show the modal
             $('#newuser').modal('show');
