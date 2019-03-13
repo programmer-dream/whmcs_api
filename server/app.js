@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({
 
 
 global.autoauth = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
+global.whmcsURL = 'http://whmcs.educationhost.co.uk/dologin.php';
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
@@ -231,10 +232,6 @@ app.post("/login/callback", (req, res, next) => {
 
         // update session id on staff login
 
-
-
-
-
         connection.query(
           "SELECT * FROM user_idpdetails WHERE email = ?",
           [email],
@@ -245,30 +242,13 @@ app.post("/login/callback", (req, res, next) => {
             //console.log(result[0].isStaff);
             if (result[0].isStaff == 1 && result[0].isActive == 1) {
 
-
-
-              connection.query('UPDATE user_idpdetails SET sessionid = ? WHERE email = ?', [sessionid, email], function (error, results, fields) {
-                if (error) {
-                  console.log("error", error);
-                }
-              });
-
-
-
-
-
-
-
-
-
-
               res.redirect('/stafflogin')
             } else if (result[0].isActive == 1) {
 
               //existing user, get the email back from the IDP and auto login to WHMCS
               // Store the variables
               // URL of the WHMCS installation
-              var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+              var whmcsurl = global.whmcsURL;
               // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
               var autoauthkey = global.autoauth;
               // get the timestamp in milliseconds and convert it to seconds for WHMCS url
@@ -685,13 +665,13 @@ app.get("/logout", function (req, res) {
 
 app.post('/stafflogin', (req, res) => {
 
-  var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+  var whmcsurl = global.whmcsURL;
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
   var autoauthkey = global.autoauth;
   // get the timestamp in milliseconds and convert it to seconds for WHMCS url
   var timestamp = Math.floor(Date.now() / 1000);
   // get the email address that is returned from the IDP
-  var urlemail = req.body.email;
+  var urlemail = parsedObject.emailAddress;
   // URL to where the user is to go once logged into WHMCS
   var goto = "clientarea.php";
   // add the three variables together that are required for the WHMCS hash
