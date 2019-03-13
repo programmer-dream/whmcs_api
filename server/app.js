@@ -670,7 +670,7 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.get('/stafflogintowhmcs', (req, res) => {
+app.post('/stafflogintowhmcs', (req, res) => {
   var whmcsurl = global.whmcsURL;
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
   var autoauthkey = global.autoauth;
