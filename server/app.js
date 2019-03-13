@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 process.env.NODE_ENV = 'production';
 
 // config variables
-const config = require('./config/config.js');
+const globalconfig = require('./config/config.js');
 
 app.get('/', (req, res) => {
   res.json(global.gConfig);
