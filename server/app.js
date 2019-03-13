@@ -628,6 +628,10 @@ app.post("/home", function (req, res) {
   res.sendFile("/home/ehapp/apps/AD-saml/client/home.html");
 });
 
+app.get("/stafflogin", function (req, res) {
+  res.sendFile("/home/ehapp/apps/AD-saml/staff/index.html");
+});
+
 app.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");

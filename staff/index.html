@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Login">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Staff login</title>
+
+    <!--BSStepper CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
+    <script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/home.css" type="text/css" />
+
+    <base href="/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Fontawesome CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Include bootstrap-multiselect CSS and JS: -->
+    <script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css" />
+
+    <!-- Spinner css for buttons -->
+    <link rel="stylesheet" href="/css/spinner.css" type="text/css" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Log into admin dashboard
+            $('#admindashboard').click(function () {
+                $(this).toggleClass('active'); admindashboard();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+            // Log into client whmcs account
+            $('#whmcsaccount').click(function () {
+                $(this).toggleClass('active'); whmcsaccount();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+
+            // Make a request for the whmcs route using axios
+            axios.get('/newusersvariables')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
+
+                    // log all data thats returned
+                    console.log(data);
+
+                    // Load stepper after template
+                    myStepper = new Stepper(document.querySelector('#stepper-example'), {
+                        linear: false,
+                        animation: true
+                    });
+
+
+
+                    // Show the modal
+                    $('#newuser').modal('show');
+
+
+
+
+
+                })
+
+
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+
+
+        }); // end of doc ready
+
+
+        /// adminaccount FUNCTION
+
+        function adminaccount(data, res) {
+
+
+        }; // End of adminaccount function
+
+        // whmcsaccount FUNCTION 
+        //
+        function whmcsaccount(data, res) {
+
+
+
+
+        }; // End of whmcsaccount function
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <!-- Modal start -->
+    <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
+        data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newuser">
+                        New user - Getting started
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <p class="text-center">
+                        <b>Select your account type, typically a student account.</b>
+                    </p>
+                    <p class="text-center">
+
+                        <div class="card-deck">
+                            <div class="card">
+                                <img class="card-img-top" src="/images/student.jpg" alt="Admin dashboard" width="100%"
+                                    height="50%">
+                                <div class="card-body">
+                                    <h5 class="card-title border-bottom pb-3">Admin dashboard</a></h5>
+                                    <p class="card-text">Log into the staff dashboard to administer your students.
+                                    </p>
+                                    <button type="button" id="admindashboard"
+                                        class="btn btn-success float-right has-spinner"><span class="spinner"><i
+                                                class="fa fa-spinner fa-spin">
+                                            </i></span> Click Here</button>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <img class="card-img-top" src="/images/staff.jpg" alt="Staff web hosting" width="100%"
+                                    height="50%">
+                                <div class="card-body">
+                                    <h5 class="card-title border-bottom pb-3">Staff web hosting</h5>
+                                    <p class="card-text">Staff web hosting account login as setup on signup.</p>
+                                    <button type="button" id="whmcsaccount"
+                                        class="btn btn-secondary float-right has-spinner"><span class="spinner"><i
+                                                class="fa fa-spinner fa-spin">
+                                            </i></span> Click Here</button>
+                                </div>
+                            </div>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
