@@ -235,8 +235,8 @@ app.post("/login/callback", (req, res, next) => {
           [email],
           function (err, result, field) {
             console.log(result);
-            var data = result.data[0];
-            if (data.isStaff = 1) {
+            //var data = result.data[0];
+            if (result.isStaff = 1) {
               res.redirect('/stafflogin')
             } else {
 
