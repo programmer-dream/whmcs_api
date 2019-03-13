@@ -225,7 +225,7 @@ app.post("/login/callback", (req, res, next) => {
         // Redirect the user to the home page (signup page)
         res.redirect("/home");
         // close the mysql connection
-
+        connection.end();
 
 
       } else {
