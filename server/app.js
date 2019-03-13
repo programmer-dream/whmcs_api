@@ -670,6 +670,17 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
+
+app.all('/stafflogintowhmcs', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
+app.get('/stafflogintowhmcs', function (req, res, next) {
+  // Handle the get for this route
+});
+
 app.post('/stafflogintowhmcs', (req, res) => {
   var whmcsurl = 'https://whmcs.educationhost.co.uk/dologin.php';
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
