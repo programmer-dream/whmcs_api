@@ -205,7 +205,7 @@ app.post("/login/callback", (req, res, next) => {
       //if no result is passed back then the user data should be stored
       if (!result.length) {
         //new user logic
-        //res.send(result);
+        console.log(result);
 
         /////////////// Store the variables in the db for later use
 
