@@ -234,13 +234,13 @@ app.post("/login/callback", (req, res, next) => {
           "SELECT * FROM user_idpdetails WHERE email = ?",
           [email],
           function (err, result, field) {
-            console.log(result);
+            //console.log(result);
             //var data = result.data[0];
-            console.log(result[0].email);
-            console.log(result[0].isStaff);
-            if (result[0].isStaff == 1) {
+            //console.log(result[0].email);
+            //console.log(result[0].isStaff);
+            if (result[0].isStaff == 1 && result[0].isActive == 1) {
               res.redirect('/stafflogin')
-            } else {
+            } else if (result[0].isActive == 1) {
 
               //existing user, get the email back from the IDP and auto login to WHMCS
               // Store the variables
@@ -271,7 +271,8 @@ app.post("/login/callback", (req, res, next) => {
                 goto
               );
 
-            }
+            } else { res.send('/'); }
+
 
           });
         connection.end();
