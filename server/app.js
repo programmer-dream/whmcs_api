@@ -199,7 +199,7 @@ app.post("/login/callback", (req, res, next) => {
   var connection = mysql.createConnection(mysqlconfig);
 
   connection.query(
-    "SELECT email FROM user_idpdetails WHERE email = ?",
+    "SELECT email, isStaff FROM user_idpdetails WHERE email = ?",
     [email],
     function (err, result, field) {
       //if no result is passed back then the user data should be stored
@@ -225,36 +225,38 @@ app.post("/login/callback", (req, res, next) => {
         // close the mysql connection
         connection.end();
       } else {
-        //existing user, get the email back from the IDP and auto login to WHMCS
-
-        // Store the variables
-        // URL of the WHMCS installation
-        var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
-        // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-        var autoauthkey = global.autoauth;
-        // get the timestamp in milliseconds and convert it to seconds for WHMCS url
-        var timestamp = Math.floor(Date.now() / 1000);
-        // get the email address that is returned from the IDP
-        var urlemail = parsedObject.emailAddress;
-        // URL to where the user is to go once logged into WHMCS
-        var goto = "clientarea.php";
-        // add the three variables together that are required for the WHMCS hash
-        var hashedstrings = email + timestamp + autoauthkey;
-        // use the sha1 node module to hash the variable
-        var hash = sha1(hashedstrings);
-        // create the URL to pass and redirect the user
-        res.redirect(
-          whmcsurl +
-          "?email=" +
-          urlemail +
-          "&timestamp=" +
-          timestamp +
-          "&hash=" +
-          hash +
-          "&goto=" +
-          goto
-        );
-
+        if (result.isStaff = 0) {
+          //existing user, get the email back from the IDP and auto login to WHMCS
+          // Store the variables
+          // URL of the WHMCS installation
+          var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
+          // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+          var autoauthkey = global.autoauth;
+          // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+          var timestamp = Math.floor(Date.now() / 1000);
+          // get the email address that is returned from the IDP
+          var urlemail = parsedObject.emailAddress;
+          // URL to where the user is to go once logged into WHMCS
+          var goto = "clientarea.php";
+          // add the three variables together that are required for the WHMCS hash
+          var hashedstrings = email + timestamp + autoauthkey;
+          // use the sha1 node module to hash the variable
+          var hash = sha1(hashedstrings);
+          // create the URL to pass and redirect the user
+          res.redirect(
+            whmcsurl +
+            "?email=" +
+            urlemail +
+            "&timestamp=" +
+            timestamp +
+            "&hash=" +
+            hash +
+            "&goto=" +
+            goto
+          );
+        } else {
+          res.redirect('/stafflogin');
+        }
         // close the mysql connection
         connection.end();
       }
