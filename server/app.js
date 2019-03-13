@@ -255,14 +255,14 @@ app.post("/login/callback", (req, res, next) => {
         );
       } else {
         res.redirect('/stafflogin');
+        // close the mysql connection
+        connection.end();
       }
-      // close the mysql connection
-      connection.end();
-    }
-    }
-);
 
-req, res, next;
+    }
+  );
+
+  req, res, next;
 });
 
 app.get("/newusersvariables", function (req, res) {
