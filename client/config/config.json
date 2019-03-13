@@ -1,0 +1,11 @@
+{
+    "development": {
+        "config_id": "production",
+        "app_name": "my app",
+        "app_desc": "my app desc",
+        "node_port": 3000,
+        "json_indentation": 4,
+        "database": "my-app-db-dev",
+        "autoauthkey": "V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q"
+    }
+}

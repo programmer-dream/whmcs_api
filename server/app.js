@@ -21,6 +21,23 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////// CONFIG FILE  /////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+// environment variables
+process.env.NODE_ENV = 'production';
+
+// config variables
+const config = require('./config/config.js');
+
+app.get('/', (req, res) => {
+  res.json(global.gConfig);
+});
+
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
 /*--------------------------------------------------------------------------------------------------*/
@@ -132,6 +149,8 @@ app.get("/listallwhmcsusers", function (req, res) {
 });
 */
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////Assets folders that can be called from html//////////////////////
@@ -226,7 +245,7 @@ app.post("/login/callback", (req, res, next) => {
         // URL of the WHMCS installation
         var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
         // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-        var autoauthkey = "V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q";
+        var autoauthkey = '${global.gConfig.autoauthkey}';
         // get the timestamp in milliseconds and convert it to seconds for WHMCS url
         var timestamp = Math.floor(Date.now() / 1000);
         // get the email address that is returned from the IDP
