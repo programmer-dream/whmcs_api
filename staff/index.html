@@ -83,7 +83,7 @@
 
         function adminaccount(data, res) {
 
-            alert("Coming soon");
+            res.redirect('/staffdashboard');
 
         }; // End of adminaccount function
 
@@ -92,27 +92,27 @@
         function whmcsaccount(data, res) {
 
 
-			axios.get('/newusersvariables')
-				.then(function (response) {
-					// Get the client data from the response
-					var data = response.data[0];
+            axios.get('/newusersvariables')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
 
-					// log all data thats returned
-					console.log(data);
+                    // log all data thats returned
+                    console.log(data);
 
 
-					// Send a POST request
-					axios({
-						method: 'post',
-						url: '/stafflogintowhmcs',
-						data: {
-							email: data.email
+                    // Send a POST request
+                    axios({
+                        method: 'post',
+                        url: '/stafflogintowhmcs',
+                        data: {
+                            email: data.email
 
-						}
+                        }
 
-					})
+                    })
 
-				});
+                });
 
 
 
