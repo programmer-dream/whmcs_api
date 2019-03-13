@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({
 
 
 global.autoauth = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
-global.whmcsURL = 'https://whmcs.educationhost.co.uk/dologin.php';
+global.whmcsURL = 'http://whmcs.educationhost.co.uk/dologin.php';
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
