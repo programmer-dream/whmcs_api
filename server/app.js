@@ -29,10 +29,10 @@ app.use(bodyParser.urlencoded({
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // environment variables
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = "production";
 
 // config variables
-const globalconfig = require('./config/config.js');
+const globalconfig = require("./config/config.js");
 
 app.get('/', (req, res) => {
   res.json(global.gConfig);
