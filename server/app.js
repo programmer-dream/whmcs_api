@@ -259,7 +259,7 @@ app.post("/login/callback", (req, res, next) => {
               // get the timestamp in milliseconds and convert it to seconds for WHMCS url
               var timestamp = Math.floor(Date.now() / 1000);
               // get the email address that is returned from the IDP
-              var urlemail = req.body.email;
+              var urlemail = parsedObject.emailAddress;
               // URL to where the user is to go once logged into WHMCS
               var goto = "clientarea.php";
               // add the three variables together that are required for the WHMCS hash
