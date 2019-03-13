@@ -250,9 +250,34 @@ app.post("/login/callback", (req, res, next) => {
             if (result[0].isStaff == 1 && result[0].isActive == 1) {
 
               res.redirect('/stafflogin')
+
             } else if (result[0].isActive == 1) {
 
-              res.send('SUCCESS');
+              var whmcsurl = global.whmcsURL;
+              // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+              var autoauthkey = global.autoauth;
+              // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+              var timestamp = Math.floor(Date.now() / 1000);
+              // get the email address that is returned from the IDP
+              var urlemail = req.body.email;
+              // URL to where the user is to go once logged into WHMCS
+              var goto = "clientarea.php";
+              // add the three variables together that are required for the WHMCS hash
+              var hashedstrings = urlemail + timestamp + autoauthkey;
+              // use the sha1 node module to hash the variable
+              var hash = sha1(hashedstrings);
+              // create the URL to pass and redirect the user
+              window.location.href = (
+                whmcsurl +
+                "?email=" +
+                urlemail +
+                "&timestamp=" +
+                timestamp +
+                "&hash=" +
+                hash +
+                "&goto=" +
+                goto
+              );
 
             } else { res.redirect('/'); }
 
