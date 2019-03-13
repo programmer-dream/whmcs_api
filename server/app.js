@@ -22,18 +22,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////// CONFIG FILE  /////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
-// environment variables
-process.env.NODE_ENV = "production";
-
-// config variables
-const globalconfig = require("./config/config.js");
-
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
 /*--------------------------------------------------------------------------------------------------*/
@@ -241,7 +229,7 @@ app.post("/login/callback", (req, res, next) => {
         // URL of the WHMCS installation
         var whmcsurl = "http://whmcs.educationhost.co.uk/dologin.php";
         // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-        var autoauthkey = '${global.gConfig.autoauthkey}';
+        var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
         // get the timestamp in milliseconds and convert it to seconds for WHMCS url
         var timestamp = Math.floor(Date.now() / 1000);
         // get the email address that is returned from the IDP
