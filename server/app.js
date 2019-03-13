@@ -682,7 +682,7 @@ app.get('/stafflogintowhmcs', function (req, res, next) {
 });
 
 app.post('/stafflogintowhmcs', (req, res) => {
-  var whmcsurl = global.whmcsURL;
+  var whmcsurl = 'https://whmcs.educationhost.co.uk/dologin.php';
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
   var autoauthkey = global.autoauth;
   // get the timestamp in milliseconds and convert it to seconds for WHMCS url
