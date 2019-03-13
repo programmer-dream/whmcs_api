@@ -671,9 +671,9 @@ app.get("/logout", function (req, res) {
 });
 
 app.get('/stafflogintowhmcs', (req, res) => {
-  var whmcsurl = 'https://whmcs.educationhost.co.uk/dologin.php';
+  var whmcsurl = global.whmcsURL;
   // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-  var autoauthkey = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
+  var autoauthkey = global.autoauth;
   // get the timestamp in milliseconds and convert it to seconds for WHMCS url
   var timestamp = Math.floor(Date.now() / 1000);
   // get the email address that is returned from the IDP
@@ -685,19 +685,17 @@ app.get('/stafflogintowhmcs', (req, res) => {
   // use the sha1 node module to hash the variable
   var hash = sha1(hashedstrings);
   // create the URL to pass and redirect the user
-
-  //  var list = [whmcsurl, autoauthkey, timestamp, urlemail, goto, hashedstrings, hash];
-
-  var list = {
-    "whmcsurl": whmcsurl,
-    "autoauthkey": autoauthkey,
-    "timestamp": timestamp,
-    "urlemail": urlemail,
-    "goto": goto,
-    "hashedstrings": hashedstrings,
-    "hash": hash
-  }
-  res.send(list);
+  res.redirect(
+    whmcsurl +
+    "?email=" +
+    urlemail +
+    "&timestamp=" +
+    timestamp +
+    "&hash=" +
+    hash +
+    "&goto=" +
+    goto
+  );
 
 });
 

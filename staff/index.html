@@ -92,30 +92,27 @@
         function whmcsaccount(data, res) {
 
 
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
 
-            axios.get('/stafflogintowhmcs')
-                .then(function (response) {
-
-                    var data = response.data[0];
-                    console.log(data);
-
-                    window.location.href = (
-                        data.whmcsurl +
-                        "?email=" +
-                        data.urlemail +
-                        "&timestamp=" +
-                        data.timestamp +
-                        "&hash=" +
-                        data.hash +
-                        "&goto=" +
-                        data.goto
-                    );
-                });
+					// log all data thats returned
+					console.log(data);
 
 
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/stafflogintowhmcs',
+						data: {
+							email: data.email
 
+						}
 
+					})
 
+				});
 
 
 
