@@ -354,15 +354,153 @@ app.put('/api/expiredaccounts/', function (req, res) {
 //STUDENT ROUTE 
 app.post('/newstudentroute', (req, res) => {
 
-  // Add the students selected modules into the database
+  // Gets the student modules back from the student function
+  // This will be used to create the module folders
 
   var StudentModules = req.body.selected;
   if (StudentModules != null) {
-    console.log(StudentModules[0])
+    console.log(StudentModules)
   }
 
-})
 
+  // Set up the module with the config file
+  // and store it in this variable - can be called anything you want
+  const addClient = new Clients(config);
+
+  // Call the getClients call and store the data in the variable called 
+  addClient
+    .addClient({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      address1: req.body.Address1,
+      address2: req.body.Address2,
+      city: req.body.City,
+      state: req.body.State,
+      postcode: req.body.Postcode,
+      country: req.body.Country,
+      phonenumber: req.body.Phone,
+      notes: 'Created through Education Host AD login',
+      language: 'english',
+      skipvalidation: true
+    })
+    .then(function (addClientResponse) {
+
+      /* RETURNS 
+      { result: 'success', 
+      clientid: 72 } */
+
+
+      console.log(addClientResponse);
+      // Once the user is added in WHMCS, then add the service
+      const addOrder = new Orders(config);
+
+      addOrder
+        .addOrder({
+          clientid: addClientResponse.clientid,
+          // This product id relates to the student service
+          pid: 1,
+          domain: req.body.fulldomain,
+          nameserver1: req.body.nameserver1,
+          nameserver2: req.body.nameserver2,
+          paymentmethod: 'banktransfer',
+          noemail: true,
+          noinvoice: true,
+          noinvoiceemail: true
+        })
+        .then(function (addOrderResponse) {
+
+
+          /* RETURNS 
+          { result: 'success',
+          orderid: 47,
+          productids: '43',
+          addonids: '',
+          domainids: '' } */
+
+          console.log(addOrderResponse);
+
+
+          // Once the service is added approve the service automatically
+          const acceptOrder = new Orders(config);
+
+          acceptOrder.acceptOrder({
+            orderid: addOrderResponse.orderid,
+            acceptOrder: 1,
+            sendemail: 0
+          })
+
+            .then(function (acceptOrder) {
+
+              /* 
+              RETURNS 
+              { result: 'success' }
+              
+              */
+
+              console.log(acceptOrder);
+
+              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+              // This will be a random string with the mat.random function
+              const updateClientProduct = new Services(config);
+              const randomstring = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+              console.log(randomstring);
+
+              updateClientProduct.updateClientProduct({
+                serviceid: addOrderResponse.productids,
+                serviceusername: randomstring
+              })
+                .then(function (updateClientProductResponse) {
+
+                  /* 
+                  RETURNS 
+                  sonsfa9
+                  { result: 'success', serviceid: '34' }
+    
+              
+                  */
+
+                  console.log(updateClientProductResponse);
+
+                  // create the accepted order
+                  const moduleCreate = new Services(config);
+                  moduleCreate
+                    .moduleCreate({
+
+                      serviceid: updateClientProductResponse.serviceid
+
+                    })
+
+                    .then(function (moduleCreateResponse) {
+                      res.send('SUCCESS');
+                    })
+                    .catch(function (error) {
+                      res.send(error);
+                    });
+
+
+                })
+                .catch(function (error) {
+                  res.send(error);
+                });
+
+
+            })
+            .catch(function (error) {
+              res.send(error);
+            });
+
+        })
+        .catch(function (error) {
+          res.send(error);
+        });
+
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+
+})
 app.post('/newstaffroute', (req, res) => {
   // STAFF ROUTE 
 
