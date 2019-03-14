@@ -354,6 +354,14 @@ app.put('/api/expiredaccounts/', function (req, res) {
 //STUDENT ROUTE 
 app.post('/newstudentroute', (req, res) => {
 
+  // Add the students selected modules into the database
+
+  var StudentModules = req.body.selectedmodules;
+  if (StudentModules != null) {
+    console.log(StudentModules[0])
+  }
+
+
   // Set up the module with the config file
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(config);
@@ -377,9 +385,9 @@ app.post('/newstudentroute', (req, res) => {
     })
     .then(function (addClientResponse) {
 
-			/* RETURNS 
-			{ result: 'success', 
-			clientid: 72 } */
+      /* RETURNS 
+      { result: 'success', 
+      clientid: 72 } */
 
 
       console.log(addClientResponse);
@@ -402,12 +410,12 @@ app.post('/newstudentroute', (req, res) => {
         .then(function (addOrderResponse) {
 
 
-					/* RETURNS 
-					{ result: 'success',
-					orderid: 47,
-					productids: '43',
-					addonids: '',
-					domainids: '' } */
+          /* RETURNS 
+          { result: 'success',
+          orderid: 47,
+          productids: '43',
+          addonids: '',
+          domainids: '' } */
 
           console.log(addOrderResponse);
 
@@ -423,11 +431,11 @@ app.post('/newstudentroute', (req, res) => {
 
             .then(function (acceptOrder) {
 
-							/* 
-							RETURNS 
-							{ result: 'success' }
+              /* 
+              RETURNS 
+              { result: 'success' }
               
-							*/
+              */
 
               console.log(acceptOrder);
 
@@ -443,13 +451,13 @@ app.post('/newstudentroute', (req, res) => {
               })
                 .then(function (updateClientProductResponse) {
 
-									/* 
-									RETURNS 
-									sonsfa9
-									{ result: 'success', serviceid: '34' }
-
+                  /* 
+                  RETURNS 
+                  sonsfa9
+                  { result: 'success', serviceid: '34' }
+    
               
-									*/
+                  */
 
                   console.log(updateClientProductResponse);
 
@@ -490,7 +498,6 @@ app.post('/newstudentroute', (req, res) => {
     .catch(function (error) {
       res.send(error);
     });
-
 
 })
 app.post('/newstaffroute', (req, res) => {
