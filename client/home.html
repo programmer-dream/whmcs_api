@@ -118,6 +118,13 @@
 					console.log(error);
 				})
 
+			$('#example-dropright').multiselect({
+				//...
+				onChange: function () {
+					var selected = ($('#example-dropright').val());
+					console.log(selected);
+				}
+			});
 
 		}); // end of doc ready
 
@@ -126,13 +133,6 @@
 
 		function student(data, res) {
 
-			$('#example-dropright').multiselect({
-				//...
-				onChange: function () {
-					var selected = ($('#example-dropright').val());
-					console.log(selected);
-				}
-			});
 
 			/// main student function for setting up whmcs account and service
 
