@@ -355,11 +355,11 @@ app.put('/api/expiredaccounts/', function (req, res) {
 app.post('/newstudentroute', (req, res) => {
 
   // Add the students selected modules into the database
-  /*
-    var StudentModules = req.body.selectedmodules;
-    if (StudentModules != null) {
-      console.log(StudentModules[0])
-    }*/
+
+  var StudentModules = req.body.selected;
+  if (StudentModules != null) {
+    console.log(StudentModules[0])
+  }
 
 
   // Set up the module with the config file
