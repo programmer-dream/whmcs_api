@@ -96,8 +96,12 @@
 
 						});
 
-						var selected = $('#example-dropright').val()
-						console.log(selected);
+						$('#example-dropright').multiselect({
+							//...
+							onChange: function () {
+								console.log($('#example-dropright').val());
+							}
+						});
 					}
 
 					$('#example-dropright').multiselect({
