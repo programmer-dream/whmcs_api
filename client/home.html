@@ -97,7 +97,13 @@
 						});
 
 
-
+						$('#example-dropright').multiselect({
+							//...
+							onChange: function () {
+								var selected = ($('#example-dropright').val());
+								console.log(selected);
+							}
+						});
 					}
 
 					$('#example-dropright').multiselect({
@@ -118,13 +124,6 @@
 					console.log(error);
 				})
 
-			$('#example-dropright').multiselect({
-				//...
-				onChange: function () {
-					var selected = ($('#example-dropright').val());
-					console.log(selected);
-				}
-			});
 
 		}); // end of doc ready
 
@@ -140,7 +139,6 @@
 				.then(function (response) {
 					// Get the client data from the response
 					var data = response.data[0];
-					var selectedmodules = selected;
 
 					// log all data thats returned
 					console.log(data);
@@ -171,8 +169,7 @@
 							State: data.State,
 							Postcode: data.Postcode,
 							Country: data.Country,
-							Phone: data.Phone,
-							Modules: selectedmodules
+							Phone: data.Phone
 
 							// selected modules will need to go in here
 							// array?
