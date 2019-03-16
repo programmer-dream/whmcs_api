@@ -354,7 +354,58 @@ app.get('/api/expiredaccounts/', function (req, res) {
           console.log("error", error);
         } else {
           if (results != null) {
-            console.log(results.message);
+            //console.log(results.message);
+
+            // Get the clients details from WHMCS
+
+            const clientexproutegetclientdetails = new Clients(config);
+
+            clientexproutegetclientdetails.getClientsDetails({
+
+              /* This returns { userid: 86,
+               id: 86,
+               uuid: 'cb0512f5-3dd2-4e31-869a-853efc3e8bd1',
+               firstname: 'Firstname',
+               lastname: 'Lastname',
+               fullname: 'firstname + lastname',
+               companyname: 'Education Host ltd',
+               email: 'a@email.com',
+               address1: '',
+               address2: '',
+              .. and loads more data ...
+           */
+
+              email: UserEmail
+            }
+            )
+              .then(function (clientexproutegetclientdetailsResponse) {
+
+                console.log(clientexproutegetclientdetailsResponse);
+                const clientexproutecloseclientaccount = new Clients(config);
+                // close the clients account (which terminates associated services related to it).
+                clientexproutecloseclientaccount.closeClient({
+
+                  clientid: clientexproutegetclientdetailsResponse.userid
+
+                })
+
+                  .then(function (clientexproutecloseclientaccountResponse) {
+                    console.log(clientexproutecloseclientaccountResponse.respose);
+                  })
+                  .catch(function (error) {
+                    res.send(error);
+                  });
+
+
+              })
+              .catch(function (error) {
+                res.send(error);
+              });
+
+            res.send('User account set to inactive and removed from our systems!')
+
+
+
           }
         }
       });
@@ -362,53 +413,6 @@ app.get('/api/expiredaccounts/', function (req, res) {
     });
 
 
-    // Get the clients details from WHMCS
-
-    const clientexproutegetclientdetails = new Clients(config);
-
-    clientexproutegetclientdetails.getClientsDetails({
-
-      /* This returns { userid: 86,
-       id: 86,
-       uuid: 'cb0512f5-3dd2-4e31-869a-853efc3e8bd1',
-       firstname: 'Firstname',
-       lastname: 'Lastname',
-       fullname: 'firstname + lastname',
-       companyname: 'Education Host ltd',
-       email: 'a@email.com',
-       address1: '',
-       address2: '',
-      .. and loads more data ...
-   */
-
-      email: UserEmail
-    }
-    )
-      .then(function (clientexproutegetclientdetailsResponse) {
-
-        console.log(clientexproutegetclientdetailsResponse);
-        const clientexproutecloseclientaccount = new Clients(config);
-        // close the clients account (which terminates associated services related to it).
-        clientexproutecloseclientaccount.closeClient({
-
-          clientid: clientexproutegetclientdetailsResponse.userid
-
-        })
-
-          .then(function (clientexproutecloseclientaccountResponse) {
-            console.log(clientexproutecloseclientaccountResponse.respose);
-          })
-          .catch(function (error) {
-            res.send(error);
-          });
-
-
-      })
-      .catch(function (error) {
-        res.send(error);
-      });
-
-    res.send('User account set to inactive and removed from our systems!')
     // End of the if statement to check for null values
   } else {
     res.send('Error - All parameters need to be passed to the api through the URL for the API to work');
