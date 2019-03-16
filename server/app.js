@@ -375,7 +375,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
   )
 
     .then(function (clientexproutegetclientdetailsResponse) {
-      console.log(clientexproutegetclientdetailsResponse)
+      console.log(clientexproutegetclientdetailsResponse);
     })
     .catch(function (error) {
       res.send(error);
