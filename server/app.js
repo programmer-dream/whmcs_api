@@ -15,6 +15,7 @@ var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 var cors = require('cors');
 
+
 app.use(cors());
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
@@ -337,8 +338,23 @@ app.get("/newusersvariables", function (req, res) {
 app.get('/api/expiredaccounts/', function (req, res) {
 
   var UserEmail = req.query.email;
-  console.log(UserEmail);// 1234
+  var APIkey = req.query.apikey;
+  console.log(req.query.apikey);// 1234
   console.log(req.query.email);// 1234
+  /*
+    // Set the isStaff value in the database to 1
+    var connection = mysql.createConnection(mysqlconfig);
+    var passedEmail = req.query.email;
+    var APIkey = req.query.apikey;
+    connection.connect(function (err) {
+      if (err) throw err;
+      connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
+        if (error) {
+          console.log("error", error);
+        }
+      });
+      connection.end();
+    }); */
   /* 
    var connection = mysql.createConnection(mysqlconfig);
    connection.query('UPDATE user_idpdetails SET isActive=?, expiryDate=? where email=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
