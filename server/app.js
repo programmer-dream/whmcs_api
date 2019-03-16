@@ -380,7 +380,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
             )
               .then(function (clientexproutegetclientdetailsResponse) {
 
-                console.log(clientexproutegetclientdetailsResponse);
+                //console.log(clientexproutegetclientdetailsResponse);
                 const clientexproutecloseclientaccount = new Clients(config);
                 // close the clients account (which terminates associated services related to it).
                 clientexproutecloseclientaccount.closeClient({
