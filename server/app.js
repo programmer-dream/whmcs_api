@@ -364,6 +364,23 @@ app.get('/api/expiredaccounts/', function (req, res) {
     res.send('Error - All parameters need to be passed to the api through the URL for the API to work');
   }
 
+  // Get the clients details from WHMCS
+
+  const clientexproutegetclientdetails = new Clients(config);
+
+  clientexproutegetclientdetails.getClientsDetails({
+
+    email: UserEmail
+  }
+  )
+
+    .then(function (clientexproutegetclientdetailsResponse) {
+      console.log(clientexproutegetclientdetailsResponse)
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////
