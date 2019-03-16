@@ -354,14 +354,14 @@ app.get('/api/expiredaccounts/', function (req, res) {
           console.log("error", error);
         } else {
           if (results != null) {
-            console.log(results.message);
+            res.send(results.message);
           }
         }
       });
       connection.end();
     });
   } else {
-    console.log('Error');
+    console.log('Error - All parameters need to be passed to the api through the URL for the API to work');
   }
 
 });
