@@ -353,8 +353,8 @@ app.get('/api/expiredaccounts/', function (req, res) {
         if (error) {
           console.log("error", error);
         } else {
-          if (results != null) {
-            console.log(results);
+          if (results >= 1) {
+            console.log(results.affectedRows);
 
             // Get the clients details from WHMCS
 
@@ -405,6 +405,9 @@ app.get('/api/expiredaccounts/', function (req, res) {
             res.send('User account set to inactive and removed from our systems!')
 
 
+
+          } else {
+            res.send('User cannot be found, or the API key is not valid.');
 
           }
         }
