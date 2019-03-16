@@ -345,7 +345,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
   // Set the isStaff value in the database to 1
   var connection = mysql.createConnection(mysqlconfig);
 
-
+  // Check to see that all of the passed variables have values, if anything is null then this will error.
   if (UserEmail != null && APIkey != null && EXPdate != null) {
     connection.connect(function (err) {
       if (err) throw err;
@@ -354,14 +354,14 @@ app.get('/api/expiredaccounts/', function (req, res) {
           console.log("error", error);
         } else {
           if (results != null) {
-            res.send(results.message);
+            res.send(results);
           }
         }
       });
       connection.end();
     });
   } else {
-    console.log('Error - All parameters need to be passed to the api through the URL for the API to work');
+    res.send('Error - All parameters need to be passed to the api through the URL for the API to work');
   }
 
 });
