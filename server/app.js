@@ -340,23 +340,29 @@ app.get('/api/expiredaccounts/', function (req, res) {
   var UserEmail = req.query.email;
   var APIkey = req.query.apikey;
   var EXPdate = req.query.expdate;
+  var isactiveflag = 0;
   console.log(req.query.apikey);// 1234
   console.log(req.query.email);// 1234
   console.log(req.query.expdate);
-  /*
-    // Set the isStaff value in the database to 1
-    var connection = mysql.createConnection(mysqlconfig);
-    var passedEmail = req.query.email;
-    var APIkey = req.query.apikey;
+
+  // Set the isStaff value in the database to 1
+  var connection = mysql.createConnection(mysqlconfig);
+
+
+  if (UserEmail != null && APIkey != null && EXPdate != null) {
     connection.connect(function (err) {
       if (err) throw err;
-      connection.query('UPDATE user_idpdetails SET isStaff = ? WHERE email = ?', [staffnumber, StaffEmail], function (error, results, fields) {
+      connection.query('UPDATE user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid SET uidp.isActive = ?, uidp.expiryDate = ? WHERE uidp.email = ? AND cd.APIkey = ?', [isactiveflag, EXPdate, UserEmail, APIkey], function (error, results, fields) {
         if (error) {
           console.log("error", error);
         }
       });
       connection.end();
-    }); */
+    });
+  } else {
+    console.log('Error');
+  }
+
   /* 
    var connection = mysql.createConnection(mysqlconfig);
    connection.query('UPDATE user_idpdetails SET isActive=?, expiryDate=? where email=?', [req.body.isActive, req.body.date, req.body.email], function (error, results, fields) {
