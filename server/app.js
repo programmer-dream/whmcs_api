@@ -349,7 +349,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
   if (UserEmail != null && APIkey != null && EXPdate != null) {
     connection.connect(function (err) {
       if (err) throw err;
-      connection.query('UPDATE user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid SET uidp.isActive = ?, uidp.expiryDate = ? WHERE uidp.email = ? AND cd.APIkey = ?', [isactiveflag, EXPdate, UserEmail, APIkey], function (error, results, fields) {
+      connection.query('UPDATE user_idpdetails LEFT JOIN client_details ON user_idpdetails.universityid = client_details.universityid SET isActive = ?, expiryDate = ? WHERE email = ? AND APIkey = ?', [isactiveflag, EXPdate, UserEmail, APIkey], function (error, results, fields) {
         if (error) {
           console.log("error", error);
         } else {
