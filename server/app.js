@@ -353,7 +353,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
         if (error) {
           console.log("error", error);
         } else {
-          if (results >= 1) {
+          if (results.affectedRows >= 1) {
             console.log(results.affectedRows);
 
             // Get the clients details from WHMCS
