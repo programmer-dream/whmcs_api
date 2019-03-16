@@ -354,7 +354,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
           console.log("error", error);
         } else {
           if (results != null) {
-            res.send(results);
+            res.send(results.message);
           }
         }
       });
