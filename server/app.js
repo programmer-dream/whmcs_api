@@ -396,7 +396,7 @@ app.get('/api/expiredaccounts/', function (req, res) {
         })
 
           .then(function (clientexproutecloseclientaccountResponse) {
-            console.log('clientexproutecloseclientaccountResponse');
+            console.log(clientexproutecloseclientaccountResponse);
           })
           .catch(function (error) {
             res.send(error);
