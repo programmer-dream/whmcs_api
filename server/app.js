@@ -339,8 +339,10 @@ app.get('/api/expiredaccounts/', function (req, res) {
 
   var UserEmail = req.query.email;
   var APIkey = req.query.apikey;
+  var EXPdate = req.query.expdate;
   console.log(req.query.apikey);// 1234
   console.log(req.query.email);// 1234
+  console.log(rew.query.expdate);
   /*
     // Set the isStaff value in the database to 1
     var connection = mysql.createConnection(mysqlconfig);
