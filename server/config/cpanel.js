@@ -1,4 +1,6 @@
-var options = {
+
+var cpoptions = options;
+var cpoptions = {
     host: 'benu.zjnucomputing.com',
     port: 2087,
     secure: true,
@@ -7,4 +9,4 @@ var options = {
     ignoreCertError: true
 };
 
-module.exports = options;
+module.exports = cpoptions;
