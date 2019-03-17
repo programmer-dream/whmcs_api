@@ -14,9 +14,11 @@ var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 var cors = require('cors');
+
+/*
 var cpanel = require('cpanel-lib');
 
-const cpoptions = require("./config/cpanel.js");
+const options = require("./config/cpanel.js");
 
 
 app.use('/accounts', function (req, res) {
@@ -43,7 +45,7 @@ app.use('/accounts', function (req, res) {
   });
 
 });
-
+*/
 
 app.use(cors());
 
