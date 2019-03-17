@@ -21,10 +21,10 @@ var cpanel = require('cpanel-lib');
 
 app.use('/accounts', function (req, res) {
 
-  const options = require("./config/cpanel.js");
+  // const options = require("./config/cpanel.js");
 
   var options = {
-    host: 'benu.zjnucomputing.com',
+    host: '109.73.172.154',
     port: 2087,
     secure: true,
     username: 'aauapmff',
