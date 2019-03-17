@@ -16,21 +16,12 @@ const handlebars = require("express-handlebars");
 var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
-
+const options = require("./config/cpanel.js");
 
 
 app.use('/accounts', function (req, res) {
 
-  // const options = require("./config/cpanel.js");
 
-  var options = {
-    host: 'benu.zjnucomputing.com',
-    port: 2087,
-    secure: true,
-    username: 'aauapmff',
-    accessKey: 'Extension1357!',
-    ignoreCertError: true
-  };
   //var cpanelClient = cpanel.Fileman(options);
   var cpanelClient = cpanel.createClient({});
 
