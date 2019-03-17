@@ -16,7 +16,7 @@ const handlebars = require("express-handlebars");
 var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
-const options = require("./config/cpanel.js");
+const cpoptions = require("./config/cpanel.js");
 
 
 app.use('/accounts', function (req, res) {

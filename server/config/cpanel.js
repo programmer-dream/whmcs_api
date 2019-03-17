@@ -1,6 +1,6 @@
 
 var cpoptions = options;
-var cpoptions = {
+var options = {
     host: 'benu.zjnucomputing.com',
     port: 2087,
     secure: true,
