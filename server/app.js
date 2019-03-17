@@ -17,15 +17,13 @@ var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
 
-const options = require("./config/cpanel.js");
 
-
-
-//var cpanelClient = cpanel.Fileman(options);
-
-var cpanelClient = cpanel.createClient({});
 
 app.use('/accounts', function (req, res) {
+
+  const options = require("./config/cpanel.js");
+  //var cpanelClient = cpanel.Fileman(options);
+  var cpanelClient = cpanel.createClient({});
 
   cpanelClient.call('listaccts', { 'api.version': 1, search: 'ud' }, function (error, data) {
     console.log('listaccts');
