@@ -14,12 +14,11 @@ var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
 var cors = require('cors');
-
-/*
 var cpanel = require('cpanel-lib');
 
-const options = require("./config/cpanel.js");
 
+const cpoptions = require("./config/cpanel.js");
+/*
 
 app.use('/accounts', function (req, res) {
 
@@ -580,9 +579,29 @@ app.post('/newstudentroute', (req, res) => {
                       serviceid: updateClientProductResponse.serviceid
 
                     })
-
                     .then(function (moduleCreateResponse) {
-                      res.send('SUCCESS');
+                      // Create modules in cpanel here 
+
+                      var cpanelClient = cpanel.createClient(cpoptions);
+
+
+                      if (StudentModules != null) {
+                        const completed = 0;
+
+                        for (let i = 0; i < StudentModules.length; i++) {
+                          const module = StudentModules[i];
+                          cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/aauapmff/public_html/', name: StudentModules, permissions: '755' }, function (err, res) {
+                            console.log('Result: %j', res);
+                            completed++;
+                          });
+                        }
+
+                        while (completed != StudentModules.length) { }
+
+                        res.send('SUCCESS');
+                      }
+
+                      res.send('FAIL');
                     })
                     .catch(function (error) {
                       res.send(error);
@@ -652,9 +671,9 @@ app.post('/newstaffroute', (req, res) => {
     })
     .then(function (addClientResponse) {
 
-			/* RETURNS 
-			{ result: 'success', 
-			clientid: 72 } */
+      /* RETURNS 
+      { result: 'success', 
+      clientid: 72 } */
 
 
       console.log(addClientResponse);
@@ -677,12 +696,12 @@ app.post('/newstaffroute', (req, res) => {
         .then(function (addOrderResponse) {
 
 
-					/* RETURNS 
-					{ result: 'success',
-					orderid: 47,
-					productids: '43',
-					addonids: '',
-					domainids: '' } */
+          /* RETURNS 
+          { result: 'success',
+          orderid: 47,
+          productids: '43',
+          addonids: '',
+          domainids: '' } */
 
           console.log(addOrderResponse);
 
@@ -698,11 +717,11 @@ app.post('/newstaffroute', (req, res) => {
 
             .then(function (acceptOrder) {
 
-							/* 
-							RETURNS 
-							{ result: 'success' }
+              /* 
+              RETURNS 
+              { result: 'success' }
               
-							*/
+              */
 
               console.log(acceptOrder);
 
@@ -718,13 +737,13 @@ app.post('/newstaffroute', (req, res) => {
               })
                 .then(function (updateClientProductResponse) {
 
-									/* 
-									RETURNS 
-									sonsfa9
-									{ result: 'success', serviceid: '34' }
-
+                  /* 
+                  RETURNS 
+                  sonsfa9
+                  { result: 'success', serviceid: '34' }
+ 
               
-									*/
+                  */
 
                   console.log(updateClientProductResponse);
 
