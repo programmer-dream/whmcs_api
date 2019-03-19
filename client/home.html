@@ -69,13 +69,12 @@
 
 					// log all data thats returned
 					console.log(data);
-
-					// As a jQuery Plugin
-
-					var myStepper = new Stepper($('stepper-example').innerHTML)
-
-
 					if (data) {
+						// As a jQuery Plugin
+						var myStepper = new Stepper($('#stepper-example').innerHTML)
+
+
+
 						// Remove special characters for the userid (to set the domain)
 
 						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
