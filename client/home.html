@@ -74,37 +74,37 @@
 						animation: true
 					});
 
-					//if (data) {
-					// Remove special characters for the userid (to set the domain)
+					if (data) {
+						// Remove special characters for the userid (to set the domain)
 
-					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
-					// Set text for the domain
+						// Set text for the domain
 
-					// Set text for the domain
-					$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
-
-
-					// Show the modal
-					$('#newuser').modal('show');
-
-					var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
-
-					$.each(modulenames, function (i, modulenames) {
-						$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames));
+						// Set text for the domain
+						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
 
 
-					});
+						// Show the modal
+						$('#newuser').modal('show');
+
+						var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
+
+						$.each(modulenames, function (i, modulenames) {
+							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames));
 
 
-					$('#example-dropright').multiselect({
-						//...
-						onChange: function () {
-							var selected = ($('#example-dropright').val());
-							console.log(selected);
-						}
-					});
-					//}
+						});
+
+
+						$('#example-dropright').multiselect({
+							//...
+							onChange: function () {
+								var selected = ($('#example-dropright').val());
+								console.log(selected);
+							}
+						});
+					}
 
 					$('#example-dropright').multiselect({
 						checkboxName: function (option) {
