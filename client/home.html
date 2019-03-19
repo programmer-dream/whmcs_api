@@ -45,6 +45,13 @@
 	<link rel="stylesheet" href="/css/spinner.css" type="text/css" />
 
 	<script type="text/javascript">
+
+		document.addEventListener('DOMContentLoaded', function () {
+			myStepper = new Stepper(document.querySelector('#stepper-example'))
+		})
+
+
+
 		$(document).ready(function () {
 			// Student Spinner
 			$('#studentspinner').click(function () {
@@ -74,9 +81,6 @@
 						animation: true
 					}); */
 
-					$(document).ready(function () {
-						var myStepper = new Stepper($('#stepper-example'))
-					})
 
 
 					if (data) {
