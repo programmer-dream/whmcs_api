@@ -125,131 +125,131 @@
 				})
 
 
-
-
-
-			/// STUDENT FUNCTION
-
-			function student(data, res) {
-
-
-				/// main student function for setting up whmcs account and service
-
-				axios.get('/newusersvariables')
-					.then(function (response) {
-						// Get the client data from the response
-						var data = response.data[0];
-
-						// log all data thats returned
-						console.log(data);
-
-						// create variables for the service to send to the route
-						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-						var fulldomain = useridrmspchar + '.' + data.domainname;
-						var nameserver1 = 'ns1.' + data.domainname;
-						var nameserver2 = 'ns2.' + data.domainname;
-
-						// Send a POST request
-						axios({
-							method: 'post',
-							url: '/newstudentroute',
-							data: {
-								ID: data.ID,
-								userid: data.userid,
-								domainname: data.domainname,
-								fulldomain: fulldomain,
-								nameserver1: nameserver1,
-								nameserver2: nameserver2,
-								email: data.email,
-								firstname: data.firstname,
-								lastname: data.lastname,
-								Address1: data.Address1,
-								Address2: data.Address2,
-								City: data.City,
-								State: data.State,
-								Postcode: data.Postcode,
-								Country: data.Country,
-								Phone: data.Phone,
-								selected: $('#example-dropright').val()
-
-								// selected modules will need to go in here
-								// array?
-								// -------------
-
-							}
-
-						}).then(function (response) {
-							if (response.data === 'SUCCESS') {
-								window.location.href = "/";
-
-							}
-						});
-
-					});
-
-
-
-			}; // End of student function
-
-			// STAFF FUNCTION 
-			//
-			function staff(data, res) {
-
-				axios.get('/newusersvariables')
-					.then(function (response) {
-						// Get the client data from the response
-						var data = response.data[0];
-
-						// log all data thats returned
-						console.log(data);
-
-						// create variables for the service to send to the route
-						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-						var fulldomain = useridrmspchar + '.' + data.domainname;
-						var nameserver1 = 'ns1.' + data.domainname;
-						var nameserver2 = 'ns2.' + data.domainname;
-
-						// Send a POST request
-						axios({
-							method: 'post',
-							url: '/newstaffroute',
-							data: {
-								ID: data.ID,
-								userid: data.userid,
-								domainname: data.domainname,
-								fulldomain: fulldomain,
-								nameserver1: nameserver1,
-								nameserver2: nameserver2,
-								email: data.email,
-								firstname: data.firstname,
-								lastname: data.lastname,
-								Address1: data.Address1,
-								Address2: data.Address2,
-								City: data.City,
-								State: data.State,
-								Postcode: data.Postcode,
-								Country: data.Country,
-								Phone: data.Phone
-
-								// selected modules will need to go in here
-								// array?
-								// -------------
-
-							}
-
-						}).then(function (response) {
-							if (response.data === 'SUCCESS') {
-								window.location.href = "/";
-
-							}
-						});
-
-					});
-
-
-
-			}; // End of staff function
 		}); // end of doc ready
+
+
+		/// STUDENT FUNCTION
+
+		function student(data, res) {
+
+
+			/// main student function for setting up whmcs account and service
+
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
+
+					// log all data thats returned
+					console.log(data);
+
+					// create variables for the service to send to the route
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+					var fulldomain = useridrmspchar + '.' + data.domainname;
+					var nameserver1 = 'ns1.' + data.domainname;
+					var nameserver2 = 'ns2.' + data.domainname;
+
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/newstudentroute',
+						data: {
+							ID: data.ID,
+							userid: data.userid,
+							domainname: data.domainname,
+							fulldomain: fulldomain,
+							nameserver1: nameserver1,
+							nameserver2: nameserver2,
+							email: data.email,
+							firstname: data.firstname,
+							lastname: data.lastname,
+							Address1: data.Address1,
+							Address2: data.Address2,
+							City: data.City,
+							State: data.State,
+							Postcode: data.Postcode,
+							Country: data.Country,
+							Phone: data.Phone,
+							selected: $('#example-dropright').val()
+
+							// selected modules will need to go in here
+							// array?
+							// -------------
+
+						}
+
+					}).then(function (response) {
+						if (response.data === 'SUCCESS') {
+							window.location.href = "/";
+
+						}
+					});
+
+				});
+
+
+
+		}; // End of student function
+
+		// STAFF FUNCTION 
+		//
+		function staff(data, res) {
+
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
+
+					// log all data thats returned
+					console.log(data);
+
+					// create variables for the service to send to the route
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+					var fulldomain = useridrmspchar + '.' + data.domainname;
+					var nameserver1 = 'ns1.' + data.domainname;
+					var nameserver2 = 'ns2.' + data.domainname;
+
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/newstaffroute',
+						data: {
+							ID: data.ID,
+							userid: data.userid,
+							domainname: data.domainname,
+							fulldomain: fulldomain,
+							nameserver1: nameserver1,
+							nameserver2: nameserver2,
+							email: data.email,
+							firstname: data.firstname,
+							lastname: data.lastname,
+							Address1: data.Address1,
+							Address2: data.Address2,
+							City: data.City,
+							State: data.State,
+							Postcode: data.Postcode,
+							Country: data.Country,
+							Phone: data.Phone
+
+							// selected modules will need to go in here
+							// array?
+							// -------------
+
+						}
+
+					}).then(function (response) {
+						if (response.data === 'SUCCESS') {
+							window.location.href = "/";
+
+						}
+					});
+
+				});
+
+
+
+		}; // End of staff function
+
 	</script>
 
 
