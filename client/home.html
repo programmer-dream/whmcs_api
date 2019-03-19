@@ -125,11 +125,10 @@
 		}); // end of doc ready
 
 
-		// Load stepper after template
-		myStepper = new Stepper(document.querySelector('#stepper-example'), {
-			linear: false,
-			animation: true
-		});
+		// As a jQuery Plugin
+		$(document).ready(function () {
+			var myStepper = new Stepper($('#stepper-example'))
+		})
 
 
 		/// STUDENT FUNCTION
