@@ -66,7 +66,7 @@
 					var data = response.data[0];
 
 					// log all data thats returned
-					//console.log(data);
+					console.log(data);
 
 					// Load stepper after template
 					myStepper = new Stepper(document.querySelector('#stepper-example'), {
@@ -78,7 +78,8 @@
 						// Remove special characters for the userid (to set the domain)
 
 						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-
+						console.log(data.userid);
+						console.log(useridrmspchar);
 						// Set text for the domain
 
 						// Set text for the domain
