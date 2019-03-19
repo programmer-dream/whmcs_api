@@ -74,8 +74,8 @@
 						animation: true
 					}); */
 
-					myStepper = new Stepper(document.querySelector('#stepper-example'), {
-						linear: false
+					$(document).ready(function () {
+						var myStepper = new Stepper($('#stepper-example'))
 					})
 
 
