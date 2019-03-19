@@ -13,7 +13,7 @@ const jQuery = require("jquery");
 var mysql = require("mysql");
 var sha1 = require("sha1");
 const handlebars = require("express-handlebars");
-var cors = require('cors');
+//var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
 
@@ -46,7 +46,7 @@ app.use('/accounts', function (req, res) {
 });
 */
 
-app.use(cors());
+//app.use(cors());
 
 // middleware to parse HTTP POST's JSON, buffer, string,zipped or raw and URL encoded data and exposes it on req.body
 app.use(bodyParser.json());
