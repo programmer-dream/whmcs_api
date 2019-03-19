@@ -70,11 +70,13 @@
 					// log all data thats returned
 					console.log(data);
 
-					// Load stepper after template
+					/* Load stepper after template
 					myStepper = new Stepper(document.querySelector('#newuser'), {
 						linear: false,
 						animation: true
-					});
+					});*/
+
+					var myStepper = new Stepper($('#newuser'))
 
 
 
