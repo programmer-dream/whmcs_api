@@ -78,8 +78,7 @@
 						// Remove special characters for the userid (to set the domain)
 
 						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-						console.log(data.userid);
-						console.log(useridrmspchar);
+
 						// Set text for the domain
 
 						// Set text for the domain
@@ -142,7 +141,7 @@
 					var data = response.data[0];
 
 					// log all data thats returned
-					console.log(data);
+					//console.log(data);
 
 					// create variables for the service to send to the route
 					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
