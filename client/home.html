@@ -68,6 +68,16 @@
 					// log all data thats returned
 					console.log(data);
 
+					/* Load stepper after template
+					myStepper = new Stepper(document.querySelector('#stepper-example'), {
+						linear: false,
+						animation: true
+					}); */
+
+					myStepper = new Stepper(document.querySelector('#stepper-example'), {
+						linear: false
+					})
+
 
 					if (data) {
 						// Remove special characters for the userid (to set the domain)
@@ -413,14 +423,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-
-		// Load stepper after template
-		myStepper = new Stepper(document.querySelector('#stepper-example'), {
-			linear: false,
-			animation: true
-		});
-	</script>
 </body>
 
 </html>
