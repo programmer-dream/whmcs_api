@@ -97,6 +97,13 @@
 						});
 
 
+						$('#example-dropright').multiselect({
+							//...
+							onChange: function () {
+								var selected = ($('#example-dropright').val());
+								console.log(selected);
+							}
+						});
 					}
 
 					$('#example-dropright').multiselect({
