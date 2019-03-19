@@ -46,11 +46,6 @@
 
 	<script type="text/javascript">
 
-		document.addEventListener('DOMContentLoaded', function () {
-			myStepper = new Stepper(document.querySelector('#stepper-example'))
-		})
-
-
 
 		$(document).ready(function () {
 			// Student Spinner
@@ -74,13 +69,6 @@
 
 					// log all data thats returned
 					console.log(data);
-
-					/* Load stepper after template
-					myStepper = new Stepper(document.querySelector('#stepper-example'), {
-						linear: false,
-						animation: true
-					}); */
-
 
 
 					if (data) {
@@ -135,6 +123,13 @@
 
 
 		}); // end of doc ready
+
+
+		// Load stepper after template
+		myStepper = new Stepper(document.querySelector('#stepper-example'), {
+			linear: false,
+			animation: true
+		});
 
 
 		/// STUDENT FUNCTION
