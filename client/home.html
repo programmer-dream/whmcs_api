@@ -334,7 +334,9 @@
 
 										<p></p>
 									</p>
-									<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+									<p class="text-right">
+										<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+									</p>
 								</div>
 								<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
 									aria-labelledby="stepper1trigger2">
@@ -358,12 +360,46 @@
 										<p></p>
 										<p></p>
 									</p>
-									<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+									<p class="text-right">
+										<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+									</p>
 								</div>
 								<div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center"
 									aria-labelledby="stepper1trigger3">
-									<button class="btn btn-primary mt-5" onclick="stepper1.previous()">Previous</button>
-									<button type="submit" class="btn btn-primary mt-5">Submit</button>
+									<p class="text-center">
+
+											<div class="card-deck">
+												<div class="card">
+													<img class="card-img-top" src="/images/student.jpg" alt="Student account"
+														width="100%" height="50%">
+													<div class="card-body">
+														<h5 class="card-title border-bottom pb-3">Student account</a></h5>
+														<p class="card-text">If you are a student, select this account. Your web
+															hosting package will be available to you during your time at
+															university. Account setup can take a couple of minutes to complete.
+														</p>
+														<button type="button" id="studentspinner"
+															class="btn btn-success float-right has-spinner"><span
+																class="spinner"><i class="fa fa-spinner fa-spin">
+																</i></span> Click Here</button>
+													</div>
+												</div>
+												<div class="card">
+													<img class="card-img-top" src="/images/staff.jpg" alt="Staff account"
+														width="100%" height="50%">
+													<div class="card-body">
+														<h5 class="card-title border-bottom pb-3">Staff account</h5>
+														<p class="card-text">If you are a member of teaching staff, select this
+															account. This account type requires email validation.</p>
+														<button type="button" id="staffspinner"
+															class="btn btn-secondary float-right has-spinner"><span
+																class="spinner"><i class="fa fa-spinner fa-spin">
+																</i></span> Click Here</button>
+													</div>
+												</div>
+											</div>
+		
+										</p>
 								</div>
 							</form>
 						</div>
