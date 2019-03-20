@@ -15,7 +15,7 @@
 
 	<!--BSStepper CDN -->
 	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
-	<script src="/js/Stepper.js"></script>
+	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
 
 	<!-- Custom styles for this template -->
@@ -281,7 +281,37 @@
 				</div>
 
 				<div class="modal-body">
-					<div id="stepper-example" class="bs-stepper">
+
+
+					<div class="bs-stepper">
+						<div class="bs-stepper-header" role="tablist">
+							<!-- your steps here -->
+							<div class="step" data-target="#logins-part">
+								<button type="button" class="step-trigger" role="tab" aria-controls="logins-part"
+									id="logins-part-trigger">
+									<span class="bs-stepper-circle">1</span>
+									<span class="bs-stepper-label">Logins</span>
+								</button>
+							</div>
+							<div class="line"></div>
+							<div class="step" data-target="#information-part">
+								<button type="button" class="step-trigger" role="tab" aria-controls="information-part"
+									id="information-part-trigger">
+									<span class="bs-stepper-circle">2</span>
+									<span class="bs-stepper-label">Various information</span>
+								</button>
+							</div>
+						</div>
+						<div class="bs-stepper-content">
+							<!-- your steps content here -->
+							<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+							</div>
+							<div id="information-part" class="content" role="tabpanel"
+								aria-labelledby="information-part-trigger"></div>
+						</div>
+					</div>
+
+					<!--<div id="stepper-example" class="bs-stepper">
 						<div class="bs-stepper-header">
 							<div class="step" data-target="#test-l-1">
 								<a href="#">
@@ -360,7 +390,7 @@
 										<p></p>
 										<p class="text-center">Staff will use this to know locate your work!</p>
 
-										<!-- Build your select: -->
+										
 										<p class="text-center">
 											<select id="example-dropright" name="multiselect[]" multiple="multiple">
 
@@ -419,7 +449,7 @@
 								</p>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
