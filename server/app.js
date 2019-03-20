@@ -589,7 +589,7 @@ app.post('/newstudentroute', (req, res) => {
 
                       do {
                         var smodules = StudentModules[count];
-                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: smodules, permissions: '755' }, function (err, res) {
+                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '../home/' + randomstring + '/public_html/', name: smodules, permissions: '755' }, function (err, res) {
                           console.log('Result: %j', res);
                         });
                         count++;
