@@ -584,21 +584,38 @@ app.post('/newstudentroute', (req, res) => {
 
                       var cpanelClient = cpanel.createClient(cpoptions);
 
+                      var count = 0;
 
-
-                      const completed = 0;
-
-                      for (let i = 0; i < StudentModules.length; i++) {
-                        const module = StudentModules[i];
-                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: module, permissions: '755' }, function (err, res) {
+                      do {
+                        var smodules = StudentModules[count];
+                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: smodules, permissions: '755' }, function (err, res) {
                           console.log('Result: %j', res);
-                          completed++;
                         });
+                        count++;
                       }
 
-                      while (completed != StudentModules.length) { }
-                      console.log('SUCCESS');
+                      while (count != StudentModules.length);
                       res.send('SUCCESS');
+
+
+                      /*
+                                            if (StudentModules != null) {
+                                              const completed = 0;
+                      
+                                              for (let i = 0; i < StudentModules.length; i++) {
+                                                const stumodule = StudentModules[i];
+                                                cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: stumodule, permissions: '755' }, function (err, res) {
+                                                  console.log('Result: %j', res);
+                                                  completed++;
+                                                });
+                                              }
+                      
+                                              while (completed != StudentModules.length) { }
+                      
+                                              res.send('SUCCESS');
+                                            } else {
+                                              res.send('FAIL');
+                                            } */
 
 
                     })
