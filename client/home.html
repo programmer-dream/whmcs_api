@@ -86,184 +86,185 @@
 							linear: false,
 							animation: true
 						})
+					});
 
 
 
-						if (data) {
-							// Remove special characters for the userid (to set the domain)
+					if (data) {
+						// Remove special characters for the userid (to set the domain)
 
-							var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
-							// Set text for the domain
+						// Set text for the domain
 
-							// Set text for the domain
-							$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
-
-
-							// Show the modal
-							$('#newuser').modal('show');
-
-							var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
-
-							$.each(modulenames, function (i, modulenames) {
-								$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames));
+						// Set text for the domain
+						$("#txtDomain").text(useridrmspchar + '.' + data.domainname);
 
 
-							});
+						// Show the modal
+						$('#newuser').modal('show');
+
+						var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
+
+						$.each(modulenames, function (i, modulenames) {
+							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames));
 
 
-							$('#example-dropright').multiselect({
-								//...
-								onChange: function () {
-									var selected = ($('#example-dropright').val());
-									console.log(selected);
-								}
-							});
-						}
+						});
+
 
 						$('#example-dropright').multiselect({
-							checkboxName: function (option) {
-								return 'multiselect[]';
-							},
-							buttonWidth: '400px',
-							dropRight: true
-						});
-
-
-
-					})
-
-
-						.catch(function (error) {
-							// handle error
-							console.log(error);
-						})
-
-
-				}); // end of doc ready
-
-
-			/// STUDENT FUNCTION
-
-			function student(data, res) {
-
-
-				/// main student function for setting up whmcs account and service
-
-				axios.get('/newusersvariables')
-					.then(function (response) {
-						// Get the client data from the response
-						var data = response.data[0];
-
-						// log all data thats returned
-						console.log(data);
-
-						// create variables for the service to send to the route
-						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-						var fulldomain = useridrmspchar + '.' + data.domainname;
-						var nameserver1 = 'ns1.' + data.domainname;
-						var nameserver2 = 'ns2.' + data.domainname;
-
-						// Send a POST request
-						axios({
-							method: 'post',
-							url: '/newstudentroute',
-							data: {
-								ID: data.ID,
-								userid: data.userid,
-								domainname: data.domainname,
-								fulldomain: fulldomain,
-								nameserver1: nameserver1,
-								nameserver2: nameserver2,
-								email: data.email,
-								firstname: data.firstname,
-								lastname: data.lastname,
-								Address1: data.Address1,
-								Address2: data.Address2,
-								City: data.City,
-								State: data.State,
-								Postcode: data.Postcode,
-								Country: data.Country,
-								Phone: data.Phone,
-								selected: $('#example-dropright').val()
-
-								// selected modules will need to go in here
-								// array?
-								// -------------
-
-							}
-
-						}).then(function (response) {
-							if (response.data === 'SUCCESS') {
-								window.location.href = "/";
-
+							//...
+							onChange: function () {
+								var selected = ($('#example-dropright').val());
+								console.log(selected);
 							}
 						});
+					}
 
+					$('#example-dropright').multiselect({
+						checkboxName: function (option) {
+							return 'multiselect[]';
+						},
+						buttonWidth: '400px',
+						dropRight: true
 					});
 
 
 
-			}; // End of student function
+				})
 
-			// STAFF FUNCTION 
-			//
-			function staff(data, res) {
 
-				axios.get('/newusersvariables')
-					.then(function (response) {
-						// Get the client data from the response
-						var data = response.data[0];
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
 
-						// log all data thats returned
-						console.log(data);
 
-						// create variables for the service to send to the route
-						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
-						var fulldomain = useridrmspchar + '.' + data.domainname;
-						var nameserver1 = 'ns1.' + data.domainname;
-						var nameserver2 = 'ns2.' + data.domainname;
+		}); // end of doc ready
 
-						// Send a POST request
-						axios({
-							method: 'post',
-							url: '/newstaffroute',
-							data: {
-								ID: data.ID,
-								userid: data.userid,
-								domainname: data.domainname,
-								fulldomain: fulldomain,
-								nameserver1: nameserver1,
-								nameserver2: nameserver2,
-								email: data.email,
-								firstname: data.firstname,
-								lastname: data.lastname,
-								Address1: data.Address1,
-								Address2: data.Address2,
-								City: data.City,
-								State: data.State,
-								Postcode: data.Postcode,
-								Country: data.Country,
-								Phone: data.Phone
 
-								// selected modules will need to go in here
-								// array?
-								// -------------
+		/// STUDENT FUNCTION
 
-							}
+		function student(data, res) {
 
-						}).then(function (response) {
-							if (response.data === 'SUCCESS') {
-								window.location.href = "/";
 
-							}
-						});
+			/// main student function for setting up whmcs account and service
 
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
+
+					// log all data thats returned
+					console.log(data);
+
+					// create variables for the service to send to the route
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+					var fulldomain = useridrmspchar + '.' + data.domainname;
+					var nameserver1 = 'ns1.' + data.domainname;
+					var nameserver2 = 'ns2.' + data.domainname;
+
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/newstudentroute',
+						data: {
+							ID: data.ID,
+							userid: data.userid,
+							domainname: data.domainname,
+							fulldomain: fulldomain,
+							nameserver1: nameserver1,
+							nameserver2: nameserver2,
+							email: data.email,
+							firstname: data.firstname,
+							lastname: data.lastname,
+							Address1: data.Address1,
+							Address2: data.Address2,
+							City: data.City,
+							State: data.State,
+							Postcode: data.Postcode,
+							Country: data.Country,
+							Phone: data.Phone,
+							selected: $('#example-dropright').val()
+
+							// selected modules will need to go in here
+							// array?
+							// -------------
+
+						}
+
+					}).then(function (response) {
+						if (response.data === 'SUCCESS') {
+							window.location.href = "/";
+
+						}
 					});
 
+				});
 
 
-			}; // End of staff function
+
+		}; // End of student function
+
+		// STAFF FUNCTION 
+		//
+		function staff(data, res) {
+
+			axios.get('/newusersvariables')
+				.then(function (response) {
+					// Get the client data from the response
+					var data = response.data[0];
+
+					// log all data thats returned
+					console.log(data);
+
+					// create variables for the service to send to the route
+					var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+					var fulldomain = useridrmspchar + '.' + data.domainname;
+					var nameserver1 = 'ns1.' + data.domainname;
+					var nameserver2 = 'ns2.' + data.domainname;
+
+					// Send a POST request
+					axios({
+						method: 'post',
+						url: '/newstaffroute',
+						data: {
+							ID: data.ID,
+							userid: data.userid,
+							domainname: data.domainname,
+							fulldomain: fulldomain,
+							nameserver1: nameserver1,
+							nameserver2: nameserver2,
+							email: data.email,
+							firstname: data.firstname,
+							lastname: data.lastname,
+							Address1: data.Address1,
+							Address2: data.Address2,
+							City: data.City,
+							State: data.State,
+							Postcode: data.Postcode,
+							Country: data.Country,
+							Phone: data.Phone
+
+							// selected modules will need to go in here
+							// array?
+							// -------------
+
+						}
+
+					}).then(function (response) {
+						if (response.data === 'SUCCESS') {
+							window.location.href = "/";
+
+						}
+					});
+
+				});
+
+
+
+		}; // End of staff function
 
 	</script>
 
