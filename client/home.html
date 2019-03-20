@@ -15,7 +15,7 @@
 
 	<!--BSStepper CDN -->
 	<link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
-	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
 
 
 	<!-- Custom styles for this template -->
@@ -70,13 +70,15 @@
 					// log all data thats returned
 					console.log(data);
 
-					// Load stepper after template
+					/*// Load stepper after template
 					myStepper = new Stepper(document.querySelector('#newuser'), {
 						linear: false,
 						animation: true
 					});
-					/*
+					
 										var myStepper = new Stepper($('#newuser'))*/
+
+					var stepper = new Stepper(document.querySelector('.bs-stepper'))
 
 
 
@@ -304,10 +306,12 @@
 						</div>
 						<div class="bs-stepper-content">
 							<!-- your steps content here -->
-							<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">dgdgsdgsdggddfsfdf
+							<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+								dgdgsdgsdggddfsfdf
 							</div>
 							<div id="information-part" class="content" role="tabpanel"
-								aria-labelledby="information-part-trigger"></div>dsfdsfdfdfdfdsfdffsdfdgdgfhf23456765432345654323456543
+								aria-labelledby="information-part-trigger"></div>
+							dsfdsfdfdfdfdsfdffsdfdgdgfhf23456765432345654323456543
 						</div>
 					</div>
 
@@ -454,6 +458,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
 </body>
 
 </html>
