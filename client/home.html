@@ -79,7 +79,7 @@
 										var myStepper = new Stepper($('#newuser'))*/
 
 					var stepper = new Stepper(document.querySelector('.bs-stepper'))
-					stepper.next()
+
 
 
 					if (data) {
@@ -287,31 +287,57 @@
 
 					<div class="bs-stepper">
 						<div class="bs-stepper-header" role="tablist">
-							<!-- your steps here -->
-							<div class="step" data-target="#logins-part">
-								<button type="button" class="step-trigger" role="tab" aria-controls="logins-part"
-									id="logins-part-trigger">
+							<div class="step" data-target="#test-l-1">
+								<button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
+									aria-controls="test-l-1">
 									<span class="bs-stepper-circle">1</span>
-									<span class="bs-stepper-label">Logins</span>
+									<span class="bs-stepper-label">Email</span>
 								</button>
 							</div>
-							<div class="line"></div>
-							<div class="step" data-target="#information-part">
-								<button type="button" class="step-trigger" role="tab" aria-controls="information-part"
-									id="information-part-trigger">
+							<div class="bs-stepper-line"></div>
+							<div class="step" data-target="#test-l-2">
+								<button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
+									aria-controls="test-l-2">
 									<span class="bs-stepper-circle">2</span>
-									<span class="bs-stepper-label">Various information</span>
+									<span class="bs-stepper-label">Password</span>
+								</button>
+							</div>
+							<div class="bs-stepper-line"></div>
+							<div class="step" data-target="#test-l-3">
+								<button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
+									aria-controls="test-l-3">
+									<span class="bs-stepper-circle">3</span>
+									<span class="bs-stepper-label">Validate</span>
 								</button>
 							</div>
 						</div>
 						<div class="bs-stepper-content">
-							<!-- your steps content here -->
-							<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-								dgdgsdgsdggddfsfdf
-							</div>
-							<div id="information-part" class="content" role="tabpanel"
-								aria-labelledby="information-part-trigger"></div>
-							dsfdsfdfdfdfdsfdffsdfdgdgfhf23456765432345654323456543
+							<form onSubmit="return false">
+								<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+									aria-labelledby="stepper1trigger1">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Email address</label>
+										<input type="email" class="form-control" id="exampleInputEmail1"
+											placeholder="Enter email">
+									</div>
+									<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+								</div>
+								<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+									aria-labelledby="stepper1trigger2">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Password</label>
+										<input type="password" class="form-control" id="exampleInputPassword1"
+											placeholder="Password">
+									</div>
+									<button class="btn btn-primary" onclick="stepper1.previous()">Previous</button>
+									<button class="btn btn-primary" onclick="stepper1.next()">Next</button>
+								</div>
+								<div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center"
+									aria-labelledby="stepper1trigger3">
+									<button class="btn btn-primary mt-5" onclick="stepper1.previous()">Previous</button>
+									<button type="submit" class="btn btn-primary mt-5">Submit</button>
+								</div>
+							</form>
 						</div>
 					</div>
 
