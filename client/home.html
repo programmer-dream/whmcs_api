@@ -47,6 +47,15 @@
 
 	<script type="text/javascript">
 
+		var stepper1 = null
+		document.addEventListener('DOMContentLoaded', function () {
+
+			stepper1 = new Stepper(document.querySelector('#stepper1'), {
+				linear: false
+			})
+
+		})
+
 
 		$(document).ready(function () {
 			// Student Spinner
@@ -80,11 +89,8 @@
 										var myStepper = new Stepper($('#newuser'))*/
 
 					//var stepper = new Stepper(document.querySelector('.bs-stepper'))
-					var stepper1 = null
 
-					stepper1 = new Stepper(document.querySelector('#stepper1'), {
-						linear: false
-					})
+
 
 
 
