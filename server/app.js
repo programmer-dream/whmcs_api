@@ -597,7 +597,7 @@ app.post('/newstudentroute', (req, res) => {
                       }
 
                       while (completed != StudentModules.length) { }
-
+                      console.log('SUCCESS');
                       res.send('SUCCESS');
 
 
