@@ -47,11 +47,13 @@
 
 	<script type="text/javascript">
 
+		// Code to init the stepper
 		var stepper1 = null
 		document.addEventListener('DOMContentLoaded', function () {
 
 			stepper1 = new Stepper(document.querySelector('#stepper1'), {
-				linear: false
+				linear: false,
+				animation: true
 			})
 
 		})
@@ -79,20 +81,6 @@
 
 					// log all data thats returned
 					console.log(data);
-
-					/*// Load stepper after template
-					myStepper = new Stepper(document.querySelector('#newuser'), {
-						linear: false,
-						animation: true
-					});
-					
-										var myStepper = new Stepper($('#newuser'))*/
-
-					//var stepper = new Stepper(document.querySelector('.bs-stepper'))
-
-
-
-
 
 
 					if (data) {
@@ -304,7 +292,7 @@
 								<button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
 									aria-controls="test-l-1">
 									<span class="bs-stepper-circle">1</span>
-									<span class="bs-stepper-label">Email</span>
+									<span class="bs-stepper-label">Step one</span>
 								</button>
 							</div>
 							<div class="bs-stepper-line"></div>
@@ -312,7 +300,7 @@
 								<button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
 									aria-controls="test-l-2">
 									<span class="bs-stepper-circle">2</span>
-									<span class="bs-stepper-label">Password</span>
+									<span class="bs-stepper-label">Step two</span>
 								</button>
 							</div>
 							<div class="bs-stepper-line"></div>
@@ -320,7 +308,7 @@
 								<button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
 									aria-controls="test-l-3">
 									<span class="bs-stepper-circle">3</span>
-									<span class="bs-stepper-label">Validate</span>
+									<span class="bs-stepper-label">Step three</span>
 								</button>
 							</div>
 						</div>
