@@ -585,23 +585,22 @@ app.post('/newstudentroute', (req, res) => {
                       var cpanelClient = cpanel.createClient(cpoptions);
 
 
-                      if (StudentModules != null) {
-                        const completed = 0;
 
-                        for (let i = 0; i < StudentModules.length; i++) {
-                          const module = StudentModules[i];
-                          cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: StudentModules, permissions: '755' }, function (err, res) {
-                            console.log('Result: %j', res);
-                            completed++;
-                          });
-                        }
+                      const completed = 0;
 
-                        while (completed != StudentModules.length) { }
-
-                        res.send('SUCCESS');
+                      for (let i = 0; i < StudentModules.length; i++) {
+                        const module = StudentModules[i];
+                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: StudentModules, permissions: '755' }, function (err, res) {
+                          console.log('Result: %j', res);
+                          completed++;
+                        });
                       }
 
-                      res.send('FAIL');
+                      while (completed != StudentModules.length) { }
+
+                      res.send('SUCCESS');
+
+
                     })
                     .catch(function (error) {
                       res.send(error);
