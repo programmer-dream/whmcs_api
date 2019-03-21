@@ -581,33 +581,16 @@ app.post('/newstudentroute', (req, res) => {
                     })
                     .then(function (moduleCreateResponse) {
 
+                      ////////////////////////////////////////////////////////
+                      // There needs to be a password change here to a random charater password (moduleChangePw(opts) - https://damageesp.github.io/whmcs-js/Services.html)
+                      ////////////////////////////////////////////////////////
 
 
-                      // Create modules in cpanel here 
-                      // Generate the token for the cpanel user
-                      let generated_token_name = Math.random().toString(36).slice(2);
+                      // Set the cPanel variables for connection 
 
-                      cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
-                        console.log('api_token_create');
-
-                        var datapackage = data.data.token;
-                        console.log(datapackage);
-
-                        if (error) {
-                          return res.send({
-                            ok: false,
-                            error: error
-                          });
-                        }
-
-                        return res.send({
-                          ok: true,
-                          data: data
-                        })
-
-                      });
-
-                      // Set the cPanel variables for connection  
+                      ////////////////////////////////////////////////////////
+                      // The password below should be the password that has been changed above and passed into the options
+                      ////////////////////////////////////////////////////////
 
 
                       var cpoptions = {
@@ -620,11 +603,44 @@ app.post('/newstudentroute', (req, res) => {
                         ignoreCertError: true
                       };
 
+                      ////////////////////////////////////////////////////////
+                      // Unlikely to need this if I am using password login///
+                      ////////////////////////////////////////////////////////
 
+                      /*
+                                            // Create modules in cpanel here 
+                                            // Generate the token for the cpanel user
+                                            let generated_token_name = Math.random().toString(36).slice(2);
+                                            var cpanelClient = cpanel.createClient(cpoptions);
+                      
+                                            cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
+                                              console.log('api_token_create');
+                      
+                                              var datapackage = data.data.token;
+                                              console.log(datapackage);
+                      
+                                              if (error) {
+                                                return res.send({
+                                                  ok: false,
+                                                  error: error
+                                                });
+                                              }
+                      
+                                              return res.send({
+                                                ok: true,
+                                                data: data
+                                              })
+                      
+                                            });
+                      
+                      */
                       // Add the folders for the user
 
 
-                      var cpanelClient = cpanel.createClient(cpoptions);
+                      ////////////////////////////////////////////////////////
+                      //////////////This will setup the folders///////////////
+                      ////////////////////////////////////////////////////////
+
 
                       var count = 0;
 
