@@ -619,9 +619,6 @@ app.post('/newstudentroute', (req, res) => {
                         accessKey: datapackage,
                         ignoreCertError: true
                       };
-                      module.exports = cpoptions;
-
-
 
 
                       // Add the folders for the user
