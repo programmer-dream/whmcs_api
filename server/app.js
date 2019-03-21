@@ -594,13 +594,13 @@ app.post('/newstudentroute', (req, res) => {
                         console.log(datapackage);
 
                         if (error) {
-                          return console.log({
+                          return res.send({
                             ok: false,
                             error: error
                           });
                         }
 
-                        return console.log({
+                        return res.send({
                           ok: true,
                           data: data
                         })
