@@ -580,7 +580,51 @@ app.post('/newstudentroute', (req, res) => {
 
                     })
                     .then(function (moduleCreateResponse) {
+
+
+
                       // Create modules in cpanel here 
+                      // Generate the token for the cpanel user
+                      let generated_token_name = Math.random().toString(36).slice(2);
+
+                      cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
+                        console.log('api_token_create');
+
+                        var datapackage = data.data.token;
+                        console.log(datapackage);
+
+                        if (error) {
+                          return console.log({
+                            ok: false,
+                            error: error
+                          });
+                        }
+
+                        return console.log({
+                          ok: true,
+                          data: data
+                        })
+
+                      });
+
+                      // Set the cPanel variables for connection  
+
+
+                      var cpoptions = {
+                        host: '109.73.172.154',
+                        port: 2087,
+                        secure: true,
+                        username: randomstring,
+                        // USE API ACCESS TOKEN instead of access key
+                        accessKey: datapackage,
+                        ignoreCertError: true
+                      };
+                      module.exports = cpoptions;
+
+
+
+
+                      // Add the folders for the user
 
 
                       var cpanelClient = cpanel.createClient(cpoptions);

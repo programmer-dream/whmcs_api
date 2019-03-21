@@ -1,4 +1,4 @@
-var cpoptions = {
+/*var cpoptions = {
     host: '109.73.172.154',
     port: 2087,
     secure: true,
@@ -7,4 +7,4 @@ var cpoptions = {
     accessKey: 'Y2AEG6MTBXL0GP6OX2NHJNE44TLXO5FC',
     ignoreCertError: true
 };
-module.exports = cpoptions;
+module.exports = cpoptions;*/
