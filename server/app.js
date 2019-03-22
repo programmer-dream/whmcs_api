@@ -584,13 +584,14 @@ app.post('/newstudentroute', (req, res) => {
                     .then(function (moduleCreateResponse) {
 
                       ////////////////////////////////////////////////////////
-                      // There needs to be a password change here to a random charater password (moduleChangePw(opts) - https://damageesp.github.io/whmcs-js/Services.html)
+                      // There needs to be a password change here to a random charater password
+                      // This is to authenticate the user so that folders can be created
                       ////////////////////////////////////////////////////////
 
 
                       // udate client password so that we can connect to the cpanel API
                       const updateClientPassword = new Services(config);
-                      const newuserpassword = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                      const newuserpassword = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
 
                       updateClientPassword.moduleChangePw({
                         serviceid: updateClientProductResponse.serviceid,
@@ -608,49 +609,16 @@ app.post('/newstudentroute', (req, res) => {
                             host: '109.73.172.154',
                             port: 2083,
                             secure: true,
+                            // The username is driven from the random username created when creating the service
                             username: randomstring,
-                            // USE API ACCESS TOKEN instead of access key
-                            //password: newuserpassword,
+                            // USE the newly generated password
                             password: newuserpassword,
                             ignoreCertError: true
                           };
 
-                          ////////////////////////////////////////////////////////
-                          // Unlikely to need this if I am using password login///
-                          ////////////////////////////////////////////////////////
-
-                          /*
-                                                // Create modules in cpanel here 
-                                                // Generate the token for the cpanel user
-                                                let generated_token_name = Math.random().toString(36).slice(2);
-                                                var cpanelClient = cpanel.createClient(cpoptions);
-                          
-                                                cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
-                                                  console.log('api_token_create');
-                          
-                                                  var datapackage = data.data.token;
-                                                  console.log(datapackage);
-                          
-                                                  if (error) {
-                                                    return res.send({
-                                                      ok: false,
-                                                      error: error
-                                                    });
-                                                  }
-                          
-                                                  return res.send({
-                                                    ok: true,
-                                                    data: data
-                                                  })
-                          
-                                                });
-                          
-                          */
-                          // Add the folders for the user
-
 
                           ////////////////////////////////////////////////////////
-                          //////////////This will setup the folders///////////////
+                          //Setup the folders/////////////////////////////////////
                           ////////////////////////////////////////////////////////
 
                           var cpanelClient = cpanel.createClient(cpoptions);
@@ -667,25 +635,6 @@ app.post('/newstudentroute', (req, res) => {
                           while (count != StudentModules.length);
                           res.send('SUCCESS');
 
-
-                          /*
-                                                if (StudentModules != null) {
-                                                  const completed = 0;
-                          
-                                                  for (let i = 0; i < StudentModules.length; i++) {
-                                                    const stumodule = StudentModules[i];
-                                                    cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: stumodule, permissions: '755' }, function (err, res) {
-                                                      console.log('Result: %j', res);
-                                                      completed++;
-                                                    });
-                                                  }
-                          
-                                                  while (completed != StudentModules.length) { }
-                          
-                                                  res.send('SUCCESS');
-                                                } else {
-                                                  res.send('FAIL');
-                                                } */
                         })
                         .catch(function (error) {
                           res.send(error);
