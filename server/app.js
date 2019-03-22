@@ -561,6 +561,8 @@ app.post('/newstudentroute', (req, res) => {
               })
                 .then(function (updateClientProductResponse) {
 
+
+
                   /* 
                   RETURNS 
                   sonsfa9
@@ -586,94 +588,109 @@ app.post('/newstudentroute', (req, res) => {
                       ////////////////////////////////////////////////////////
 
 
-                      // Set the cPanel variables for connection 
+                      // udate client password so that we can connect to the cpanel API
+                      const updateClientPassword = new Services(config);
+                      const newuserpassword = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + Math.random().toString(36).substring(1, 8).toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
-                      ////////////////////////////////////////////////////////
-                      // The password below should be the password that has been changed above and passed into the options
-                      ////////////////////////////////////////////////////////
+                      updateClientPassword.moduleChangePw({
+                        serviceid: updateClientProductResponse.serviceid,
+                        servicepassword: newuserpassword
+                      })
+                        .then(function (updateClientPasswordResponse) {
+                          // Set the cPanel variables for connection 
+
+                          ////////////////////////////////////////////////////////
+                          // The password below should be the password that has been changed above and passed into the options
+                          ////////////////////////////////////////////////////////
 
 
-                      var cpoptions = {
-                        host: '109.73.172.154',
-                        port: 2087,
-                        secure: true,
-                        username: randomstring,
-                        // USE API ACCESS TOKEN instead of access key
-                        accessKey: datapackage,
-                        ignoreCertError: true
-                      };
+                          var cpoptions = {
+                            host: '109.73.172.154',
+                            port: 2087,
+                            secure: true,
+                            username: randomstring,
+                            // USE API ACCESS TOKEN instead of access key
+                            accessKey: newuserpassword,
+                            ignoreCertError: true
+                          };
 
-                      ////////////////////////////////////////////////////////
-                      // Unlikely to need this if I am using password login///
-                      ////////////////////////////////////////////////////////
+                          ////////////////////////////////////////////////////////
+                          // Unlikely to need this if I am using password login///
+                          ////////////////////////////////////////////////////////
 
-                      /*
-                                            // Create modules in cpanel here 
-                                            // Generate the token for the cpanel user
-                                            let generated_token_name = Math.random().toString(36).slice(2);
-                                            var cpanelClient = cpanel.createClient(cpoptions);
-                      
-                                            cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
-                                              console.log('api_token_create');
-                      
-                                              var datapackage = data.data.token;
-                                              console.log(datapackage);
-                      
-                                              if (error) {
-                                                return res.send({
-                                                  ok: false,
-                                                  error: error
+                          /*
+                                                // Create modules in cpanel here 
+                                                // Generate the token for the cpanel user
+                                                let generated_token_name = Math.random().toString(36).slice(2);
+                                                var cpanelClient = cpanel.createClient(cpoptions);
+                          
+                                                cpanelClient.call('api_token_create', { 'api.version': 1, token_name: generated_token_name }, function (error, data) {
+                                                  console.log('api_token_create');
+                          
+                                                  var datapackage = data.data.token;
+                                                  console.log(datapackage);
+                          
+                                                  if (error) {
+                                                    return res.send({
+                                                      ok: false,
+                                                      error: error
+                                                    });
+                                                  }
+                          
+                                                  return res.send({
+                                                    ok: true,
+                                                    data: data
+                                                  })
+                          
                                                 });
-                                              }
-                      
-                                              return res.send({
-                                                ok: true,
-                                                data: data
-                                              })
-                      
-                                            });
-                      
-                      */
-                      // Add the folders for the user
+                          
+                          */
+                          // Add the folders for the user
 
 
-                      ////////////////////////////////////////////////////////
-                      //////////////This will setup the folders///////////////
-                      ////////////////////////////////////////////////////////
+                          ////////////////////////////////////////////////////////
+                          //////////////This will setup the folders///////////////
+                          ////////////////////////////////////////////////////////
 
 
-                      var count = 0;
+                          var count = 0;
 
-                      do {
-                        var smodules = StudentModules[count];
-                        cpanelClient.callApi2('Fileman', 'mkdir', { path: '../home/' + randomstring + '/public_html/', name: smodules, permissions: '755' }, function (err, res) {
-                          console.log('Result: %j', res);
+                          do {
+                            var smodules = StudentModules[count];
+                            cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: smodules, permissions: '755' }, function (err, res) {
+                              console.log('Result: %j', res);
+                            });
+                            count++;
+                          }
+
+                          while (count != StudentModules.length);
+                          res.send('SUCCESS');
+
+
+                          /*
+                                                if (StudentModules != null) {
+                                                  const completed = 0;
+                          
+                                                  for (let i = 0; i < StudentModules.length; i++) {
+                                                    const stumodule = StudentModules[i];
+                                                    cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: stumodule, permissions: '755' }, function (err, res) {
+                                                      console.log('Result: %j', res);
+                                                      completed++;
+                                                    });
+                                                  }
+                          
+                                                  while (completed != StudentModules.length) { }
+                          
+                                                  res.send('SUCCESS');
+                                                } else {
+                                                  res.send('FAIL');
+                                                } */
+                        })
+                        .catch(function (error) {
+                          res.send(error);
                         });
-                        count++;
-                      }
-
-                      while (count != StudentModules.length);
-                      res.send('SUCCESS');
 
 
-                      /*
-                                            if (StudentModules != null) {
-                                              const completed = 0;
-                      
-                                              for (let i = 0; i < StudentModules.length; i++) {
-                                                const stumodule = StudentModules[i];
-                                                cpanelClient.callApi2('Fileman', 'mkdir', { path: '/home/' + randomstring + '/public_html/', name: stumodule, permissions: '755' }, function (err, res) {
-                                                  console.log('Result: %j', res);
-                                                  completed++;
-                                                });
-                                              }
-                      
-                                              while (completed != StudentModules.length) { }
-                      
-                                              res.send('SUCCESS');
-                                            } else {
-                                              res.send('FAIL');
-                                            } */
 
 
                     })
