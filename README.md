@@ -39,6 +39,7 @@ Download the latest version of the database:
 -- In WHMCS - set the product/service email to Other 'Product/Service Welcome Email'.
 -- Edit the Other 'Product/Service Welcome Email' to show the following:
 
+
 `Subject: Please validate your staff account`
 `Dear {$client_name},
 
@@ -53,6 +54,7 @@ APP URL
 {$signature}`
 
 - Assign the product to the server and package
+- Edit the WHMCS New Order Notification to change the title of the email and the body to remove payment type and whmcs link
 
 # Other WHMCS setup items 
 
