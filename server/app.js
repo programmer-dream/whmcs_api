@@ -640,9 +640,6 @@ app.post('/newstudentroute', (req, res) => {
                           res.send(error);
                         });
 
-
-
-
                     })
                     .catch(function (error) {
                       res.send(error);
