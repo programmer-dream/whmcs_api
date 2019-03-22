@@ -606,11 +606,12 @@ app.post('/newstudentroute', (req, res) => {
 
                           var cpoptions = {
                             host: '109.73.172.154',
-                            port: 2087,
+                            port: 2083,
                             secure: true,
                             username: randomstring,
                             // USE API ACCESS TOKEN instead of access key
-                            accessKey: newuserpassword,
+                            //password: newuserpassword,
+                            password: newuserpassword,
                             ignoreCertError: true
                           };
 
@@ -652,7 +653,7 @@ app.post('/newstudentroute', (req, res) => {
                           //////////////This will setup the folders///////////////
                           ////////////////////////////////////////////////////////
 
-
+                          var cpanelClient = cpanel.createClient(cpoptions);
                           var count = 0;
 
                           do {
