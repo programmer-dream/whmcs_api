@@ -27,7 +27,7 @@
 - In the cpanel account go to NodeJS selector and setup the application 
 - Click NPM install and enter the following settings, make sure node is on node 11 or later
 
-![Image](https://auth.educationhost.co.uk/NodeJS.PNG)
+![Image](https://educationhost.co.uk/NodeJS.PNG)
 
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
