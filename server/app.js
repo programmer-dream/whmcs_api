@@ -58,8 +58,9 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-
+// This is the autoauth key
 global.autoauth = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
+// WHMCS URL
 global.whmcsURL = 'http://whmcs.educationhost.co.uk/dologin.php';
 
 /*--------------------------------------------------------------------------------------------------*/

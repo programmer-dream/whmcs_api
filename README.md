@@ -35,17 +35,43 @@ Passport.js is used to allow for ADFS functionality ...
 
 # Setting up the application 
 
-- Make sure the cpaneluserhostedaccount is set to the actual account AND passport JS in the /config/ folder contians the username 
+- Make sure the cpaneluserhostedaccount variable in server/app.js is set to the cpanel account name AND passport JS in the /config/ folder contians the username 
 
 ## Database
 
-Download the latest version of the database: 
+- Create a database (whatever name)
+- Create a db user / password
+- Assign the user to the db with all permissions
+- Import the database file (located below)
 
-`https://educationhost.co.uk/williams_app.sql`
+`https://auth.educationhost.co.uk/williams_app.sql`
+
+- change the /config.sql file to update the app to point to the above database
+- npm pull the app to get the changes
+- ps -aux | grep node and Kill the node process
+- Start the application back up through cPanel
 
 ## variables for a new client
 
+There are a number of variables that will need to be set in the application for a new client:
 
+### Database variables
+
+- Client available modules in the client_availablemodules table
+- Client details in the client_details table
+
+### /server/app.js file variables
+
+- const cpaneluserhostedaccount = 'cPanelAccount';
+- global.autoauth = 'AutoAuthKey setup in WHMCS (config addition)';
+- global.whmcsURL = 'WHMCS URL'; (E.g. http://whmcs.educationhost.co.uk/dologin.php)
+
+### /server/config/sql.js file variables
+
+- host: "localhost",
+- user: "database user",
+- password: "database password",
+- database: "database",
 
 # WHMCS Setup
 
