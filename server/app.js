@@ -79,11 +79,11 @@ var session = require("express-session");
 //app.use(whmcs.initialize());
 
 app.get("/", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/index.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/index.html");
 });
 
 app.get("/test", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/test.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/test.html");
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,11 +95,11 @@ app.get("/test", function (req, res) {
 
 
 app.get("/whmcs", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/whmcs.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/whmcs.html");
 });
 
 app.get("/handlebars", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/handlebars.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/handlebars.html");
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -835,23 +835,23 @@ app.post('/newstaffroute', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get("/home", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/home.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/home.html");
 });
 
 app.post("/home", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/client/home.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/client/home.html");
 });
 
 app.get("/staffdashboard", function (req, res) {
-  res.sendFile("/home/ " + cpaneluserhostedaccount + "/apps/AD-saml/staff/dashboard.html");
+  res.sendFile("/home/ " + cpaneluserhostedaccount + "/AD-saml/staff/dashboard.html");
 });
 
 app.post("/staffdashboard", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/staff/dashboard.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/staff/dashboard.html");
 });
 
 app.get("/stafflogin", function (req, res) {
-  res.sendFile("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/staff/index.html");
+  res.sendFile("/home/" + cpaneluserhostedaccount + "/AD-saml/staff/index.html");
 });
 
 app.get("/logout", function (req, res) {
@@ -897,8 +897,8 @@ app.post('/stafflogintowhmcs', (req, res) => {
 
 
 const options = {
-  cert: fs.readFileSync("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/sslcert/fullchain.pem"),
-  key: fs.readFileSync("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/sslcert/privkey.pem")
+  cert: fs.readFileSync("/home/" + cpaneluserhostedaccount + "/AD-saml/sslcert/fullchain.pem"),
+  key: fs.readFileSync("/home/" + cpaneluserhostedaccount + "/AD-saml/sslcert/privkey.pem")
 };
 
 
