@@ -13,17 +13,23 @@ Active Directory SAML - WHMCS authentication &amp; setup
 
 -Install the application (node)
 
+- Using the GIT Maneger feature of cPanel, clone the repo (make the repo public during cloning and then set back to private)
 - In the cpanel account go to NodeJS selector and setup the application 
-- Click NPM install 
+- Click NPM install and enter the following
 
-- Install SSL
-- Install SSL through the SSL/TLS Wizard in cpanel, this will email this cert, copy the cert and save it as app.crt
-- Go to SSL/TLS page and look for the View Private Key option, this will show the generate private key for the new ssl certificate
+![Image](https://auth.educationhost.co.uk/NodeJS.PNG)
 
 
 # Setup SSL for the application
 
-SSL setup instructions here...
+- Install SSL
+- Install SSL through the SSL/TLS Wizard in cpanel, this will email this cert, copy the cert and save it as app.crt
+- Go to SSL/TLS page and look for the View Private Key option, this will show the generate private key for the new ssl certificate
+- Edit the files in the /sslcert folder
+    - app.crt - copy and paste the Certificate: (CRT) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
+    - app.key - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
+    - privkey.pem - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
+    - fullchain.pem - Certificate: (CRT) + Certificate Authority Bundle: (CABUNDLE) - one on top of the other
 
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
