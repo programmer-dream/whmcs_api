@@ -3,7 +3,23 @@ Active Directory SAML - WHMCS authentication &amp; setup
 
 # Setup hosting account for the application
 
-This is currently done on dgital ocean but needs to be on the same server as the database. Needs testing.
+- Ensure Cloud linux with node selector is installed
+- Increase 'Max cPanel process memory' in Tweak settings to 1024
+
+- Add a user account in cpanel for the application 
+- Enable shell access for the cpanel account
+- Install git on the cpanel account (a good how-to can be found here - https://www.liquidweb.com/kb/configure-deploy-cloudlinuxs-node-js-selector/)
+- Assign the cpanel account an IP address and add this to the dns zone for the domain
+
+-Install the application (node)
+
+- In the cpanel account go to NodeJS selector and setup the application 
+- Click NPM install 
+
+- Install SSL
+- Install SSL through the SSL/TLS Wizard in cpanel, this will email this cert, copy the cert and save it as app.crt
+- Go to SSL/TLS page and look for the View Private Key option, this will show the generate private key for the new ssl certificate
+
 
 # Setup SSL for the application
 
