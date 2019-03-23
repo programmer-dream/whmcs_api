@@ -13,7 +13,7 @@ passport.deserializeUser(function (user, done) {
 
 passport.use(new SamlStrategy(
 	{
-		entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwehappwithlinktoesponserouteHTTPS1',
+		entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwehappwithlinktoesponserouteHTTPSAUTHDOMAIN',
 		issuer: 'https://idp.ssocircle.com',
 		callbackUrl: '/login/callback',
 		// OLD KEY privateCert: fs.readFileSync('/home/nick/apps/AD-saml/app.key', 'utf-8'),
