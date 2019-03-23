@@ -1,5 +1,4 @@
-# AD-saml
-Active Directory SAML - WHMCS authentication &amp; setup
+# Active Directory SAML - WHMCS authentication &amp; setup
 
 # Setup hosting account for the application
 
@@ -11,15 +10,6 @@ Active Directory SAML - WHMCS authentication &amp; setup
 - Install git on the cpanel account (a good how-to can be found here - https://www.liquidweb.com/kb/configure-deploy-cloudlinuxs-node-js-selector/)
 - Assign the cpanel account an IP address and add this to the dns zone for the domain
 
--Install the application (node)
-
-- Using the GIT Maneger feature of cPanel, clone the repo (make the repo public during cloning and then set back to private)
-- In the cpanel account go to NodeJS selector and setup the application 
-- Click NPM install and enter the following
-
-![Image](https://auth.educationhost.co.uk/NodeJS.PNG)
-
-
 # Setup SSL for the application
 
 - Install SSL
@@ -30,6 +20,14 @@ Active Directory SAML - WHMCS authentication &amp; setup
     - app.key - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
     - privkey.pem - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
     - fullchain.pem - Certificate: (CRT) + Certificate Authority Bundle: (CABUNDLE) - one on top of the other
+
+# Install the application (nodejs selector)
+
+- Using the GIT Maneger feature of cPanel, clone the repo (make the repo public during cloning and then set back to private)
+- In the cpanel account go to NodeJS selector and setup the application 
+- Click NPM install and enter the following settings, make sure node is on node 11 or later
+
+![Image](https://auth.educationhost.co.uk/NodeJS.PNG)
 
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
