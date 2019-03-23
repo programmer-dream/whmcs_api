@@ -16,6 +16,7 @@ const handlebars = require("express-handlebars");
 var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
+// This will also need to be set in CONFIG/PASSPORT.JS
 const cpaneluserhostedaccount = 'xhgkhpdb';
 
 

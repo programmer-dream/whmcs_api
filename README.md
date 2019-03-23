@@ -31,6 +31,8 @@ Passport.js is used to allow for ADFS functionality ...
 
 # Setting up the application 
 
+- Make sure the cpaneluserhostedaccount is set to the actual account AND passport JS in the /config/ folder contians the username 
+
 ## Database
 
 Download the latest version of the database: 
