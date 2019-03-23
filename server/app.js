@@ -16,6 +16,8 @@ const handlebars = require("express-handlebars");
 var cors = require('cors');
 var cpanel = require('cpanel-lib');
 
+const cpaneluserhostedaccount = 'xhgkhpdb';
+
 
 const cpoptions = require("./config/cpanel.js");
 /*
@@ -894,8 +896,8 @@ app.post('/stafflogintowhmcs', (req, res) => {
 
 
 const options = {
-  cert: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/fullchain.pem"),
-  key: fs.readFileSync("/home/ehapp/apps/AD-saml/sslcert/privkey.pem")
+  cert: fs.readFileSync("/home/" + cpaneluserhostedaccount + "/apps/AD-saml/sslcert/fullchain.pem"),
+  key: fs.readFileSync("/home/" + cpaneluserhostedaccount + "ehapp/apps/AD-saml/sslcert/privkey.pem")
 };
 
 
