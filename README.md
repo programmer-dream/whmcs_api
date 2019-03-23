@@ -10,6 +10,9 @@
 - Install git on the cpanel account (a good how-to can be found here - https://www.liquidweb.com/kb/configure-deploy-cloudlinuxs-node-js-selector/)
 - Assign the cpanel account an IP address and add this to the dns zone for the domain
 
+- Ensure that the port is allowed through the WHM firewall (port 8443)
+- Increase PT_USERMEM and PT_USERTIME in the firewall to stop noticiations on long running node script
+
 # Setup SSL for the application
 
 - Install SSL
@@ -75,7 +78,7 @@ There are a number of variables that will need to be set in the application for 
 
 # WHMCS Setup
 
-- Setup autoauth funtionality by adding '$autoauthkey = "abcXYZ123";' to the configuration.php file. The value just needs to be a random sequence of letters and numbers.
+- Setup autoauth funtionality by adding '$autoauthkey = "abcXYZ123";' to the WHMCS configuration.php file. The value just needs to be a random sequence of letters and numbers.
 - Add payment gateway (Bank transfer) and call it Bank, this is referred to in the code as 'banktransfer'
 - Make sure the Client Signup Email in WHMCS is altered to reflect the actual login URL
 - Modify the 'WHMCS New Order Notification' email template
@@ -89,17 +92,17 @@ There are a number of variables that will need to be set in the application for 
 
 
 `Subject: Please validate your staff account`
-`Dear {$client_name},
+`Dear {$client_name},`
 
-TO VALIDATE THIS ACCOUNT YOU NEED TO GO TO THE FOLLOWING URL:
+`TO VALIDATE THIS ACCOUNT YOU NEED TO GO TO THE FOLLOWING URL:`
 
-APP ROUTE
+`APP ROUTE`
 
-Once validated you can log in by navigating to:
+`Once validated you can log in by navigating to:`
 
-APP URL
+`APP URL`
 
-{$signature}`
+`{$signature}`
 
 - Assign the product to the server and package
 - Edit the WHMCS New Order Notification to change the title of the email and the body to remove payment type and whmcs link
