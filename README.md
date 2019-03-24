@@ -76,6 +76,14 @@ There are a number of variables that will need to be set in the application for 
 - password: "database password",
 - database: "database",
 
+### /server/config/whmcs.js API
+
+Generated under Setup > Staff Management > Manage API Credentials (more details https://docs.whmcs.com/API_Authentication_Credentials#Creating_Admin_API_Authentication_Credentials)
+
+- identifier: ''
+- secret: ''
+- serverUrl: 'URL/api.php'
+
 # WHMCS Setup
 
 - Setup autoauth funtionality by adding '$autoauthkey = "abcXYZ123";' to the WHMCS configuration.php file. The value just needs to be a random sequence of letters and numbers.
