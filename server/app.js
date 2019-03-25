@@ -622,7 +622,7 @@ app.post('/newstudentroute', (req, res) => {
                           var cpoptions = {
                             //host: '109.73.172.154',
                             // EH Live host
-                            host: '109.73.172.246',
+                            host: 'benu.zjnucomputing.com',
                             port: 2083,
                             secure: true,
                             // The username is driven from the random username created when creating the service
