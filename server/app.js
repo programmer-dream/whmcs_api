@@ -522,7 +522,7 @@ app.post('/newstudentroute', (req, res) => {
         .addOrder({
           clientid: addClientResponse.clientid,
           // This product id relates to the student service
-          pid: studentproductid,
+          pid: 64,
           domain: req.body.fulldomain,
           nameserver1: req.body.nameserver1,
           nameserver2: req.body.nameserver2,
