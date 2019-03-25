@@ -603,7 +603,7 @@ app.post('/newstudentroute', (req, res) => {
                       ////////////////////////////////////////////////////////
 
 
-                      // udate client password so that we can connect to the cpanel API
+                      // update client password so that we can connect to the cpanel API
                       const updateClientPassword = new Services(config);
                       const newuserpassword = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
 
