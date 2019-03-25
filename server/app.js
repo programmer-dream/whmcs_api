@@ -18,6 +18,9 @@ var cpanel = require('cpanel-lib');
 
 // This will also need to be set in CONFIG/PASSPORT.JS
 const cpaneluserhostedaccount = 'xhgkhpdb';
+// This is the id of the sevrice to be created for the student and staff user in the WHMCS system
+const studentproductid = 1;
+const staffproductid = 3;
 
 
 const cpoptions = require("./config/cpanel.js");
@@ -512,7 +515,7 @@ app.post('/newstudentroute', (req, res) => {
         .addOrder({
           clientid: addClientResponse.clientid,
           // This product id relates to the student service
-          pid: 1,
+          pid: studentproductid,
           domain: req.body.fulldomain,
           nameserver1: req.body.nameserver1,
           nameserver2: req.body.nameserver2,
@@ -726,7 +729,7 @@ app.post('/newstaffroute', (req, res) => {
         .addOrder({
           clientid: addClientResponse.clientid,
           // This product id relates to the student service
-          pid: 3,
+          pid: staffproductid,
           domain: req.body.fulldomain,
           nameserver1: req.body.nameserver1,
           nameserver2: req.body.nameserver2,

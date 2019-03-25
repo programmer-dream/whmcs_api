@@ -68,6 +68,8 @@ There are a number of variables that will need to be set in the application for 
 - const cpaneluserhostedaccount = 'cPanelAccount';
 - global.autoauth = 'AutoAuthKey setup in WHMCS (config addition)';
 - global.whmcsURL = 'WHMCS URL'; (E.g. http://whmcs.educationhost.co.uk/dologin.php)
+- set the id of the service that the student user will use - const studentproductid = 1;
+- set the id of the service that the staff user will use - const staffproductid = 3;
 
 ### /server/config/sql.js file variables
 
