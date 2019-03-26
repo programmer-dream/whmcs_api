@@ -1,7 +1,7 @@
 const config = {
   //Test server
-  identifier: 'uqIfuB386o8vubPz9xTInHp25bQps8EH',
-  secret: '2saQiTPgbSIyvUtmSwVBjmqQxPJ58IpR',
+  identifier: 'tUT2oQeYZ1XMkdgRFwtB3bvMkt8voBZD',
+  secret: '1YcVaCB4zAeweSBcBTZ6KjgegfV0DobY',
   serverUrl: 'http://whmcs.educationhost.co.uk/includes/api.php' // Remember to point to the api.php file
 
   /* 
