@@ -19,12 +19,12 @@ var cpanel = require('cpanel-lib');
 // This will also need to be set in CONFIG/PASSPORT.JS
 const cpaneluserhostedaccount = 'xhgkhpdb';
 // This is the id of the sevrice to be created for the student and staff user in the WHMCS system
-//const studentproductid = 1;
-//const staffproductid = 3;
+const studentproductid = 1;
+const staffproductid = 3;
 
 // Services for the Live EH installation
-const studentproductid = 18;
-const staffproductid = 19;
+//const studentproductid = 18;
+//const staffproductid = 19;
 
 
 const cpoptions = require("./config/cpanel.js");
@@ -68,10 +68,10 @@ app.use(bodyParser.urlencoded({
 // This is the autoauth key
 global.autoauth = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
 // WHMCS URL
-//global.whmcsURL = 'http://whmcs.educationhost.co.uk/dologin.php';
+global.whmcsURL = 'http://whmcs.educationhost.co.uk/dologin.php';
 
 // EH live installation
-global.whmcsURL = 'http://www.educationhost.co.uk/whmcs/dologin.php';
+//global.whmcsURL = 'http://www.educationhost.co.uk/whmcs/dologin.php';
 
 /*--------------------------------------------------------------------------------------------------*/
 /* 								   Links to configuration files                                     */
@@ -522,7 +522,7 @@ app.post('/newstudentroute', (req, res) => {
         .addOrder({
           clientid: addClientResponse.clientid,
           // This product id relates to the student service
-          pid: 64,
+          pid: studentproductid,
           domain: req.body.fulldomain,
           nameserver1: req.body.nameserver1,
           nameserver2: req.body.nameserver2,
@@ -620,9 +620,9 @@ app.post('/newstudentroute', (req, res) => {
 
 
                           var cpoptions = {
-                            //host: '109.73.172.154',
+                            host: '109.73.172.154',
                             // EH Live host
-                            host: 'benu.zjnucomputing.com',
+                            //host: 'benu.zjnucomputing.com',
                             port: 2083,
                             secure: true,
                             // The username is driven from the random username created when creating the service

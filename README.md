@@ -62,6 +62,7 @@ There are a number of variables that will need to be set in the application for 
 
 - Client available modules in the client_availablemodules table
 - Client details in the client_details table
+- Client URL
 
 ### /server/app.js file variables
 
