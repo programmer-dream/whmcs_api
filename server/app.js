@@ -589,12 +589,11 @@ app.post('/newstudentroute', (req, res) => {
 
                   // create the accepted order
                   const moduleCreate = new Services(config);
-                  moduleCreate
-                    .moduleCreate({
+                  moduleCreate.moduleCreate({
 
-                      serviceid: updateClientProductResponse.serviceid
+                    serviceid: updateClientProductResponse.serviceid
 
-                    })
+                  })
                     .then(function (moduleCreateResponse) {
 
                       ////////////////////////////////////////////////////////
