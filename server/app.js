@@ -596,6 +596,8 @@ app.post('/newstudentroute', (req, res) => {
                   })
                     .then(function (moduleCreateResponse) {
 
+                      console.log(moduleCreateResponse);
+
                       ////////////////////////////////////////////////////////
                       // There needs to be a password change here to a random charater password
                       // This is to authenticate the user so that folders can be created
@@ -616,7 +618,7 @@ app.post('/newstudentroute', (req, res) => {
                           ////////////////////////////////////////////////////////
                           // The password below should be the password that has been changed above and passed into the options
                           ////////////////////////////////////////////////////////
-
+                          console.log(updateClientPasswordResponse);
 
                           var cpoptions = {
                             host: 'benu.zjnucomputing.com',
