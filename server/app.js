@@ -23,7 +23,7 @@ const cpaneluserhostedaccount = 'xhgkhpdb';
 //const staffproductid = 3;
 
 // Services for the Live EH installation
-const studentproductid = 18;
+const studentproductid = 64;
 const staffproductid = 19;
 
 
@@ -620,7 +620,7 @@ app.post('/newstudentroute', (req, res) => {
 
 
                           var cpoptions = {
-                            host: '109.73.172.154',
+                            host: 'benu.zjnucomputing.com',
                             // EH Live host
                             //host: 'benu.zjnucomputing.com',
                             port: 2083,
