@@ -8,7 +8,7 @@
                     && (!filter.Module_Year || client.Module_Year === filter.Module_Year)
                     && (!filter.Domain || client.Domain.indexOf(filter.Domain) > -1)
                     && (!filter.Module || client.Module === filter.Module)
-                    && (filter.Married === undefined || client.Married === filter.Married);
+                    && (filter.isActive === undefined || client.isActive === filter.isActive);
             });
         },
 
@@ -41,340 +41,347 @@
 
     db.clients = [
         {
+            "Name": "Nick Williams",
+            "Module_Year": "2019/20",
+            "Module": 6,
+            "Domain": "nickwilliams.educationhost.co.uk",
+            "isActive": true
+        },
+        {
             "Name": "Otto Clay",
             "Module_Year": "2019/20",
             "Module": 6,
             "Domain": "ottoclay.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Connor Johnston",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "connorjohnston.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Lacey Hess",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "laceyhess.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Timothy Henson",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "timothyhenson.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Ramona Benton",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "ramonabenton.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Ezra Tillman",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "ezratillman.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Dante Carter",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "dantecarter.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Christopher Mcclure",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "christophermcclure.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Ruby Rocha",
             "Module_Year": "2019/20",
             "Module": 2,
             "Domain": "rubyrocha.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Imelda Hardin",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "imeldahardin.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Jonah Johns",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "jonahjohns.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Herman Rosa",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "hermanrosa.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Arthur Gay",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "arthurgay.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Xena Wilkerson",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "xenawilkerson.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Lilah Atkins",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "lilahatkins.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Malik Shepard",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "malikshepard.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Keely Silva",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "keelysilva.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Hunter Pate",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "hunterpate.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Mikayla Roach",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "mikaylaroach.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Upton Joseph",
             "Module_Year": "2019/20",
             "Module": 4,
             "Domain": "uptonjoseph.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Jeanette Pate",
             "Module_Year": "2019/20",
             "Module": 2,
             "Domain": "jeanettepate.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Kaden Hernandez",
             "Module_Year": "2019/20",
             "Module": 3,
             "Domain": "kadenhernandez.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Kenyon Stevens",
             "Module_Year": "2019/20",
             "Module": 3,
             "Domain": "kenyonstevens.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Jerome Harper",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "jeromeharper.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Jelani Patel",
             "Module_Year": "2019/20",
             "Module": 2,
             "Domain": "jalanipatel.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Keaton Oconnor",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "keatonoconnor.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Bree Johnston",
             "Module_Year": "2019/20",
             "Module": 2,
             "Domain": "breejohnston.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Maisie Hodges",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "maisiehodges.educationhost.co.uk.",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Kuame Calhoun",
             "Module_Year": "2019/20",
             "Module": 2,
             "Domain": "kuamecalhoun.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Carlos Cameron",
             "Module_Year": "2019/20",
             "Module": 5,
             "Domain": "carloscameron.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Fulton Parsons",
             "Module_Year": "2019/20",
             "Module": 7,
             "Domain": "fulonparsons.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Wallace Christian",
             "Module_Year": "2019/20",
             "Module": 3,
             "Domain": "wallacechristian.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Caryn Maldonado",
             "Module_Year": "2019/20",
             "Module": 1,
             "Domain": "carynmaldonado.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Whilemina Frank",
             "Module_Year": "2018/19",
             "Module": 7,
             "Domain": "whileminafrank.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Emery Moon",
             "Module_Year": "2018/19",
             "Module": 4,
             "Domain": "emerymoon.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Emery Moon",
             "Module_Year": "2018/19",
             "Module": 6,
             "Domain": "emerymoon.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Emery Moon",
             "Module_Year": "2018/19",
             "Module": 7,
             "Domain": "emerymoon.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Lawrence Conway",
             "Module_Year": "2018/19",
             "Module": 1,
             "Domain": "lawrenceconway.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Kalia Nicholson",
             "Module_Year": "2018/19",
             "Module": 5,
             "Domain": "kalianicholson.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Brielle Baxter",
             "Module_Year": "2018/19",
             "Module": 3,
             "Domain": "briellebaxter.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Valentine Brady",
             "Module_Year": "2018/19",
             "Module": 7,
             "Domain": "valentinebrady.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Rebecca Gardner",
             "Module_Year": "2018/19",
             "Module": 4,
             "Domain": "rebeccagardner.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Vladimir Tate",
             "Module_Year": "2018/19",
             "Module": 1,
             "Domain": "vladimirtate.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Vernon Hays",
             "Module_Year": "2018/19",
             "Module": 4,
             "Domain": "vernonhays.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Allegra Hull",
             "Module_Year": "2018/19",
             "Module": 4,
             "Domain": "allegrahull.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Hu Hendrix",
             "Module_Year": "2018/19",
             "Module": 7,
             "Domain": "huhendrix.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         },
         {
             "Name": "Kenyon Battle",
             "Module_Year": "2018/19",
             "Module": 2,
             "Domain": "kenyonbattle.educationhost.co.uk",
-            "Married": false
+            "isActive": false
         },
         {
             "Name": "Gloria Nielsen",
             "Module_Year": "2018/19",
             "Module": 4,
             "Domain": "glorianielsen.educationhost.co.uk",
-            "Married": true
+            "isActive": true
         }
     ];
 
