@@ -95,9 +95,7 @@ Generated under Setup > Staff Management > Manage API Credentials (more details 
 - Modify the 'WHMCS New Order Notification' email template
 - Add server to WHMCS solution
 - Setup the package in WHMCS, one for Students mapped to the student WHM product and one for staff mapped to the staf product (different allocation of space and bandwidth)
-- Make sure Autosetup is turned off - the app will handle this
 - Get the IDs for the products/serices and add this into the routes in the app.js file (usually a low number such as 1 for the student account and 3 for staff account)
-- Remove the temporary URL from the Hosting account welcome email, temp urls do not work with mod_passenger
 
 - Staff need to have an email validation setup to validate their account 
 -- In WHMCS - set the product/service email to Other 'Product/Service Welcome Email'.

@@ -1,24 +1,24 @@
-(function() {
+(function () {
 
     var db = {
 
-        loadData: function(filter) {
-            return $.grep(this.clients, function(client) {
+        loadData: function (filter) {
+            return $.grep(this.clients, function (client) {
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (!filter.Age || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
+                    && (!filter.Module_Year || client.Module_Year === filter.Module_Year)
+                    && (!filter.Domain || client.Domain.indexOf(filter.Domain) > -1)
+                    && (!filter.Module || client.Module === filter.Module)
                     && (filter.Married === undefined || client.Married === filter.Married);
             });
         },
 
-        insertItem: function(insertingClient) {
+        insertItem: function (insertingClient) {
             this.clients.push(insertingClient);
         },
 
-        updateItem: function(updatingClient) { },
+        updateItem: function (updatingClient) { },
 
-        deleteItem: function(deletingClient) {
+        deleteItem: function (deletingClient) {
             var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);
         }
@@ -28,717 +28,353 @@
     window.db = db;
 
 
-    db.countries = [
+    db.Modules = [
         { Name: "", Id: 0 },
-        { Name: "United States", Id: 1 },
-        { Name: "Canada", Id: 2 },
-        { Name: "United Kingdom", Id: 3 },
-        { Name: "France", Id: 4 },
-        { Name: "Brazil", Id: 5 },
-        { Name: "China", Id: 6 },
-        { Name: "Russia", Id: 7 }
+        { Name: "COMP1", Id: 1 },
+        { Name: "COMP2", Id: 2 },
+        { Name: "BUSM1", Id: 3 },
+        { Name: "COMP3386", Id: 4 },
+        { Name: "COMP3987265", Id: 5 },
+        { Name: "BUSM773", Id: 6 },
+        { Name: "BUSM773", Id: 7 }
     ];
 
     db.clients = [
         {
             "Name": "Otto Clay",
-            "Age": 61,
-            "Country": 6,
-            "Address": "Ap #897-1459 Quam Avenue",
+            "Module_Year": "2019/20",
+            "Module": 6,
+            "Domain": "ottoclay.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Connor Johnston",
-            "Age": 73,
-            "Country": 7,
-            "Address": "Ap #370-4647 Dis Av.",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "connorjohnston.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Lacey Hess",
-            "Age": 29,
-            "Country": 7,
-            "Address": "Ap #365-8835 Integer St.",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "laceyhess.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Timothy Henson",
-            "Age": 78,
-            "Country": 1,
-            "Address": "911-5143 Luctus Ave",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "timothyhenson.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Ramona Benton",
-            "Age": 43,
-            "Country": 5,
-            "Address": "Ap #614-689 Vehicula Street",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "ramonabenton.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Ezra Tillman",
-            "Age": 51,
-            "Country": 1,
-            "Address": "P.O. Box 738, 7583 Quisque St.",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "ezratillman.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Dante Carter",
-            "Age": 59,
-            "Country": 1,
-            "Address": "P.O. Box 976, 6316 Lorem, St.",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "dantecarter.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Christopher Mcclure",
-            "Age": 58,
-            "Country": 1,
-            "Address": "847-4303 Dictum Av.",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "christophermcclure.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Ruby Rocha",
-            "Age": 62,
-            "Country": 2,
-            "Address": "5212 Sagittis Ave",
+            "Module_Year": "2019/20",
+            "Module": 2,
+            "Domain": "rubyrocha.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Imelda Hardin",
-            "Age": 39,
-            "Country": 5,
-            "Address": "719-7009 Auctor Av.",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "imeldahardin.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Jonah Johns",
-            "Age": 28,
-            "Country": 5,
-            "Address": "P.O. Box 939, 9310 A Ave",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "jonahjohns.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Herman Rosa",
-            "Age": 49,
-            "Country": 7,
-            "Address": "718-7162 Molestie Av.",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "hermanrosa.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Arthur Gay",
-            "Age": 20,
-            "Country": 7,
-            "Address": "5497 Neque Street",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "arthurgay.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Xena Wilkerson",
-            "Age": 63,
-            "Country": 1,
-            "Address": "Ap #303-6974 Proin Street",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "xenawilkerson.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Lilah Atkins",
-            "Age": 33,
-            "Country": 5,
-            "Address": "622-8602 Gravida Ave",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "lilahatkins.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Malik Shepard",
-            "Age": 59,
-            "Country": 1,
-            "Address": "967-5176 Tincidunt Av.",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "malikshepard.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Keely Silva",
-            "Age": 24,
-            "Country": 1,
-            "Address": "P.O. Box 153, 8995 Praesent Ave",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "keelysilva.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Hunter Pate",
-            "Age": 73,
-            "Country": 7,
-            "Address": "P.O. Box 771, 7599 Ante, Road",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "hunterpate.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Mikayla Roach",
-            "Age": 55,
-            "Country": 5,
-            "Address": "Ap #438-9886 Donec Rd.",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "mikaylaroach.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Upton Joseph",
-            "Age": 48,
-            "Country": 4,
-            "Address": "Ap #896-7592 Habitant St.",
+            "Module_Year": "2019/20",
+            "Module": 4,
+            "Domain": "uptonjoseph.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Jeanette Pate",
-            "Age": 59,
-            "Country": 2,
-            "Address": "P.O. Box 177, 7584 Amet, St.",
+            "Module_Year": "2019/20",
+            "Module": 2,
+            "Domain": "jeanettepate.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Kaden Hernandez",
-            "Age": 79,
-            "Country": 3,
-            "Address": "366 Ut St.",
+            "Module_Year": "2019/20",
+            "Module": 3,
+            "Domain": "kadenhernandez.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Kenyon Stevens",
-            "Age": 20,
-            "Country": 3,
-            "Address": "P.O. Box 704, 4580 Gravida Rd.",
+            "Module_Year": "2019/20",
+            "Module": 3,
+            "Domain": "kenyonstevens.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Jerome Harper",
-            "Age": 31,
-            "Country": 5,
-            "Address": "2464 Porttitor Road",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "jeromeharper.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Jelani Patel",
-            "Age": 36,
-            "Country": 2,
-            "Address": "P.O. Box 541, 5805 Nec Av.",
+            "Module_Year": "2019/20",
+            "Module": 2,
+            "Domain": "jalanipatel.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Keaton Oconnor",
-            "Age": 21,
-            "Country": 1,
-            "Address": "Ap #657-1093 Nec, Street",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "keatonoconnor.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Bree Johnston",
-            "Age": 31,
-            "Country": 2,
-            "Address": "372-5942 Vulputate Avenue",
+            "Module_Year": "2019/20",
+            "Module": 2,
+            "Domain": "breejohnston.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Maisie Hodges",
-            "Age": 70,
-            "Country": 7,
-            "Address": "P.O. Box 445, 3880 Odio, Rd.",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "maisiehodges.educationhost.co.uk.",
             "Married": false
         },
         {
             "Name": "Kuame Calhoun",
-            "Age": 39,
-            "Country": 2,
-            "Address": "P.O. Box 609, 4105 Rutrum St.",
+            "Module_Year": "2019/20",
+            "Module": 2,
+            "Domain": "kuamecalhoun.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Carlos Cameron",
-            "Age": 38,
-            "Country": 5,
-            "Address": "Ap #215-5386 A, Avenue",
+            "Module_Year": "2019/20",
+            "Module": 5,
+            "Domain": "carloscameron.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Fulton Parsons",
-            "Age": 25,
-            "Country": 7,
-            "Address": "P.O. Box 523, 3705 Sed Rd.",
+            "Module_Year": "2019/20",
+            "Module": 7,
+            "Domain": "fulonparsons.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Wallace Christian",
-            "Age": 43,
-            "Country": 3,
-            "Address": "416-8816 Mauris Avenue",
+            "Module_Year": "2019/20",
+            "Module": 3,
+            "Domain": "wallacechristian.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Caryn Maldonado",
-            "Age": 40,
-            "Country": 1,
-            "Address": "108-282 Nonummy Ave",
+            "Module_Year": "2019/20",
+            "Module": 1,
+            "Domain": "carynmaldonado.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Whilemina Frank",
-            "Age": 20,
-            "Country": 7,
-            "Address": "P.O. Box 681, 3938 Egestas. Av.",
+            "Module_Year": "2018/19",
+            "Module": 7,
+            "Domain": "whileminafrank.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Emery Moon",
-            "Age": 41,
-            "Country": 4,
-            "Address": "Ap #717-8556 Non Road",
+            "Module_Year": "2018/19",
+            "Module": 4,
+            "Domain": "emerymoon.educationhost.co.uk",
             "Married": true
         },
         {
-            "Name": "Price Watkins",
-            "Age": 35,
-            "Country": 4,
-            "Address": "832-7810 Nunc Rd.",
+            "Name": "Emery Moon",
+            "Module_Year": "2018/19",
+            "Module": 6,
+            "Domain": "emerymoon.educationhost.co.uk",
             "Married": false
         },
         {
-            "Name": "Lydia Castillo",
-            "Age": 59,
-            "Country": 7,
-            "Address": "5280 Placerat, Ave",
+            "Name": "Emery Moon",
+            "Module_Year": "2018/19",
+            "Module": 7,
+            "Domain": "emerymoon.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Lawrence Conway",
-            "Age": 53,
-            "Country": 1,
-            "Address": "Ap #452-2808 Imperdiet St.",
+            "Module_Year": "2018/19",
+            "Module": 1,
+            "Domain": "lawrenceconway.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Kalia Nicholson",
-            "Age": 67,
-            "Country": 5,
-            "Address": "P.O. Box 871, 3023 Tellus Road",
+            "Module_Year": "2018/19",
+            "Module": 5,
+            "Domain": "kalianicholson.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Brielle Baxter",
-            "Age": 45,
-            "Country": 3,
-            "Address": "Ap #822-9526 Ut, Road",
+            "Module_Year": "2018/19",
+            "Module": 3,
+            "Domain": "briellebaxter.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Valentine Brady",
-            "Age": 72,
-            "Country": 7,
-            "Address": "8014 Enim. Road",
+            "Module_Year": "2018/19",
+            "Module": 7,
+            "Domain": "valentinebrady.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Rebecca Gardner",
-            "Age": 57,
-            "Country": 4,
-            "Address": "8655 Arcu. Road",
+            "Module_Year": "2018/19",
+            "Module": 4,
+            "Domain": "rebeccagardner.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Vladimir Tate",
-            "Age": 26,
-            "Country": 1,
-            "Address": "130-1291 Non, Rd.",
+            "Module_Year": "2018/19",
+            "Module": 1,
+            "Domain": "vladimirtate.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Vernon Hays",
-            "Age": 56,
-            "Country": 4,
-            "Address": "964-5552 In Rd.",
+            "Module_Year": "2018/19",
+            "Module": 4,
+            "Domain": "vernonhays.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Allegra Hull",
-            "Age": 22,
-            "Country": 4,
-            "Address": "245-8891 Donec St.",
+            "Module_Year": "2018/19",
+            "Module": 4,
+            "Domain": "allegrahull.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Hu Hendrix",
-            "Age": 65,
-            "Country": 7,
-            "Address": "428-5404 Tempus Ave",
+            "Module_Year": "2018/19",
+            "Module": 7,
+            "Domain": "huhendrix.educationhost.co.uk",
             "Married": true
         },
         {
             "Name": "Kenyon Battle",
-            "Age": 32,
-            "Country": 2,
-            "Address": "921-6804 Lectus St.",
+            "Module_Year": "2018/19",
+            "Module": 2,
+            "Domain": "kenyonbattle.educationhost.co.uk",
             "Married": false
         },
         {
             "Name": "Gloria Nielsen",
-            "Age": 24,
-            "Country": 4,
-            "Address": "Ap #275-4345 Lorem, Street",
+            "Module_Year": "2018/19",
+            "Module": 4,
+            "Domain": "glorianielsen.educationhost.co.uk",
             "Married": true
-        },
-        {
-            "Name": "Illiana Kidd",
-            "Age": 59,
-            "Country": 2,
-            "Address": "7618 Lacus. Av.",
-            "Married": false
-        },
-        {
-            "Name": "Adria Todd",
-            "Age": 68,
-            "Country": 6,
-            "Address": "1889 Tincidunt Road",
-            "Married": false
-        },
-        {
-            "Name": "Kirsten Mayo",
-            "Age": 71,
-            "Country": 1,
-            "Address": "100-8640 Orci, Avenue",
-            "Married": false
-        },
-        {
-            "Name": "Willa Hobbs",
-            "Age": 60,
-            "Country": 6,
-            "Address": "P.O. Box 323, 158 Tristique St.",
-            "Married": false
-        },
-        {
-            "Name": "Alexis Clements",
-            "Age": 69,
-            "Country": 5,
-            "Address": "P.O. Box 176, 5107 Proin Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Akeem Conrad",
-            "Age": 60,
-            "Country": 2,
-            "Address": "282-495 Sed Ave",
-            "Married": true
-        },
-        {
-            "Name": "Montana Silva",
-            "Age": 79,
-            "Country": 6,
-            "Address": "P.O. Box 120, 9766 Consectetuer St.",
-            "Married": false
-        },
-        {
-            "Name": "Kaseem Hensley",
-            "Age": 77,
-            "Country": 6,
-            "Address": "Ap #510-8903 Mauris. Av.",
-            "Married": true
-        },
-        {
-            "Name": "Christopher Morton",
-            "Age": 35,
-            "Country": 5,
-            "Address": "P.O. Box 234, 3651 Sodales Avenue",
-            "Married": false
-        },
-        {
-            "Name": "Wade Fernandez",
-            "Age": 49,
-            "Country": 6,
-            "Address": "740-5059 Dolor. Road",
-            "Married": true
-        },
-        {
-            "Name": "Illiana Kirby",
-            "Age": 31,
-            "Country": 2,
-            "Address": "527-3553 Mi Ave",
-            "Married": false
-        },
-        {
-            "Name": "Kimberley Hurley",
-            "Age": 65,
-            "Country": 5,
-            "Address": "P.O. Box 637, 9915 Dictum St.",
-            "Married": false
-        },
-        {
-            "Name": "Arthur Olsen",
-            "Age": 74,
-            "Country": 5,
-            "Address": "887-5080 Eget St.",
-            "Married": false
-        },
-        {
-            "Name": "Brody Potts",
-            "Age": 59,
-            "Country": 2,
-            "Address": "Ap #577-7690 Sem Road",
-            "Married": false
-        },
-        {
-            "Name": "Dillon Ford",
-            "Age": 60,
-            "Country": 1,
-            "Address": "Ap #885-9289 A, Av.",
-            "Married": true
-        },
-        {
-            "Name": "Hannah Juarez",
-            "Age": 61,
-            "Country": 2,
-            "Address": "4744 Sapien, Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Vincent Shaffer",
-            "Age": 25,
-            "Country": 2,
-            "Address": "9203 Nunc St.",
-            "Married": true
-        },
-        {
-            "Name": "George Holt",
-            "Age": 27,
-            "Country": 6,
-            "Address": "4162 Cras Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Tobias Bartlett",
-            "Age": 74,
-            "Country": 4,
-            "Address": "792-6145 Mauris St.",
-            "Married": true
-        },
-        {
-            "Name": "Xavier Hooper",
-            "Age": 35,
-            "Country": 1,
-            "Address": "879-5026 Interdum. Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Declan Dorsey",
-            "Age": 31,
-            "Country": 2,
-            "Address": "Ap #926-4171 Aenean Road",
-            "Married": true
-        },
-        {
-            "Name": "Clementine Tran",
-            "Age": 43,
-            "Country": 4,
-            "Address": "P.O. Box 176, 9865 Eu Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Pamela Moody",
-            "Age": 55,
-            "Country": 6,
-            "Address": "622-6233 Luctus Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Julie Leon",
-            "Age": 43,
-            "Country": 6,
-            "Address": "Ap #915-6782 Sem Av.",
-            "Married": true
-        },
-        {
-            "Name": "Shana Nolan",
-            "Age": 79,
-            "Country": 5,
-            "Address": "P.O. Box 603, 899 Eu St.",
-            "Married": false
-        },
-        {
-            "Name": "Vaughan Moody",
-            "Age": 37,
-            "Country": 5,
-            "Address": "880 Erat Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Randall Reeves",
-            "Age": 44,
-            "Country": 3,
-            "Address": "1819 Non Street",
-            "Married": false
-        },
-        {
-            "Name": "Dominic Raymond",
-            "Age": 68,
-            "Country": 1,
-            "Address": "Ap #689-4874 Nisi Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Lev Pugh",
-            "Age": 69,
-            "Country": 5,
-            "Address": "Ap #433-6844 Auctor Avenue",
-            "Married": true
-        },
-        {
-            "Name": "Desiree Hughes",
-            "Age": 80,
-            "Country": 4,
-            "Address": "605-6645 Fermentum Avenue",
-            "Married": true
-        },
-        {
-            "Name": "Idona Oneill",
-            "Age": 23,
-            "Country": 7,
-            "Address": "751-8148 Aliquam Avenue",
-            "Married": true
-        },
-        {
-            "Name": "Lani Mayo",
-            "Age": 76,
-            "Country": 1,
-            "Address": "635-2704 Tristique St.",
-            "Married": true
-        },
-        {
-            "Name": "Cathleen Bonner",
-            "Age": 40,
-            "Country": 1,
-            "Address": "916-2910 Dolor Av.",
-            "Married": false
-        },
-        {
-            "Name": "Sydney Murray",
-            "Age": 44,
-            "Country": 5,
-            "Address": "835-2330 Fringilla St.",
-            "Married": false
-        },
-        {
-            "Name": "Brenna Rodriguez",
-            "Age": 77,
-            "Country": 6,
-            "Address": "3687 Imperdiet Av.",
-            "Married": true
-        },
-        {
-            "Name": "Alfreda Mcdaniel",
-            "Age": 38,
-            "Country": 7,
-            "Address": "745-8221 Aliquet Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Zachery Atkins",
-            "Age": 30,
-            "Country": 1,
-            "Address": "549-2208 Auctor. Road",
-            "Married": true
-        },
-        {
-            "Name": "Amelia Rich",
-            "Age": 56,
-            "Country": 4,
-            "Address": "P.O. Box 734, 4717 Nunc Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Kiayada Witt",
-            "Age": 62,
-            "Country": 3,
-            "Address": "Ap #735-3421 Malesuada Avenue",
-            "Married": false
-        },
-        {
-            "Name": "Lysandra Pierce",
-            "Age": 36,
-            "Country": 1,
-            "Address": "Ap #146-2835 Curabitur St.",
-            "Married": true
-        },
-        {
-            "Name": "Cara Rios",
-            "Age": 58,
-            "Country": 4,
-            "Address": "Ap #562-7811 Quam. Ave",
-            "Married": true
-        },
-        {
-            "Name": "Austin Andrews",
-            "Age": 55,
-            "Country": 7,
-            "Address": "P.O. Box 274, 5505 Sociis Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Lillian Peterson",
-            "Age": 39,
-            "Country": 2,
-            "Address": "6212 A Avenue",
-            "Married": false
-        },
-        {
-            "Name": "Adria Beach",
-            "Age": 29,
-            "Country": 2,
-            "Address": "P.O. Box 183, 2717 Nunc Avenue",
-            "Married": true
-        },
-        {
-            "Name": "Oleg Durham",
-            "Age": 80,
-            "Country": 4,
-            "Address": "931-3208 Nunc Rd.",
-            "Married": false
-        },
-        {
-            "Name": "Casey Reese",
-            "Age": 60,
-            "Country": 4,
-            "Address": "383-3675 Ultrices, St.",
-            "Married": false
-        },
-        {
-            "Name": "Kane Burnett",
-            "Age": 80,
-            "Country": 1,
-            "Address": "759-8212 Dolor. Ave",
-            "Married": false
-        },
-        {
-            "Name": "Stewart Wilson",
-            "Age": 46,
-            "Country": 7,
-            "Address": "718-7845 Sagittis. Av.",
-            "Married": false
-        },
-        {
-            "Name": "Charity Holcomb",
-            "Age": 31,
-            "Country": 6,
-            "Address": "641-7892 Enim. Ave",
-            "Married": false
-        },
-        {
-            "Name": "Kyra Cummings",
-            "Age": 43,
-            "Country": 4,
-            "Address": "P.O. Box 702, 6621 Mus. Av.",
-            "Married": false
-        },
-        {
-            "Name": "Stuart Wallace",
-            "Age": 25,
-            "Country": 7,
-            "Address": "648-4990 Sed Rd.",
-            "Married": true
-        },
-        {
-            "Name": "Carter Clarke",
-            "Age": 59,
-            "Country": 6,
-            "Address": "Ap #547-2921 A Street",
-            "Married": false
         }
     ];
 
@@ -879,6 +515,6 @@
             "Name": "Solomon Green",
             "RegisterDate": "2013-09-04T01:44:47-07:00"
         }
-     ];
+    ];
 
 }());

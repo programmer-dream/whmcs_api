@@ -34,8 +34,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
 	<script src="/js/bootstrap.min.js"></script>
 
 	<!-- Include bootstrap-multiselect CSS and JS: -->
@@ -46,35 +46,35 @@
 	<link rel="stylesheet" href="/css/spinner.css" type="text/css" />
 
 	<script type="text/javascript">
-
 		// Code to init the stepper
 		var stepper1 = null
-		document.addEventListener('DOMContentLoaded', function () {
 
+		document.addEventListener('DOMContentLoaded', function () {
 			stepper1 = new Stepper(document.querySelector('#stepper1'), {
 				linear: false,
 				animation: true
-			})
-
-		})
-
+			});
+		});
 
 		$(document).ready(function () {
 			// Student Spinner
 			$('#studentspinner').click(function () {
-				$(this).toggleClass('active'); student();
+				$(this).toggleClass('active');
+				student();
 				$(this).prop('disabled', true);
 				console.log($(this));
 			});
+
 			// Staff Spinner
 			$('#staffspinner').click(function () {
-				$(this).toggleClass('active'); staff();
+				$(this).toggleClass('active');
+				staff();
 				$(this).prop('disabled', true);
 				console.log($(this));
 			});
 
 			// Make a request for the whmcs route using axios
-			axios.get('/newusersvariables')
+			axios.get('/api/user')
 				.then(function (response) {
 					// Get the client data from the response
 					var data = response.data[0];
@@ -86,7 +86,8 @@
 					if (data) {
 						// Remove special characters for the userid (to set the domain)
 
-						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+						var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ')
+							.join('-');
 
 						// Set text for the domain
 
@@ -97,12 +98,13 @@
 						// Show the modal
 						$('#newuser').modal('show');
 
-						var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5, data.module6];
+						var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5,
+							data.module6
+						];
 
 						$.each(modulenames, function (i, modulenames) {
-							$('#example-dropright').append($('<option>').text(modulenames).attr('value', modulenames));
-
-
+							$('#example-dropright').append($('<option>').text(modulenames).attr('value',
+								modulenames));
 						});
 
 
@@ -122,29 +124,19 @@
 						buttonWidth: '400px',
 						dropRight: true
 					});
-
-
-
 				})
-
-
 				.catch(function (error) {
 					// handle error
 					console.log(error);
-				})
-
-
+				});
 		}); // end of doc ready
 
 
 		/// STUDENT FUNCTION
 
 		function student(data, res) {
-
-
 			/// main student function for setting up whmcs account and service
-
-			axios.get('/newusersvariables')
+			axios.get('/api/user')
 				.then(function (response) {
 					// Get the client data from the response
 					var data = response.data[0];
@@ -161,7 +153,7 @@
 					// Send a POST request
 					axios({
 						method: 'post',
-						url: '/newstudentroute',
+						url: '/api/student',
 						data: {
 							ID: data.ID,
 							userid: data.userid,
@@ -204,7 +196,7 @@
 		//
 		function staff(data, res) {
 
-			axios.get('/newusersvariables')
+			axios.get('/api/user')
 				.then(function (response) {
 					// Get the client data from the response
 					var data = response.data[0];
@@ -221,7 +213,7 @@
 					// Send a POST request
 					axios({
 						method: 'post',
-						url: '/newstaffroute',
+						url: '/api/staff',
 						data: {
 							ID: data.ID,
 							userid: data.userid,
@@ -258,7 +250,6 @@
 
 
 		}; // End of staff function
-
 	</script>
 
 
@@ -380,10 +371,12 @@
 														university. Account setup can take a couple of minutes to
 														complete.
 													</p>
-													<button type="button" id="studentspinner"
-														class="btn btn-success float-right has-spinner"><span
+													<div class="d-flex justify-content-end">
+														<button type="button" id="studentspinner"
+														class="btn btn-success  has-spinner"><span
 															class="spinner"><i class="fa fa-spinner fa-spin">
 															</i></span> Click Here</button>
+													</div>
 												</div>
 											</div>
 											<div class="card">
@@ -394,10 +387,12 @@
 													<p class="card-text">If you are a member of teaching staff, select
 														this
 														account. This account type requires email validation.</p>
-													<button type="button" id="staffspinner"
-														class="btn btn-secondary float-right has-spinner"><span
+													<div class="d-flex justify-content-end align-items-end" style="height: 40%">
+														<button type="button" id="staffspinner"
+														class="btn btn-secondary has-spinner"><span
 															class="spinner"><i class="fa fa-spinner fa-spin">
 															</i></span> Click Here</button>
+													</div>
 												</div>
 											</div>
 										</div>

@@ -2,6 +2,8 @@ const fs = require('fs');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 
+// Get the cpanelAccount from config
+const cpanelAccount = require('./whmcs').accountName;
 
 passport.serializeUser(function (user, done) {
 	done(null, user);
@@ -11,15 +13,15 @@ passport.deserializeUser(function (user, done) {
 	done(null, user);
 });
 
-passport.use(new SamlStrategy(
-	{
-		entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwehappwithlinktoesponserouteHTTPSAUTHDOMAIN',
+passport.use(new SamlStrategy({
+		//entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwehappwithlinktoesponserouteHTTPSAUTHDOMAIN',
+		entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwappwithlinktonewresponserouteandauthdomain',
 		issuer: 'https://idp.ssocircle.com',
-		callbackUrl: '/login/callback',
+		callbackUrl: '/api/user/login/callback',
 		// OLD KEY privateCert: fs.readFileSync('/home/nick/apps/AD-saml/app.key', 'utf-8'),
-		privateCert: fs.readFileSync('/home/xhgkhpdb/AD-saml/sslcert/privkey.pem', 'utf-8'),
+		privateCert: fs.readFileSync('/home/' + cpanelAccount + '/AD-saml/sslcert/privkey.pem', 'utf-8'),
 		//cert: fs.readFileSync('/home/nick/apps/AD-saml/app.cer', 'utf-8'),		
-		cert: fs.readFileSync('/home/xhgkhpdb/AD-saml/SSOCircleCACertificate.cer', 'utf-8'),
+		cert: fs.readFileSync('/home/' + cpanelAccount + '/AD-saml/SSOCircleCACertificate.cer', 'utf-8'),
 		// xml: 'http://idp.ssocircle.com/idp-meta.xml',
 		authnContext: 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport',
 		acceptedClockSkewMs: -1,
@@ -27,17 +29,15 @@ passport.use(new SamlStrategy(
 		signatureAlgorithm: 'sha256'
 	},
 	function (profile, done) {
-		return done(null,
-			{
-				upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
-				group: profile['http://schemas.xmlsoap.org/claims/Group'],
-				id: profile.uid,
-				email: profile.email,
-				displayName: profile.cn,
-				firstName: profile.givenName,
-				lastName: profile.sn
-			}
-		);
+		return done(null, {
+			upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
+			group: profile['http://schemas.xmlsoap.org/claims/Group'],
+			id: profile.uid,
+			email: profile.email,
+			displayName: profile.cn,
+			firstName: profile.givenName,
+			lastName: profile.sn
+		});
 	}
 ));
 
