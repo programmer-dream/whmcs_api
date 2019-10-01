@@ -3,6 +3,8 @@ const router = express.Router();
 const generateRandomString = require("../../utils/generateRandomString");
 const cpanel = require("cpanel-lib");
 const btoa = require("btoa");
+const base64_encode = require('locutus/php/url/base64_encode');
+const serialize = require('locutus/php/var/serialize');
 
 // Get the modules from whmcs-js
 const { Clients, Orders, Services } = require("whmcs-js");
@@ -39,25 +41,12 @@ router.post("/", (req, res) => {
   const addClient = new Clients(whmcsConfig);
 
 
-  //const testcustomfield = { "1": "Saab", "1": "Volvo" };
-  // Didn't work
-  //const testcustomfield = {
-  //  0: 'Saab',
-  //  1: 'Volvo'
-  //}
+  const module = {
+    47: studentModules[0]
+  }
 
-  var customFields = btoa(JSON.stringify([
-    { 1: '1Saab' },
-    { 1: '1BMW' },
-    { 2: '2BMW' },
-    { 3: '3BMW' },
-    { 4: '4BMW' },
-    { 0: '0BMW' }
-  ]))
-
-  //var testcustomfield = { Module: "Saab", Module: "Volvo", Module: "BMW" };
-  // const testcustomfieldserial = JSON.stringify(testcustomfield);
-
+  // Serialize
+  const moduleserial = serialize(module);
 
   // Call the getClients call and store the data in the variable called
   addClient
@@ -72,7 +61,7 @@ router.post("/", (req, res) => {
       postcode: req.body.Postcode,
       country: req.body.Country,
       // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
-      customfields: customFields,
+      customfields: base64_encode(moduleserial),
       phonenumber: req.body.Phone,
       notes: "Created through Education Host AD login",
       language: "english",

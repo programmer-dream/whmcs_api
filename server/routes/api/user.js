@@ -4,6 +4,7 @@ const passport = require("passport");
 const Saml2js = require("saml2js");
 const mysql = require("mysql");
 const mysqlConfig = require("../../config/sql");
+const whmcsmysqlConfig = require("../../config/sql");
 const sha1 = require("sha1");
 const autoAuthKey = require("../../config/autoAuth");
 const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
@@ -201,4 +202,29 @@ router.get("/staffdashboardstaffcount", (req, res) => {
     connection.end();
   });
 });
+
+// @route 	GET api/user/staffdashboardlistusers
+// @desc 	Get the user variables
+// @access 	Public
+router.get("/staffdashboardlistusers", (req, res) => {
+  const sessionid = req.session.id;
+  const connection = mysql.createConnection(whmcsmysqlConfig);
+
+  connection.connect(function (err) {
+    if (err) throw err;
+
+    connection.query(
+      "SELECT tblclients.id, tblclients.firstname, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblclients.id = '517' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
+      //"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && isActive = 1",
+      [sessionid],
+      (err, result, fields) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+
+    connection.end();
+  });
+});
+
 module.exports = router;
