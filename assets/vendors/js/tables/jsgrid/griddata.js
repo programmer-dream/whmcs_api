@@ -3,14 +3,29 @@
     var db = {
 
         loadData: function (filter) {
-            return $.grep(this.clients, function (client) {
-                return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (!filter.Module_Year || client.Module_Year === filter.Module_Year)
-                    && (!filter.Domain || client.Domain.indexOf(filter.Domain) > -1)
-                    && (!filter.Module || client.Module === filter.Module)
-                    && (filter.isActive === undefined || client.isActive === filter.isActive);
+            var deferred = $.Deferred();
+            $.ajax({
+                type: "GET",
+                url: "/api/user/staffdashboardlistusers",
+                dataType: "json",
+                data: filter,
+                success: function (response) {
+                    deferred.resolve(response.data);
+                }
             });
+            return deferred.promise();
         },
+
+
+        /* loadData: function (filter) {
+             return $.grep(this.clients, function (client) {
+                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
+                     && (!filter.Module_Year || client.Module_Year === filter.Module_Year)
+                     && (!filter.Domain || client.Domain.indexOf(filter.Domain) > -1)
+                     && (!filter.Module || client.Module === filter.Module)
+                     && (filter.isActive === undefined || client.isActive === filter.isActive);
+             });
+         },*/
 
         insertItem: function (insertingClient) {
             this.clients.push(insertingClient);

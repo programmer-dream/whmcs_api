@@ -4,7 +4,7 @@ const passport = require("passport");
 const Saml2js = require("saml2js");
 const mysql = require("mysql");
 const mysqlConfig = require("../../config/sql");
-const whmcsmysqlConfig = require("../../config/sql");
+const whmcsmysqlConfig = require("../../config/whmcsinstallationsql");
 const sha1 = require("sha1");
 const autoAuthKey = require("../../config/autoAuth");
 const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
@@ -168,7 +168,7 @@ router.get("/staffdashboardusercount", (req, res) => {
     if (err) throw err;
 
     connection.query(
-      "SELECT count(ID) AS count FROM user_idpdetails WHERE isActive = 1",
+      "SELECT count(ID) AS count FROM user_idpdetails WHERE isActive = 1 && isStaff = 0",
       [sessionid],
       (err, result, fields) => {
         if (err) throw err;
@@ -208,14 +208,13 @@ router.get("/staffdashboardstaffcount", (req, res) => {
 // @access 	Public
 router.get("/staffdashboardlistusers", (req, res) => {
   const sessionid = req.session.id;
-  const connection = mysql.createConnection(whmcsmysqlConfig);
+  const whmcsconnection = mysql.createConnection(whmcsmysqlConfig);
 
-  connection.connect(function (err) {
+  whmcsconnection.connect(function (err) {
     if (err) throw err;
 
-    connection.query(
-      "SELECT tblclients.id, tblclients.firstname, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblclients.id = '517' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
-      //"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && isActive = 1",
+    whmcsconnection.query(
+      "SELECT tblclients.id, CONCAT( tblclients.firstname, ' ', tblclients.lastname ) AS fullname, tblclients.email, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value, CONCAT( tblhosting.domain, '/', tblcustomfieldsvalues.value ) AS domainmodule FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblclients.id = '517' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
       [sessionid],
       (err, result, fields) => {
         if (err) throw err;
@@ -223,7 +222,7 @@ router.get("/staffdashboardlistusers", (req, res) => {
       }
     );
 
-    connection.end();
+    whmcsconnection.end();
   });
 });
 

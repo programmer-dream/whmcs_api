@@ -87,6 +87,34 @@ Generated under Setup > Staff Management > Manage API Credentials (more details 
 - secret: ''
 - serverUrl: 'URL/api.php'
 
+## Setup the STAFF area
+
+### Setup Custon Client Fields
+In WHMCS, setup the custom client fields. There should be the following fields:
+
+- Module
+- Module1
+- Module2
+- Module3
+- Module4
+- Module5
+- Module6
+- Module7 
+- etc ...
+
+Have a look in TBLCUSTOMFIELDS at the ID of each of these custom fields and note thes down.
+
+Enter the field IDs in the routes/api/student.js 
+
+```const module = {
+    47: studentModules[0]
+  }```
+
+### Setup the link to the database
+
+- Add a user to the database with limited permissions to VIEW ONLY the data in the database
+- Edit the server/config/whmcsinstallationsql.js file
+
 # WHMCS Setup
 
 - Setup autoauth funtionality by adding '$autoauthkey = "abcXYZ123";' to the WHMCS configuration.php file. The value just needs to be a random sequence of letters and numbers.

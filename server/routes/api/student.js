@@ -40,7 +40,8 @@ router.post("/", (req, res) => {
   // and store it in this variable - can be called anything you want
   const addClient = new Clients(whmcsConfig);
 
-
+  // 47 is the ID in tblcustomfields for the customfield
+  // data[0] is the data passed to the page
   const module = {
     47: studentModules[0]
   }
