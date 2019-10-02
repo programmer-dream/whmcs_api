@@ -106,9 +106,9 @@ Have a look in TBLCUSTOMFIELDS at the ID of each of these custom fields and note
 
 Enter the field IDs in the routes/api/student.js 
 
-```const module = {
-    47: studentModules[0]
-  }```
+`const module = {
+`    47: studentModules[0]
+`  }
 
 ### Setup the link to the database
 
