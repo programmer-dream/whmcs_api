@@ -43,7 +43,8 @@ router.post("/", (req, res) => {
   // 47 is the ID in tblcustomfields for the customfield
   // data[0] is the data passed to the page
   const module = {
-    47: studentModules[0]
+    47: studentModules[0],
+    48: studentModules[1]
   }
 
   // Serialize
