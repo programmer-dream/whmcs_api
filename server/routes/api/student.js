@@ -44,7 +44,11 @@ router.post("/", (req, res) => {
   // data[0] is the data passed to the page
   const module = {
     47: studentModules[0],
-    48: studentModules[1]
+    48: studentModules[1],
+    49: studentModules[2],
+    50: studentModules[3],
+    51: studentModules[4],
+    52: studentModules[5]
   }
 
   // Serialize

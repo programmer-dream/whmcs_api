@@ -82,6 +82,19 @@
 
 			});
 
+		axios.get('/api/user/staffdashboardusersupportstats')
+			.then(function (response) {
+				// Get the client data from the response
+				var data = response.data[0];
+
+				// log all data thats returned
+				console.log(data);
+
+				$("#supportStats").text(data.Average);
+				$("#supportStatsNumbers").text(data.NumberOfTickets);
+
+			});
+
 
 	</script>
 
@@ -266,8 +279,9 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="danger">99.89 %</h3>
-											<h6>Student Satisfaction</h6>
+											<h3 class="danger"><i id="supportStats"></i> / 10</h3>
+											<h6>Support Feedback (<i id="supportStatsNumbers"></i> Tickets)</i>
+											</h6>
 										</div>
 										<div>
 											<i class="icon-heart danger font-large-2 float-right"></i>

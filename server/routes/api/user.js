@@ -214,7 +214,7 @@ router.get("/staffdashboardlistusers", (req, res) => {
     if (err) throw err;
 
     whmcsconnection.query(
-      "SELECT tblclients.id, CONCAT( tblclients.firstname, ' ', tblclients.lastname ) AS fullname, tblclients.email, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value, CONCAT( tblhosting.domain, '/', tblcustomfieldsvalues.value ) AS domainmodule FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblcustomfieldsvalues.value != '' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
+      "SELECT tblclients.id, CONCAT( tblclients.firstname, ' ', tblclients.lastname ) AS fullname, tblclients.email, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value, CONCAT( tblhosting.domain, '/', tblcustomfieldsvalues.value ) AS domainmodule, YEAR(tblcustomfieldsvalues.created_at) AS ModuleStartDate FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblcustomfieldsvalues.value != '' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
       [sessionid],
       (err, result, fields) => {
         if (err) throw err;
@@ -223,6 +223,29 @@ router.get("/staffdashboardlistusers", (req, res) => {
     );
 
     whmcsconnection.end();
+  });
+});
+
+// @route 	GET api/user/staffdashboardusersupportstats
+// @desc 	Get the user variables
+// @access 	Public
+router.get("/staffdashboardusersupportstats", (req, res) => {
+  const sessionid = req.session.id;
+  const connection = mysql.createConnection(whmcsmysqlConfig);
+
+  connection.connect(function (err) {
+    if (err) throw err;
+
+    connection.query(
+      "SELECT AVG(FORMAT(rating,2)) AS Average, COUNT(id) AS NumberOfTickets FROM tblticketfeedback WHERE datetime >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) && rating != 0",
+      [sessionid],
+      (err, result, fields) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+
+    connection.end();
   });
 });
 

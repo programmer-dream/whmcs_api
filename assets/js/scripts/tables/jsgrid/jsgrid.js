@@ -115,6 +115,10 @@ $(document).ready(function () {
             },
             width: 180
         }, {
+            name: "ModuleStartDate",
+            title: 'Module Year',
+            type: "text"
+        }, {
             type: "control"
         },]
     });
