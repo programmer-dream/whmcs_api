@@ -92,7 +92,7 @@ router.post("/login/callback", (req, res, next) => {
           (err, result, field) => {
             if (result[0].isStaff == 1 && result[0].isActive == 1) {
               // res.redirect("/stafflogin");
-              res.redirect("/api/staff/login");
+              res.redirect("/staff/login");
             } else if (result[0].isActive == 1) {
               // get the timestamp in milliseconds and convert it to seconds for WHMCS url
               var timestamp = getTimestamp();

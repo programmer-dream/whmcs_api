@@ -77,6 +77,26 @@ $(document).ready(function () {
                 });
                 return deferred.promise();
             }
+            /* loadData: function (filter) {
+                 var d = $.Deferred();
+ 
+                 // server-side filtering
+                 $.ajax({
+                     type: "GET",
+                     url: "/api/user/staffdashboardlistusers",
+                     data: filter,
+                     dataType: "json"
+                 }).done(function (response) {
+                     // client-side filtering
+                     response = $.grep(response, function (item) {
+                         return item.value === filter.value;
+                     });
+ 
+                     d.resolve(response);
+                 })
+ 
+                 return d.promise();
+             }*/
         },
 
         fields: [{
@@ -104,7 +124,8 @@ $(document).ready(function () {
         }, {
             name: "value",
             title: 'Module',
-            type: "text"
+            type: "text",
+            filtering: true
         }, {
 
             name: "domainmodule", type: "text",
@@ -123,4 +144,5 @@ $(document).ready(function () {
         },]
     });
 
+    
 });
