@@ -3,6 +3,8 @@ const router = express.Router();
 const mysql = require("mysql");
 const mysqlConfig = require("../../config/sql");
 const sha1 = require("sha1");
+const autoAuthKey = require("../../config/autoAuth");
+const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 
 // Import utility functions
 const generateRandomString = require('../../utils/generateRandomString');

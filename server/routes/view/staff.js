@@ -5,6 +5,9 @@ const path = require('path');
 // Gets the client folder which is needed to serve html files
 const root = path.join(__dirname, '../../../../AD-saml/client/staff');
 
+
+
+
 // @route 	GET /staff/dashboard
 // @desc 	Serves the staff dashboard
 // @access 	Public
