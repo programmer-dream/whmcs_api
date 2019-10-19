@@ -128,7 +128,7 @@ $(document).ready(function () {
 			sorting: true,
 			paging: true,
 			autoload: true,
-			pageSize: 15,
+			pageSize: 25,
 			pageButtonCount: 5,
 
 			//for loadData method Need to set auto load true
@@ -182,22 +182,27 @@ $(document).ready(function () {
 				title: 'User ID',
 				type: "text",
 				width: 40,
+				align: "center",
 				filtering: true,
 				autosearch: true
 			}, {
 				name: "fullname",
 				title: 'Name',
+				align: "center",
 				type: "text",
 				filtering: true,
 			}, {
 				name: "username",
 				title: 'Username',
+				width: 60,
+				align: "center",
 				type: "text",
 				filtering: true,
 			}, {
 
 				name: "domain", type: "text",
 				title: 'Domain',
+				align: "center",
 				itemTemplate: function (value) {
 					// return $("<a>").attr("href", value).text(value);
 					return '<a href="http://' + value + '" target="_blank">' + value + '</a>';
@@ -217,6 +222,7 @@ $(document).ready(function () {
 
 				name: "domainmodule", type: "text",
 				title: 'Module Domain',
+				align: "center",
 				itemTemplate: function (value) {
 					// return $("<a>").attr("href", value).text(value);
 					return '<a href="http://' + value + '" target="_blank">' + value + '</a>';
@@ -233,7 +239,60 @@ $(document).ready(function () {
 				textField: "ModuleStartDate",
 				selectedIndex: -1,
 			}, {
-				type: "control"
+				name: "lastedit",
+				title: 'Last Edit',
+				type: "text",
+				filtering: false,
+				width: 60,
+				align: "center",
+				itemTemplate: function (value) {
+
+					return '<img src="/soon.png" "width="32" height="32">';
+
+					return '';
+				}
+			},
+			{
+				name: "clientarea",
+				title: 'Client Area',
+				type: "text",
+				filtering: false,
+				width: 60,
+				align: "center",
+				itemTemplate: function (value) {
+
+					return '<img src="/clientarea.png" "width="32" height="32">';
+
+					return '';
+				}
+			},
+			{
+				name: "cPanel",
+				title: 'cPanel',
+				type: "text",
+				filtering: false,
+				width: 60,
+				align: "center",
+				itemTemplate: function (value) {
+
+					return '<img src="/cpanel.png" "width="32" height="32">';
+
+					return '';
+				}
+			},
+			{
+				name: "filemanager",
+				title: 'File Manager',
+				type: "text",
+				filtering: false,
+				width: 80,
+				align: "center",
+				itemTemplate: function (value) {
+
+					return '<img src="/filemanager.png" "width="32" height="32">';
+
+					return '';
+				}
 			}
 			]
 		});
