@@ -45,7 +45,7 @@
 	<link rel="stylesheet" href="/css/spinner.css" type="text/css" />
 
 	<script type="text/javascript">
-		$(document).ready(function () {
+		$(document).ready(async function () {
 			// Log into admin dashboard
 			$('#adminaccount').click(function () {
 				$(this).toggleClass('active');
@@ -77,7 +77,22 @@
 				})
 
 			// Show the modal
-			$('#newuser').modal('show');
+      $('#newuser').modal('show');
+      
+
+      document.querySelector('#whmcsaccount').addEventListener('click', () => {
+        // Make an API call to /login
+      try {
+        const response = await axios.post('/api/staff/login');
+        const {data} = response;
+
+        window.location = data.data.redirectTo
+
+      } catch (err) {
+        console.log(err)
+      }
+      })
+
 		}); // end of doc ready
 
 
@@ -150,12 +165,12 @@
 										Log into the staff dashboard to administer your students.
 									</p>
 
-									<button type="button" id="adminaccount"
+									<a href="/staff/dashboard" id="adminaccount"
 										class="btn btn-primary float-right has-spinner">
 										<span class="spinner">
 											<i class="fa fa-spinner fa-spin"></i>
 										</span> Click Here
-									</button>
+									</a>
 								</div>
 							</div>
 
