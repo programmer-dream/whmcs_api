@@ -80,13 +80,19 @@
       $('#newuser').modal('show');
       
 
-      document.querySelector('#whmcsaccount').addEventListener('click', () => {
+      document.querySelector('#whmcsaccount').addEventListener('click', async () => {
         // Make an API call to /login
       try {
-        const response = await axios.post('/api/staff/login');
+
+        const getUser = await axios.get('/api/user')
+
+        const response = await axios.post('/api/staff/login',  {email: getUser.data[0].email});
         const {data} = response;
 
+        console.log('API response', data)
+      if (confirm('Redirect?')) {
         window.location = data.data.redirectTo
+      }
 
       } catch (err) {
         console.log(err)

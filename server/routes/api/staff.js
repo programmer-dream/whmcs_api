@@ -182,6 +182,7 @@ router.post("/login", (req, res) => {
   var timestamp = getTimestamp();
 
   // get the email address that is returned from the IDP
+  console.log(req.body);
   var urlemail = req.body.email;
 
   // URL to where the user is to go once logged into WHMCS
