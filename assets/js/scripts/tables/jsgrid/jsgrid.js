@@ -301,7 +301,7 @@ $(document).ready(function() {
           width: 60,
           align: "center",
           itemTemplate: function(value, item) {
-            const a = $('<a href="#">');
+            const a = $('<a href="#" target="_blank">');
             const img = $(
               '<img src="/clientarea.png" "width="32" height="32" >'
             );
