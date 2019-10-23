@@ -8,7 +8,7 @@
     Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-$(document).ready(function() {
+$(document).ready(function () {
   /****************************
    *      Basic Scenario       *
    ****************************/
@@ -29,7 +29,7 @@ $(document).ready(function() {
       {
         name: "Domain",
         type: "text",
-        itemTemplate: function(value) {
+        itemTemplate: function (value) {
           // return $("<a>").attr("href", value).text(value);
           return (
             '<a href="http://' + value + '" target="_blank">' + value + "</a>"
@@ -62,23 +62,23 @@ $(document).ready(function() {
     type: "GET",
     url: "/api/user/staffdashboardgetmodules",
     dataType: "json",
-    success: function(modules) {
+    success: function (modules) {
       modules.unshift({ value: "" });
 
       $.ajax({
         type: "GET",
         url: "/api/user/staffdashboardgetyears",
         dataType: "json",
-        success: function(years) {
+        success: function (years) {
           years.unshift({ ModuleStartDate: "" });
           populateGrid(modules, years);
         },
-        error: function(error) {
+        error: function (error) {
           console.log({ error: error });
         }
       });
     },
-    error: function(jqXHR, exception) {
+    error: function (jqXHR, exception) {
       console.log({ error: exception });
     }
   });
@@ -167,19 +167,19 @@ $(document).ready(function() {
       noDataContent: "Directory is empty",
 
       controller: {
-        loadData: function(filters) {
+        loadData: function (filters) {
           var deferred = $.Deferred();
           $.ajax({
             type: "GET",
             url: "/api/user/staffdashboardlistusers",
             dataType: "json",
-            success: function(users) {
+            success: function (users) {
               let response = users;
 
               var filtered = filterResults(filters, response);
               deferred.resolve(filtered);
             },
-            error: function(response) {
+            error: function (response) {
               console.log(response);
             }
           });
@@ -210,7 +210,7 @@ $(document).ready(function() {
       fields: [
         {
           name: "userid",
-          title: "User ID",
+          title: "ID",
           type: "text",
           width: 40,
           align: "center",
@@ -237,7 +237,7 @@ $(document).ready(function() {
           type: "text",
           title: "Domain",
           align: "center",
-          itemTemplate: function(value) {
+          itemTemplate: function (value) {
             // return $("<a>").attr("href", value).text(value);
             return (
               '<a href="http://' + value + '" target="_blank">' + value + "</a>"
@@ -261,13 +261,13 @@ $(document).ready(function() {
           type: "text",
           title: "Module Domain",
           align: "center",
-          itemTemplate: function(value) {
+          itemTemplate: function (value) {
             // return $("<a>").attr("href", value).text(value);
             return (
               '<a href="http://' + value + '" target="_blank">' + value + "</a>"
             );
           },
-          width: 180,
+          width: 220,
           filtering: true
         },
         {
@@ -287,7 +287,7 @@ $(document).ready(function() {
           filtering: false,
           width: 60,
           align: "center",
-          itemTemplate: function(value) {
+          itemTemplate: function (value) {
             return '<img src="/soon.png" "width="32" height="32">';
 
             return "";
@@ -298,9 +298,9 @@ $(document).ready(function() {
           title: "Client Area",
           type: "text",
           filtering: false,
-          width: 60,
+          width: 70,
           align: "center",
-          itemTemplate: function(value, item) {
+          itemTemplate: function (value, item) {
             const a = $('<a href="#" target="_blank">');
             const img = $(
               '<img src="/clientarea.png" "width="32" height="32" >'
@@ -327,7 +327,7 @@ $(document).ready(function() {
           filtering: false,
           width: 60,
           align: "center",
-          itemTemplate: function(value) {
+          itemTemplate: function (value) {
             return '<img src="/cpanel.png" "width="32" height="32">';
 
             return "";
@@ -340,8 +340,22 @@ $(document).ready(function() {
           filtering: false,
           width: 80,
           align: "center",
-          itemTemplate: function(value) {
+          itemTemplate: function (value) {
             return '<img src="/filemanager.png" "width="32" height="32">';
+
+            return "";
+          }
+        }
+        ,
+        {
+          name: "suspend",
+          title: "Suspend",
+          type: "text",
+          filtering: false,
+          width: 80,
+          align: "center",
+          itemTemplate: function (value) {
+            return '<img src="/stop.png" "width="32" height="32">';
 
             return "";
           }
@@ -349,7 +363,7 @@ $(document).ready(function() {
       ]
     });
 
-    $("#jsGrid :input").keydown(function() {
+    $("#jsGrid :input").keydown(function () {
       var self = this;
       if (self.timeout) {
         clearTimeout(self.timeout);
@@ -359,7 +373,7 @@ $(document).ready(function() {
         $("#jsGrid").jsGrid("loadData");
       }
 
-      self.timeout = setTimeout(function() {
+      self.timeout = setTimeout(function () {
         $("#jsGrid").jsGrid("loadData");
       }, 500);
     });
