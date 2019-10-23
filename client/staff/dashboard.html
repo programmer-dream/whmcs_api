@@ -90,11 +90,23 @@
 				// log all data thats returned
 				console.log(data);
 
-				$("#supportStats").text(data.Average);
+				$("#supportStats").text(data.Average.toFixed(2));
 				$("#supportStatsNumbers").text(data.NumberOfTickets);
 
 			});
 
+		axios.get('/api/user/totalsupporttickets')
+			.then(function (response) {
+				// Get the client data from the response
+				var data = response.data[0];
+
+				// log all data thats returned
+				console.log(data);
+
+				$("#tickets").text(data.Tickets);
+
+
+			});
 
 	</script>
 
@@ -256,11 +268,11 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="warning">748</h3>
-											<h6>Days uptime</h6>
+											<h3 class="warning"><i id="tickets"></h3>
+											<h6>Support tickets (1 year)</h6>
 										</div>
 										<div>
-											<i class="icon-clock warning font-large-2 float-right"></i>
+											<i class="icon-users warning font-large-2 float-right"></i>
 										</div>
 									</div>
 									<div class="progress progress-sm mt-1 mb-0 box-shadow-2">
