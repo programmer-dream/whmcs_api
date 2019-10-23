@@ -295,4 +295,27 @@ router.get("/staffdashboardusersupportstats", (req, res) => {
 	});
 });
 
+// @route 	GET api/user/totalsupporttickets
+// @desc 	Get the user variables
+// @access 	Public
+router.get("/totalsupporttickets", (req, res) => {
+	const sessionid = req.session.id;
+	const connection = mysql.createConnection(whmcsmysqlConfig);
+
+	connection.connect(function (err) {
+		if (err) throw err;
+
+		connection.query(
+			"SELECT COUNT(id) AS Tickets FROM tbltickets WHERE date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)",
+			[sessionid],
+			(err, result, fields) => {
+				if (err) throw err;
+				res.send(result);
+			}
+		);
+
+		connection.end();
+	});
+});
+
 module.exports = router;
