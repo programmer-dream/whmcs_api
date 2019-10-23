@@ -226,7 +226,7 @@ $(document).ready(function () {
         },
         {
           name: "username",
-          title: "Username",
+          title: "User",
           width: 60,
           align: "center",
           type: "text",
