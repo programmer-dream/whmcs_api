@@ -7,7 +7,7 @@
 	<meta name="description" content="Login">
 	<meta name="author" content="">
 	<link rel="icon" href="favicon.ico">
-	<title>Staff login</title>
+	<title>Lecturer login</title>
 
 	<!-- Axios CDNs -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -77,27 +77,27 @@
 				})
 
 			// Show the modal
-      $('#newuser').modal('show');
-      
+			$('#newuser').modal('show');
 
-      document.querySelector('#whmcsaccount').addEventListener('click', async () => {
-        // Make an API call to /login
-      try {
 
-        const getUser = await axios.get('/api/user')
+			document.querySelector('#whmcsaccount').addEventListener('click', async () => {
+				// Make an API call to /login
+				try {
 
-        const response = await axios.post('/api/staff/login',  {email: getUser.data[0].email});
-        const {data} = response;
+					const getUser = await axios.get('/api/user')
 
-        console.log('API response', data)
-      if (confirm('Redirect?')) {
-        window.location = data.data.redirectTo
-      }
+					const response = await axios.post('/api/staff/login', { email: getUser.data[0].email });
+					const { data } = response;
 
-      } catch (err) {
-        console.log(err)
-      }
-      })
+					console.log('API response', data)
+					if (confirm('Redirect?')) {
+						window.location = data.data.redirectTo
+					}
+
+				} catch (err) {
+					console.log(err)
+				}
+			})
 
 		}); // end of doc ready
 
@@ -168,7 +168,7 @@
 									</h5>
 
 									<p class="card-text">
-										Log into the staff dashboard to administer your students.
+										Log into the Lecturer dashboard to administer your students.
 									</p>
 
 									<a href="/staff/dashboard" id="adminaccount"
@@ -185,11 +185,11 @@
 									height="50%">
 								<div class="card-body">
 									<h5 class="card-title border-bottom pb-3">
-										Staff web hosting
+										Lecturer Web Hosting
 									</h5>
 
 									<p class="card-text">
-										Staff web hosting account login, as setup on sign up.
+										Lecturer web hosting account login, as setup on sign up.
 									</p>
 
 									<button type="button" id="whmcsaccount"
