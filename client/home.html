@@ -267,159 +267,167 @@
 </head>
 
 <body>
-	<!-- Modal start -->
-	<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
-		data-keyboard="false" data-backdrop="static">
-		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title" id="newuser">
-						New user - Getting started
-					</h1>
+	<div role="main">
+		<!-- Modal start -->
+		<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
+			data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title" id="newusertitle">
+							New user - Getting started
+						</h1>
 
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-
-
-					<div id="stepper1" class="bs-stepper">
-						<div class="bs-stepper-header" role="tablist">
-							<div class="step" data-target="#test-l-1">
-								<button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
-									aria-controls="test-l-1">
-									<span class="bs-stepper-circle">1</span>
-									<span class="bs-stepper-label">Step one</span>
-								</button>
-							</div>
-							<div class="bs-stepper-line"></div>
-							<div class="step" data-target="#test-l-2">
-								<button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
-									aria-controls="test-l-2">
-									<span class="bs-stepper-circle">2</span>
-									<span class="bs-stepper-label">Step two</span>
-								</button>
-							</div>
-							<div class="bs-stepper-line"></div>
-							<div class="step" data-target="#test-l-3">
-								<button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
-									aria-controls="test-l-3">
-									<span class="bs-stepper-circle">3</span>
-									<span class="bs-stepper-label">Step three</span>
-								</button>
-							</div>
-						</div>
-						<div class="bs-stepper-content">
-							<form onSubmit="return false">
-								<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
-									aria-labelledby="stepper1trigger1">
-									<p class="text-center">
-										<p></p>
-										The first time you use the service we have a few things to setup for you...
-
-										<p></p>
-										Your website domain will be:
-										<p></p>
-
-										<p></p>
-
-										<p class="text-center">
-											<b>
-												<i id="txtDomain"></i>
-											</b>
-										</p>
-
-										<p></p>
-									</p>
-									<p class="text-right">
-										<button class="btn btn-primary" title="Click Next to go to Step Two"
-											onclick="stepper1.next()">Next</button>
-									</p>
-								</div>
-								<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
-									aria-labelledby="stepper1trigger2">
-									<p class="text-center">
-										<b>Tell us about the modules you are taking.</b>
-										<p>
-											<p class="text-center">We will use this to setup folders for you to put your
-												work!</p>
-											<p></p>
-											<p class="text-center">Lecturers will use this to know locate your work!</p>
-
-
-											<p class="text-center">
-												<select id="example-dropright" name="multiselect[]" multiple="multiple">
-
-												</select>
-											</p>
-
-										</p>
-										<p></p>
-										<p></p>
-										<p></p>
-									</p>
-									<p class="text-right">
-										<button class="btn btn-primary" title="Click Next to go to Step Three"
-											onclick="stepper1.next()">Next</button>
-									</p>
-								</div>
-								<div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center"
-									aria-labelledby="stepper1trigger3">
-									<p class="text-center">
-
-										<div class="card-deck">
-											<div class="card">
-												<img class="card-img-top" src="/images/student.jpg"
-													alt="Student account" width="100%" height="50%">
-												<div class="card-body">
-													<h2 class="card-title border-bottom pb-3">Student account</a></h2>
-													<p class="card-text">If you are a student, select this account. Your
-														web
-														hosting package will be available to you during your time at
-														university. Account setup can take a couple of minutes to
-														complete.
-													</p>
-													<div class="d-flex justify-content-end">
-														<button type="button" title="Create a Student Account"
-															id="studentspinner"
-															class="btn btn-success  has-spinner"><span
-																class="spinner"><i class="fa fa-spinner fa-spin">
-																</i></span> Click Here</button>
-													</div>
-												</div>
-											</div>
-											<div class="card">
-												<img class="card-img-top" src="/images/staff.jpg" alt="Staff account"
-													width="100%" height="50%">
-												<div class="card-body">
-													<h2 class="card-title border-bottom pb-3">Lecturer account</h2>
-													<p class="card-text">If you are a Lecturer, select
-														this
-														account. This account type requires email validation to validate
-														your status as a lecturer.</p>
-													<div class="d-flex justify-content-end align-items-end"
-														style="height: 40%">
-														<button type="button" title="Create a Lecturer Account"
-															id="staffspinner"
-															class="btn btn-secondary has-spinner"><span
-																class="spinner"><i class="fa fa-spinner fa-spin">
-																</i></span> Click Here</button>
-													</div>
-												</div>
-											</div>
-										</div>
-
-									</p>
-								</div>
-							</form>
-						</div>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">
+								&times;
+							</span>
+						</button>
 					</div>
 
-					<!--<div id="stepper-example" class="bs-stepper">
+					<div class="modal-body">
+
+
+						<div id="stepper1" class="bs-stepper">
+							<div class="bs-stepper-header" role="tablist">
+								<div class="step" data-target="#test-l-1">
+									<button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
+										aria-controls="test-l-1">
+										<span class="bs-stepper-circle">1</span>
+										<span class="bs-stepper-label">Step one</span>
+									</button>
+								</div>
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-2">
+									<button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
+										aria-controls="test-l-2">
+										<span class="bs-stepper-circle">2</span>
+										<span class="bs-stepper-label">Step two</span>
+									</button>
+								</div>
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-3">
+									<button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
+										aria-controls="test-l-3">
+										<span class="bs-stepper-circle">3</span>
+										<span class="bs-stepper-label">Step three</span>
+									</button>
+								</div>
+							</div>
+							<div class="bs-stepper-content">
+								<form onSubmit="return false">
+									<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+										aria-labelledby="stepper1trigger1">
+										<p class="text-center">
+											<p></p>
+											The first time you use the service we have a few things to setup for you...
+
+											<p></p>
+											Your website domain will be:
+											<p></p>
+
+											<p></p>
+
+											<p class="text-center">
+												<b>
+													<i id="txtDomain"></i>
+												</b>
+											</p>
+
+											<p></p>
+										</p>
+										<p class="text-right">
+											<button class="btn btn-primary" title="Click Next to go to Step Two"
+												onclick="stepper1.next()">Next</button>
+										</p>
+									</div>
+									<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+										aria-labelledby="stepper1trigger2">
+										<p class="text-center">
+											<b>Tell us about the modules you are taking.</b>
+											<p>
+												<p class="text-center">We will use this to setup folders for you to put
+													your
+													work!</p>
+												<p></p>
+												<p class="text-center">Lecturers will use this to know locate your work!
+												</p>
+
+
+												<p class="text-center">
+													<select id="example-dropright" name="multiselect[]"
+														multiple="multiple">
+
+													</select>
+												</p>
+
+											</p>
+											<p></p>
+											<p></p>
+											<p></p>
+										</p>
+										<p class="text-right">
+											<button class="btn btn-primary" title="Click Next to go to Step Three"
+												onclick="stepper1.next()">Next</button>
+										</p>
+									</div>
+									<div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center"
+										aria-labelledby="stepper1trigger3">
+										<p class="text-center">
+
+											<div class="card-deck">
+												<div class="card">
+													<img class="card-img-top" src="/images/student.jpg"
+														alt="Student account" width="100%" height="50%">
+													<div class="card-body">
+														<h2 class="card-title border-bottom pb-3">Student account</a>
+														</h2>
+														<p class="card-text">If you are a student, select this account.
+															Your
+															web
+															hosting package will be available to you during your time at
+															university. Account setup can take a couple of minutes to
+															complete.
+														</p>
+														<div class="d-flex justify-content-end">
+															<button type="button" title="Create a Student Account"
+																id="studentspinner"
+																class="btn btn-success  has-spinner"><span
+																	class="spinner"><i style="color: white;"
+																		class="fa fa-spinner fa-spin">
+																	</i></span> Click Here</button>
+														</div>
+													</div>
+												</div>
+												<div class="card">
+													<img class="card-img-top" src="/images/staff.jpg"
+														alt="Staff account" width="100%" height="50%">
+													<div class="card-body">
+														<h2 class="card-title border-bottom pb-3">Lecturer account</h2>
+														<p class="card-text">If you are a Lecturer, select
+															this
+															account. This account type requires email validation to
+															validate
+															your status as a lecturer.</p>
+														<div class="d-flex justify-content-end align-items-end"
+															style="height: 40%">
+															<button type="button" title="Create a Lecturer Account"
+																id="staffspinner"
+																class="btn btn-secondary has-spinner"><span
+																	class="spinner"><i class="fa fa-spinner fa-spin">
+																	</i></span> Click Here</button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</p>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<!--<div id="stepper-example" class="bs-stepper">
 						<div class="bs-stepper-header">
 							<div class="step" data-target="#test-l-1">
 								<a href="#">
@@ -558,11 +566,11 @@
 							</div>
 						</div>
 					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
+	</div> <!-- End of main aria area-->
 </body>
 
 </html>
