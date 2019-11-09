@@ -41,14 +41,16 @@
   <div class="container">
 
     <div class="d-flex justify-content-center h-100">
-      <div class="card">
-        <div class="card-header">
-          <p></p>
-          <img src="Education_host_ltd_logo.png" alt="Education Host Single Sign On Logo" width="300px" />
-          <p></p>
-          <h1 style="color:#000000">Single Sign On</h1>
+      <div class="card" role="document">
+        <div class="card-header" role="document">
+          <header>
+            <p></p>
+            <img src="Education_host_ltd_logo.png" alt="Education Host Single Sign On Logo" width="300px" />
+            <p></p>
+            <h1 style="color:#000000">Single Sign On</h1>
         </div>
-        <div class="card-body">
+        </header>
+        <div class="card-body" role="document">
           <form>
             <main>
               <p style="color:#000000">
@@ -59,8 +61,9 @@
                 take you through the setup on login.
               </p>
               <p></p>
-              <div class="form-group">
-                <input type="button" value="Login" class="btn float-right login_btn" onclick="call_login()" />
+              <div class="form-group" role="button">
+                <input type="button" aria-label="Login" value="Login" class="btn float-right login_btn"
+                  onclick="call_login()" />
               </div>
             </main>
           </form>
