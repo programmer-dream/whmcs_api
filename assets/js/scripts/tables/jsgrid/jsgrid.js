@@ -288,7 +288,7 @@ $(document).ready(function () {
           width: 60,
           align: "center",
           itemTemplate: function (value) {
-            return '<img src="/soon.png" "width="32" height="32">';
+            return '<img src="/soon.png" alt="Last Edit Feature Coming Soon" "width="32" height="32">';
 
             return "";
           }
@@ -303,7 +303,7 @@ $(document).ready(function () {
           itemTemplate: function (value, item) {
             const a = $('<a href="#" target="_blank">');
             const img = $(
-              '<img src="/clientarea.png" "width="32" height="32" >'
+              '<img src="/clientarea.png" alt="Single Sign-On link to student Client Area" "width="32" height="32" >'
             );
 
             try {
@@ -328,7 +328,7 @@ $(document).ready(function () {
           width: 60,
           align: "center",
           itemTemplate: function (value) {
-            return '<img src="/cpanel.png" "width="32" height="32">';
+            return '<img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" "width="32" height="32">';
 
             return "";
           }
@@ -341,7 +341,7 @@ $(document).ready(function () {
           width: 80,
           align: "center",
           itemTemplate: function (value) {
-            return '<img src="/filemanager.png" "width="32" height="32">';
+            return '<img src="/filemanager.png" alt="Single Sign-On link to student FileManager" "width="32" height="32">';
 
             return "";
           }
@@ -355,7 +355,7 @@ $(document).ready(function () {
           width: 80,
           align: "center",
           itemTemplate: function (value) {
-            return '<img src="/stop.png" "width="32" height="32">';
+            return '<img src="/stop.png" alt="Suspend/Un-suspend student account" "width="32" height="32">';
 
             return "";
           }
