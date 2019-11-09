@@ -167,26 +167,26 @@
   background-color: transparent; }
 
 .bg-gradient-x-success {
-  background-image: -webkit-gradient(linear, left top, right top, from(#20a576), to(#4eddaa));
-  background-image: -webkit-linear-gradient(left, #20a576 0%, #4eddaa 100%);
-  background-image: -moz-linear-gradient(left, #20a576 0%, #4eddaa 100%);
-  background-image: -o-linear-gradient(left, #20a576 0%, #4eddaa 100%);
-  background-image: linear-gradient(to right, #20a576 0%, #4eddaa 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(#527728), to(#4eddaa));
+  background-image: -webkit-linear-gradient(left, #527728 0%, #4eddaa 100%);
+  background-image: -moz-linear-gradient(left, #527728 0%, #4eddaa 100%);
+  background-image: -o-linear-gradient(left, #527728 0%, #4eddaa 100%);
+  background-image: linear-gradient(to right, #527728 0%, #4eddaa 100%);
   background-repeat: repeat-x; }
 
 .bg-gradient-y-success {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#20a576), to(#4eddaa));
-  background-image: -webkit-linear-gradient(top, #20a576 0%, #4eddaa 100%);
-  background-image: -moz-linear-gradient(top, #20a576 0%, #4eddaa 100%);
-  background-image: -o-linear-gradient(top, #20a576 0%, #4eddaa 100%);
-  background-image: linear-gradient(to bottom, #20a576 0%, #4eddaa 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#527728), to(#4eddaa));
+  background-image: -webkit-linear-gradient(top, #527728 0%, #4eddaa 100%);
+  background-image: -moz-linear-gradient(top, #527728 0%, #4eddaa 100%);
+  background-image: -o-linear-gradient(top, #527728 0%, #4eddaa 100%);
+  background-image: linear-gradient(to bottom, #527728 0%, #4eddaa 100%);
   background-repeat: repeat-x; }
 
 .bg-gradient-directional-success {
-  background-image: -webkit-linear-gradient(45deg, #20a576, #4eddaa);
-  background-image: -moz-linear-gradient(45deg, #20a576, #4eddaa);
-  background-image: -o-linear-gradient(45deg, #20a576, #4eddaa);
-  background-image: linear-gradient(45deg, #20a576, #4eddaa);
+  background-image: -webkit-linear-gradient(45deg, #527728, #4eddaa);
+  background-image: -moz-linear-gradient(45deg, #527728, #4eddaa);
+  background-image: -o-linear-gradient(45deg, #527728, #4eddaa);
+  background-image: linear-gradient(45deg, #527728, #4eddaa);
   background-repeat: repeat-x; }
 
 .bg-gradient-x2-success {
@@ -206,10 +206,10 @@
   background-repeat: no-repeat; }
 
 .bg-gradient-radial-success {
-  background-image: -webkit-radial-gradient(circle, #20a576, #4eddaa);
-  background-image: -moz-radial-gradient(circle, #20a576, #4eddaa);
-  background-image: -o-radial-gradient(circle, #20a576, #4eddaa);
-  background-image: radial-gradient(circle, #20a576, #4eddaa);
+  background-image: -webkit-radial-gradient(circle, #527728, #4eddaa);
+  background-image: -moz-radial-gradient(circle, #527728, #4eddaa);
+  background-image: -o-radial-gradient(circle, #527728, #4eddaa);
+  background-image: radial-gradient(circle, #527728, #4eddaa);
   background-repeat: no-repeat; }
 
 .bg-gradient-striped-success {
@@ -235,26 +235,26 @@
   background-color: transparent; }
 
 .bg-gradient-x-info {
-  background-image: -webkit-gradient(linear, left top, right top, from(#0c84d1), to(#4eb4f5));
-  background-image: -webkit-linear-gradient(left, #0c84d1 0%, #4eb4f5 100%);
-  background-image: -moz-linear-gradient(left, #0c84d1 0%, #4eb4f5 100%);
-  background-image: -o-linear-gradient(left, #0c84d1 0%, #4eb4f5 100%);
-  background-image: linear-gradient(to right, #0c84d1 0%, #4eb4f5 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(#007A8A), to(#4eb4f5));
+  background-image: -webkit-linear-gradient(left, #007A8A 0%, #4eb4f5 100%);
+  background-image: -moz-linear-gradient(left, #007A8A 0%, #4eb4f5 100%);
+  background-image: -o-linear-gradient(left, #007A8A 0%, #4eb4f5 100%);
+  background-image: linear-gradient(to right, #007A8A 0%, #4eb4f5 100%);
   background-repeat: repeat-x; }
 
 .bg-gradient-y-info {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#0c84d1), to(#4eb4f5));
-  background-image: -webkit-linear-gradient(top, #0c84d1 0%, #4eb4f5 100%);
-  background-image: -moz-linear-gradient(top, #0c84d1 0%, #4eb4f5 100%);
-  background-image: -o-linear-gradient(top, #0c84d1 0%, #4eb4f5 100%);
-  background-image: linear-gradient(to bottom, #0c84d1 0%, #4eb4f5 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#007A8A), to(#4eb4f5));
+  background-image: -webkit-linear-gradient(top, #007A8A 0%, #4eb4f5 100%);
+  background-image: -moz-linear-gradient(top, #007A8A 0%, #4eb4f5 100%);
+  background-image: -o-linear-gradient(top, #007A8A 0%, #4eb4f5 100%);
+  background-image: linear-gradient(to bottom, #007A8A 0%, #4eb4f5 100%);
   background-repeat: repeat-x; }
 
 .bg-gradient-directional-info {
-  background-image: -webkit-linear-gradient(45deg, #0c84d1, #4eb4f5);
-  background-image: -moz-linear-gradient(45deg, #0c84d1, #4eb4f5);
-  background-image: -o-linear-gradient(45deg, #0c84d1, #4eb4f5);
-  background-image: linear-gradient(45deg, #0c84d1, #4eb4f5);
+  background-image: -webkit-linear-gradient(45deg, #007A8A, #4eb4f5);
+  background-image: -moz-linear-gradient(45deg, #007A8A, #4eb4f5);
+  background-image: -o-linear-gradient(45deg, #007A8A, #4eb4f5);
+  background-image: linear-gradient(45deg, #007A8A, #4eb4f5);
   background-repeat: repeat-x; }
 
 .bg-gradient-x2-info {
@@ -274,10 +274,10 @@
   background-repeat: no-repeat; }
 
 .bg-gradient-radial-info {
-  background-image: -webkit-radial-gradient(circle, #0c84d1, #4eb4f5);
-  background-image: -moz-radial-gradient(circle, #0c84d1, #4eb4f5);
-  background-image: -o-radial-gradient(circle, #0c84d1, #4eb4f5);
-  background-image: radial-gradient(circle, #0c84d1, #4eb4f5);
+  background-image: -webkit-radial-gradient(circle, #007A8A, #4eb4f5);
+  background-image: -moz-radial-gradient(circle, #007A8A, #4eb4f5);
+  background-image: -o-radial-gradient(circle, #007A8A, #4eb4f5);
+  background-image: radial-gradient(circle, #007A8A, #4eb4f5);
   background-repeat: no-repeat; }
 
 .bg-gradient-striped-info {

@@ -1666,7 +1666,10 @@ input:focus ~ .bg-success {
   background: rgba(151, 201, 93, 0.8); }
 
 .success {
-  color: #8bc34a !important; }
+  color: #527728 !important; }
+
+  .activestudents {
+    color: #007A8A !important; }
 
 .bg-success {
   background-color: #8bc34a !important; }
@@ -2389,10 +2392,10 @@ input:focus ~ .bg-info {
   background: rgba(0, 211, 238, 0.8); }
 
 .info {
-  color: #00bcd4 !important; }
+  color: #007A8A !important; }
 
 .bg-info {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
   .bg-info .card-header,
   .bg-info .card-footer {
     background-color: transparent; }
@@ -2401,27 +2404,27 @@ input:focus ~ .bg-info {
     box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6); }
 
 .selectboxit.selectboxit-btn.bg-info {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 .alert-info {
-  border-color: #00bcd4 !important;
+  border-color: #007A8A !important;
   background-color: #1ce5ff; }
 
 .border-info {
-  border-color: #00bcd4;
+  border-color: #007A8A;
   border: 1px solid; }
 
 .overlay-info {
-  background: #00bcd4;
+  background: #007A8A;
   /* The Fallback */
   background: rgba(0, 188, 212, 0.8); }
 
 .color-info.info {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 .btn-info {
   border-color: #008fa1 !important;
-  background-color: #00bcd4 !important;
+  background-color: #007A8A !important;
   color: #FFFFFF; }
   .btn-info:hover {
     border-color: #00a5bb !important;
@@ -2437,18 +2440,18 @@ input:focus ~ .bg-info {
 
 .btn-outline-info {
   border: 1px solid;
-  border-color: #00bcd4;
+  border-color: #007A8A;
   background-color: transparent;
-  color: #00bcd4; }
+  color: #007A8A; }
   .btn-outline-info:hover {
-    background-color: #00bcd4;
+    background-color: #007A8A;
     color: #FFF !important; }
   .btn-outline-info.btn-glow {
     -webkit-box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6);
     box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6); }
 
 input[type="checkbox"].bg-info + .custom-control-label:before, input[type="radio"].bg-info + .custom-control-label:before {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 /* .custom-control-label{
         &:before{
@@ -2456,23 +2459,23 @@ input[type="checkbox"].bg-info + .custom-control-label:before, input[type="radio
         }
       } */
 input:focus ~ .bg-info {
-  -webkit-box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #00bcd4 !important;
-  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #00bcd4 !important; }
+  -webkit-box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #007A8A !important;
+  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #007A8A !important; }
 
 .border-info {
-  border-color: #00bcd4 !important; }
+  border-color: #007A8A !important; }
 
 .border-top-info {
-  border-top: 1px solid #00bcd4; }
+  border-top: 1px solid #007A8A; }
 
 .border-bottom-info {
-  border-bottom: 1px solid #00bcd4; }
+  border-bottom: 1px solid #007A8A; }
 
 .border-left-info {
-  border-left: 1px solid #00bcd4; }
+  border-left: 1px solid #007A8A; }
 
 .border-right-info {
-  border-right: 1px solid #00bcd4; }
+  border-right: 1px solid #007A8A; }
 
 .info.darken-1 {
   color: #00a5bb !important; }
@@ -7818,10 +7821,10 @@ input:focus ~ .bg-cyan {
   background: rgba(38, 198, 218, 0.8); }
 
 .cyan {
-  color: #00bcd4 !important; }
+  color: #007A8A !important; }
 
 .bg-cyan {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
   .bg-cyan .card-header,
   .bg-cyan .card-footer {
     background-color: transparent; }
@@ -7830,27 +7833,27 @@ input:focus ~ .bg-cyan {
     box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6); }
 
 .selectboxit.selectboxit-btn.bg-cyan {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 .alert-cyan {
-  border-color: #00bcd4 !important;
+  border-color: #007A8A !important;
   background-color: #1ce5ff; }
 
 .border-cyan {
-  border-color: #00bcd4;
+  border-color: #007A8A;
   border: 1px solid; }
 
 .overlay-cyan {
-  background: #00bcd4;
+  background: #007A8A;
   /* The Fallback */
   background: rgba(0, 188, 212, 0.8); }
 
 .color-info.cyan {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 .btn-cyan {
   border-color: #0097a7 !important;
-  background-color: #00bcd4 !important;
+  background-color: #007A8A !important;
   color: #FFFFFF; }
   .btn-cyan:hover {
     border-color: #00acc1 !important;
@@ -7866,18 +7869,18 @@ input:focus ~ .bg-cyan {
 
 .btn-outline-cyan {
   border: 1px solid;
-  border-color: #00bcd4;
+  border-color: #007A8A;
   background-color: transparent;
-  color: #00bcd4; }
+  color: #007A8A; }
   .btn-outline-cyan:hover {
-    background-color: #00bcd4;
+    background-color: #007A8A;
     color: #FFF !important; }
   .btn-outline-cyan.btn-glow {
     -webkit-box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6);
     box-shadow: 0px 1px 20px 1px rgba(0, 188, 212, 0.6); }
 
 input[type="checkbox"].bg-cyan + .custom-control-label:before, input[type="radio"].bg-cyan + .custom-control-label:before {
-  background-color: #00bcd4 !important; }
+  background-color: #007A8A !important; }
 
 /* .custom-control-label{
         &:before{
@@ -7885,23 +7888,23 @@ input[type="checkbox"].bg-cyan + .custom-control-label:before, input[type="radio
         }
       } */
 input:focus ~ .bg-cyan {
-  -webkit-box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #00bcd4 !important;
-  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #00bcd4 !important; }
+  -webkit-box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #007A8A !important;
+  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.21rem #007A8A !important; }
 
 .border-cyan {
-  border-color: #00bcd4 !important; }
+  border-color: #007A8A !important; }
 
 .border-top-cyan {
-  border-top: 1px solid #00bcd4; }
+  border-top: 1px solid #007A8A; }
 
 .border-bottom-cyan {
-  border-bottom: 1px solid #00bcd4; }
+  border-bottom: 1px solid #007A8A; }
 
 .border-left-cyan {
-  border-left: 1px solid #00bcd4; }
+  border-left: 1px solid #007A8A; }
 
 .border-right-cyan {
-  border-right: 1px solid #00bcd4; }
+  border-right: 1px solid #007A8A; }
 
 .cyan.darken-1 {
   color: #00acc1 !important; }
@@ -12019,19 +12022,19 @@ input:focus ~ .bg-transparent {
   background-repeat: repeat-x; }
 
 .bg-gradient-x2-info {
-  background-image: -webkit-gradient(linear, left top, right top, from(#08e3ff), color-stop(50%, #00bcd4), to(#22e6ff));
-  background-image: -webkit-linear-gradient(left, #08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: -moz-linear-gradient(left, #08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: -o-linear-gradient(left, #08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: linear-gradient(to right, #08e3ff, #00bcd4 50%, #22e6ff);
+  background-image: -webkit-gradient(linear, left top, right top, from(#08e3ff), color-stop(50%, #007A8A), to(#22e6ff));
+  background-image: -webkit-linear-gradient(left, #08e3ff, #007A8A 50%, #22e6ff);
+  background-image: -moz-linear-gradient(left, #08e3ff, #007A8A 50%, #22e6ff);
+  background-image: -o-linear-gradient(left, #08e3ff, #007A8A 50%, #22e6ff);
+  background-image: linear-gradient(to right, #08e3ff, #007A8A 50%, #22e6ff);
   background-repeat: no-repeat; }
 
 .bg-gradient-y2-info {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#08e3ff), color-stop(50%, #00bcd4), to(#22e6ff));
-  background-image: -webkit-linear-gradient(#08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: -moz-linear-gradient(#08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: -o-linear-gradient(#08e3ff, #00bcd4 50%, #22e6ff);
-  background-image: linear-gradient(#08e3ff, #00bcd4 50%, #22e6ff);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#08e3ff), color-stop(50%, #007A8A), to(#22e6ff));
+  background-image: -webkit-linear-gradient(#08e3ff, #007A8A 50%, #22e6ff);
+  background-image: -moz-linear-gradient(#08e3ff, #007A8A 50%, #22e6ff);
+  background-image: -o-linear-gradient(#08e3ff, #007A8A 50%, #22e6ff);
+  background-image: linear-gradient(#08e3ff, #007A8A 50%, #22e6ff);
   background-repeat: no-repeat; }
 
 .bg-gradient-radial-info {
@@ -12540,19 +12543,19 @@ input:focus ~ .bg-transparent {
   background-repeat: repeat-x; }
 
 .bg-gradient-x2-cyan {
-  background-image: -webkit-gradient(linear, left top, right top, from(#4dd0e1), color-stop(50%, #00bcd4), to(#80deea));
-  background-image: -webkit-linear-gradient(left, #4dd0e1, #00bcd4 50%, #80deea);
-  background-image: -moz-linear-gradient(left, #4dd0e1, #00bcd4 50%, #80deea);
-  background-image: -o-linear-gradient(left, #4dd0e1, #00bcd4 50%, #80deea);
-  background-image: linear-gradient(to right, #4dd0e1, #00bcd4 50%, #80deea);
+  background-image: -webkit-gradient(linear, left top, right top, from(#4dd0e1), color-stop(50%, #007A8A), to(#80deea));
+  background-image: -webkit-linear-gradient(left, #4dd0e1, #007A8A 50%, #80deea);
+  background-image: -moz-linear-gradient(left, #4dd0e1, #007A8A 50%, #80deea);
+  background-image: -o-linear-gradient(left, #4dd0e1, #007A8A 50%, #80deea);
+  background-image: linear-gradient(to right, #4dd0e1, #007A8A 50%, #80deea);
   background-repeat: no-repeat; }
 
 .bg-gradient-y2-cyan {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#4dd0e1), color-stop(50%, #00bcd4), to(#80deea));
-  background-image: -webkit-linear-gradient(#4dd0e1, #00bcd4 50%, #80deea);
-  background-image: -moz-linear-gradient(#4dd0e1, #00bcd4 50%, #80deea);
-  background-image: -o-linear-gradient(#4dd0e1, #00bcd4 50%, #80deea);
-  background-image: linear-gradient(#4dd0e1, #00bcd4 50%, #80deea);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#4dd0e1), color-stop(50%, #007A8A), to(#80deea));
+  background-image: -webkit-linear-gradient(#4dd0e1, #007A8A 50%, #80deea);
+  background-image: -moz-linear-gradient(#4dd0e1, #007A8A 50%, #80deea);
+  background-image: -o-linear-gradient(#4dd0e1, #007A8A 50%, #80deea);
+  background-image: linear-gradient(#4dd0e1, #007A8A 50%, #80deea);
   background-repeat: no-repeat; }
 
 .bg-gradient-radial-cyan {

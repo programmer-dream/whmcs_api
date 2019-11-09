@@ -123,16 +123,19 @@
 		class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center">
 		<div class="navbar-wrapper">
 			<div class="navbar-header">
+
+
 				<ul class="nav navbar-nav flex-row">
 					<li class="nav-item mobile-menu d-md-none mr-auto"><a
 							class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
 								class="ft-menu font-large-1"></i></a></li>
-					<li class="nav-item"><a class="navbar-brand" href="/staff/dashboard"><img class="brand-logo"
-								alt="Education Host logo" src="/images/logo/logo.png">
-						</a></li>
+					<li class="nav-item mobile-menu mr-auto" style="padding-top:20px;">
+						<h1 class="brand-text">Lecturer Dashboard</h1>
+					</li>
 					<li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
-							data-target="#navbar-mobile"><i class="material-icons mt-1">more_vert</i></a></li>
+							data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
 				</ul>
+
 			</div>
 			<div class="navbar-container content">
 				<div class="collapse navbar-collapse" id="navbar-mobile">
@@ -168,31 +171,13 @@
 					<div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
 							src="/images/logo/logo.png" alt="Dashboard Menu logo" />
 
-						<div class="text-light">Dashboard</div>
+						<div class="text-dark">Dashboard</div>
 
 					</div>
 				</div>
 				<div class="main-menu-content">
 					<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-						<li class=" navigation-header"><span data-i18n="nav.category.pages">Pages</span><i
-								class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-								data-original-title="Pages">more_horiz</i>
-						</li>
-						<li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
-									class="menu-title" data-i18n="">News Feed</span></a>
-						</li>
-						<!-- Quick Links Menu-->
-						<li class=" navigation-header"><span data-i18n="nav.category.pages">Quick Links</span><i
-								class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-								data-original-title="Pages">more_horiz</i>
-						</li>
-						<li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
-									class="menu-title" data-i18n="">Client Area</span></a>
-						</li>
-						<li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
-									class="menu-title" data-i18n="">Admin Area</span></a>
-						</li>
 						<!-- Support Menu-->
 						<li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
 								class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
@@ -209,6 +194,16 @@
 									class="material-icons">info_outline</i><span class="menu-title"
 									data-i18n="">Knowledge Base</span></a>
 						</li>
+						<li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
+								class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+								data-original-title="Support">more_horiz</i>
+						</li>
+						<li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
+									class="menu-title" data-i18n="">Admin Area</span></a>
+						</li>
+						<li class=" nav-item"><a href="statuscakeURL.html"><i class="material-icons">list_alt</i><span
+									class="menu-title" data-i18n="">Network Monitor</span></a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -223,11 +218,11 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="info"> <i id="numberOfUsers"></i></h3>
-											<h6>Active Students</h6>
+											<h2 class="info"> <i id="numberOfUsers"></i></h2>
+											<p>Active Students</p>
 										</div>
 										<div>
-											<i class="icon-user-follow success font-large-2 float-right"></i>
+											<i class="icon-user-follow activestudents font-large-2 float-right"></i>
 										</div>
 									</div>
 									<div class="progress progress-sm mt-1 mb-0 box-shadow-2">
@@ -246,8 +241,8 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="success"><i id="numberOfStaff"></i></h3>
-											<h6>Active Lecturers</h6>
+											<h2 class="success"><i id="numberOfStaff"></i></h2>
+											<p>Active Lecturers</p>
 										</div>
 										<div>
 											<i class="icon-user-follow success font-large-2 float-right"></i>
@@ -268,8 +263,8 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="warning"><i id="tickets"></h3>
-											<h6>Support Tickets (1 year)</h6>
+											<h2 class="warning"><i id="tickets"></i></h2>
+											<p>Support Tickets (1 year)</p>
 										</div>
 										<div>
 											<i class="icon-users warning font-large-2 float-right"></i>
@@ -291,9 +286,8 @@
 								<div class="card-body">
 									<div class="media d-flex">
 										<div class="media-body text-left">
-											<h3 class="danger"><i id="supportStats"></i> / 10</h3>
-											<h6>Support Feedback (<i id="supportStatsNumbers"></i> Tickets)</i>
-											</h6>
+											<h2 class="danger"><i id="supportStats"></i> / 10</h2>
+											<p>Support Feedback (<i id="supportStatsNumbers"></i> Tickets)</i></p>
 										</div>
 										<div>
 											<i class="icon-heart danger font-large-2 float-right"></i>
@@ -317,7 +311,7 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Student Account Manager</h4>
+									<h3 class="card-title">Student Account Manager</h3>
 									<a class="heading-elements-toggle"><i
 											class="la la-ellipsis-v font-medium-3"></i></a>
 									<div class="heading-elements">
