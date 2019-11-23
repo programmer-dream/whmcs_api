@@ -10,7 +10,8 @@ const session = require("express-session");
 const cpanel = require('cpanel-lib');
 
 require("./config/passport.js");
-
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 // Get the cpanelAccount from config
 //const cpanelAccount = require('../../config').cpanelAccount;
 const cpanelAccount = require('./config/whmcs').accountName;
@@ -95,8 +96,8 @@ app.use('/api/user', userRoutes);
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 const options = {
-	cert: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml/sslcert/fullchain.pem"),
-	key: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml/sslcert/privkey.pem")
+	cert: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/fullchain.pem"),
+	key: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/privkey.pem")
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////

@@ -62,8 +62,10 @@ router.get("/logout", (req, res) => {
 // @route 	GET /login
 // @desc 	Redirects either to the homepage or faillogin page, depending on authentication
 // @access 	Private
-router.get("/login", passport.authenticate("saml", {
-	successRedirect: "/home",
-	failureRedirect: "/failedlogin"
-}));
+router.get('/login',
+    passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
+    function(req, res) {
+        console.log('Login was called in the Sample');
+        res.redirect("/home");
+    });
 module.exports = router;

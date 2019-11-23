@@ -4,7 +4,8 @@ const SamlStrategy = require('passport-saml').Strategy;
 
 // Get the cpanelAccount from config
 const cpanelAccount = require('./whmcs').accountName;
-
+var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+var config = require('./config');
 passport.serializeUser(function (user, done) {
 	done(null, user);
 });
@@ -12,33 +13,64 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
 	done(null, user);
 });
+// array to hold logged in users
+var users = [];
 
-passport.use(new SamlStrategy({
-		//entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwehappwithlinktoesponserouteHTTPSAUTHDOMAIN',
-		entryPoint: 'https://idp.ssocircle.com/sso/idpssoinit?metaAlias=%2Fpublicidp&spEntityID=nwappwithlinktonewresponserouteandauthdomain',
-		issuer: 'https://idp.ssocircle.com',
-		callbackUrl: '/api/user/login/callback',
-		// OLD KEY privateCert: fs.readFileSync('/home/nick/apps/AD-saml/app.key', 'utf-8'),
-		privateCert: fs.readFileSync('/home/' + cpanelAccount + '/AD-saml/sslcert/privkey.pem', 'utf-8'),
-		//cert: fs.readFileSync('/home/nick/apps/AD-saml/app.cer', 'utf-8'),		
-		cert: fs.readFileSync('/home/' + cpanelAccount + '/AD-saml/SSOCircleCACertificate.cer', 'utf-8'),
-		// xml: 'http://idp.ssocircle.com/idp-meta.xml',
-		authnContext: 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport',
-		acceptedClockSkewMs: -1,
-		identifierFormat: null,
-		signatureAlgorithm: 'sha256'
-	},
-	function (profile, done) {
-		return done(null, {
-			upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
-			group: profile['http://schemas.xmlsoap.org/claims/Group'],
-			id: profile.uid,
-			email: profile.email,
-			displayName: profile.cn,
-			firstName: profile.givenName,
-			lastName: profile.sn
-		});
-	}
+var findByOid = function(oid, fn) {
+    for (var i = 0, len = users.length; i < len; i++) {
+        var user = users[i];
+        console.log('we are using user: ', user);
+        if (user.oid === oid) {
+            return fn(null, user);
+        }
+    }
+    return fn(null, null);
+};
+
+
+passport.use(new OIDCStrategy({
+        identityMetadata: config.creds.identityMetadata,
+        clientID: config.creds.clientID,
+        responseType: config.creds.responseType,
+        responseMode: config.creds.responseMode,
+        redirectUrl: config.creds.redirectUrl,
+        allowHttpForRedirectUrl: config.creds.allowHttpForRedirectUrl,
+        clientSecret: config.creds.clientSecret,
+        validateIssuer: config.creds.validateIssuer,
+        isB2C: config.creds.isB2C,
+        issuer: config.creds.issuer,
+        passReqToCallback: config.creds.passReqToCallback,
+        scope: config.creds.scope,
+        loggingLevel: config.creds.loggingLevel,
+        loggingNoPII: config.creds.loggingNoPII,
+        nonceLifetime: config.creds.nonceLifetime,
+        nonceMaxAmount: config.creds.nonceMaxAmount,
+        useCookieInsteadOfSession: config.creds.useCookieInsteadOfSession,
+        cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
+        clockSkew: config.creds.clockSkew,
+    },
+    function(iss, sub, profile, accessToken, refreshToken, done) {
+        if (!profile.oid) {
+            return done(new Error("No oid found"), null);
+        }
+        // asynchronous verification, for effect...
+        process.nextTick(function () {
+            findByOid(profile.oid, function(err, user) {
+                if (err) {
+                    return done(err);
+                }
+                if (!user) {
+                    // "Auto-registration"
+                    users.push(profile);
+                    return done(null, profile);
+                }
+                return done(null, user);
+            });
+        });
+    }
 ));
+
+
+
 
 module.exports = passport;

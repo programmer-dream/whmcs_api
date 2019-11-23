@@ -15,125 +15,112 @@ const getTimestamp = require("../../utils/getTimestamp");
 // @route 	POST api/user/login/callback
 // @desc 	Callback for the saml login
 // @access 	Private
-router.post("/login/callback", (req, res, next) => {
-	passport.authenticate(
-		"saml",
-		{
-			session: false
-		},
-		(err, user) => {
-			req.user = user;
-			next();
-		}
-	);
+router.post('/auth/openid/return',
+    passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
+    function(req, res) {
+       var email= 'n.a.williams@outlook.com';
+       var firstname=req.user.name.givenName;
+       var userid=req.user.oid;
+       var lastname=req.user.name.familyName;
+// Check if the received data is valid
+        if (!email || !firstname || !userid || !lastname) {
+            res.redirect("/home");
+            return;
+        }
 
-	var parser = new Saml2js(req.body.SAMLResponse);
+        req.session.user = {
+            id: userid
+        };
 
-	const {
-		emailAddress: email,
-		firstName: firstname,
-		userId: userid,
-		lastName: lastname
-	} = parser.toObject();
+        const sessionid = req.session.id;
 
-	// Check if the received data is valid
-	if (!email || !firstname || !userid || !lastname) {
-		res.redirect("/home");
-		return;
-	}
+        // Decide where the user is going to go, are they new or existing?
+        const connection = mysql.createConnection(mysqlConfig);
 
-	req.session.user = {
-		id: userid
-	};
+        connection.query(
+            "SELECT email, isStaff FROM user_idpdetails WHERE email = ?",
+            [email],
+            (err, result, field) => {
+                //if no result is passed back then the user data should be stored
+                if (!result.length) {
+                    //new user logic
+                    /////////////// Store the variables in the db for later use
+                    let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid) VALUES(?,?,?,?,?)`;
+                    let todo = [email, firstname, userid, lastname, sessionid];
 
-	const sessionid = req.session.id;
+                    // execute the insert statment
+                    connection.query(stmt, todo, (err, results, fields) => {
+                        if (err) {
+                            return res.send(err.message);
+                        } else {
+                            // Redirect the user to the home page if the INSERT failed (signup page)
+                            res.redirect("/home");
+                        }
+                    });
 
-	// Decide where the user is going to go, are they new or existing?
-	const connection = mysql.createConnection(mysqlConfig);
+                    // close the mysql connection
+                    connection.end();
+                } else {
+                    // update session id in the database on user login - this is used to pass data from this route to the staff login route
+                    connection.query(
+                        "UPDATE user_idpdetails SET sessionid = ? WHERE email = ?",
+                        [sessionid, email],
+                        (error, results, fields) => {
+                            if (error) {
+                                console.log("error", error);
+                            }
+                        }
+                    );
 
-	connection.query(
-		"SELECT email, isStaff FROM user_idpdetails WHERE email = ?",
-		[email],
-		(err, result, field) => {
-			//if no result is passed back then the user data should be stored
-			if (!result.length) {
-				//new user logic
-				/////////////// Store the variables in the db for later use
-				let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid) VALUES(?,?,?,?,?)`;
-				let todo = [email, firstname, userid, lastname, sessionid];
+                    connection.query(
+                        "SELECT * FROM user_idpdetails WHERE email = ?",
+                        [email],
+                        (err, result, field) => {
+                            if (result[0].isStaff == 1 && result[0].isActive == 1) {
+                                // res.redirect("/stafflogin");
+                                res.redirect("/staff/login");
+                            } else if (result[0].isActive == 1) {
+                                // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+                                var timestamp = getTimestamp();
 
-				// execute the insert statment
-				connection.query(stmt, todo, (err, results, fields) => {
-					if (err) {
-						return res.send(err.message);
-					} else {
-						// Redirect the user to the home page if the INSERT failed (signup page)
-						res.redirect("/home");
-					}
-				});
+                                // get the email address that is returned from the IDP
+                                var urlemail = email;
 
-				// close the mysql connection
-				connection.end();
-			} else {
-				// update session id in the database on user login - this is used to pass data from this route to the staff login route
-				connection.query(
-					"UPDATE user_idpdetails SET sessionid = ? WHERE email = ?",
-					[sessionid, email],
-					(error, results, fields) => {
-						if (error) {
-							console.log("error", error);
-						}
-					}
-				);
+                                // URL to where the user is to go once logged into WHMCS
+                                var goto = "clientarea.php";
 
-				connection.query(
-					"SELECT * FROM user_idpdetails WHERE email = ?",
-					[email],
-					(err, result, field) => {
-						if (result[0].isStaff == 1 && result[0].isActive == 1) {
-							// res.redirect("/stafflogin");
-							res.redirect("/staff/login");
-						} else if (result[0].isActive == 1) {
-							// get the timestamp in milliseconds and convert it to seconds for WHMCS url
-							var timestamp = getTimestamp();
+                                // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+                                // add the three variables together that are required for the WHMCS hash
+                                var hashedstrings = urlemail + timestamp + autoAuthKey;
 
-							// get the email address that is returned from the IDP
-							var urlemail = email;
+                                // use the sha1 node module to hash the variable
+                                var hash = sha1(hashedstrings);
 
-							// URL to where the user is to go once logged into WHMCS
-							var goto = "clientarea.php";
+                                // create the URL to pass and redirect the user
+                                res.redirect(
+                                    whmcsLoginUrl +
+                                    "?email=" +
+                                    urlemail +
+                                    "&timestamp=" +
+                                    timestamp +
+                                    "&hash=" +
+                                    hash +
+                                    "&goto=" +
+                                    goto
+                                );
+                            } else {
+                                res.redirect("/");
+                            }
+                        }
+                    );
 
-							// Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-							// add the three variables together that are required for the WHMCS hash
-							var hashedstrings = urlemail + timestamp + autoAuthKey;
+                    connection.end();
+                }
+            }
+        );
 
-							// use the sha1 node module to hash the variable
-							var hash = sha1(hashedstrings);
 
-							// create the URL to pass and redirect the user
-							res.redirect(
-								whmcsLoginUrl +
-								"?email=" +
-								urlemail +
-								"&timestamp=" +
-								timestamp +
-								"&hash=" +
-								hash +
-								"&goto=" +
-								goto
-							);
-						} else {
-							res.redirect("/");
-						}
-					}
-				);
-
-				connection.end();
-			}
-		}
-	);
-});
-
+    });
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
