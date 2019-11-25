@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 // @route 	GET /home
 // @desc 	Serves the home page
 // @access 	Public
-router.get("/home", (req, res) => {
+router.get("/home",ensureAuthenticated, (req, res) => {
 	res.sendFile('home.html', {
 		root
 	});
@@ -68,4 +68,12 @@ router.get('/login',
         console.log('Login was called in the Sample');
         res.redirect("/home");
     });
+
+
+
+function ensureAuthenticated(req, res, next) {
+	var a=req.isAuthenticated();
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+};
 module.exports = router;

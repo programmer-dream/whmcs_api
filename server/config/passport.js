@@ -1,7 +1,8 @@
 const fs = require('fs');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
-
+const mysql = require("mysql");
+const mysqlConfig = require("./sql");
 // Get the cpanelAccount from config
 const cpanelAccount = require('./whmcs').accountName;
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
@@ -11,7 +12,25 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (user, done) {
-	done(null, user);
+    const connection = mysql.createConnection(mysqlConfig);
+    connection.connect(function (err) {
+        if (err) throw err;
+
+        connection.query(
+            "SELECT * FROM user_idpdetails where userid = ?",
+            [user.oid],
+            (err, result, fields) => {
+                if (err) throw err;
+                user.isStaff=result[0].isStaff;
+                done(null, user);
+            }
+        );
+
+        connection.end();
+    });
+
+
+
 });
 // array to hold logged in users
 var users = [];

@@ -22,6 +22,7 @@ router.post('/auth/openid/return',
        var firstname=req.user.name.givenName;
        var userid=req.user.oid;
        var lastname=req.user.name.familyName;
+        const connection = mysql.createConnection(mysqlConfig);
 // Check if the received data is valid
         if (!email || !firstname || !userid || !lastname) {
             res.redirect("/home");
@@ -35,7 +36,7 @@ router.post('/auth/openid/return',
         const sessionid = req.session.id;
 
         // Decide where the user is going to go, are they new or existing?
-        const connection = mysql.createConnection(mysqlConfig);
+
 
         connection.query(
             "SELECT email, isStaff FROM user_idpdetails WHERE email = ?",

@@ -11,7 +11,7 @@ const root = path.join(__dirname, '../../../../AD-saml/client/staff');
 // @route 	GET /staff/dashboard
 // @desc 	Serves the staff dashboard
 // @access 	Public
-router.get("/dashboard", function (req, res) {
+router.get("/dashboard",ensureAuthenticated, function (req, res) {
 	res.sendFile('dashboard.html', {
 		root
 	});
@@ -20,10 +20,18 @@ router.get("/dashboard", function (req, res) {
 // @route 	GET /staff/login
 // @desc 	Serves the staff login page
 // @access 	Public
-router.get("/login", function (req, res) {
+router.get("/login",ensureAuthenticated1, function (req, res) {
 	res.sendFile('index.html', {
 		root
 	});
 });
+function ensureAuthenticated1(req, res, next) {
 
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+};
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated() && req.user.isStaff==1) { return next(); }
+    res.redirect('/');
+};
 module.exports = router;

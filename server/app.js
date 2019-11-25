@@ -1,9 +1,10 @@
 // Import required modules
-const passport = require("passport");
 const express = require("express");
+const app = express();
+const passport = require("passport");
 const https = require("https");
 const fs = require("fs");
-const app = express();
+
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const session = require("express-session");
@@ -17,7 +18,14 @@ app.use(cookieParser());
 const cpanelAccount = require('./config/whmcs').accountName;
 
 const cpoptions = require("./config/cpanel.js");
-
+app.use(
+    session({
+        resave: true,
+        saveUninitialized: true,
+        secret: "EHsecret",
+        expires: new Date(Date.now() + 30 * 86400 * 1000)
+    })
+);
 /*
 app.use('/accounts', function (req, res) {
 
@@ -62,14 +70,7 @@ app.use(passport.session());
 // Assets folder is static so it's contents can be used in html pages
 app.use(express.static("assets"));
 
-app.use(
-	session({
-		resave: true,
-		saveUninitialized: true,
-		secret: "EHsecret",
-		expires: new Date(Date.now() + 30 * 86400 * 1000)
-	})
-);
+
 
 // View
 const rootRoutes = require('./routes/view');
