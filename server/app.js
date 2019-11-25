@@ -26,6 +26,9 @@ app.use(
         expires: new Date(Date.now() + 30 * 86400 * 1000)
     })
 );
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs')
 /*
 app.use('/accounts', function (req, res) {
 
