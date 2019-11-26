@@ -22,6 +22,8 @@ router.post('/auth/openid/return',
        var firstname=req.user.name.givenName;
        var userid=req.user.oid;
        var lastname=req.user.name.familyName;
+       var upn1=email.split("@");
+       var upn=upn1[0];
         const connection = mysql.createConnection(mysqlConfig);
 // Check if the received data is valid
         if (!email || !firstname || !userid || !lastname) {
@@ -46,8 +48,8 @@ router.post('/auth/openid/return',
                 if (!result.length) {
                     //new user logic
                     /////////////// Store the variables in the db for later use
-                    let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid) VALUES(?,?,?,?,?)`;
-                    let todo = [email, firstname, userid, lastname, sessionid];
+                    let stmt = `INSERT INTO user_idpdetails(email,firstname,userid,lastname,sessionid,upn) VALUES(?,?,?,?,?)`;
+                    let todo = [email, firstname, userid, lastname, sessionid,upn];
 
                     // execute the insert statment
                     connection.query(stmt, todo, (err, results, fields) => {
