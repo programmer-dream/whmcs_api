@@ -1,7 +1,7 @@
 
 exports.creds = {
     // Required
-    identityMetadata: 'https://login.microsoftonline.com/f488e148-ef0e-481b-8985-75fbd2be56eb/.well-known/openid-configuration',
+    identityMetadata: 'https://login.microsoftonline.com/0320b2da-22dd-4dab-8c21-6e644ba14f13/.well-known/openid-configuration',
     // or equivalently: 'https://login.microsoftonline.com/<tenant_guid>/.well-known/openid-configuration'
     //
     // or you can use the common endpoint
@@ -9,7 +9,7 @@ exports.creds = {
     // To use the common endpoint, you have to either set `validateIssuer` to false, or provide the `issuer` value.
 
     // Required, the client ID of your app in AAD
-    clientID: '8020a30a-ffc3-4243-9bc3-6d09a1776196',
+    clientID: '67dea099-7010-4c47-81bb-f58a20e6eedd',
 
     // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
     responseType: 'code id_token',
@@ -18,14 +18,14 @@ exports.creds = {
     responseMode: 'form_post',
 
     // Required, the reply URL registered in AAD for your app
-    redirectUrl: 'http://localhost:8080/api/user/auth/openid/return',
+    redirectUrl: 'https://auth.educationhost.co.uk/api/user/auth/openid/return',
 
     // Required if we use http for redirectUrl
     allowHttpForRedirectUrl: true,
 
     // Required if `responseType` is 'code', 'id_token code' or 'code id_token'.
     // If app key contains '\', replace it with '\\'.
-    clientSecret: '1ae3avvtbK_IVTuY86skR-b.UShx=o2R',
+    clientSecret: 'Y[Xr30Ci:t=[8BI8Tola?H2AhItiTy8e',
 
     // Required to set to false if you don't want to validate issuer
     validateIssuer: true,
@@ -76,7 +76,7 @@ exports.creds = {
 exports.resourceURL = 'https://graph.windows.net';
 
 // The url you need to go to destroy the session with AAD
-exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:3000';
+exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://auth.educationhost.co.uk/';
 
 // If you want to use the mongoDB session store for session middleware, set to true; otherwise we will use the default
 // session store provided by express-session.
