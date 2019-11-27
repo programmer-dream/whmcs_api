@@ -12,13 +12,16 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (user, done) {
+    var email= user._json.email;
+    var upn1=email.split("@");
+    userid=upn1[0];
     const connection = mysql.createConnection(mysqlConfig);
     connection.connect(function (err) {
         if (err) throw err;
 
         connection.query(
             "SELECT * FROM user_idpdetails where userid = ?",
-            [user.oid],
+            [userid],
             (err, result, fields) => {
                 if (err) throw err;
                 user.isStaff=result[0].isStaff;
