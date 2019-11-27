@@ -8,6 +8,14 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const session = require("express-session");
+app.use(
+    session({
+        resave: true,
+        saveUninitialized: true,
+        secret: "EHsecret",
+        expires: new Date(Date.now() + 30 * 86400 * 1000)
+    })
+);
 const cpanel = require('cpanel-lib');
 
 require("./config/passport.js");
@@ -18,14 +26,7 @@ app.use(cookieParser());
 const cpanelAccount = require('./config/whmcs').accountName;
 
 const cpoptions = require("./config/cpanel.js");
-app.use(
-    session({
-        resave: true,
-        saveUninitialized: true,
-        secret: "EHsecret",
-        expires: new Date(Date.now() + 30 * 86400 * 1000)
-    })
-);
+
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs')
@@ -105,10 +106,6 @@ app.use('/api/user', userRoutes);
 //	key: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/privkey.pem")
 //};
 
-const options = {
-	cert: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml-azuread/sslcert/fullchain.pem"),
-	key: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml-azuread/sslcert/privkey.pem")
-};
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
