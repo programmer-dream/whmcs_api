@@ -100,6 +100,16 @@ app.use('/api/user', userRoutes);
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//const options = {
+//	cert: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/fullchain.pem"),
+//	key: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/privkey.pem")
+//};
+
+const options = {
+	cert: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml-azuread/sslcert/fullchain.pem"),
+	key: fs.readFileSync("/home/" + cpanelAccount + "/AD-saml-azuread/sslcert/privkey.pem")
+};
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// Create server and HTTPS connection//////////////////////////////

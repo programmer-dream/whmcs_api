@@ -18,7 +18,7 @@ const getTimestamp = require("../../utils/getTimestamp");
 router.post('/auth/openid/return',
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     function(req, res) {
-       var email= req.user._json.email;
+      var email= req.user._json.email;
        var firstname=req.user.name.givenName;
        var userid=req.user.oid;
        var lastname=req.user.name.familyName;
