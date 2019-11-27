@@ -6,7 +6,7 @@ const mysqlConfig = require("./sql");
 // Get the cpanelAccount from config
 const cpanelAccount = require('./whmcs').accountName;
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-var config = require('./config');
+var config = require('./config.live');
 passport.serializeUser(function (user, done) {
 	done(null, user);
 });

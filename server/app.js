@@ -101,10 +101,7 @@ app.use('/api/user', userRoutes);
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//const options = {
-//	cert: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/fullchain.pem"),
-//	key: fs.readFileSync("E:/projects/AzureAd/AD-saml/sslcert/privkey.pem")
-//};
+
 
 
 
