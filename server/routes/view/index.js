@@ -28,9 +28,7 @@ router.get("/", (req, res) => {
 // @desc 	Serves the home page
 // @access 	Public
 router.get("/home",ensureAuthenticated, (req, res) => {
-	res.sendFile('home.html', {
-		root
-	});
+	res.render("home");
 });
 
 // @route 	GET /whmcs
@@ -72,7 +70,6 @@ router.get('/login',
 
 
 function ensureAuthenticated(req, res, next) {
-	var a=req.isAuthenticated();
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
 };

@@ -1,2 +1,5 @@
 node_modules/
 .idea/
+server/config/config.demo.js
+server/config/config.live.js
+server/config/sql.js

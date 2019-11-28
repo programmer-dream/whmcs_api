@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Login">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Home</title>
+
+    <!-- Axios CDNs -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <!--BSStepper CDN -->
+    <link rel="stylesheet" href="/css/bs-stepper.min.css">
+    <script src="/js/bs-stepper.min.js"></script>
+
+
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/home.css" type="text/css" />
+
+    <base href="/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Fontawesome CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Include bootstrap-multiselect CSS and JS: -->
+    <script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css" />
+
+    <!-- Spinner css for buttons -->
+    <link rel="stylesheet" href="/css/spinner.css" type="text/css" />
+
+    <script type="text/javascript">
+        // Code to init the stepper
+        var stepper1 = null
+
+        document.addEventListener('DOMContentLoaded', function () {
+            stepper1 = new Stepper(document.querySelector('#stepper1'), {
+                linear: false,
+                animation: true
+            });
+        });
+
+        $(document).ready(function () {
+            // Student Spinner
+            $('#studentspinner').click(function () {
+                $(this).toggleClass('active');
+                student();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+
+            // Staff Spinner
+            $('#staffspinner').click(function () {
+                $(this).toggleClass('active');
+                staff();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+
+            // Make a request for the whmcs route using axios
+            axios.get('/api/user')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
+
+                    // log all data thats returned
+                    console.log(data);
+
+
+                    if (data) {
+                        // Remove special characters for the userid (to set the domain)
+
+                        var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ')
+                            .join('-');
+
+                        // Set text for the domain
+
+                        // Set text for the domain
+                        $("#txtDomain").text(useridrmspchar + '.' + data.domainname);
+
+
+                        // Show the modal
+                        $('#newuser').modal('show');
+
+                        var modulenames = [data.module1, data.module2, data.module3, data.module4, data.module5,
+                            data.module6,"STAFF"
+                        ];
+
+                        $.each(modulenames, function (i, modulenames) {
+                            $('#example-dropright').append($('<option>').text(modulenames).attr('value',
+                                modulenames));
+                        });
+
+
+                        $('#example-dropright').multiselect({
+                            //...
+                            onChange: function () {
+                                var selected = ($('#example-dropright').val());
+                                console.log(selected);
+                            }
+                        });
+                    }
+
+                    $('#example-dropright').multiselect({
+                        checkboxName: function (option) {
+                            return 'multiselect[]';
+                        },
+                        buttonWidth: '400px',
+                        dropRight: true
+                    });
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        }); // end of doc ready
+
+
+        /// STUDENT FUNCTION
+
+        function student(data, res) {
+            /// main student function for setting up whmcs account and service
+            axios.get('/api/user')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
+
+                    // log all data thats returned
+                    console.log(data);
+
+                    // create variables for the service to send to the route
+                    var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                    var fulldomain = useridrmspchar + '.' + data.domainname;
+                    var nameserver1 = 'ns1.' + data.domainname;
+                    var nameserver2 = 'ns2.' + data.domainname;
+
+                    // Send a POST request
+                    axios({
+                        method: 'post',
+                        url: '/api/student',
+                        data: {
+                            ID: data.ID,
+                            userid: data.userid,
+                            domainname: data.domainname,
+                            fulldomain: fulldomain,
+                            nameserver1: nameserver1,
+                            nameserver2: nameserver2,
+                            email: data.email,
+                            firstname: data.firstname,
+                            lastname: data.lastname,
+                            Address1: data.Address1,
+                            Address2: data.Address2,
+                            City: data.City,
+                            State: data.State,
+                            Postcode: data.Postcode,
+                            Country: data.Country,
+                            Phone: data.Phone,
+                            selected: $('#example-dropright').val()
+
+                            // selected modules will need to go in here
+                            // array?
+                            // -------------
+
+                        }
+
+                    }).then(function (response) {
+                        if (response.data === 'SUCCESS') {
+                            window.location.href = "/";
+
+                        }
+                    });
+
+                });
+
+
+
+        }; // End of student function
+
+        // STAFF FUNCTION
+        //
+        function staff(data, res) {
+
+            axios.get('/api/user')
+                .then(function (response) {
+                    // Get the client data from the response
+                    var data = response.data[0];
+
+                    // log all data thats returned
+                    console.log(data);
+
+                    // create variables for the service to send to the route
+                    var useridrmspchar = data.userid.toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                    var fulldomain = useridrmspchar + '.' + data.domainname;
+                    var nameserver1 = 'ns1.' + data.domainname;
+                    var nameserver2 = 'ns2.' + data.domainname;
+
+                    // Send a POST request
+                    axios({
+                        method: 'post',
+                        url: '/api/staff',
+                        data: {
+                            ID: data.ID,
+                            userid: data.userid,
+                            domainname: data.domainname,
+                            fulldomain: fulldomain,
+                            nameserver1: nameserver1,
+                            nameserver2: nameserver2,
+                            email: data.email,
+                            firstname: data.firstname,
+                            lastname: data.lastname,
+                            Address1: data.Address1,
+                            Address2: data.Address2,
+                            City: data.City,
+                            State: data.State,
+                            Postcode: data.Postcode,
+                            Country: data.Country,
+                            Phone: data.Phone
+
+                            // selected modules will need to go in here
+                            // array?
+                            // -------------
+
+                        }
+
+                    }).then(function (response) {
+                        if (response.data === 'SUCCESS') {
+                            window.location.href = "/";
+
+                        }
+                    });
+
+                });
+
+
+
+        }; // End of staff function
+    </script>
+
+    <style>
+        .h1,
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        .h2,
+        h2 {
+            font-size: 1.5rem;
+        }
+    </style>
+
+</head>
+
+<body>
+<div role="main">
+    <!-- Modal start -->
+    <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="newusertitle">
+                        New user - Getting started
+                    </h1>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">
+								&times;
+							</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+
+                    <div id="stepper1" class="bs-stepper">
+                        <div class="bs-stepper-header" role="tablist">
+                            <div class="step" data-target="#test-l-1">
+                                <button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
+                                        aria-controls="test-l-1">
+                                    <span class="bs-stepper-circle">1</span>
+                                    <span class="bs-stepper-label">Step one</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-l-2">
+                                <button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
+                                        aria-controls="test-l-2">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Step two</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-l-3">
+                                <button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
+                                        aria-controls="test-l-3">
+                                    <span class="bs-stepper-circle">3</span>
+                                    <span class="bs-stepper-label">Step three</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <form onSubmit="return false">
+                                <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+                                     aria-labelledby="stepper1trigger1">
+                                    <p class="text-center">
+                                    <p></p>
+                                    The first time you use the service we have a few things to setup for you...
+
+                                    <p></p>
+                                    Your website domain will be:
+                                    <p></p>
+
+                                    <p></p>
+
+                                    <p class="text-center">
+                                        <b>
+                                            <i id="txtDomain"></i>
+                                        </b>
+                                    </p>
+
+                                    <p></p>
+                                    </p>
+                                    <p class="text-right">
+                                        <button class="btn btn-primary" title="Click Next to go to Step Two"
+                                                onclick="stepper1.next()">Next</button>
+                                    </p>
+                                </div>
+                                <div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+                                     aria-labelledby="stepper1trigger2">
+                                    <p class="text-center">
+                                        <b>Tell us about the modules you are taking.</b>
+                                    <p>
+                                    <p class="text-center">We will use this to setup folders for you to put
+                                        your
+                                        work!</p>
+                                    <p></p>
+                                    <p class="text-center">Lecturers will use this to know locate your work!
+                                    </p>
+
+
+                                    <p class="text-center">
+                                        <select id="example-dropright" name="multiselect[]"
+                                                multiple="multiple" required="required">
+
+                                        </select>
+                                    </p>
+
+                                    </p>
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                    </p>
+                                    <p class="text-right">
+                                        <button class="btn btn-primary" title="Click Next to go to Step Three"
+                                                onclick="stepper1.next()">Next</button>
+                                    </p>
+                                </div>
+                                <div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center"
+                                     aria-labelledby="stepper1trigger3">
+                                    <p class="text-center">
+
+                                        <div class="card-deck">
+                                            <div class="card">
+                                                <img class="card-img-top" src="/images/student.jpg"
+                                                     alt="Student account" width="100%" height="50%">
+                                                <div class="card-body">
+                                                    <h2 class="card-title border-bottom pb-3">Student account</a>
+                                                    </h2>
+                                    <p class="card-text">If you are a student, select this account.
+                                        Your
+                                        web
+                                        hosting package will be available to you during your time at
+                                        university. Account setup can take a couple of minutes to
+                                        complete.
+                                    </p>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" title="Create a Student Account"
+                                                id="studentspinner"
+                                                class="btn btn-success  has-spinner"><span
+                                                    class="spinner"><i style="color: white;"
+                                                                       class="fa fa-spinner fa-spin">
+																	</i></span> Click Here</button>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="/images/staff.jpg"
+                                 alt="Staff account" width="100%" height="50%">
+                            <div class="card-body">
+                                <h2 class="card-title border-bottom pb-3">Lecturer account</h2>
+                                <p class="card-text">If you are a Lecturer, select
+                                    this
+                                    account. This account type requires email validation to
+                                    validate
+                                    your status as a lecturer.</p>
+                                <div class="d-flex justify-content-end align-items-end"
+                                     style="height: 40%">
+                                    <button type="button" title="Create a Lecturer Account"
+                                            id="staffspinner"
+                                            class="btn btn-secondary has-spinner"><span
+                                                class="spinner"><i class="fa fa-spinner fa-spin">
+																	</i></span> Click Here</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </p>
+                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</div> <!-- End of main aria area-->
+</body>
+
+</html>
