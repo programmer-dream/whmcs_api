@@ -19,12 +19,10 @@ var sequelize = new Sequelize(config.database, config.user, config.password,{ ho
 var models = require('sequelize-auto-import')(sequelize, config.dirPath);
 var user_idpdetails=models.user_idpdetails;
 var client_details=models.client_details;
-var client_availablemodules=models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: 'universityid' });
-client_details.hasMany(client_availablemodules, { foreignKey: 'universityid' });
 user_idpdetails.belongsTo(client_details, { foreignKey: 'universityid' });
-user_idpdetails.belongsTo(client_availablemodules, { foreignKey: 'universityid' });
-client_availablemodules.belongsTo(client_details, { foreignKey: 'universityid' });
+
+
 // CRUD Array
 var User_idpdetail = {
     getUserBySessionId:function (id,callback) {
@@ -33,9 +31,9 @@ var User_idpdetail = {
             include:[{model:client_details,required:true}],
         }).then(function (value) {
             //returning the value here
-            callback(value);
+            callback({message:"success",data:value});
         }).catch(function (err) {
-            callback("Failed to Retrieve")
+            callback({message:"error",data:err.message});
         });
     },
     getUserIdpDetailByEmail:function (email,callback) {

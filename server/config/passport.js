@@ -7,7 +7,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (user, done) {
-    var email= user._json.email;
+    var email= user.upn;
     user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
         if(result.data.length>0){
             user.isStaff=result.data[0].isStaff;

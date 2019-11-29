@@ -5,7 +5,7 @@ const passport = require('passport');
 
 // Gets the client folder which is needed to serve html files
 const root = path.join(__dirname, '../../../client');
-
+const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // @route	GET /test
 // @desc	Serves the test page
 // @access 	Public
@@ -28,7 +28,13 @@ router.get("/", (req, res) => {
 // @desc 	Serves the home page
 // @access 	Public
 router.get("/home",ensureAuthenticated, (req, res) => {
-	res.render("home");
+    user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
+		if(data.message=="success"){
+			var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
+            res.render("home",{domain:domain});
+		}
+    })
+
 });
 
 // @route 	GET /whmcs

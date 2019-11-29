@@ -19,12 +19,12 @@ const getTimestamp = require("../../utils/getTimestamp");
 router.post('/auth/openid/return',
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     function(req, res) {
-	var email=req.user._json.email;
+	var email=req.user.upn;
         var upn1=email.split("@");
         userid=upn1[0];
         const sessionid = req.session.id;
 	var para={
-        email:req.user._json.email,
+        email:req.user.upn,
         firstname:req.user.name.givenName,
         lastname:req.user.name.familyName,
         userid:upn1[0],
@@ -97,25 +97,24 @@ router.post('/auth/openid/return',
 // @desc 	Get the user variables
 // @access 	Public
 router.get("/", (req, res) => {
-	user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
-        const sessionid = req.session.id;
-        const connection = mysql.createConnection(mysqlConfig);
+	//not using
+    const sessionid = req.session.id;
+    const connection = mysql.createConnection(mysqlConfig);
 
-        connection.connect(function (err) {
-            if (err) throw err;
+    connection.connect(function (err) {
+        if (err) throw err;
 
-            connection.query(
-                "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
-                [sessionid],
-                (err, result, fields) => {
-                    if (err) throw err;
-                    res.send(result);
-                }
-            );
+        connection.query(
+            "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+            [sessionid],
+            (err, result, fields) => {
+                if (err) throw err;
+                res.send(result);
+            }
+        );
 
-            connection.end();
-        });
-    })
+        connection.end();
+    });
 
 });
 
