@@ -17,6 +17,7 @@ const getTimestamp = require("../../utils/getTimestamp");
 // @desc 	Callback for the saml login
 // @access 	Private
 router.post('/auth/openid/return',
+
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     function(req, res) {
 	var email=req.user.upn;
@@ -93,6 +94,8 @@ router.post('/auth/openid/return',
             }
         })
     });
+
+	
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
