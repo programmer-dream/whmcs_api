@@ -1,39 +1,19 @@
-const fs = require('fs');
 const passport = require('passport');
-const SamlStrategy = require('passport-saml').Strategy;
-const mysql = require("mysql");
-const mysqlConfig = require("./sql");
-// Get the cpanelAccount from config
-const cpanelAccount = require('./whmcs').accountName;
+var user_idpdetailBal=require("../../Bal/user_idpdetails");
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-var config = require('./config.live');
+var config = require('./config.demo');
 passport.serializeUser(function (user, done) {
 	done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
-    var email= user._json.email;
-    var upn1=email.split("@");
-    userid=upn1[0];
-    const connection = mysql.createConnection(mysqlConfig);
-    connection.connect(function (err) {
-        if (err) throw err;
-
-        connection.query(
-            "SELECT * FROM user_idpdetails where userid = ?",
-            [userid],
-            (err, result, fields) => {
-                if (err) throw err;
-                user.isStaff=result[0].isStaff;
-                done(null, user);
-            }
-        );
-
-        connection.end();
-    });
-
-
-
+    var email= user.upn;
+    user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
+        if(result.data.length>0){
+            user.isStaff=result.data[0].isStaff;
+            done(null, user);
+        }
+    })
 });
 // array to hold logged in users
 var users = [];
@@ -91,8 +71,5 @@ passport.use(new OIDCStrategy({
         });
     }
 ));
-
-
-
 
 module.exports = passport;

@@ -9,7 +9,7 @@ exports.creds = {
     // To use the common endpoint, you have to either set `validateIssuer` to false, or provide the `issuer` value.
 
     // Required, the client ID of your app in AAD
-    clientID: '8020a30a-ffc3-4243-9bc3-6d09a1776196',
+    clientID: '01510ec9-1617-4aed-b1d8-367c322aefca',
 
     // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
     responseType: 'code id_token',
@@ -19,14 +19,14 @@ exports.creds = {
 
     // Required, the reply URL registered in AAD for your app
     //redirectUrl: 'http://localhost:8080/api/user/auth/openid/return',
-    redirectUrl: 'https://auth.educationhost.co.uk/api/user/auth/openid/return',
+    redirectUrl: 'http://localhost:8080/api/user/auth/openid/return',
 
     // Required if we use http for redirectUrl
     allowHttpForRedirectUrl: true,
 
     // Required if `responseType` is 'code', 'id_token code' or 'code id_token'.
     // If app key contains '\', replace it with '\\'.
-    clientSecret: '1ae3avvtbK_IVTuY86skR-b.UShx=o2R',
+    clientSecret: 'xX2M30tY2lAcgrzoiIUY?GDvBsIvO.[[',
 
     // Required to set to false if you don't want to validate issuer
     validateIssuer: true,
@@ -78,7 +78,7 @@ exports.resourceURL = 'https://graph.windows.net';
 
 // The url you need to go to destroy the session with AAD
 //exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:3000';
-exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://auth.educationhost.co.uk';
+exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:8080/';
 
 // If you want to use the mongoDB session store for session middleware, set to true; otherwise we will use the default
 // session store provided by express-session.

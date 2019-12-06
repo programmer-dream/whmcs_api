@@ -12,7 +12,7 @@ const root = path.join(__dirname, '../../../../AD-saml/client/staff');
 // @desc 	Serves the staff dashboard
 // @access 	Public
 router.get("/dashboard",ensureAuthenticated, function (req, res) {
-	res.render('dashboard',{email:req.user._json.email});
+	res.render('dashboard',{email:req.user.upn});
 });
 
 // @route 	GET /staff/login
