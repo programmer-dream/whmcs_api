@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    module7: {
+      type: DataTypes.STRING(10),
+      allowNull: true
+    },
     universityid: {
       type: DataTypes.INTEGER(11),
       allowNull: false,

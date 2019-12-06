@@ -30,8 +30,18 @@ router.get("/", (req, res) => {
 router.get("/home",ensureAuthenticated, (req, res) => {
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
 		if(data.message=="success"){
-			var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
-            res.render("home",{domain:domain});
+			user_idpdetailBal.getModules(data.data[0].client_detail.dataValues.universityid,function (data1,err1) {
+                if(data.message=="success"){
+                    var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
+                    if(data1.data.length>0){
+                        res.render("home",{domain:domain,option:data1.data[0].dataValues});
+					}else{
+                    	res.send("There are no modules in database");
+					}
+
+                }
+            })
+
 		}
     })
 

@@ -320,19 +320,20 @@ $(document).ready(function () {
             return a;
           }
         },
-        {
-          name: "cPanel",
-          title: "cPanel",
-          type: "text",
-          filtering: false,
-          width: 60,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" "width="32" height="32">';
+          {
+              name: "username",
+              title: "cPanel",
+              type: "text",
+              filtering: false,
+              width: 60,
+              align: "center",
+              itemTemplate: function (value) {
+                  return '<a href="/api/staff/opencpanel/'+ value +'"  target="_blank"><img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" " width="32" height="32"></a>';
 
-            return "";
-          }
-        },
+                  return "";
+
+              }
+          },
         {
           name: "filemanager",
           title: "File Manager",

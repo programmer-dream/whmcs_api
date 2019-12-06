@@ -5,7 +5,7 @@ const cpanel = require("cpanel-lib");
 const btoa = require("btoa");
 const base64_encode = require('locutus/php/url/base64_encode');
 const serialize = require('locutus/php/var/serialize');
-
+const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services } = require("whmcs-js");
 
@@ -13,271 +13,265 @@ const { Clients, Orders, Services } = require("whmcs-js");
 const whmcsConfig = require("../../config/whmcs");
 
 // Id for the student product
-const studentProductId = 64;
+const studentProductId = 1;
 
 // @route 	GET api/student/example
 // @desc 	Example student route
 // @access 	Public
-router.get("/example", (req, res) => {
-  res.json({
-    msg: "example student works"
-  });
-});
+
 
 // @route 	POST api/student/
 // @desc 	Example student route
 // @access 	Public
-router.post("/", (req, res) => {
-  // Gets the student modules back from the student function
-  // This will be used to create the module folders
-  const studentModules = req.body.selected;
+router.post("/",ensureAuthenticated, (req, res) => {
+    // Gets the student modules back from the student function
+    // This will be used to create the module folders
+    var studentModules=JSON.parse(req.body.module);
 
-  if (studentModules != null) {
-    console.log(studentModules);
-  }
-
-  // Set up the module with the config file
-  // and store it in this variable - can be called anything you want
-  const addClient = new Clients(whmcsConfig);
-
-  // 47 is the ID in tblcustomfields for the customfield
-  // data[0] is the data passed to the page
-  const module = {
-    47: studentModules[0],
-    48: studentModules[1],
-    49: studentModules[2],
-    50: studentModules[3],
-    51: studentModules[4],
-    52: studentModules[5]
-  }
-
-  // Serialize
-  const moduleserial = serialize(module);
-
-  // Call the getClients call and store the data in the variable called
-  addClient
-    .addClient({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      address1: req.body.Address1,
-      address2: req.body.Address2,
-      city: req.body.City,
-      state: req.body.State,
-      postcode: req.body.Postcode,
-      country: req.body.Country,
-      // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
-      customfields: base64_encode(moduleserial),
-      phonenumber: req.body.Phone,
-      notes: "Created through Education Host AD login",
-      language: "english",
-      skipvalidation: true
-    })
-    .then(function (addClientResponse) {
-      /* RETURNS 
-				{
-					result: 'success', 
-					clientid: 72
-				}
-			*/
-
-      console.log(addClientResponse);
-
-      // Once the user is added in WHMCS, then add the service
-      const addOrder = new Orders(whmcsConfig);
-
-      addOrder
-        .addOrder({
-          clientid: addClientResponse.clientid,
-          // This product id relates to the student service
-          pid: studentProductId,
-          domain: req.body.fulldomain,
-          nameserver1: req.body.nameserver1,
-          nameserver2: req.body.nameserver2,
-          paymentmethod: "banktransfer",
-          noemail: true,
-          noinvoice: true,
-          noinvoiceemail: true
-        })
-        .then(function (addOrderResponse) {
-          /* RETURNS 
-						{
-							result: 'success',
-							orderid: 47,
-							productids: '43',
-							addonids: '',
-							domainids: ''
-						}
-					*/
-
-          console.log(addOrderResponse);
-
-          // Once the service is added approve the service automatically
-          const acceptOrder = new Orders(whmcsConfig);
-
-          acceptOrder
-            .acceptOrder({
-              orderid: addOrderResponse.orderid,
-              acceptOrder: 1,
-              sendemail: 0
-            })
-
-            .then(function (acceptOrder) {
-              /* RETURNS 
-								{
-									result: 'success'
-								}							               
-							*/
-
-              console.log(acceptOrder);
-
-              // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
-              // This will be a random string with the mat.random function
-              const updateClientProduct = new Services(whmcsConfig);
-              const randomstring = generateRandomString();
-              console.log(randomstring);
-
-              updateClientProduct
-                .updateClientProduct({
-                  serviceid: addOrderResponse.productids,
-                  serviceusername: randomstring
+    const module = {
+        1: studentModules[0]!=undefined?studentModules[0]:"",
+        2: studentModules[1]!=undefined?studentModules[1]:"",
+        3: studentModules[2]!=undefined?studentModules[2]:"",
+        4: studentModules[3]!=undefined?studentModules[3]:"",
+        5: studentModules[4]!=undefined?studentModules[4]:"",
+        6: studentModules[5]!=undefined?studentModules[5]:"",
+    }
+    // Serialize
+    const moduleserial = serialize(module);
+    user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
+        if(data.message=="success"){
+            // Call the getClients call and store the data in the variable called
+            const addClient = new Clients(whmcsConfig);
+            addClient.addClient({
+                    firstname: data.data[0].dataValues.firstname,
+                    lastname: data.data[0].dataValues.lastname,
+                    email: data.data[0].dataValues.email,
+                    address1: data.data[0].dataValues.client_detail.dataValues.Address1,
+                    address2: data.data[0].dataValues.client_detail.dataValues.Address2,
+                    city: data.data[0].dataValues.client_detail.dataValues.City,
+                    state: data.data[0].dataValues.client_detail.dataValues.State,
+                    postcode: data.data[0].dataValues.client_detail.dataValues.Postcode,
+                    country: data.data[0].dataValues.client_detail.dataValues.Country,
+                    // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
+                    customfields: base64_encode(moduleserial),
+                    phonenumber: data.data[0].dataValues.client_detail.dataValues.Phone,
+                    notes: "Created through Education Host AD login",
+                    language: "english",
+                    skipvalidation: true
                 })
-                .then(function (updateClientProductResponse) {
-                  /* RETURNS 
-                  						sonsfa9
-                  						{
-											result: 'success',
-											serviceid: '34'
-										}										              
-                  					*/
-
-                  console.log(updateClientProductResponse);
-
-                  // create the accepted order
-                  const moduleCreate = new Services(whmcsConfig);
-                  moduleCreate
-                    .moduleCreate({
-                      serviceid: updateClientProductResponse.serviceid
-                    })
-                    .then(function (moduleCreateResponse) {
-                      console.log(
-                        "Module creation response",
-                        moduleCreateResponse
-                      );
-
-                      ////////////////////////////////////////////////////////
-                      // There needs to be a password change here to a random charater password
-                      // This is to authenticate the user so that folders can be created
-                      ////////////////////////////////////////////////////////
-
-                      // update client password so that we can connect to the cpanel API
-                      const updateClientPassword = new Services(whmcsConfig);
-                      const newuserpassword =
-                        Math.random()
-                          .toString(36)
-                          .slice(2) +
-                        Math.random()
-                          .toString(36)
-                          .slice(2);
-
-                      updateClientPassword
-                        .moduleChangePw({
-                          serviceid: updateClientProductResponse.serviceid,
-                          servicepassword: newuserpassword
-                        })
-                        .then(function (updateClientPasswordResponse) {
-                          console.log(
-                            "Password update response",
-                            updateClientPasswordResponse
-                          );
-                          // Set the cPanel variables for connection
-
-                          ////////////////////////////////////////////////////////
-                          // The password below should be the password that has been changed above and passed into the options
-                          ////////////////////////////////////////////////////////
-                          console.log(updateClientPasswordResponse);
-
-                          var cpoptions = {
-                            host: "benu.zjnucomputing.com",
-                            // EH Live host
-                            //host: 'benu.zjnucomputing.com',
-                            port: 2083,
-                            secure: true,
-                            // The username is driven from the random username created when creating the service
-                            username: randomstring,
-                            // USE the newly generated password
-                            password: newuserpassword,
-                            ignoreCertError: true
-                          };
-
-                          ////////////////////////////////////////////////////////
-                          //Setup the folders/////////////////////////////////////
-                          ////////////////////////////////////////////////////////
-
-                          var cpanelClient = cpanel.createClient(cpoptions);
-                          var count = 0;
-
-                          console.log(
-                            "studentModules count",
-                            studentModules.length
-                          );
-
-                          do {
-                            var smodules = studentModules[count];
-
-                            console.log(
-                              "DO while ran, Number of modules: ",
-                              smodules
-                            );
-
-                            cpanelClient.callApi2(
-                              "Fileman",
-                              "mkdir",
+                .then(function (addClientResponse) {
+                    /* RETURNS
                               {
-                                path: "/home/" + randomstring + "/public_html/",
-                                name: smodules,
-                                permissions: "755"
-                              },
-                              function (err, res) {
-                                if (err) {
-                                  console.log(
-                                    `error creating cPanel folfder, on do-while iteration number ${count}`,
-                                    err
-                                  );
-                                } else {
-                                  console.log("Result: %j", res);
-                                }
+                                  result: 'success',
+                                  clientid: 72
                               }
-                            );
-                            count++;
-                          } while (count != studentModules.length);
-                          res.send("SUCCESS");
+                          */
+
+                    console.log(addClientResponse);
+
+                    // Once the user is added in WHMCS, then add the service
+                    const addOrder = new Orders(whmcsConfig);
+                    var fulldomain = data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
+                    var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                    var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                    addOrder
+                        .addOrder({
+                            clientid: addClientResponse.clientid,
+                            // This product id relates to the student service
+                            pid: studentProductId,
+                            domain: fulldomain,
+                            nameserver1: nameserver1,
+                            nameserver2: nameserver2,
+                            paymentmethod: "banktransfer",
+                            noemail: true,
+                            noinvoice: true,
+                            noinvoiceemail: true
+                        })
+                        .then(function (addOrderResponse) {
+                            /* RETURNS
+                                          {
+                                              result: 'success',
+                                              orderid: 47,
+                                              productids: '43',
+                                              addonids: '',
+                                              domainids: ''
+                                          }
+                                      */
+
+                            console.log(addOrderResponse);
+
+                            // Once the service is added approve the service automatically
+                            const acceptOrder = new Orders(whmcsConfig);
+
+                            acceptOrder
+                                .acceptOrder({
+                                    orderid: addOrderResponse.orderid,
+                                    acceptOrder: 1,
+                                    sendemail: 0
+                                })
+
+                                .then(function (acceptOrder) {
+                                    /* RETURNS
+                                                      {
+                                                          result: 'success'
+                                                      }
+                                                  */
+
+                                    console.log(acceptOrder);
+
+                                    // Usernames can be tricky, and because there could be two people with the same name, we need to create a new service username
+                                    // This will be a random string with the mat.random function
+                                    const updateClientProduct = new Services(whmcsConfig);
+                                    const randomstring = generateRandomString();
+                                    console.log(randomstring);
+
+                                    updateClientProduct
+                                        .updateClientProduct({
+                                            serviceid: addOrderResponse.productids,
+                                            serviceusername: randomstring
+                                        })
+                                        .then(function (updateClientProductResponse) {
+                                            /* RETURNS
+                                                                    sonsfa9
+                                                                    {
+                                                                      result: 'success',
+                                                                      serviceid: '34'
+                                                                  }
+                                                                */
+
+                                            console.log(updateClientProductResponse);
+
+                                            // create the accepted order
+                                            const moduleCreate = new Services(whmcsConfig);
+                                            moduleCreate
+                                                .moduleCreate({
+                                                    serviceid: updateClientProductResponse.serviceid
+                                                })
+                                                .then(function (moduleCreateResponse) {
+                                                    console.log(
+                                                        "Module creation response",
+                                                        moduleCreateResponse
+                                                    );
+
+                                                    ////////////////////////////////////////////////////////
+                                                    // There needs to be a password change here to a random charater password
+                                                    // This is to authenticate the user so that folders can be created
+                                                    ////////////////////////////////////////////////////////
+
+                                                    // update client password so that we can connect to the cpanel API
+                                                    const updateClientPassword = new Services(whmcsConfig);
+                                                    const newuserpassword =
+                                                        Math.random()
+                                                            .toString(36)
+                                                            .slice(2) +
+                                                        Math.random()
+                                                            .toString(36)
+                                                            .slice(2);
+
+                                                    updateClientPassword
+                                                        .moduleChangePw({
+                                                            serviceid: updateClientProductResponse.serviceid,
+                                                            servicepassword: newuserpassword
+                                                        })
+                                                        .then(function (updateClientPasswordResponse) {
+                                                            console.log(
+                                                                "Password update response",
+                                                                updateClientPasswordResponse
+                                                            );
+                                                            // Set the cPanel variables for connection
+
+                                                            ////////////////////////////////////////////////////////
+                                                            // The password below should be the password that has been changed above and passed into the options
+                                                            ////////////////////////////////////////////////////////
+                                                            console.log(updateClientPasswordResponse);
+
+                                                            var cpoptions = {
+                                                                host: "benu.zjnucomputing.com",
+                                                                // EH Live host
+                                                                //host: 'benu.zjnucomputing.com',
+                                                                port: 2083,
+                                                                secure: true,
+                                                                // The username is driven from the random username created when creating the service
+                                                                username: randomstring,
+                                                                // USE the newly generated password
+                                                                password: newuserpassword,
+                                                                ignoreCertError: true
+                                                            };
+
+                                                            ////////////////////////////////////////////////////////
+                                                            //Setup the folders/////////////////////////////////////
+                                                            ////////////////////////////////////////////////////////
+
+                                                            var cpanelClient = cpanel.createClient(cpoptions);
+                                                            var count = 0;
+
+                                                            console.log(
+                                                                "studentModules count",
+                                                                studentModules.length
+                                                            );
+
+                                                            do {
+                                                                var smodules = studentModules[count];
+
+                                                                console.log(
+                                                                    "DO while ran, Number of modules: ",
+                                                                    smodules
+                                                                );
+
+                                                                cpanelClient.callApi2(
+                                                                    "Fileman",
+                                                                    "mkdir",
+                                                                    {
+                                                                        path: "/home/" + randomstring + "/public_html/",
+                                                                        name: smodules,
+                                                                        permissions: "755"
+                                                                    },
+                                                                    function (err, res) {
+                                                                        if (err) {
+                                                                            console.log(
+                                                                                `error creating cPanel folfder, on do-while iteration number ${count}`,
+                                                                                err
+                                                                            );
+                                                                        } else {
+                                                                            console.log("Result: %j", res);
+                                                                        }
+                                                                    }
+                                                                );
+                                                                count++;
+                                                            } while (count != studentModules.length);
+                                                            res.status(200).json({message:"SUCCESS"});
+                                                        })
+                                                        .catch(function (error) {
+                                                            console.log("Error updating client password", error);
+                                                            res.status(401).json({error:error});
+                                                        });
+                                                })
+                                                .catch(function (error) {
+                                                    console.log("Erro creating module", error);
+                                                    res.status(401).json({error:error});
+                                                });
+                                        })
+                                        .catch(function (error) {
+                                            res.status(401).json({error:error});
+                                        });
+                                })
+                                .catch(function (error) {
+                                    res.status(401).json({error:error});
+                                });
                         })
                         .catch(function (error) {
-                          console.log("Error updating client password", error);
-                          res.send(error);
+                            res.status(401).json({error:error});
                         });
-                    })
-                    .catch(function (error) {
-                      console.log("Erro creating module", error);
-                      res.send(error);
-                    });
                 })
                 .catch(function (error) {
-                  res.send(error);
+                    res.status(401).json({error:error});
                 });
-            })
-            .catch(function (error) {
-              res.send(error);
-            });
-        })
-        .catch(function (error) {
-          res.send(error);
-        });
+        }
     })
-    .catch(function (error) {
-      res.send(error);
-    });
-});
 
+});
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+};
 module.exports = router;

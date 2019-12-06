@@ -10,6 +10,11 @@ var User_idpdetailBal = {
             callback(data);
         })
     },
+    getModules:function (id,callback) {
+        user_idpdetailDal.getModules(id,function (data,err) {
+            callback(data);
+        })
+    },
     addUser_IdpDetail:function (para,callback) {
         user_idpdetailDal.addUser_IdpDetail(para,function (data,err) {
             callback(data);
@@ -17,6 +22,11 @@ var User_idpdetailBal = {
     },
     updateUser_IdpDetail:function (body,callback) {
         user_idpdetailDal.updateUser_IdpDetail(body,function (data,err) {
+            callback(data);
+        })
+    },
+    updateStaf:function (body,callback) {
+        user_idpdetailDal.updateStaf(body,function (data,err) {
             callback(data);
         })
     }

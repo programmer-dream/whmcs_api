@@ -19,6 +19,7 @@ var sequelize = new Sequelize(config.database, config.user, config.password,{ ho
 var models = require('sequelize-auto-import')(sequelize, config.dirPath);
 var user_idpdetails=models.user_idpdetails;
 var client_details=models.client_details;
+var client_availablemodules=models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: 'universityid' });
 user_idpdetails.belongsTo(client_details, { foreignKey: 'universityid' });
 
@@ -38,6 +39,13 @@ var User_idpdetail = {
     },
     getUserIdpDetailByEmail:function (email,callback) {
         user_idpdetails.findAll({where:{email:email}}).then(function (value) {
+            callback({message:"success",data:value});
+        }).catch(function (err) {
+            callback({message:"error",data:err.message});
+        });
+    },
+    getModules:function (id,callback) {
+        client_availablemodules.findAll({where:{universityid:id}}).then(function (value) {
             callback({message:"success",data:value});
         }).catch(function (err) {
             callback({message:"error",data:err.message});
@@ -71,9 +79,17 @@ var User_idpdetail = {
         }).catch(function (err) {
             callback({message:"error",data:err.message});
         });
-
-
-
+    },
+    updateStaf:function (body,callback) {
+        user_idpdetails.findAll({where:{email:body.email}}).then(function (itemInstance) {
+            itemInstance[0].update({
+                isStaff:body.staffnumber,
+            }).then(function (self) {
+                callback({message:"success",data:self});
+            });
+        }).catch(function (err) {
+            callback({message:"error",data:err.message});
+        });
     }
 
 };
