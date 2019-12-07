@@ -15,6 +15,12 @@
   
   .has-spinner.active .spinner {
     opacity: 1;
-    max-width: 50px;
+    max-width: 10px;
     /* More than it will ever come, notice that this affects on animation duration */
   }
+
+/* Add a right margin to each icon */
+.fa {
+    margin-left: -6px;
+    margin-right: 8px;
+}

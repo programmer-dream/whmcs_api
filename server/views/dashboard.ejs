@@ -45,7 +45,7 @@
     <link rel="stylesheet" type="text/css" href="/css/pages/timeline.css">
     <link rel="stylesheet" type="text/css" href="/css/pages/dashboard-ecommerce.css">
     <!-- END: Page CSS-->
-
+    <script src="/vendors/js/tables/jquery-1.12.3.js"></script>
     <!-- BEGIN: Custom CSS-->
     <link type="text/css" href="/css/style.css">
     <!-- END: Custom CSS-->
@@ -146,9 +146,9 @@
                     <ul class="nav navbar-nav float-right">
 
                         <li>
-                            <a class="dropdown-item" href="/"><i class="material-icons">power_settings_new</i>
+                            <a class="dropdown-item" href="/api/user/logout"><i class="material-icons">power_settings_new</i>
                                 Logout</a>
-                </div>
+
                 </li>
                 </ul>
             </div>
@@ -171,15 +171,56 @@
                     <div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
                             src="/images/logo/logo.png" alt="Dashboard Menu logo" />
 
-                        <div class="text-dark">Hello <%= email %></div>
+                        <div class="text-dark">Hello <br> <span style="font-size: 0.8rem"> <%= email %></span></div>
 
                     </div>
                 </div>
                 <div class="main-menu-content">
                     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
+                      
                         <!-- Support Menu-->
                         <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
+                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+                                data-original-title="Support">more_horiz</i>
+                        </li>
+                        <%
+                        
+                          supportMenu.main.forEach(item => {
+                            %>
+                            
+                            <li class=" nav-item">
+                              <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
+                                <i class="material-icons mr-1"><%= item.icon %></i>
+                                <span class="menu-title" data-i18n="nav.support_raise_support.main"><%= item.label %></span>
+                              </a>
+                            </li>
+                            
+                            <%
+                          })
+
+                        %>
+                        <li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
+                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+                                data-original-title="Support">more_horiz</i>
+                        </li>
+                        <%
+                        
+                          supportMenu.other.forEach(item => {
+                            %>
+                            
+                            <li class=" nav-item">
+                              <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
+                                <i class="material-icons mr-1"><%= item.icon %></i>
+                                <span class="menu-title mt-1" data-i18n="nav.support_raise_support.main"><%= item.label %></span>
+                              </a>
+                            </li>
+                            
+                            <%
+                          })
+
+                        %>
+                        <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
                                 class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
                                 data-original-title="Support">more_horiz</i>
                         </li>
@@ -204,7 +245,7 @@
                         <li class=" nav-item"><a href="https://uptime.statuscake.com/?TestID=PzBTSXZwia"
                                 target="_blank"><i class="material-icons">list_alt</i><span class="menu-title"
                                     data-i18n="">Network Monitor</span></a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -313,8 +354,8 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Student Account Manager</h3>
-                                    <a class="heading-elements-toggle"><i
-                                            class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -326,16 +367,93 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard ">
                                         <p>Use the table to search and manage users by the modules they are taking.</p>
-                                        <p>
-                                        </p>
-                                        <div id="jsGrid"></div>
+
+                                        <div id="jsGrid" style="height: 200px; overflow-y: auto;"></div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
                 <!-- Student account data end -->
+                <section id="basic">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Student Account Login Stat</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+
+                                    <div class="card-body card-dashboard ">
+
+
+                                        <!-- Revenue, Hit Rate & Deals -->
+                                        <div class="row">
+                                            <div class=" col-12">
+                                                <div class="card">
+                                                    
+                                                    <div class="card-content collapse show">
+                                                        <div class="card-body pt-0">
+                                                            <div class="row mb-1">
+                                                                <div class="col-6 col-md-4">
+
+                                                                </div>
+                                                                <div class="col-6 col-md-4">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="chartjs">
+                                                                <canvas id="thisYearRevenue" widtsh="400" style="position: absolute; width: 100%"></canvas>
+                                                                <canvas id="lastYearRevenue" widsth="400" style=" width: 100%"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--/ Revenue, Hit Rate & Deals -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Logins</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a href="#">Show all</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody id="logins" style="overflow-y: auto; height: 100%">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></div>
+                    </div>
+                </section>
 
             </div>
         </div>
@@ -348,7 +466,7 @@
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light navbar-border">
         <p class="clearfix blue-grey text-sm-center mb-0 px-2"><span
-                class="float-md-right d-block d-md-inline-block">Copyright &copy; 2019/20 <a
+                class="float-md-right d-block d-md-inline-block">Copyright &copy; <%= copyrightDate%>&nbsp;&nbsp;<a
                     class="text-bold-800 grey darken-2" href="https://www.educationhost.co.uk" target="_blank">Education
                     Host Ltd</a></span></p>
     </footer>
@@ -356,10 +474,29 @@
 
 
     <!-- BEGIN: Vendor JS-->
+
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Vendor JS-->
     <script src="/vendors/js/material-vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+    <script src="/vendors/js/charts/chart.min.js"></script>
+
+
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="/js/core/app-menu.js"></script>
+
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="/js/scripts/pages/material-app.js"></script>
+    <script src="/js/scripts/pages/dashboard-sales.js"></script>
+    <!-- END: Page JS-->
+    <!-- BEGIN: Page Vendor JS-->
+
     <script src="/vendors/js/ui/headroom.min.js"></script>
     <script src="/vendors/js/charts/chartist.min.js"></script>
     <script src="/vendors/js/charts/chartist-plugin-tooltip.min.js"></script>
@@ -367,19 +504,55 @@
     <script src="/vendors/js/charts/morris.min.js"></script>
     <script src="/vendors/js/timeline/horizontal-timeline.js"></script>
     <!-- END: Page Vendor JS-->
+
     <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
     <script src="/vendors/js/tables/jsgrid/griddata.js"></script>
     <script src="/js/scripts/tables/jsgrid/jsgrid.js"></script>
-    <!-- BEGIN: Theme JS-->
-    <script src="/js/core/app-menu.js"></script>
-    <script src="/js/core/app.js"></script>
+
+
+    <!-- BEGIN: Vendor JS-->
+
+
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
     <script src="/js/scripts/pages/material-app.js"></script>
     <script src="/js/scripts/pages/dashboard-ecommerce.js"></script>
     <!-- END: Page JS-->
+    <script src="/js/scripts/pages/dashboard-sales.js"></script>
 
+    <!-- Temporarily here -->
+    <script>
+    
+      // Get Logins
+      fetch('/api/user/getlogincount').then(res => res.json()).then(data => {
+          const userLogins = [
+            {
+              name: 'Nadir Abbas',
+              logins: 99
+            },
+            {
+              name: 'Nick Williams',
+              logins: 99
+            }
+          ]
+
+
+          userLogins.forEach(user => {
+            $('#logins').append(`
+            
+              <tr>
+                <th scope="row" class="border-top-0">${user.name}</th>
+                <td class="border-top-0">${user.logins}</td>
+              </tr>
+
+            `)
+          })
+      }).catch(err => {
+        console.error('Error fetching login count', err)
+      })  
+
+    </script>
 </body>
 <!-- END: Body-->
 

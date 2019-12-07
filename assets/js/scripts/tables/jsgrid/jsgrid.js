@@ -15,6 +15,7 @@ $(document).ready(function () {
 
   $("#basicScenario").jsGrid({
     width: "100%",
+    height:"200px",
     filtering: true,
     editing: false,
     inserting: true,
@@ -320,33 +321,21 @@ $(document).ready(function () {
             return a;
           }
         },
-        {
-          name: "cPanel",
-          title: "cPanel",
-          type: "text",
-          filtering: false,
-          width: 60,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" "width="32" height="32">';
+          {
+              name: "username",
+              title: "cPanel",
+              type: "text",
+              filtering: false,
+              width: 60,
+              align: "center",
+              itemTemplate: function (value) {
+                  return '<a href="/api/staff/opencpanel/'+ value +'"  target="_blank"><img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" " width="32" height="32"></a>';
 
-            return "";
-          }
-        },
-        {
-          name: "filemanager",
-          title: "File Manager",
-          type: "text",
-          filtering: false,
-          width: 80,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/filemanager.png" alt="Single Sign-On link to student FileManager" "width="32" height="32">';
+                  return "";
 
-            return "";
-          }
-        }
-        ,
+              }
+          },
+       
         {
           name: "suspend",
           title: "Suspend",

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Login">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!--BSStepper CDN -->
+    <script src="/bs-stepper.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/home.css" type="text/css" />
+    <base href="/">
+    <link href="https://cdn.jsdelivr.net/npm/multiple-select-js@latest/dist/css/multiple-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/multiple-select-js@latest/dist/js/multiple-select.js"></script>
+    <link rel="stylesheet" href="/css/spinner.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        // Code to init the stepper
+        var stepper1 = null
+
+        document.addEventListener('DOMContentLoaded', function () {
+            stepper1 = new Stepper(document.querySelector('#stepper1'), {
+                linear: false,
+                animation: true
+            });
+        });
+
+        $(document).ready(function () {
+            // Student Spinner
+            $('#studentspinner').click(function () {
+                $(this).toggleClass('active');
+                student();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+
+            // Staff Spinner
+            $('#staffspinner').click(function () {
+                $(this).toggleClass('active');
+                staff();
+                $(this).prop('disabled', true);
+                console.log($(this));
+            });
+
+            $('#newuser').modal('show');
+        }); // end of doc ready
+
+    </script>
+
+</head>
+
+<body>
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+<div role="main">
+    <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="newusertitle">
+                        New user - Getting started
+                    </h1>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">
+								&times;
+							</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="stepperForm" class="bs-stepper">
+                        <div class="bs-stepper-header" role="tablist">
+                            <div class="step" data-target="#test-form-1">
+                                <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="test-form-1">
+                                    <span class="bs-stepper-circle">1</span>
+                                    <span class="bs-stepper-label">Step one</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-form-2">
+                                <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="test-form-2">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Step two</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-form-3">
+                                <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="test-form-3">
+                                    <span class="bs-stepper-circle">3</span>
+                                    <span class="bs-stepper-label">Step three</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <form class="needs-validation" onSubmit="return false" novalidate>
+                                <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
+                                    <p class="text-center">
+                                    <p></p>
+                                    The first time you use the service we have a few things to setup for you...
+
+                                    <p></p>
+                                    Your website domain will be:
+                                    <p></p>
+
+                                    <p></p>
+
+                                    <p class="text-center">
+                                        <b>
+                                            <i id="txtDomain"><%= domain %></i>
+                                        </b>
+                                    </p>
+                                    </p>
+                                    <div class="text-right"><button class="btn btn-primary btn-next-form">Next</button></div>
+
+                                </div>
+                                <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
+                                    <p class="text-center">
+                                        <b>Tell us about the modules you are taking.</b>
+                                    <p>
+                                    <p class="text-center">We will use this to setup folders for you to put
+                                        your
+                                        work!</p>
+                                    <p class="text-center">Lecturers will use this to know locate your work!
+                                    </p>
+
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+
+                                                <select id="example-dropright" multiple  name="multiselect[]" required>
+                                                    <option value="<%= option.module1 %>"><%= option.module1 %></option>
+                                                    <option value="<%= option.module2 %>"><%= option.module2 %></option>
+                                                    <option value="<%= option.module3 %>"><%= option.module3 %></option>
+                                                    <option value="<%= option.module4 %>"><%= option.module4 %></option>
+                                                    <option value="<%= option.module5 %>"><%= option.module5 %></option>
+                                                    <option value="<%= option.module6 %>"><%= option.module6 %></option>
+                                                    <option value="<%= option.module7 %>"><%= option.module7 %></option>
+                                                </select>
+                                                <div style="color:red;">Select at least one option</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+
+                                    <div class="text-right"><button class="btn btn-primary btn-next-form">Next</button></div>
+
+                                </div>
+                                <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="stepperFormTrigger3">
+                                    <div class="card-deck">
+                                        <div class="card">
+                                            <img class="card-img-top" src="/images/student.jpg"
+                                                 alt="Student account" width="100%" height="50%">
+                                            <div class="card-body">
+                                                <h2 class="card-title border-bottom pb-3">Student account
+                                                </h2>
+                                                <p class="card-text">If you are a student, select this account.Your web hosting package will be available to you during your time at university. Account setup can take a couple of minutes to complete.
+                                                </p>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" title="Create a Student Account" id="studentspinner" class="btn btn-success  has-spinner">
+                                                        <span class="spinner">
+                                                            <i style="color: white;" class="fa fa-spinner fa-spin"></i>
+                                                        </span> Click Here</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <img class="card-img-top" src="/images/staff.jpg"
+                                                 alt="Staff account" width="100%" height="50%">
+                                            <div class="card-body">
+                                                <h2 class="card-title border-bottom pb-3">Lecturer account</h2>
+                                                <p class="card-text">If you are a Lecturer, select this account. This account type requires email validation to validate your status as a lecturer.
+                                                    <br><br> </p>
+                                                <div class="d-flex justify-content-end align-items-end">
+                                                    <button type="button" title="Create a Lecturer Account" id="staffspinner" class="btn btn-secondary has-spinner">
+                                                        <span class="spinner"><i class="fa fa-spinner fa-spin"></i>
+                                                        </span> Click Here</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--   submit button here  -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    let multipleSelect = new MultipleSelect('#example-dropright')
+</script>
+
+</div>
+
+</body>
+
+</html>
