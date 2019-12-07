@@ -5,11 +5,6 @@ var User_idpdetailBal = {
             callback(data);
         })
     },
-    getUserLoginCount:function (callback) {
-        user_idpdetailDal.getUserLoginCount(function (data,err) {
-            callback(data);
-        })
-    },
     getUserIdpDetailByEmail:function (email,callback) {
         user_idpdetailDal.getUserIdpDetailByEmail(email,function (data,err) {
             callback(data);
