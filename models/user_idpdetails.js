@@ -45,6 +45,16 @@ module.exports = function(sequelize, DataTypes) {
     expiryDate: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    logins: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '1'
+    },
+    lastLogin: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'user_idpdetails'

@@ -19,13 +19,39 @@ var sequelize = new Sequelize(config.database, config.user, config.password,{ ho
 var models = require('sequelize-auto-import')(sequelize, config.dirPath);
 var user_idpdetails=models.user_idpdetails;
 var client_details=models.client_details;
+var loginhistory=models.loginhistory;
 var client_availablemodules=models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: 'universityid' });
 user_idpdetails.belongsTo(client_details, { foreignKey: 'universityid' });
-
+loginhistory.belongsTo(user_idpdetails, { foreignKey: 'userid' });
 
 // CRUD Array
 var User_idpdetail = {
+    getUserLoginCount:function (callback) {
+        loginhistory.findAll().then(function (value) {
+            //returning the value here
+           var prev=[0,0,0,0,0,0,0,0,0,0,0,0];
+            var current=[0,0,0,0,0,0,0,0,0,0,0,0];
+            for(var i=0;i<value.length;i++){
+                if(value[i].dataValues.date){
+                    var month = (value[i].dataValues.date).getMonth();
+                    var year = (value[i].dataValues.date).getFullYear();
+                    var currentYear = (new Date).getFullYear();
+                    var previousYear = (new Date).getFullYear()-1;
+                    if(year==currentYear){
+                        current[month]=current[month]+1;
+                    }else if(year==previousYear){
+                        prev[month]=prev[month]+1;
+                    }
+                }
+
+            }
+
+            callback({message:"success",current:current,prev:prev});
+        }).catch(function (err) {
+            callback({message:"error",data:err.message});
+        });
+    },
     getUserBySessionId:function (id,callback) {
         user_idpdetails.findAll({
             where:{sessionid:id},
@@ -63,7 +89,15 @@ var User_idpdetail = {
             expiryDate:"0000-00-00"
         });
         user.save().then(function (status) {
-            callback({message:"success",data:status});
+            const logg = loginhistory.build({
+                userid: status.dataValues.ID
+            });
+            logg.save().then(function (data) {
+                callback({message:"success",data:status});
+            }).catch(function (err1) {
+                callback({message:"error",data:err1.message});
+            })
+
         }).catch(function (err) {
             callback({message:"error",data:err.message});
         });
@@ -73,8 +107,17 @@ var User_idpdetail = {
         user_idpdetails.findAll({where:{email:body.email}}).then(function (itemInstance) {
             itemInstance[0].update({
                 sessionid:body.sessionid,
+                lastLogin:new Date(),
+                logins:itemInstance[0].dataValues.logins+1
             }).then(function (self) {
-                callback({message:"success",data:self});
+                const logg = loginhistory.build({
+                    userid: itemInstance[0].dataValues.ID
+                });
+                logg.save().then(function (data) {
+                    callback({message:"success",data:data});
+                }).catch(function (err1) {
+                    callback({message:"error",data:err1.message});
+                })
             });
         }).catch(function (err) {
             callback({message:"error",data:err.message});

@@ -219,7 +219,7 @@ router.get("/staffdashboardlistusers", (req, res) => {
 // @route 	GET api/user/staffdashboardusersupportstats
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/staffdashboardusersupportstats", (req, res) => {
+router.get("/staffdashboardusersupportstats1", (req, res) => {
 	const sessionid = req.session.id;
 	const connection = mysql.createConnection(whmcsmysqlConfig);
 
@@ -242,7 +242,7 @@ router.get("/staffdashboardusersupportstats", (req, res) => {
 // @route 	GET api/user/totalsupporttickets
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/totalsupporttickets", (req, res) => {
+router.get("/totalsupporttickets1", (req, res) => {
 	const sessionid = req.session.id;
 	const connection = mysql.createConnection(whmcsmysqlConfig);
 
@@ -261,5 +261,16 @@ router.get("/totalsupporttickets", (req, res) => {
 		connection.end();
 	});
 });
+router.get("/getlogincount",function (req,res) {
+	user_idpdetailBal.getUserLoginCount(function (data,err) {
+		res.status(200).json(data);
+    })
+})
 
+router.get("/logout",function (req,res) {
+    req.logout();
+    req.session.destroy(function() {
+        res.redirect('/');
+    });
+})
 module.exports = router;

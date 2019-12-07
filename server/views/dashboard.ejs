@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="/images/ico/favicon.ico">
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
+            rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -116,280 +116,346 @@
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
-    data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
+      data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
 
-    <!-- BEGIN: Header-->
-    <nav
+<!-- BEGIN: Header-->
+<nav
         class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center">
-        <div class="navbar-wrapper">
-            <div class="navbar-header">
+    <div class="navbar-wrapper">
+        <div class="navbar-header">
 
 
-                <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item mobile-menu d-md-none mr-auto"><a
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mobile-menu d-md-none mr-auto"><a
                             class="nav-link nav-menu-main menu-toggle hidden-xs" href="#" aria-label="Menu icon"><i
                                 class="ft-menu font-large-1"></i></a></li>
-                    <li class="nav-item mobile-menu mr-auto" style="padding-top:20px;">
-                        <h1 class="brand-text">Lecturer Dashboard</h1>
-                    </li>
-                    <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
-                            data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
-                </ul>
-
-            </div>
-            <div class="navbar-container content">
-                <div class="collapse navbar-collapse" id="navbar-mobile">
-                    <ul class="nav navbar-nav mr-auto float-left">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle" href="#"><i
-                                    class="ft-menu"></i></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav float-right">
-
-                        <li>
-                            <a class="dropdown-item" href="/"><i class="material-icons">power_settings_new</i>
-                                Logout</a>
-
+                <li class="nav-item mobile-menu mr-auto" style="padding-top:20px;">
+                    <h1 class="brand-text">Lecturer Dashboard</h1>
                 </li>
+                <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
+                                                  data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
+            </ul>
+
+        </div>
+        <div class="navbar-container content">
+            <div class="collapse navbar-collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav mr-auto float-left">
+                    <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle" href="#"><i
+                                    class="ft-menu"></i></a></li>
                 </ul>
-            </div>
-        </div>
-        </div>
-    </nav>
-    <!-- END: Header-->
+                <ul class="nav navbar-nav float-right">
 
-    <!-- BEGIN: Content-->
-    <div class="app-content content" role="main">
-        <div class="content-header row">
-        </div>
-        <div class="content-wrapper">
+                    <li>
+                        <a class="dropdown-item" href="/api/user/logout"><i class="material-icons">power_settings_new</i>
+                            Logout</a>
 
-            <!-- BEGIN: Main Menu-->
-
-            <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow"
-                data-scroll-to-active="true">
-                <div class="user-profile">
-                    <div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
-                            src="/images/logo/logo.png" alt="Dashboard Menu logo" />
-
-                        <div class="text-dark">Hello <br> <span style="font-size: 0.8rem"> <%= email %></span></div>
-
-                    </div>
-                </div>
-                <div class="main-menu-content">
-                    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-
-                        <!-- Support Menu-->
-                        <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <li class=" nav-item"><a href="http://support.pixinvent.com/"><i
-                                    class="material-icons">local_offer</i><span class="menu-title"
-                                    data-i18n="nav.support_raise_support.main">Raise Support</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="faq.html"><i class="material-icons">help_outline</i><span
-                                    class="menu-title" data-i18n="">FAQ</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="knowledge-base.html"><i
-                                    class="material-icons">info_outline</i><span class="menu-title"
-                                    data-i18n="">Knowledge Base</span></a>
-                        </li>
-                        <li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
-                                    class="menu-title" data-i18n="">Admin Area</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="https://uptime.statuscake.com/?TestID=PzBTSXZwia"
-                                target="_blank"><i class="material-icons">list_alt</i><span class="menu-title"
-                                    data-i18n="">Network Monitor</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- END: Main Menu-->
-            <div class="content-body">
-                <!-- eCommerce statistic -->
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card pull-up">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h2 class="info"> <i id="numberOfUsers"></i></h2>
-                                            <p>Active Students</p>
-                                        </div>
-                                        <div>
-                                            <i class="icon-user-follow activestudents font-large-2 float-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                        <div class="progress-bar bg-gradient-x-info" role="progressbar"
-                                            style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card pull-up">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h2 class="success"><i id="numberOfStaff"></i></h2>
-                                            <p>Active Lecturers</p>
-                                        </div>
-                                        <div>
-                                            <i class="icon-user-follow success font-large-2 float-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                        <div class="progress-bar bg-gradient-x-success" role="progressbar"
-                                            style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card pull-up">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h2 class="warning"><i id="tickets"></i></h2>
-                                            <p>Support Tickets (1 year)</p>
-                                        </div>
-                                        <div>
-                                            <i class="icon-users warning font-large-2 float-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                        <div class="progress-bar bg-gradient-x-warning" role="progressbar"
-                                            style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card pull-up">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h2 class="danger"><i id="supportStats"></i> / 10</h2>
-                                            <p>Support Feedback (<i id="supportStatsNumbers"></i> Tickets)</i></p>
-                                        </div>
-                                        <div>
-                                            <i class="icon-heart danger font-large-2 float-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                        <div class="progress-bar bg-gradient-x-danger" role="progressbar"
-                                            style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--/ eCommerce statistic -->
-
-                <!-- Student account data start -->
-                <section id="basic">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Student Account Manager</h3>
-                                    <a class="heading-elements-toggle">
-                                        <i class="la la-ellipsis-v font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body card-dashboard ">
-                                        <p>Use the table to search and manage users by the modules they are taking.</p>
-                                        <div id="jsGrid" style="height: 200px; overflow-y: auto;"></div>
-
-
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Student account data end -->
-
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- END: Content-->
+</nav>
+<!-- END: Header-->
 
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
+<!-- BEGIN: Content-->
+<div class="app-content content" role="main">
+    <div class="content-header row">
+    </div>
+    <div class="content-wrapper">
 
-    <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light navbar-border">
-        <p class="clearfix blue-grey text-sm-center mb-0 px-2"><span
+        <!-- BEGIN: Main Menu-->
+
+        <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow"
+             data-scroll-to-active="true">
+            <div class="user-profile">
+                <div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
+                                                                  src="/images/logo/logo.png" alt="Dashboard Menu logo" />
+
+                    <div class="text-dark">Hello <br> <span style="font-size: 0.8rem"> <%= email %></span></div>
+
+                </div>
+            </div>
+            <div class="main-menu-content">
+                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+                    <!-- Support Menu-->
+                    <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
+                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+                                data-original-title="Support">more_horiz</i>
+                    </li>
+                    <li class=" nav-item"><a href="http://support.pixinvent.com/"><i
+                                    class="material-icons">local_offer</i><span class="menu-title"
+                                                                                data-i18n="nav.support_raise_support.main">Raise Support</span></a>
+                    </li>
+                    <li class=" nav-item"><a href="faq.html"><i class="material-icons">help_outline</i><span
+                                    class="menu-title" data-i18n="">FAQ</span></a>
+                    </li>
+                    <li class=" nav-item"><a href="knowledge-base.html"><i
+                                    class="material-icons">info_outline</i><span class="menu-title"
+                                                                                 data-i18n="">Knowledge Base</span></a>
+                    </li>
+                    <li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
+                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+                                data-original-title="Support">more_horiz</i>
+                    </li>
+                    <li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
+                                    class="menu-title" data-i18n="">Admin Area</span></a>
+                    </li>
+                    <li class=" nav-item"><a href="https://uptime.statuscake.com/?TestID=PzBTSXZwia"
+                                             target="_blank"><i class="material-icons">list_alt</i><span class="menu-title"
+                                                                                                         data-i18n="">Network Monitor</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- END: Main Menu-->
+        <div class="content-body">
+            <!-- eCommerce statistic -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h2 class="info"> <i id="numberOfUsers"></i></h2>
+                                        <p>Active Students</p>
+                                    </div>
+                                    <div>
+                                        <i class="icon-user-follow activestudents font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-info" role="progressbar"
+                                         style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h2 class="success"><i id="numberOfStaff"></i></h2>
+                                        <p>Active Lecturers</p>
+                                    </div>
+                                    <div>
+                                        <i class="icon-user-follow success font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-success" role="progressbar"
+                                         style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h2 class="warning"><i id="tickets"></i></h2>
+                                        <p>Support Tickets (1 year)</p>
+                                    </div>
+                                    <div>
+                                        <i class="icon-users warning font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-warning" role="progressbar"
+                                         style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h2 class="danger"><i id="supportStats"></i> / 10</h2>
+                                        <p>Support Feedback (<i id="supportStatsNumbers"></i> Tickets)</i></p>
+                                    </div>
+                                    <div>
+                                        <i class="icon-heart danger font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-danger" role="progressbar"
+                                         style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ eCommerce statistic -->
+
+            <!-- Student account data start -->
+            <section id="basic">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Student Account Manager</h3>
+                                <a class="heading-elements-toggle">
+                                    <i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body card-dashboard ">
+                                    <p>Use the table to search and manage users by the modules they are taking.</p>
+
+                                    <div id="jsGrid" style="height: 200px; overflow-y: auto;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Student account data end -->
+            <section id="basic">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Student Account Login Stat</h3>
+                                <a class="heading-elements-toggle">
+                                    <i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+
+                                <div class="card-body card-dashboard ">
+
+
+                                    <!-- Revenue, Hit Rate & Deals -->
+                                    <div class="row">
+                                        <div class="col-xl-6 col-12">
+                                            <div class="card">
+
+                                                <div class="card-content collapse show">
+                                                    <div class="card-body pt-0">
+                                                        <div class="row mb-1">
+                                                            <div class="col-6 col-md-4">
+
+                                                            </div>
+                                                            <div class="col-6 col-md-4">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="chartjs">
+                                                            <canvas id="thisYearRevenue" width="400" style="position: absolute;"></canvas>
+                                                            <canvas id="lastYearRevenue" width="400"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/ Revenue, Hit Rate & Deals -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!-- BEGIN: Footer-->
+<footer class="footer footer-static footer-light navbar-border">
+    <p class="clearfix blue-grey text-sm-center mb-0 px-2"><span
                 class="float-md-right d-block d-md-inline-block">Copyright &copy; 2019/20 <a
                     class="text-bold-800 grey darken-2" href="https://www.educationhost.co.uk" target="_blank">Education
                     Host Ltd</a></span></p>
-    </footer>
-    <!-- END: Footer-->
+</footer>
+<!-- END: Footer-->
 
 
-    <!-- BEGIN: Vendor JS-->
-    <script src="/vendors/js/material-vendors.min.js"></script>
-    <!-- BEGIN Vendor JS-->
+<!-- BEGIN: Vendor JS-->
 
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="/vendors/js/ui/headroom.min.js"></script>
-    <script src="/vendors/js/charts/chartist.min.js"></script>
-    <script src="/vendors/js/charts/chartist-plugin-tooltip.min.js"></script>
-    <script src="/vendors/js/charts/raphael-min.js"></script>
-    <script src="/vendors/js/charts/morris.min.js"></script>
-    <script src="/vendors/js/timeline/horizontal-timeline.js"></script>
-    <!-- END: Page Vendor JS-->
-    <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
-    <script src="/vendors/js/tables/jsgrid/griddata.js"></script>
-    <script src="/js/scripts/tables/jsgrid/jsgrid.js"></script>
-    <!-- BEGIN: Theme JS-->
-    <script src="/js/core/app-menu.js"></script>
-    <script src="/js/core/app.js"></script>
-    <!-- END: Theme JS-->
-<script src="/vendors/js/tables/datatable/datatables.min.js"></script>
-    <script src="/js/scripts/tables/datatables/datatable-styling.js"></script>
-    <script>
+<!-- BEGIN Vendor JS-->
+<!-- BEGIN: Vendor JS-->
+<script src="/vendors/js/material-vendors.min.js"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="/vendors/js/charts/chart.min.js"></script>
 
 
+<!-- END: Page Vendor JS-->
 
-    </script>
-    <!-- BEGIN: Page JS-->
-    <script src="/js/scripts/pages/material-app.js"></script>
-    <script src="/js/scripts/pages/dashboard-ecommerce.js"></script>
-    <!-- END: Page JS-->
+<!-- BEGIN: Theme JS-->
+<script src="/js/core/app-menu.js"></script>
 
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="/js/scripts/pages/material-app.js"></script>
+<script src="/js/scripts/pages/dashboard-sales.js"></script>
+<!-- END: Page JS-->
+<!-- BEGIN: Page Vendor JS-->
+
+<script src="/vendors/js/ui/headroom.min.js"></script>
+<script src="/vendors/js/charts/chartist.min.js"></script>
+<script src="/vendors/js/charts/chartist-plugin-tooltip.min.js"></script>
+<script src="/vendors/js/charts/raphael-min.js"></script>
+<script src="/vendors/js/charts/morris.min.js"></script>
+<script src="/vendors/js/timeline/horizontal-timeline.js"></script>
+<!-- END: Page Vendor JS-->
+
+<script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
+<script src="/vendors/js/tables/jsgrid/griddata.js"></script>
+<script src="/js/scripts/tables/jsgrid/jsgrid.js"></script>
+
+
+<!-- BEGIN: Vendor JS-->
+
+
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="/js/scripts/pages/material-app.js"></script>
+<script src="/js/scripts/pages/dashboard-ecommerce.js"></script>
+<!-- END: Page JS-->
+<script src="/js/scripts/pages/dashboard-sales.js"></script>
 </body>
 <!-- END: Body-->
 
