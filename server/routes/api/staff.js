@@ -23,7 +23,7 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
       main: [
         {
           label: "Raise Support",
-          url: "http://support.pixinvent.com/",
+          url: "http://support.example.com/",
           icon: "local_offer"
         },
         {
