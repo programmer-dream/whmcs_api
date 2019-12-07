@@ -18,6 +18,7 @@ const root = path.join(__dirname, "../../../../AD-saml/client/staff");
 router.get("/dashboard", ensureAuthenticated, function(req, res) {
   res.render("dashboard", {
     email: req.user.upn,
+    user: req.user,
     supportMenu: {
       main: [
         {
@@ -48,9 +49,11 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
           url: "https://uptime.statuscake.com/?TestID=PzBTSXZwia",
           icon: "list_alt"
         }
-      ],
-      copyrightDate: `${moment().format("YYYY")}/${moment().format("YY")}`
-    }
+      ]
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`
   });
 });
 
