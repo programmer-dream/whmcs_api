@@ -334,20 +334,7 @@ $(document).ready(function () {
 
               }
           },
-        {
-          name: "filemanager",
-          title: "File Manager",
-          type: "text",
-          filtering: false,
-          width: 80,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/filemanager.png" alt="Single Sign-On link to student FileManager" "width="32" height="32">';
 
-            return "";
-          }
-        }
-        ,
         {
           name: "suspend",
           title: "Suspend",

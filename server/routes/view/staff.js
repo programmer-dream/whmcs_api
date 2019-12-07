@@ -19,9 +19,7 @@ router.get("/dashboard",ensureAuthenticated, function (req, res) {
 // @desc 	Serves the staff login page
 // @access 	Public
 router.get("/login",ensureAuthenticated1, function (req, res) {
-	res.sendFile('index.html', {
-		root
-	});
+	res.render("stafflogin");
 });
 function ensureAuthenticated1(req, res, next) {
 
