@@ -90,9 +90,10 @@
                     const { data } = response;
 
                     console.log('API response', data)
-                    if (confirm('Redirect?')) {
+                    if (confirm('Go to the client area?')) {
                         window.location = data.data.redirectTo
                     }
+                   
 
                 } catch (err) {
                     console.log(err)

@@ -13,52 +13,6 @@ $(document).ready(function () {
    *      Basic Scenario       *
    ****************************/
 
-  $("#basicScenario").jsGrid({
-    width: "100%",
-    height:"200px",
-    filtering: true,
-    editing: false,
-    inserting: true,
-    sorting: true,
-    paging: true,
-    autoload: true,
-    pageSize: 15,
-    pageButtonCount: 5,
-    controller: db,
-    fields: [
-      { name: "Name", type: "text", width: 100 },
-      {
-        name: "Domain",
-        type: "text",
-        itemTemplate: function (value) {
-          // return $("<a>").attr("href", value).text(value);
-          return (
-            '<a href="http://' + value + '" target="_blank">' + value + "</a>"
-          );
-        },
-        width: 200,
-        filtering: true
-      },
-      { name: "Module_Year", type: "number", width: 50 },
-      //{ name: "Domain", type: "text", width: 200 },
-      {
-        name: "Module",
-        type: "select",
-        items: db.Modules,
-        valueField: "Id",
-        textField: "Name"
-      },
-      {
-        name: "isActive",
-        type: "checkbox",
-        title: "Is Active",
-        sorting: false
-      },
-      { type: "control" },
-      { name: "fieldname" }
-    ]
-  });
-
   $.ajax({
     type: "GET",
     url: "/api/user/staffdashboardgetmodules",
@@ -110,10 +64,10 @@ $(document).ready(function () {
       filters.username === "" || contains(element.username, filters.username)
     );
   }
-
+/*
   function isDomain(filters, element) {
     return filters.domain === "" || contains(element.domain, filters.domain);
-  }
+  } */
 
   function isDomainModule(filters, element) {
     return (
@@ -138,7 +92,7 @@ $(document).ready(function () {
         isUserId(filters, element) &&
         isFullname(filters, element) &&
         isUserName(filters, element) &&
-        isDomain(filters, element) &&
+       // isDomain(filters, element) &&
         isDomainModule(filters, element) &&
         isYears(filters, element)
       ) {
@@ -157,12 +111,12 @@ $(document).ready(function () {
       sorting: true,
       paging: true,
       autoload: true,
-      pageSize: 25,
+     // pageSize: 25,
       pageButtonCount: 5,
 
       //for loadData method Need to set auto load true
       autoload: true,
-      pageSize: 50,
+      pageSize: 25,
       pageButtonCount: 5,
 
       noDataContent: "Directory is empty",
@@ -233,7 +187,7 @@ $(document).ready(function () {
           type: "text",
           filtering: true
         },
-        {
+       /* {
           name: "domain",
           type: "text",
           title: "Domain",
@@ -246,7 +200,7 @@ $(document).ready(function () {
           },
           width: 180,
           filtering: true
-        },
+        },*/
         {
           name: "value",
           title: "Module",

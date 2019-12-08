@@ -16,6 +16,7 @@ const root = path.join(__dirname, "../../../../AD-saml/client/staff");
 // @access 	Public
 
 router.get("/dashboard", ensureAuthenticated, function(req, res) {
+ // console.log(req.user);
   res.render("dashboard", {
     email: req.user.upn,
     user: req.user,
