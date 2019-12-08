@@ -99,7 +99,26 @@ router.post('/auth/openid/return',
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
+router.get("/", (req, res) => {
+	const sessionid = req.session.id;
+	const connection = mysql.createConnection(mysqlConfig);
 
+	connection.connect(function (err) {
+		if (err) throw err;
+
+
+		connection.query(
+			"SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+			[sessionid],
+			(err, result, fields) => {
+				if (err) throw err;
+				res.send(result);
+			}
+		);
+
+		connection.end();
+	});
+});
 
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
