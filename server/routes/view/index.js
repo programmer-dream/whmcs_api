@@ -19,9 +19,7 @@ router.get("/test", (req, res) => {
 // @desc 	Serves the landing page
 // @access 	Public
 router.get("/", (req, res) => {
-	res.sendFile('index.html', {
-		root
-	});
+	res.render("index");
 });
 
 // @route 	GET /home

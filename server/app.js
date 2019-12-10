@@ -30,32 +30,6 @@ const cpoptions = require("./config/cpanel.js");
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs')
-/*
-app.use('/accounts', function (req, res) {
-
-
-  //var cpanelClient = cpanel.Fileman(options);
-  var cpanelClient = cpanel.createClient({});
-
-  cpanelClient.call('listaccts', { 'api.version': 1, search: 'ud' }, function (error, data) {
-    console.log('listaccts');
-
-    if (error) {
-      return res.send({
-        ok: false,
-        error: error
-      });
-    }
-
-    return res.send({
-      ok: true,
-      data: data
-    })
-
-  });
-
-});
-*/
 
 app.use(cors());
 
@@ -73,9 +47,13 @@ app.use(passport.session());
 
 // Assets folder is static so it's contents can be used in html pages
 app.use(express.static("assets"));
+var flash = require('connect-flash');
 
-
-
+app.use(flash());
+app.use(function (req, res, next) {
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
 // View
 const rootRoutes = require('./routes/view');
 const staffRoutes = require('./routes/view/staff');

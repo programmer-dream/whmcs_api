@@ -34,7 +34,6 @@
     <link rel="stylesheet" type="text/css" href="/css/material.css">
     <link rel="stylesheet" type="text/css" href="/css/components.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="/css/material-extended.css">
     <link rel="stylesheet" type="text/css" href="/css/material-colors.css">
     <!-- END: Theme CSS-->
 
@@ -436,7 +435,7 @@
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
-                                        <li><a href="#">Show all</a></li>
+                                        <li><a onclick="seeall()">Show all</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -454,6 +453,36 @@
                         </div></div>
                     </div>
                 </section>
+
+                <section id="basic">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Student Account Manager</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body card-dashboard ">
+                                        <p>Use the table to search and manage users by the modules they are taking.</p>
+
+                                        <div id="jsGrid1" style="height: 200px; overflow-y: auto;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
 
             </div>
         </div>
@@ -508,8 +537,8 @@
     <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
     <script src="/vendors/js/tables/jsgrid/griddata.js"></script>
     <script src="/js/scripts/tables/jsgrid/jsgrid.js"></script>
-
-
+<script src="/js/scripts/tables/jsgrid/susgrid.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- BEGIN: Vendor JS-->
 
 
@@ -520,29 +549,20 @@
     <script src="/js/scripts/pages/dashboard-ecommerce.js"></script>
     <!-- END: Page JS-->
     <script src="/js/scripts/pages/dashboard-sales.js"></script>
-
+<script src="/js/core/app.js"></script>
     <!-- Temporarily here -->
     <script>
     
       // Get Logins
-      fetch('/api/user/getlogincount').then(res => res.json()).then(data => {
-          const userLogins = [
-            {
-              name: 'Nadir Abbas',
-              logins: 99
-            },
-            {
-              name: 'Nick Williams',
-              logins: 99
-            }
-          ]
+      fetch('/api/user/gettoplogin').then(res => res.json()).then(data => {
+          const userLogins = data.data;
 
 
           userLogins.forEach(user => {
             $('#logins').append(`
             
               <tr>
-                <th scope="row" class="border-top-0">${user.name}</th>
+                <th scope="row" class="border-top-0">${user.firstname+user.lastname}</th>
                 <td class="border-top-0">${user.logins}</td>
               </tr>
 
@@ -550,7 +570,28 @@
           })
       }).catch(err => {
         console.error('Error fetching login count', err)
-      })  
+      })
+
+        function seeall() {
+            fetch('/api/user/getalllogin').then(res => res.json()).then(data => {
+                const userLogins = data.data;
+
+                $('#logins').empty();
+                userLogins.forEach(user => {
+                    $('#logins').append(`
+
+              <tr>
+                <th scope="row" class="border-top-0">${user.firstname+user.lastname}</th>
+                <td class="border-top-0">${user.logins}</td>
+              </tr>
+
+            `)
+                })
+            }).catch(err => {
+                console.error('Error fetching login count', err)
+            })
+        }
+
 
     </script>
 </body>

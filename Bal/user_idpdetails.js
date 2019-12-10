@@ -1,7 +1,27 @@
 var user_idpdetailDal=require("../Dal/user_idpdetails");
 var User_idpdetailBal = {
+    getTopLogins:function (callback) {
+        user_idpdetailDal.getTopLogins(function (data,err) {
+            callback(data);
+        })
+    },
+    getAllLogins:function (callback) {
+        user_idpdetailDal.getAllLogins(function (data,err) {
+            callback(data);
+        })
+    },
     getUserBySessionId:function (id,callback) {
         user_idpdetailDal.getUserBySessionId(id,function (data,err) {
+            callback(data);
+        })
+    },
+    getAllUsers:function (callback) {
+        user_idpdetailDal.getAllUsers(function (data,err) {
+            callback(data);
+        })
+    },
+    suspendUser:function (id,callback) {
+        user_idpdetailDal.suspendUser(id,function (data,err) {
             callback(data);
         })
     },

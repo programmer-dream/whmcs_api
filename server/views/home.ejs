@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/multiple-select-js@latest/dist/js/multiple-select.js"></script>
     <link rel="stylesheet" href="/css/spinner.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script type="text/javascript">
         // Code to init the stepper
         var stepper1 = null
@@ -148,7 +149,7 @@
                                                     <option value="<%= option.module6 %>"><%= option.module6 %></option>
                                                     <option value="<%= option.module7 %>"><%= option.module7 %></option>
                                                 </select>
-                                                <div style="color:red;">Select at least one option</div>
+                                                <div id="errormsg" style="color:red;">Select at least one option</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4"></div>
@@ -203,7 +204,21 @@
 
 <script>
 
-    let multipleSelect = new MultipleSelect('#example-dropright')
+    let multipleSelect = new MultipleSelect('#example-dropright');
+
+    $("#example-dropright").change(function () {
+        var selectedValue=$(this).val();
+        if(selectedValue.length==0){
+
+            $("#errormsg").append("Select at least one option");
+        }else{
+            $("#errormsg").empty()
+        }
+
+    });
+
+    
+    
 </script>
 
 </div>
