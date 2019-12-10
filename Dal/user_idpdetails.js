@@ -27,6 +27,52 @@ loginhistory.belongsTo(user_idpdetails, { foreignKey: 'userid' });
 
 // CRUD Array
 var User_idpdetail = {
+    getTopLogins:function (callback) {
+        user_idpdetails.findAll({
+            limit: 10 ,
+            order: [[Sequelize.col("logins"),'DESC']],
+
+        }).then(function (data) {
+            callback({message:"success",data:data})
+        }).catch(function (err) {
+            callback({message:"error",data:err})
+        })
+
+    },
+    getAllLogins:function (callback) {
+        user_idpdetails.findAll({
+            order: [[Sequelize.col("logins"),'DESC']],
+
+        }).then(function (data) {
+            callback({message:"success",data:data})
+        }).catch(function (err) {
+            callback({message:"error",data:err})
+        })
+
+    },
+    getAllUsers:function (callback) {
+        user_idpdetails.findAll({
+            attributes: ['userid','email', 'firstname','lastname','isActive']
+
+        }).then(function (data) {
+            callback({message:"success",data:data})
+        }).catch(function (err) {
+            callback({message:"error",data:err})
+        })
+
+    },
+    suspendUser:function (body,callback) {
+        user_idpdetails.findAll({where:{userid:body.user}}).then(function (itemInstance) {
+            itemInstance[0].update({
+                isActive:body.isActive,
+            }).then(function (self) {
+                callback({message:"success",data:self});
+            });
+        }).catch(function (err) {
+            callback({message:"error",data:err.message});
+        });
+
+    },
     getUserLoginCount:function (callback) {
         loginhistory.findAll().then(function (value) {
             //returning the value here

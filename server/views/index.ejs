@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Login" />
+    <meta name="author" content="" />
+    <link rel="icon" href="favicon.ico" />
+
+    <title>Single Sign On</title>
+
+    <base href="/" />
+
+    <!-- Bootstrap core CSS
+      <link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="/css/signin.css" type="text/css" />
+    <!--<link href="signin.css" rel="stylesheet">-->
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+
+    <!-- Script to generate a random image on page load -->
+    <script type="text/javascript">
+        function backgr() {
+            var backimg = ["/images/EducationBackground1.jpg", "/images/EducationBackground2.jpg", "/images/EducationBackground3.jpg", "/images/University.jpg", "/images/mountainsky.jpg"];
+            var randimg = Math.floor(Math.random() * 4);
+            document.body.background = backimg[randimg];
+        }</script>
+
+</head>
+
+<body class="text-center" onload="backgr()">
+
+<div class="container">
+
+    <div class="d-flex justify-content-center h-100">
+        <div class="card" role="document">
+            <div class="card-header" role="document">
+                <header>
+                    <p></p>
+                    <img src="Education_host_ltd_logo.png" alt="Education Host Single Sign On Logo" width="300px" />
+                    <p></p>
+                    <h1 style="color:#000000">Single Sign On</h1>
+            </div>
+            </header>
+            <div class="card-body" role="document">
+                <form>
+                    <main>
+                        <% if (error_msg!=""){ %>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="alert-text"><%= error_msg %></div>
+                            <div class="alert-close">
+                                <i class="flaticon2-cross kt-icon-sm" data-dismiss="alert"></i>
+                            </div>
+                        </div>
+                        <%}%>
+                        <p style="color:#000000">
+                            Sign into your web hosting account with your university account.
+                        </p>
+                        <p style="color:#000000">
+                            If this is the first time you have used this service, we will
+                            take you through the setup on login.
+                        </p>
+                        <p></p>
+                        <div class="form-group" role="button">
+                            <input type="button" aria-label="Login" value="Login" class="btn float-right login_btn"
+                                   onclick="call_login()" />
+                        </div>
+                    </main>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function call_login() {
+        location.href = "/login";
+    }
+</script>
+</body>
+
+</html>

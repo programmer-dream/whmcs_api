@@ -290,19 +290,6 @@ $(document).ready(function () {
               }
           },
        
-        {
-          name: "suspend",
-          title: "Suspend",
-          type: "text",
-          filtering: false,
-          width: 80,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/stop.png" alt="Suspend/Un-suspend student account" "width="32" height="32">';
-
-            return "";
-          }
-        }
       ]
     });
 

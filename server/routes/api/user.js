@@ -22,13 +22,14 @@ router.post('/auth/openid/return',
     function(req, res) {
 	var email=req.user.upn;
         var upn1=email.split("@");
-        userid=upn1[0];
+        var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+
         const sessionid = req.session.id;
 	var para={
         email:req.user.upn,
         firstname:req.user.name.givenName,
         lastname:req.user.name.familyName,
-        userid:upn1[0],
+        userid:userid,
         sessionid:sessionid
 	}
 
@@ -83,7 +84,8 @@ router.post('/auth/openid/return',
                                 goto
                             );
                         } else {
-                            res.redirect("/");
+                            req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+							res.redirect("/");
                         }
 					}else{
                         res.send(data.data);
@@ -99,26 +101,7 @@ router.post('/auth/openid/return',
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/", (req, res) => {
-	const sessionid = req.session.id;
-	const connection = mysql.createConnection(mysqlConfig);
 
-	connection.connect(function (err) {
-		if (err) throw err;
-
-
-		connection.query(
-			"SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
-
-		connection.end();
-	});
-});
 
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
@@ -284,6 +267,55 @@ router.get("/getlogincount",function (req,res) {
 	user_idpdetailBal.getUserLoginCount(function (data,err) {
 		res.status(200).json(data);
     })
+})
+router.get("/gettoplogin",function (req,res) {
+    user_idpdetailBal.getTopLogins(function (data,err) {
+    	if(data.message=="success"){
+            res.status(200).json(data);
+		}else{
+            res.status(401).json(data);
+		}
+
+    })
+})
+router.get("/getalllogin",function (req,res) {
+    user_idpdetailBal.getTopLogins(function (data,err) {
+        if(data.message=="success"){
+            res.status(200).json(data);
+        }else{
+            res.status(401).json(data);
+        }
+
+    })
+})
+router.get("/getallusers",function (req,res) {
+    user_idpdetailBal.getAllUsers(function (data,err) {
+        if(data.message=="success"){
+            res.status(200).json(data.data);
+        }else{
+            res.status(401).json(data.data);
+        }
+
+    })
+})
+router.get("/suspend/:id?",function (req,res) {
+	var status=1;
+	if(req.query.type=="sus"){
+        status=0
+	}else {
+        status=1
+	}
+    user_idpdetailBal.suspendUser({user:req.params.id,isActive:status},function (data,err) {
+        if(data.message=="success"){
+            res.status(200).json(data);
+        }else{
+            res.status(401).json(data);
+        }
+
+    })
+})
+router.get("/block",function (req,res) {
+	res.render("block");
 })
 router.get("/logout",function (req,res) {
     req.logout();
