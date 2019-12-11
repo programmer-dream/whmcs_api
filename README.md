@@ -1,5 +1,10 @@
 # Active Directory SAML - WHMCS authentication &amp; setup
 
+#Make sure Nameserver variables are setup
+In the staff and student routes
+ var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                        var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+
 # Setup hosting account for the application
 
 - Ensure Cloud linux with node selector is installed
