@@ -54,6 +54,11 @@ var User_idpdetailBal = {
         user_idpdetailDal.updateStaf(body,function (data,err) {
             callback(data);
         })
+    },
+    approvStaff:function (body,callback) {
+        user_idpdetailDal.approvStaff(body,function (data,err) {
+            callback(data);
+        })
     }
 
 

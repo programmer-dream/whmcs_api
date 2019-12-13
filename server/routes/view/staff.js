@@ -24,27 +24,19 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
       main: [
         {
           label: "Raise Support",
-          url: "http://support.pixinvent.com/",
+          url: "https://whmcs.educationhost.co.uk/submitticket.php",
           icon: "local_offer"
         },
-        {
-          label: "FAQ",
-          url: "https://ssotesting.educationhost.co.uk/staff/faq.html",
-          icon: "help_outline"
-        },
+
         {
           label: "Knowledge Base",
           url:
-            "https://ssotesting.educationhost.co.uk/staff/knowledge-base.html",
+            "https://whmcs.educationhost.co.uk/index.php?rp=/knowledgebase",
           icon: "info_outline"
         }
       ],
       other: [
-        {
-          label: "Admin Area",
-          url: "https://ssotesting.educationhost.co.uk/staff/news-feed.html",
-          icon: "list_alt"
-        },
+
         {
           label: "Network Monitor",
           url: "https://uptime.statuscake.com/?TestID=PzBTSXZwia",
@@ -77,11 +69,12 @@ function ensureAuthenticated1(req, res, next) {
 }
 
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated() && req.user.isStaff == 1) {
+  if (req.isAuthenticated() && req.user.isStaff == 1 && req.user.approveStaff==1) {
     return next();
   }
+    req.flash('error_msg', 'Your account is not approved yet.')
+    res.redirect("/staff/login");
 
-  res.redirect("/");
 }
 
 module.exports = router;

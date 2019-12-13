@@ -179,6 +179,17 @@ var User_idpdetail = {
         }).catch(function (err) {
             callback({message:"error",data:err.message});
         });
+    },
+    approvStaff:function (body,callback) {
+        user_idpdetails.findAll({where:{email:body.email}}).then(function (itemInstance) {
+            itemInstance[0].update({
+                is_approved_staff:1,
+            }).then(function (self) {
+                callback({message:"success",data:self});
+            });
+        }).catch(function (err) {
+            callback({message:"error",data:err.message});
+        });
     }
 
 };
