@@ -16,7 +16,7 @@ const { Clients, Orders, Services } = require("whmcs-js");
 var mailer=require("../../utils/emailsend");
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
-
+var configEmail=require("../../config/emailConfig.json");
 // Id for the staff product
 const staffProductId = 3;
 
@@ -128,7 +128,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                     }).then(function(moduleCreateResponse) {
                                                      var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
 
-                                                    mailer(url,"imrancs058@yahoo.com")
+                                                    mailer(url,configEmail.staffApproval)
                                                         res.status(200).json({message:"SUCCESS"});
                                                     }).catch(function(error) {
                                                         res.status(401).json({error:error});
