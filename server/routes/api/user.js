@@ -9,7 +9,7 @@ const whmcsmysqlConfig = require("../../config/whmcsinstallationsql");
 const sha1 = require("sha1");
 const autoAuthKey = require("../../config/autoAuth");
 const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
-
+//var mailer=require("../../utils/emailsend");
 // Utility functions
 const getTimestamp = require("../../utils/getTimestamp");
 
@@ -317,6 +317,21 @@ router.get("/suspend/:id?",function (req,res) {
 router.get("/block",function (req,res) {
 	res.render("block");
 })
+
+router.get("/staffapprov",function (req,res) {
+user_idpdetailBal.approvStaff({email:req.query.email},function (data,err) {
+	if(data.message=="success"){
+		var staffemail=data.data.dataValues.email;
+		var body="Your staff account has been approved";
+		//mailer(body,staffemail);
+		res.status(200).json(data);
+
+	}
+})
+
+})
+
+
 router.get("/logout",function (req,res) {
     req.logout();
     req.session.destroy(function() {

@@ -19,6 +19,7 @@ router.get("/test", (req, res) => {
 // @desc 	Serves the landing page
 // @access 	Public
 router.get("/", (req, res) => {
+	console.log(JSON.stringify(req.headers));
 	res.render("index");
 });
 

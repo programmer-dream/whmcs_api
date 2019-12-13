@@ -149,6 +149,14 @@
                 <h5 class="modal-title" id="newuser">
                     Lecturer user - Where would you like to go?
                 </h5>
+                <% if (error_msg!=""){ %>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert-text"><%= error_msg %></div>
+                    <div class="alert-close">
+                        <i class="flaticon2-cross kt-icon-sm" data-dismiss="alert"></i>
+                    </div>
+                </div>
+                <%}%>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">

@@ -55,6 +55,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    is_approved_staff: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '0'
     }
   }, {
     tableName: 'user_idpdetails'

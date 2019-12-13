@@ -13,16 +13,17 @@ const getTimestamp = require("../../utils/getTimestamp");
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services } = require("whmcs-js");
-
+var mailer=require("../../utils/emailsend");
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
-
+var configEmail=require("../../config/emailConfig.json");
 // Id for the staff product
 const staffProductId = 3;
 
 // @route 	POST api/staff/
 // @desc 	Creates the staff member
 // @access 	Public
+
 router.post("/",ensureAuthenticated, (req, res) => {
     // Set the isStaff value in the database to 1
 
@@ -125,6 +126,9 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                 moduleCreate.moduleCreate({
                                                         serviceid: updateClientProductResponse.serviceid
                                                     }).then(function(moduleCreateResponse) {
+                                                     var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
+
+                                                    mailer(url,configEmail.staffApproval)
                                                         res.status(200).json({message:"SUCCESS"});
                                                     }).catch(function(error) {
                                                         res.status(401).json({error:error});
