@@ -322,7 +322,7 @@ router.get("/staffapprov",function (req,res) {
 user_idpdetailBal.approvStaff({email:req.query.email},function (data,err) {
 	if(data.message=="success"){
 		var staffemail=data.data.dataValues.email;
-		var body="Your staff account has been approved";
+		var body="Staff account is now approved";
 		//mailer(body,staffemail);
 		res.status(200).json(data);
 
