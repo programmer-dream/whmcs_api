@@ -212,7 +212,7 @@ $(document).ready(function () {
                                                 dataType: "json",
                                                 url: "/api/user/suspend/"+user+"?type="+type,
                                                 success: function(response) {
-                                                    swal("Poof! Action has been performed", {
+                                                    swal("Student account has been suspended / un-suspended!", {
                                                         icon: "success",
                                                     });
 
@@ -224,7 +224,7 @@ $(document).ready(function () {
 
                                             $.ajax(settings);
                                         } else {
-                                            swal("User is safe!");
+                                            swal("Action performed!");
                                         }
                                     });
 
