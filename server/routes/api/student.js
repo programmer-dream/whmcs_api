@@ -15,7 +15,7 @@ const whmcsConfig = require("../../config/whmcs");
 const studentProductId = 1;
 
 const studentUtils = require('../../utils/student')
-
+const azureConfig=require("../../config/config.demo");
 
 // @route 	POST api/student/
 // @desc 	Example student route
@@ -256,6 +256,11 @@ router.post("/",ensureAuthenticated, (req, res) => {
     })
 
 });
+
+router.get("/verify",function (req,res) {
+    res.redirect(azureConfig.destroySessionUrl);
+})
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
