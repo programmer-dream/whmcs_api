@@ -11,6 +11,7 @@ passport.deserializeUser(function (user, done) {
     user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
         if(result.data.length>0){
             user.isStaff=result.data[0].isStaff;
+            user.approveStaff=result.data[0].is_approved_staff;
             done(null, user);
         }
     })

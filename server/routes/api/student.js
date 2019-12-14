@@ -3,8 +3,7 @@ const router = express.Router();
 const generateRandomString = require("../../utils/generateRandomString");
 const cpanel = require("cpanel-lib");
 const btoa = require("btoa");
-const base64_encode = require('locutus/php/url/base64_encode');
-const serialize = require('locutus/php/var/serialize');
+
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services } = require("whmcs-js");
@@ -15,29 +14,16 @@ const whmcsConfig = require("../../config/whmcs");
 // Id for the student product
 const studentProductId = 1;
 
-// @route 	GET api/student/example
-// @desc 	Example student route
-// @access 	Public
-
+const studentUtils = require('../../utils/student')
+const azureConfig=require("../../config/config.demo");
 
 // @route 	POST api/student/
 // @desc 	Example student route
 // @access 	Public
 router.post("/",ensureAuthenticated, (req, res) => {
-    // Gets the student modules back from the student function
-    // This will be used to create the module folders
-    var studentModules=JSON.parse(req.body.module);
+    const parsedModules = JSON.parse(req.body.module)
+    const encodedModules = studentUtils.encodeModules(parsedModules)
 
-    const module = {
-        1: studentModules[0]!=undefined?studentModules[0]:"",
-        2: studentModules[1]!=undefined?studentModules[1]:"",
-        3: studentModules[2]!=undefined?studentModules[2]:"",
-        4: studentModules[3]!=undefined?studentModules[3]:"",
-        5: studentModules[4]!=undefined?studentModules[4]:"",
-        6: studentModules[5]!=undefined?studentModules[5]:"",
-    }
-    // Serialize
-    const moduleserial = serialize(module);
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
         if(data.message=="success"){
             // Call the getClients call and store the data in the variable called
@@ -53,7 +39,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     postcode: data.data[0].dataValues.client_detail.dataValues.Postcode,
                     country: data.data[0].dataValues.client_detail.dataValues.Country,
                     // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
-                    customfields: base64_encode(moduleserial),
+                    customfields: encodedModules,
                     phonenumber: data.data[0].dataValues.client_detail.dataValues.Phone,
                     notes: "Created through Education Host AD login",
                     language: "english",
@@ -207,11 +193,11 @@ router.post("/",ensureAuthenticated, (req, res) => {
 
                                                             console.log(
                                                                 "studentModules count",
-                                                                studentModules.length
+                                                                parsedModules.length
                                                             );
 
                                                             do {
-                                                                var smodules = studentModules[count];
+                                                                var smodules = parsedModules[count];
 
                                                                 console.log(
                                                                     "DO while ran, Number of modules: ",
@@ -238,7 +224,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                     }
                                                                 );
                                                                 count++;
-                                                            } while (count != studentModules.length);
+                                                            } while (count != parsedModules.length);
                                                             res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {
@@ -270,6 +256,11 @@ router.post("/",ensureAuthenticated, (req, res) => {
     })
 
 });
+
+router.get("/verify",function (req,res) {
+    res.redirect(azureConfig.destroySessionUrl);
+})
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
