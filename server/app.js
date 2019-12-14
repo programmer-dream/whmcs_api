@@ -4,22 +4,39 @@ const app = express();
 const passport = require("passport");
 const https = require("https");
 const fs = require("fs");
-
+require('dotenv').config()
 const bodyParser = require("body-parser");
 const cors = require('cors');
+var Sequelize = require('sequelize')
 const session = require("express-session");
+var cookieParser = require('cookie-parser');
+//using mysql for session
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var dbconfig=require("./config/sql");
+// create database, ensure 'sqlite3' in your package.json
+var sequelize = new Sequelize(
+    dbconfig.database,
+    dbconfig.user,
+    dbconfig.password, {
+        "dialect": "mysql",
+        "storage": "./session.mysql"
+    });
+
 app.use(
     session({
         resave: true,
         saveUninitialized: true,
         secret: "EHsecret",
-        expires: new Date(Date.now() + 30 * 86400 * 1000)
+        expires: new Date(Date.now() + 30 * 86400 * 1000),
+        store: new SequelizeStore({
+            db: sequelize
+        }),
     })
 );
 const cpanel = require('cpanel-lib');
 
 require("./config/passport.js");
-var cookieParser = require('cookie-parser');
+
 app.use(cookieParser());
 // Get the cpanelAccount from config
 //const cpanelAccount = require('../../config').cpanelAccount;

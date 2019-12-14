@@ -24,3 +24,6 @@
     margin-left: -6px;
     margin-right: 8px;
 }
+.dropdown-select ul{
+    /*overflow-y: inherit !important;*/
+}
