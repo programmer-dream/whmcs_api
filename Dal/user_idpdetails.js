@@ -124,7 +124,6 @@ var User_idpdetail = {
         });
     },
     addUser_IdpDetail: function(para, callback) {
-
         const user = user_idpdetails.build({
             email: para.email,
             firstname:para.firstname,
@@ -132,7 +131,7 @@ var User_idpdetail = {
             lastname: para.lastname,
             sessionid:para.sessionid,
             isStaff:0,
-            expiryDate:"0000-00-00"
+            expiryDate:new Date()
         });
         user.save().then(function (status) {
             const logg = loginhistory.build({
