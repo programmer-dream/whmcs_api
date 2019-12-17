@@ -82,7 +82,13 @@ router.get('/login',
         res.redirect("/home");
     });
 
-
+router.get("/varifylogin",function (req,res) {
+	if(req.isAuthenticated()==true){
+		res.redirect("/api/user/varifyuser")
+	}else {
+		res.redirect("/login")
+	}
+})
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }

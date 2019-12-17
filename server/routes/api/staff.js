@@ -153,7 +153,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     res.status(401).json({error:error});
                 }
             })
-            req.flash('error_msg', 'Wait 2 to 3 minute before signing up again. We are setting your account');
+
             res.status(200).json({message:"SUCCESS"});
         }else{
             res.status(401).json({error:error});
