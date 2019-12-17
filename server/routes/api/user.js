@@ -12,7 +12,8 @@ const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 //var mailer=require("../../utils/emailsend");
 // Utility functions
 const getTimestamp = require("../../utils/getTimestamp");
-
+var fs = require('fs');
+const azureConfig=require("../../config/config.demo");
 // @route 	POST api/user/login/callback
 // @desc 	Callback for the saml login
 // @access 	Private
@@ -20,6 +21,8 @@ router.post('/auth/openid/return',
 
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     function(req, res) {
+	console.log("====================================================================")
+       console.log(JSON.stringify(req.user))
 	var email=req.user.upn;
         var upn1=email.split("@");
         var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
@@ -101,7 +104,25 @@ router.post('/auth/openid/return',
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
+router.get("/", (req, res) => {
+    const sessionid = req.session.id;
+    const connection = mysql.createConnection(mysqlConfig);
 
+    connection.connect(function (err) {
+        if (err) throw err;
+
+        connection.query(
+            "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+            [sessionid],
+            (err, result, fields) => {
+                if (err) throw err;
+                res.send(result);
+            }
+        );
+
+        connection.end();
+    });
+});
 
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
@@ -335,7 +356,7 @@ user_idpdetailBal.approvStaff({email:req.query.email},function (data,err) {
 router.get("/logout",function (req,res) {
     req.logout();
     req.session.destroy(function() {
-        res.redirect('/');
+        res.redirect(azureConfig.destroySessionUrl);
     });
 })
 module.exports = router;

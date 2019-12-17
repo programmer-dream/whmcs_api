@@ -13,13 +13,28 @@ var cookieParser = require('cookie-parser');
 //using mysql for session
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var dbconfig=require("./config/sql");
+const winston = require('winston');
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: { service: 'user-service' },
+    transports: [
+        //
+        // - Write to all logs with level `info` and below to `combined.log`
+        // - Write all logs error (and below) to `error.log`.
+        //
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'combined.log' })
+    ]
+});
+
 // create database, ensure 'sqlite3' in your package.json
 var sequelize = new Sequelize(
     dbconfig.database,
     dbconfig.user,
     dbconfig.password, {
         "dialect": "mysql",
-        "storage": "./session.mysql"
+        "storage": "session"
     });
 
 app.use(

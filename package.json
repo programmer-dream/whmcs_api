@@ -44,7 +44,8 @@
     "sequelize": "^5.21.2",
     "sequelize-auto-import": "^1.1.0",
     "sha1": "^1.1.1",
-    "whmcs-js": "^2.0.0"
+    "whmcs-js": "^2.0.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "file-system-cache": "^1.0.5"
