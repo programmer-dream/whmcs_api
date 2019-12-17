@@ -233,7 +233,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                         });
                                                 })
                                                 .catch(function (error) {
-                                                    console.log("Erro creating module", error);
+                                                    console.log("Error creating module", error);
                                                     res.status(401).json({error:error});
                                                 });
                                         })
