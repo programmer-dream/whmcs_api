@@ -129,7 +129,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                      var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
 
                                                     mailer(url,configEmail.staffApproval)
-                                                        res.status(200).json({message:"SUCCESS"});
+                                                        //res.status(200).json({message:"SUCCESS"});
                                                     }).catch(function(error) {
                                                         res.status(401).json({error:error});
                                                     });
@@ -153,6 +153,8 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     res.status(401).json({error:error});
                 }
             })
+
+            res.status(200).json({message:"SUCCESS"});
         }else{
             res.status(401).json({error:error});
         }

@@ -225,7 +225,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                 );
                                                                 count++;
                                                             } while (count != parsedModules.length);
-                                                            res.status(200).json({message:"SUCCESS"});
+                                                            //res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {
                                                             console.log("Error updating client password", error);
@@ -252,7 +252,10 @@ router.post("/",ensureAuthenticated, (req, res) => {
                 .catch(function (error) {
                     res.status(401).json({error:error});
                 });
+
+            res.status(200).json({message:"SUCCESS"});
         }
+
     })
 
 });

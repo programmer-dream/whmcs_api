@@ -12,7 +12,8 @@ const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 //var mailer=require("../../utils/emailsend");
 // Utility functions
 const getTimestamp = require("../../utils/getTimestamp");
-
+var fs = require('fs');
+const azureConfig=require("../../config/config.demo");
 // @route 	POST api/user/login/callback
 // @desc 	Callback for the saml login
 // @access 	Private
@@ -37,7 +38,7 @@ router.post('/auth/openid/return',
         // Decide where the user is going to go, are they new or existing?
 		user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
             //if no result is passed back then the user data should be stored
-            if (!result.data.length) {
+            if (result.data.length==0) {
                 //new user logic
                 /////////////// Store the variables in the db for later use
 				user_idpdetailBal.addUser_IdpDetail(para,function (data,err1) {
@@ -101,7 +102,104 @@ router.post('/auth/openid/return',
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
+router.get("/varifyuser",function (req,res) {
+    var email=req.user.upn;
+    var upn1=email.split("@");
+    var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
+    const sessionid = req.session.id;
+    var para={
+        email:req.user.upn,
+        firstname:req.user.name.givenName,
+        lastname:req.user.name.familyName,
+        userid:userid,
+        sessionid:sessionid
+    }
+
+
+    // Decide where the user is going to go, are they new or existing?
+    user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
+        //if no result is passed back then the user data should be stored
+        if (result.data.length==0) {
+            //new user logic
+            /////////////// Store the variables in the db for later use
+            user_idpdetailBal.addUser_IdpDetail(para,function (data,err1) {
+                if(data.message=="success"){
+                    res.redirect("/home");
+                }else{
+                    res.send(data.data);
+                }
+            })
+        } else {
+            // update session id in the database on user login - this is used to pass data from this route to the staff login route
+            user_idpdetailBal.updateUser_IdpDetail({email:email,sessionid:sessionid},function (data,err) {
+                if(data.message=="success"){
+                    if (result.data[0].isStaff == 1 && result.data[0].isActive == 1) {
+                        // res.redirect("/stafflogin");
+                        res.redirect("/staff/login");
+                    } else if (result.data[0].isActive == 1) {
+                        // get the timestamp in milliseconds and convert it to seconds for WHMCS url
+                        var timestamp = getTimestamp();
+
+                        // get the email address that is returned from the IDP
+                        var urlemail = email;
+
+                        // URL to where the user is to go once logged into WHMCS
+                        var goto = "clientarea.php";
+
+                        // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
+                        // add the three variables together that are required for the WHMCS hash
+                        var hashedstrings = urlemail + timestamp + autoAuthKey;
+
+                        // use the sha1 node module to hash the variable
+                        var hash = sha1(hashedstrings);
+
+                        // create the URL to pass and redirect the user
+                        res.redirect(
+                            whmcsLoginUrl +
+                            "?email=" +
+                            urlemail +
+                            "&timestamp=" +
+                            timestamp +
+                            "&hash=" +
+                            hash +
+                            "&goto=" +
+                            goto
+                        );
+                    } else {
+                        req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+                        res.redirect("/");
+                    }
+                }else{
+                    res.send(data.data);
+                }
+            })
+
+
+        }
+    })
+})
+
+
+router.get("/", (req, res) => {
+    const sessionid = req.session.id;
+    const connection = mysql.createConnection(mysqlConfig);
+
+    connection.connect(function (err) {
+        if (err) throw err;
+
+        connection.query(
+            "SELECT * FROM user_idpdetails uidp LEFT JOIN client_details cd ON uidp.universityid = cd.universityid LEFT JOIN client_availablemodules cam ON cd.universityid = cam.universityid WHERE sessionid = ?",
+            [sessionid],
+            (err, result, fields) => {
+                if (err) throw err;
+                res.send(result);
+            }
+        );
+
+        connection.end();
+    });
+});
 
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
@@ -335,7 +433,7 @@ user_idpdetailBal.approvStaff({email:req.query.email},function (data,err) {
 router.get("/logout",function (req,res) {
     req.logout();
     req.session.destroy(function() {
-        res.redirect('/');
+        res.redirect(azureConfig.destroySessionUrl);
     });
 })
 module.exports = router;
