@@ -9,29 +9,14 @@ In the staff and student routes
 
 - Ensure Cloud linux with node selector is installed
 - Increase 'Max cPanel process memory' in Tweak settings to 1024
-
-- Add a user account in cpanel for the application 
+- Add a user account in cpanel for the application, if the client area is on a different account then create a cPanel account for the client area 
 - Enable shell access for the cpanel account
-- Install git on the cpanel account (a good how-to can be found here - https://www.liquidweb.com/kb/configure-deploy-cloudlinuxs-node-js-selector/)
 - Assign the cpanel account an IP address and add this to the dns zone for the domain
-
-- Ensure that the port is allowed through the WHM firewall (port 8443)
 - Increase PT_USERMEM and PT_USERTIME in the firewall to stop noticiations on long running node script
-
-# Setup SSL for the application
-
-- Install SSL
-- Install SSL through the SSL/TLS Wizard in cpanel, this will email this cert, copy the cert and save it as app.crt
-- Go to SSL/TLS page and look for the View Private Key option, this will show the generate private key for the new ssl certificate
-- Edit the files in the /sslcert folder
-    - app.crt - copy and paste the Certificate: (CRT) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - app.key - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - privkey.pem - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - fullchain.pem - Certificate: (CRT) + Certificate Authority Bundle: (CABUNDLE) - one on top of the other
 
 # Install the application (nodejs selector)
 
-- Using the GIT Maneger feature of cPanel, clone the repo (make the repo public during cloning and then set back to private)
+- Copy the AD-Saml GitHub files to the server (removing the - from the folder name)
 - In the cpanel account go to NodeJS selector and setup the application 
 - Click NPM install and enter the following settings, make sure node is on node 11 or later
 
@@ -39,7 +24,7 @@ In the staff and student routes
 
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
-Passport.js is used to allow for ADFS functionality ...
+An application should be setup on the clients end, the endpoint will change depending on the authentication strategy.
 
 # Setting up the application 
 
@@ -47,7 +32,7 @@ Passport.js is used to allow for ADFS functionality ...
 
 ## Database
 
-- Create a database (whatever name)
+- Create a database (any name)
 - Create a db user / password
 - Assign the user to the db with all permissions
 - Import the database file (located below)
@@ -55,9 +40,7 @@ Passport.js is used to allow for ADFS functionality ...
 `https://auth.educationhost.co.uk/williams_app.sql`
 
 - change the /config.sql file to update the app to point to the above database
-- npm pull the app to get the changes
-- ps -aux | grep node and Kill the node process
-- Start the application back up through cPanel
+- Restart the application back up through cPanel
 
 ## variables for a new client
 
