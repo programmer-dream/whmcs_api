@@ -93,7 +93,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                 .acceptOrder({
                                     orderid: addOrderResponse.orderid,
                                     acceptOrder: 1,
-                                    sendemail: 0
+                                    sendemail: 1
                                 })
 
                                 .then(function (acceptOrder) {
