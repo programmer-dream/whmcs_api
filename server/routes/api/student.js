@@ -6,7 +6,7 @@ const btoa = require("btoa");
 
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
-const { Clients, Orders, Services } = require("whmcs-js");
+const { Clients, Orders, Services, System } = require("whmcs-js");
 
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
@@ -93,7 +93,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                 .acceptOrder({
                                     orderid: addOrderResponse.orderid,
                                     acceptOrder: 1,
-                                    sendemail: 1
+                                    sendemail: 0
                                 })
 
                                 .then(function (acceptOrder) {
@@ -225,6 +225,28 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                 );
                                                                 count++;
                                                             } while (count != parsedModules.length);
+                                                        
+                                                        // This sends the Hosting account welcome email AFTER the user has signed up
+                                                        
+                                                   const sendEmail = new System(whmcsConfig);                    
+                                                   sendEmail.sendEmail({
+                                                                action: "SendEmail",
+                                                                messagename: 'Hosting Account Welcome Email',
+                                                                id: addOrderResponse.productids
+                                                            }).then(function (sendEmailresponse) {
+
+
+                                                        console.log(
+                                                        "Email Sending response",
+                                                        sendEmailresponse
+                                                    );
+                                                            })
+
+                                                                .catch(function (error) {
+                                                                    console.log("Error sending email", error);
+                                                                    res.status(401).json({error:error});
+                                                                });      
+                                                        
                                                             //res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {
