@@ -12,7 +12,7 @@ const generateRandomString = require("../../utils/generateRandomString");
 const getTimestamp = require("../../utils/getTimestamp");
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
-const { Clients, Orders, Services } = require("whmcs-js");
+const { Clients, Orders, Services, System } = require("whmcs-js");
 var mailer=require("../../utils/emailsend");
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
@@ -94,7 +94,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                     .acceptOrder({
                                         orderid: addOrderResponse.orderid,
                                         acceptOrder: 1,
-                                        sendemail: 1
+                                        sendemail: 0
                                     }).then(function(acceptOrder) {
                                         /* RETURNS
                                                           {
@@ -129,6 +129,32 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                      var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
 
                                                     mailer(url,configEmail.staffApproval)
+                                                    
+                                                    // This section sends the New Account Information Email at the correct time after account setup
+                                        
+                                        const sendEmail = new System(whmcsConfig);                    
+                                                   sendEmail.sendEmail({
+                                                                action: "SendEmail",
+                                                                messagename: 'Hosting Account Welcome Email',
+                                                                id: addOrderResponse.productids
+                                                            }).then(function (sendEmailresponse) {
+
+
+                                                    console.log(
+                                                        "Email Sending response",
+                                                        sendEmailresponse
+                                                    );
+
+
+
+                                                            })
+
+                                                                .catch(function (error) {
+                                                                    console.log("Error sending email", error);
+                                                                    res.status(401).json({error:error});
+                                                                });          
+                                        
+                                        // End of Hosting account email sender
                                                         //res.status(200).json({message:"SUCCESS"});
                                                     }).catch(function(error) {
                                                         res.status(401).json({error:error});
