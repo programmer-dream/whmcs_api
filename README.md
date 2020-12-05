@@ -2,6 +2,12 @@
 # Server setup
 
 - Make sure the location hosting the app and the server are the same time (for the autoauth)
+ For this item there needs to be the following:
+    - 1. A hostname (E.g. demowhserver.educationhost.co.uk
+    - 2. An account setup that is a reseller (demo.educationhost.co.uk)
+    - 3. An account setup for the application
+
+- Ensure Cloud linux with node selector is installed
 - Setup a reseller user in WHM
 - Add API Token to the reseller account - Make sure the api access allows access to packages
 - Setup a package in WHM - make sure a module is assigned (cpanel and package)
@@ -9,7 +15,6 @@
 
 # Setup hosting account for the application
 
-- Ensure Cloud linux with node selector is installed
 - Increase 'Max cPanel process memory' in Tweak settings to 1024
 - Add a user account in cpanel for the application, if the client area is on a different account then create a cPanel account for the client area 
 - Enable shell access for the cpanel account
