@@ -3,9 +3,9 @@
 
 - Make sure the location hosting the app and the server are the same time (for the autoauth)
  For this item there needs to be the following:
-    - 1. A hostname (E.g. demowhserver.educationhost.co.uk
-    - 2. An account setup that is a reseller (demo.educationhost.co.uk)
-    - 3. An account setup for the application
+    - 1. A hostname (E.g. demowhserver.educationhost.co.uk)
+    - 2. An account setup that is a reseller (E.g. demo.educationhost.co.uk)
+    - 3. An account setup for the application (E.g. webhosting.demo.educationhost.co.uk)
 
 - Ensure Cloud linux with node selector is installed
 - Setup a reseller user in WHM
