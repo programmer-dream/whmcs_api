@@ -1,9 +1,11 @@
-# Active Directory SAML - WHMCS authentication &amp; setup
 
-#Make sure Nameserver variables are setup
-In the staff and student routes
- var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
-                        var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+# Server setup
+
+- Make sure the location hosting the app and the server are the same time (for the autoauth)
+- Setup a reseller user in WHM
+- Add API Token to the reseller account - Make sure the api access allows access to packages
+- Setup a package in WHM - make sure a module is assigned (cpanel and package)
+
 
 # Setup hosting account for the application
 
@@ -21,6 +23,13 @@ In the staff and student routes
 - Click NPM install and enter the following settings, make sure node is on node 11 or later
 
 ![Image](https://educationhost.co.uk/NodeJS.PNG)
+
+# Active Directory SAML - WHMCS authentication &amp; setup
+
+#Make sure Nameserver variables are setup
+In the staff and student routes
+ var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                        var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
 
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
@@ -139,12 +148,6 @@ Enter the field IDs in the routes/api/student.js
 - Edit the email headers and footer to reflect Single Sign On links - Hover over the Setup tab and click General Settings. => Click on the Mail tab.
 - Modify 'New Account Information' Email template to remove any payment items and make sure links are correct 
 
-# Server setup
-
-- Make sure the location hosting the app and the server are the same time (for the autoauth)
-- Setup a reseller user in WHM
-- Add API Token to the reseller account - Make sure the api access allows access to packages
-- Setup a package in WHM - make sure a module is assigned (cpanel and package)
 
 # Third party JS applications used in the project
 
