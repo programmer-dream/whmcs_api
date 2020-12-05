@@ -1,6 +1,8 @@
 
 # Server setup
 
+Open up a document, details in the following steps will need to be recorded (as these will be required later on for the application)
+
 - Make sure the location hosting the app and the server are the same time (for the autoauth)
  For this item there needs to be the following:
     - 1. A hostname (E.g. demowhserver.educationhost.co.uk)
