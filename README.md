@@ -10,6 +10,7 @@ Open up a document, details in the following steps will need to be recorded (as 
     - 3. An account setup for the application (E.g. webhosting.demo.educationhost.co.uk)
 
 - Ensure Cloud linux with node selector is installed
+- Install CSF
 - Setup a reseller user in WHM
 - Add API Token to the reseller account - Make sure the api access allows access to packages
 - Setup a package in WHM - make sure a module is assigned (cpanel and package)
