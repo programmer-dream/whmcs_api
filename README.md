@@ -26,7 +26,7 @@ Open up a document, details in the following steps will need to be recorded (as 
 
 # Install the application (nodejs selector)
 
-- Copy the AD-Saml GitHub files to the server (removing the - from the folder name)
+- Copy the AD-Saml GitHub files to the application cpanel accout (E.g. webhosting.demo.educationhost.co.uk)  (removing the - from the folder name)
 - In the cpanel account go to NodeJS selector and setup the application 
 - Click NPM install and enter the following settings, make sure node is on node 11 or later
 
