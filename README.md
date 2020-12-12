@@ -1,3 +1,9 @@
+# Items requiring updating
+The following items are becoming end of life and should be coded into the application soon!
+
+1. WHMCS authentication method
+2. WHMCS TOKENS in server/routes/api/staff.js - https://api.docs.cpanel.net/whm/tokens/
+
 
 # Server setup
 
