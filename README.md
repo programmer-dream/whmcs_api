@@ -4,6 +4,42 @@ The following items are becoming end of life and should be coded into the applic
 1. WHMCS authentication method
 2. WHMCS TOKENS in server/routes/api/staff.js - https://api.docs.cpanel.net/whm/tokens/
 
+# Variables to change
+
+server\config\config.live.js
+
+1. identityMetadata: 'https://login.microsoftonline.com/1266b40c-527f-4afa-9032-e2cf53f4e02e/v2.0/.well-known/openid-configuration',
+2. clientID: '96dfa8a9-6274-47a7-b625-afa6be50be4f',
+3. redirectUrl: 'https://demo.educationhost.co.uk/api/user/auth/openid/return',
+4. clientSecret: 'a-4F1g18aJdyunrsl68g7C15-Rz7a..K7y',
+5. scope: 'profile',
+6. exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://demo.educationhost.co.uk';
+
+server\config\passport.js
+
+1. var config = require('./config.live')
+The config should ALWAYS be set to LIVE. DO NOT USE the other configs!
+
+server\config\sql.js
+
+Add in the SQL connection to where the application is hosted.
+
+server\config\whmcs.js
+
+Add in API information for the WHMCS installation.
+
+server\config\whmcsinstallationsql.js
+
+server\routes\api\staff.js
+
+1. Add in the header: var headers= {authorization: 'WHM demoeducationhos:d159
+2. Add in nameservers: var nameserver1 = "ns1.demo.educationhost.co.uk";
+                        var nameserver2 = "ns2.demo.educationhost.co.uk"
+3. Edit: var query='http://demowhserver.educationhost.co.uk:2086/json-api/create_user_session?api.version=1&user='+req.params.id+'&service=cpaneld';
+
+server\routes\view\staff.js 
+
+1. Update the staff dashboard links
 
 # Server setup
 
