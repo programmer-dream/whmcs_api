@@ -15,9 +15,9 @@ const config = {
 
 // DEVELOPMENT
 // Pointing to the EH WHMCS Live installation
-    identifier: 'EwXdtxaVrwfAcYfWwUGXIpmpViXPaJ3F',
-    secret: 'SyQux7LHyHS96kO20HptdFJll3EcvZ0S',
-    serverUrl: 'https://whmcs.educationhost.co.uk/includes/api.php', // Remember to point to the api.php file
+identifier: 'EwXdtxaVrwfAcYfWwUGXIpmpViXPaJ3F',
+secret: 'SyQux7LHyHS96kO20HptdFJll3EcvZ0S',
+serverUrl: 'https://whmcs.educationhost.co.uk/includes/api.php', // Remember to point to the api.php file
 
     // LIVE  accountName: 'xhgkhpdb',
     // DEV

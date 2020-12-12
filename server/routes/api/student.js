@@ -15,7 +15,7 @@ const whmcsConfig = require("../../config/whmcs");
 const studentProductId = 1;
 
 const studentUtils = require('../../utils/student')
-const azureConfig=require("../../config/config.demo");
+const azureConfig=require("../../config/config.live");
 
 // @route 	POST api/student/
 // @desc 	Example student route
@@ -58,8 +58,10 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     // Once the user is added in WHMCS, then add the service
                     const addOrder = new Orders(whmcsConfig);
                     var fulldomain = data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
-                    var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
-                    var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                    //var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                    //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                    var nameserver1 = "ns1.demo.educationhost.co.uk";
+                    var nameserver2 = "ns2.demo.educationhost.co.uk";
                     addOrder
                         .addOrder({
                             clientid: addClientResponse.clientid,
@@ -172,7 +174,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                             console.log(updateClientPasswordResponse);
 
                                                             var cpoptions = {
-                                                                host: "benu.zjnucomputing.com",
+                                                                host: "demowhserver.educationhost.co.uk",
                                                                 // EH Live host
                                                                 //host: 'benu.zjnucomputing.com',
                                                                 port: 2083,
@@ -225,8 +227,14 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                 );
                                                                 count++;
                                                             } while (count != parsedModules.length);
+<<<<<<< Updated upstream
                                                         
                                                         // This sends the Hosting account welcome email AFTER the user has signed up
+=======
+                                                            
+                                                            
+        // This sends the Hosting account welcome email AFTER the user has signed up
+>>>>>>> Stashed changes
                                                         
                                                    const sendEmail = new System(whmcsConfig);                    
                                                    sendEmail.sendEmail({
@@ -245,8 +253,12 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                 .catch(function (error) {
                                                                     console.log("Error sending email", error);
                                                                     res.status(401).json({error:error});
+<<<<<<< Updated upstream
                                                                 });      
                                                         
+=======
+                                                                });                                                           
+>>>>>>> Stashed changes
                                                             //res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {

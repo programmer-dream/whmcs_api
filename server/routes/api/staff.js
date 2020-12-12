@@ -60,8 +60,10 @@ router.post("/",ensureAuthenticated, (req, res) => {
                               */
                         console.log(addClientResponse);
                         var fulldomain = data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
-                        var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
-                        var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                        //var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                        //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                        var nameserver1 = "ns1.demo.educationhost.co.uk";
+                        var nameserver2 = "ns2.demo.educationhost.co.uk";
 
                         // Once the user is added in WHMCS, then add the service
                         const addOrder = new Orders(whmcsConfig);
@@ -130,7 +132,11 @@ router.post("/",ensureAuthenticated, (req, res) => {
 
                                                     mailer(url,configEmail.staffApproval)
                                                     
+<<<<<<< Updated upstream
                                                     // This section sends the New Account Information Email at the correct time after account setup
+=======
+                                                                                                        // This section sends the New Account Information Email at the correct time after account setup
+>>>>>>> Stashed changes
                                         
                                         const sendEmail = new System(whmcsConfig);                    
                                                    sendEmail.sendEmail({
@@ -240,7 +246,7 @@ router.post("/login", (req, res) => {
     });
 });
 router.get("/opencpanel/:id?",function (req,res) {
-    var query='http://benu.zjnucomputing.com:2086/json-api/create_user_session?api.version=1&user='+req.params.id+'&service=cpaneld';
+    var query='http://demowhserver.educationhost.co.uk:2086/json-api/create_user_session?api.version=1&user='+req.params.id+'&service=cpaneld';
 
     axios.get(query,{headers:headers}).then(function (body) {
         if(body.data.data){
