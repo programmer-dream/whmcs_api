@@ -1,8 +1,8 @@
 let config = {
   host: "localhost",
-  user: "wmleznrn_azure",
-  password: "AzureAdTest@",
-  database: "wmleznrn_azuread",
+  user: "demoeduc_ssowebhos",
+  password: "EbF$24Vd$KzG^LU!sQ$",
+  database: "demoeduc_adsaml",
   port: "3306",
     dialect:"mysql",
     min:0,

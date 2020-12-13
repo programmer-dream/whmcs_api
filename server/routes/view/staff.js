@@ -24,14 +24,14 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
       main: [
         {
           label: "Raise Support",
-          url: "https://clientarea.webhosting.canterbury.ac.uk/submitticket.php",
+          url: "https://whmcs.educationhost.co.uk/submitticket.php",
           icon: "local_offer"
         },
 
         {
           label: "Knowledge Base",
           url:
-            "https://clientarea.webhosting.canterbury.ac.uk/index.php?rp=/knowledgebase",
+            "https://whmcs.educationhost.co.uk/index.php?rp=/knowledgebase",
           icon: "info_outline"
         }
       ],
