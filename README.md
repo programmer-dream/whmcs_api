@@ -1,3 +1,79 @@
+# Items requiring updating
+The following items are becoming end of life and should be coded into the application soon!
+
+1. WHMCS authentication method
+2. WHM TOKENS in server/routes/api/staff.js - https://api.docs.cpanel.net/whm/tokens/
+
+# Variables to change
+
+## server\config\config.live.js
+
+1. identityMetadata: 'https://login.microsoftonline.com/1266b40c-527f-4afa-9032-e2cf53f4e02e/v2.0/.well-known/openid-configuration',
+2. clientID: '96dfa8a9-6274-47a7-b625-afa6be50be4f',
+3. redirectUrl: 'https://demo.educationhost.co.uk/api/user/auth/openid/return',
+4. clientSecret: 'a-4F1g18aJdyunrsl68g7C15-Rz7a..K7y',
+5. scope: 'profile',
+6. exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://demo.educationhost.co.uk';
+
+## server\config\passport.js
+
+1. var config = require('./config.live')
+The config should ALWAYS be set to LIVE. DO NOT USE the other configs!
+
+## server\config\sql.js
+
+Add in the SQL connection to where the application is hosted.
+
+## server\config\whmcs.js
+
+Add in API information for the WHMCS installation.
+
+## server\config\whmcsinstallationsql.js
+
+## server\routes\api\staff.js
+
+1. Add in the header: var headers= {authorization: 'WHM demoeducationhos:d159
+2. Add in nameservers: var nameserver1 = "ns1.demo.educationhost.co.uk";
+                        var nameserver2 = "ns2.demo.educationhost.co.uk"
+3. Edit: var query='http://demowhserver.educationhost.co.uk:2086/json-api/create_user_session?api.version=1&user='+req.params.id+'&service=cpaneld';
+
+## server\routes\view\staff.js 
+
+1. Update the staff dashboard links
+
+# Server setup
+
+Open up a document, details in the following steps will need to be recorded (as these will be required later on for the application)
+
+- Make sure the location hosting the app and the server are the same time (for the autoauth)
+ For this item there needs to be the following:
+    - 1. A hostname (E.g. demowhserver.educationhost.co.uk)
+    - 2. An account setup that is a reseller (E.g. demo.educationhost.co.uk)
+    - 3. An account setup for the application (E.g. webhosting.demo.educationhost.co.uk)
+
+- Ensure Cloud linux with node selector is installed
+- Install CSF
+- Setup a reseller user in WHM
+- Add API Token to the reseller account - Make sure the api access allows access to packages
+- Setup a package in WHM - make sure a module is assigned (cpanel and package)
+
+
+# Setup hosting account for the application
+
+- Increase 'Max cPanel process memory' in Tweak settings to 1024
+- Add a user account in cpanel for the application, if the client area is on a different account then create a cPanel account for the client area 
+- Enable shell access for the cpanel account
+- Assign the cpanel account an IP address and add this to the dns zone for the domain
+- Increase PT_USERMEM and PT_USERTIME in the firewall to stop noticiations on long running node script
+
+# Install the application (nodejs selector)
+
+- Copy the AD-Saml GitHub files to the application cpanel accout (E.g. webhosting.demo.educationhost.co.uk)  (removing the - from the folder name)
+- In the cpanel account go to NodeJS selector and setup the application 
+- Click NPM install and enter the following settings, make sure node is on node 11 or later
+
+![Image](https://educationhost.co.uk/NodeJS.PNG)
+
 # Active Directory SAML - WHMCS authentication &amp; setup
 
 #Make sure Nameserver variables are setup
@@ -5,41 +81,9 @@ In the staff and student routes
  var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
                         var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
 
-# Setup hosting account for the application
-
-- Ensure Cloud linux with node selector is installed
-- Increase 'Max cPanel process memory' in Tweak settings to 1024
-
-- Add a user account in cpanel for the application 
-- Enable shell access for the cpanel account
-- Install git on the cpanel account (a good how-to can be found here - https://www.liquidweb.com/kb/configure-deploy-cloudlinuxs-node-js-selector/)
-- Assign the cpanel account an IP address and add this to the dns zone for the domain
-
-- Ensure that the port is allowed through the WHM firewall (port 8443)
-- Increase PT_USERMEM and PT_USERTIME in the firewall to stop noticiations on long running node script
-
-# Setup SSL for the application
-
-- Install SSL
-- Install SSL through the SSL/TLS Wizard in cpanel, this will email this cert, copy the cert and save it as app.crt
-- Go to SSL/TLS page and look for the View Private Key option, this will show the generate private key for the new ssl certificate
-- Edit the files in the /sslcert folder
-    - app.crt - copy and paste the Certificate: (CRT) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - app.key - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - privkey.pem - copy and paste the Private Key (KEY) from the SSL created into here (this is on the Manage SSL Hosts cPanel page)
-    - fullchain.pem - Certificate: (CRT) + Certificate Authority Bundle: (CABUNDLE) - one on top of the other
-
-# Install the application (nodejs selector)
-
-- Using the GIT Maneger feature of cPanel, clone the repo (make the repo public during cloning and then set back to private)
-- In the cpanel account go to NodeJS selector and setup the application 
-- Click NPM install and enter the following settings, make sure node is on node 11 or later
-
-![Image](https://educationhost.co.uk/NodeJS.PNG)
-
 # Setting up the Service Provider (SP) to use the ADFS IDP
 
-Passport.js is used to allow for ADFS functionality ...
+An application should be setup on the clients end, the endpoint will change depending on the authentication strategy.
 
 # Setting up the application 
 
@@ -47,7 +91,7 @@ Passport.js is used to allow for ADFS functionality ...
 
 ## Database
 
-- Create a database (whatever name)
+- Create a database (any name)
 - Create a db user / password
 - Assign the user to the db with all permissions
 - Import the database file (located below)
@@ -55,9 +99,7 @@ Passport.js is used to allow for ADFS functionality ...
 `https://auth.educationhost.co.uk/williams_app.sql`
 
 - change the /config.sql file to update the app to point to the above database
-- npm pull the app to get the changes
-- ps -aux | grep node and Kill the node process
-- Start the application back up through cPanel
+- Restart the application back up through cPanel
 
 ## variables for a new client
 
@@ -156,12 +198,6 @@ Enter the field IDs in the routes/api/student.js
 - Edit the email headers and footer to reflect Single Sign On links - Hover over the Setup tab and click General Settings. => Click on the Mail tab.
 - Modify 'New Account Information' Email template to remove any payment items and make sure links are correct 
 
-# Server setup
-
-- Make sure the location hosting the app and the server are the same time (for the autoauth)
-- Setup a reseller user in WHM
-- Add API Token to the reseller account - Make sure the api access allows access to packages
-- Setup a package in WHM - make sure a module is assigned (cpanel and package)
 
 # Third party JS applications used in the project
 
