@@ -1,1 +1,1 @@
-module.exports = 'V2Q3kTv3RCwIxb7eiK97rzu1u98iay9Q';
+module.exports = process.env.AutoAuthKey;

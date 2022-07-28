@@ -24,14 +24,13 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
       main: [
         {
           label: "Raise Support",
-          url: "https://clientarea.webhosting.canterbury.ac.uk/submitticket.php",
+          url: process.env.Staffticketlink,
           icon: "local_offer"
         },
 
         {
           label: "Knowledge Base",
-          url:
-            "https://clientarea.webhosting.canterbury.ac.uk/index.php?rp=/knowledgebase",
+          url: process.env.Staffknowledgebaselink,
           icon: "info_outline"
         }
       ],
@@ -39,7 +38,7 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
 
         {
           label: "Network Monitor",
-          url: "https://uptime.statuscake.com/?TestID=PzBTSXZwia",
+          url: process.env.Networkmonitorlink,
           icon: "list_alt"
         }
       ]

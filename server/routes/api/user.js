@@ -13,7 +13,7 @@ const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 // Utility functions
 const getTimestamp = require("../../utils/getTimestamp");
 var fs = require('fs');
-const azureConfig=require("../../config/config.demo");
+const azureConfig=require(process.env.configwithin);
 // @route 	POST api/user/login/callback
 // @desc 	Callback for the saml login
 // @access 	Private

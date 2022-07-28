@@ -34,7 +34,7 @@ router.get("/dashboard", ensureAuthenticated, function(req, res) {
         {
           label: "Knowledge Base",
           url:
-            "https://webhosting.canterbury.ac.uk/clientarea/index.php?rp=/knowledgebase",
+            "https://whmcs.educationhost.co.uk/clientarea/index.php?rp=/knowledgebase",
           icon: "info_outline"
         }
       ],

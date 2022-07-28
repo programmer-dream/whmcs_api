@@ -1,9 +1,8 @@
 let config = {
-    host: "localhost",
-    //host: "109.73.172.246",
-    user: "aauapmff_app1234",
-    password: "%O7WrF#Ibga38X!P",
-    database: "aauapmff_whmcs",
-    port: "3306"
+    host: process.env.whmcshost,
+    user: process.env.whmcsuser,
+    password: process.env.whmcsdatabasepassword,
+    database: process.env.whmcsdatabasename,
+    port: process.env.whmcsdatabaseport
 };
 module.exports = config;

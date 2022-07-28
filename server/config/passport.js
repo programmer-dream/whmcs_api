@@ -1,7 +1,7 @@
 const passport = require('passport');
 var user_idpdetailBal=require("../../Bal/user_idpdetails");
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-var config = require('./config.demo');
+var config = require(process.env.config);
 passport.serializeUser(function (user, done) {
 	done(null, user);
 });

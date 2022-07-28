@@ -5,20 +5,21 @@ const mysqlConfig = require("../../config/sql");
 const sha1 = require("sha1");
 const autoAuthKey = require("../../config/autoAuth");
 const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
-var headers= {authorization: 'WHM aauapmff:906448e04b994861336c7a3521ed08b251c455f3332edd010c12bde883b83dea527ef7ec623f23e831a32b15e02ba5425814a8d235c575a70c179fb246afe6ccf3b2dfbe6e2de754d331a406052a0d6754225cb4d1e4e77c3f45bae592d1a25f77040633ac552ce35755a2291cc84338fac070023b0471d2e2b74056f6d1fbca86186213f2428208d4beaf34044fd0ff325e705f004eb42a0d0deac200be1703b0a0fccf47007d982dfad50706a3e0470ab4b3d8b68cccc7e45e4de2f1be8282e35e81f9fc9408a14874e0e5e418aeddab60a25e9d1b6c1359b9619907c88c6c6575e2b1d3b3b38f11588390bdcf83c65bea8faebf55f1f199ea6cc5286055a79a4cac57b2c4f10fc530298f9f7287099071b448000b5ce9b5705754e15def9299c3f54c6e3d9d843f4ffaa5aa762da9b1d7fe9ad45a5e35ca43683217c73cc208ff1f47652b609e5919c250f74ea3625ef92a0aa447a7824bf3484181c48677782d21aa3686d27d88921d1a8118980296e40faaccd5bd63cf3a718b2fd1f083903014214db0746c06ee8d1976467179f03bbbafe47079c6109613286b426a98286924c74c80102cd69d3d275d52970fdc9503081cce3bf85ac336499b0adb529d8a9d6469735aa11addc90dd18517b12bcb1c3e7ab63df9e76151c45dc7e81f' };
+var headers= {authorization: process.env.WHMHeader };
 var axios = require("axios");
 // Import utility functions
 const generateRandomString = require("../../utils/generateRandomString");
+const generateRandomPassword = require("../../utils/generaterandompassword");
 const getTimestamp = require("../../utils/getTimestamp");
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
-const { Clients, Orders, Services } = require("whmcs-js");
+const { Clients, Orders, Services, System } = require("whmcs-js");
 var mailer=require("../../utils/emailsend");
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
 var configEmail=require("../../config/emailConfig.json");
 // Id for the staff product
-const staffProductId = 3;
+const staffProductId = process.env.whmcsstaffProductId;
 
 // @route 	POST api/staff/
 // @desc 	Creates the staff member
@@ -34,6 +35,8 @@ router.post("/",ensureAuthenticated, (req, res) => {
                 if(data1.message=="success"){
                         // Set the staff user up on WHMCS - this account will require manual approval
                         // The thing that will change here is that there will be a different product ID and it will require approval by admin user
+                    // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
+                    const randomstaffpassword = generateRandomPassword();
                     const addClient = new Clients(whmcsConfig);
                     var a=data.data[0].dataValues.client_detail.dataValues.Address1
                     addClient
@@ -47,9 +50,11 @@ router.post("/",ensureAuthenticated, (req, res) => {
                             state: data.data[0].dataValues.client_detail.dataValues.State,
                             postcode: data.data[0].dataValues.client_detail.dataValues.Postcode,
                             country: data.data[0].dataValues.client_detail.dataValues.Country,
+                            // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
+                            password2: randomstaffpassword,
                             phonenumber: data.data[0].dataValues.client_detail.dataValues.Phone,
-                            notes: "Staff account - Created through Education Host AD login",
-                            language: "english",
+                            notes: process.env.whmcsaccountnotes,
+                            language: process.env.whmcsdefaultlanguage,
                             skipvalidation: true
                         })  .then(function(addClientResponse) {
                         /* RETURNS
@@ -60,8 +65,10 @@ router.post("/",ensureAuthenticated, (req, res) => {
                               */
                         console.log(addClientResponse);
                         var fulldomain = data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
-                        var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
-                        var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                        //var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                        //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                        var nameserver1 = process.env.newAccountNameserver1;
+                        var nameserver2 = process.env.newAccountNameserver2;
 
                         // Once the user is added in WHMCS, then add the service
                         const addOrder = new Orders(whmcsConfig);
@@ -72,7 +79,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                 domain: fulldomain,
                                 nameserver1: nameserver1,
                                 nameserver2: nameserver2,
-                                paymentmethod: "banktransfer",
+                                paymentmethod: process.env.whmcspaymenttype,
                                 noemail: true,
                                 noinvoice: true,
                                 noinvoiceemail: true
@@ -94,7 +101,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                     .acceptOrder({
                                         orderid: addOrderResponse.orderid,
                                         acceptOrder: 1,
-                                        sendemail: 1
+                                        sendemail: 0
                                     }).then(function(acceptOrder) {
                                         /* RETURNS
                                                           {
@@ -129,6 +136,32 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                      var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
 
                                                     mailer(url,configEmail.staffApproval)
+                                                    
+                                                                                                        // This section sends the New Account Information Email at the correct time after account setup
+                                        
+                                        const sendEmail = new System(whmcsConfig);                    
+                                                   sendEmail.sendEmail({
+                                                                action: "SendEmail",
+                                                                messagename: 'Hosting Account Welcome Email',
+                                                                id: addOrderResponse.productids
+                                                            }).then(function (sendEmailresponse) {
+
+
+                                                    console.log(
+                                                        "Email Sending response",
+                                                        sendEmailresponse
+                                                    );
+
+
+
+                                                            })
+
+                                                                .catch(function (error) {
+                                                                    console.log("Error sending email", error);
+                                                                    res.status(401).json({error:error});
+                                                                });          
+                                        
+                                        // End of Hosting account email sender
                                                         //res.status(200).json({message:"SUCCESS"});
                                                     }).catch(function(error) {
                                                         res.status(401).json({error:error});
@@ -183,19 +216,6 @@ router.post("/login", (req, res) => {
     // use the sha1 node module to hash the variable
     var hash = sha1(hashedstrings);
 
-    // create the URL to pass and redirect the user
-    // res.redirect(
-    // 	whmcsLoginUrl +
-    // 	"?email=" +
-    // 	urlemail +
-    // 	"&timestamp=" +
-    // 	timestamp +
-    // 	"&hash=" +
-    // 	hash +
-    // 	"&goto=" +
-    // 	goto
-    // );
-
     // Send the URL back to the frontend
     res.send({
         message: "Logged in successfully",
@@ -214,7 +234,7 @@ router.post("/login", (req, res) => {
     });
 });
 router.get("/opencpanel/:id?",function (req,res) {
-    var query='http://benu.zjnucomputing.com:2086/json-api/create_user_session?api.version=1&user='+req.params.id+'&service=cpaneld';
+    var query=process.env.whmopencpanel+req.params.id+'&service=cpaneld';
 
     axios.get(query,{headers:headers}).then(function (body) {
         if(body.data.data){

@@ -1,21 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const generateRandomString = require("../../utils/generateRandomString");
+const generateRandomPassword = require("../../utils/generaterandompassword");
 const cpanel = require("cpanel-lib");
 const btoa = require("btoa");
 
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
 // Get the modules from whmcs-js
-const { Clients, Orders, Services } = require("whmcs-js");
+const { Clients, Orders, Services, System } = require("whmcs-js");
 
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
 
 // Id for the student product
-const studentProductId = 1;
+const studentProductId = process.env.whmcsstudentProductID;
 
 const studentUtils = require('../../utils/student')
-const azureConfig=require("../../config/config.demo");
+const azureConfig=require(process.env.configwithin);
 
 // @route 	POST api/student/
 // @desc 	Example student route
@@ -27,6 +28,8 @@ router.post("/",ensureAuthenticated, (req, res) => {
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
         if(data.message=="success"){
             // Call the getClients call and store the data in the variable called
+            // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
+            const randompassword = generateRandomPassword();
             const addClient = new Clients(whmcsConfig);
             addClient.addClient({
                     firstname: data.data[0].dataValues.firstname,
@@ -38,11 +41,13 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     state: data.data[0].dataValues.client_detail.dataValues.State,
                     postcode: data.data[0].dataValues.client_detail.dataValues.Postcode,
                     country: data.data[0].dataValues.client_detail.dataValues.Country,
+                    // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
+                    password2: randompassword,
                     // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
                     customfields: encodedModules,
                     phonenumber: data.data[0].dataValues.client_detail.dataValues.Phone,
-                    notes: "Created through Education Host AD login",
-                    language: "english",
+                    notes: process.env.whmcsaccountnotes,
+                    language: process.env.whmcsdefaultlanguage,
                     skipvalidation: true
                 })
                 .then(function (addClientResponse) {
@@ -58,8 +63,10 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     // Once the user is added in WHMCS, then add the service
                     const addOrder = new Orders(whmcsConfig);
                     var fulldomain = data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
-                    var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
-                    var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                    //var nameserver1 = 'ns1.' + data.data[0].client_detail.dataValues.domainname;
+                    //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
+                    var nameserver1 = process.env.newAccountNameserver1;
+                    var nameserver2 = process.env.newAccountNameserver2;
                     addOrder
                         .addOrder({
                             clientid: addClientResponse.clientid,
@@ -68,7 +75,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                             domain: fulldomain,
                             nameserver1: nameserver1,
                             nameserver2: nameserver2,
-                            paymentmethod: "banktransfer",
+                            paymentmethod: process.env.whmcspaymenttype,
                             noemail: true,
                             noinvoice: true,
                             noinvoiceemail: true
@@ -172,7 +179,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                             console.log(updateClientPasswordResponse);
 
                                                             var cpoptions = {
-                                                                host: "benu.zjnucomputing.com",
+                                                                host: process.env.webserverhostname,
                                                                 // EH Live host
                                                                 //host: 'benu.zjnucomputing.com',
                                                                 port: 2083,
@@ -225,6 +232,28 @@ router.post("/",ensureAuthenticated, (req, res) => {
                                                                 );
                                                                 count++;
                                                             } while (count != parsedModules.length);
+                                                            
+                                                            
+        // This sends the Hosting account welcome email AFTER the user has signed up
+                                                        
+                                                   const sendEmail = new System(whmcsConfig);                    
+                                                   sendEmail.sendEmail({
+                                                                action: "SendEmail",
+                                                                messagename: 'Hosting Account Welcome Email',
+                                                                id: addOrderResponse.productids
+                                                            }).then(function (sendEmailresponse) {
+
+
+                                                        console.log(
+                                                        "Email Sending response",
+                                                        sendEmailresponse
+                                                    );
+                                                            })
+
+                                                                .catch(function (error) {
+                                                                    console.log("Error sending email", error);
+                                                                    res.status(401).json({error:error});
+                                                                });                                                           
                                                             //res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {

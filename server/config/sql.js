@@ -1,8 +1,8 @@
 let config = {
-  host: "localhost",
-  user: "wmleznrn_azure",
-  password: "AzureAdTest@",
-  database: "wmleznrn_azuread",
+  host: process.env.Host,
+  user: process.env.Databaseuser,
+  password: process.env.Databasepassword,
+  database: process.env.Database,
   port: "3306",
     dialect:"mysql",
     min:0,
