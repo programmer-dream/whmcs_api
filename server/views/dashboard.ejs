@@ -54,7 +54,6 @@
 
     <script type="text/javascript">
 
-
         axios.get('/api/user/staffdashboardusercount')
             .then(function (response) {
                 // Get the client data from the response
@@ -122,14 +121,12 @@
         class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center">
         <div class="navbar-wrapper">
             <div class="navbar-header">
-
-
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a
                             class="nav-link nav-menu-main menu-toggle hidden-xs" href="#" aria-label="Menu icon"><i
                                 class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item mobile-menu mr-auto" style="padding-top:20px;">
-                        <h1 class="brand-text">Lecturer Dashboard</h1>
+                        <h1 class="brand-text" style="width: 40rem;">Management Dashboard </h1>
                     </li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
                             data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
@@ -145,13 +142,14 @@
                     <ul class="nav navbar-nav float-right">
 
                         <li>
-                            <a class="dropdown-item" href="/api/user/logout"><i class="material-icons">power_settings_new</i>
+                            <a class="dropdown-item" href="/api/user/logout"><i
+                                    class="material-icons">power_settings_new</i>
                                 Logout</a>
 
-                </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
     </nav>
     <!-- END: Header-->
@@ -170,56 +168,59 @@
                     <div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
                             src="/images/logo/logo.png" alt="Dashboard Menu logo" />
 
-                        <div class="text-dark">Hello <br> <span style="font-size: 1.5rem"> <%= user.name.givenName %> <%= user.name.familyName %></span></div>
+                        <div class="text-dark">Hello <br> <span style="font-size: 1.5rem">
+                                <%= user.name.givenName %>
+                                    <%= user.name.familyName %>
+                            </span></div>
 
                     </div>
                 </div>
                 <div class="main-menu-content">
                     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-                      
+
                         <!-- Support Menu-->
                         <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
                                 class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
                                 data-original-title="Support">more_horiz</i>
                         </li>
-                        <%
-
-                          supportMenu.main.forEach(item => {
+                        <% supportMenu.main.forEach(item=> {
                             %>
 
                             <li class=" nav-item">
-                              <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
-                                <i class="material-icons mr-1"><%= item.icon %></i>
-                                <span class="menu-title" data-i18n="nav.support_raise_support.main"><%= item.label %></span>
-                              </a>
+                                <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
+                                    <i class="material-icons mr-1">
+                                        <%= item.icon %>
+                                    </i>
+                                    <span class="menu-title" data-i18n="nav.support_raise_support.main">
+                                        <%= item.label %>
+                                    </span>
+                                </a>
                             </li>
 
-                            <%
-                          })
+                            <% }) %>
+                                <li class=" navigation-header"><span data-i18n="nav.category.support">Other
+                                        Links</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
+                                        data-placement="right" data-original-title="Support">more_horiz</i>
+                                </li>
+                                <% supportMenu.other.forEach(item=> {
+                                    %>
 
-                        %>
-                        <li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <%
+                                    <li class=" nav-item">
+                                        <a href="<%= item.url %>"
+                                            class="d-flex justify-content-start align-items-start">
+                                            <i class="material-icons mr-1">
+                                                <%= item.icon %>
+                                            </i>
+                                            <span class="menu-title mt-1" data-i18n="nav.support_raise_support.main">
+                                                <%= item.label %>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                          supportMenu.other.forEach(item => {
-                            %>
-
-                            <li class=" nav-item">
-                              <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
-                                <i class="material-icons mr-1"><%= item.icon %></i>
-                                <span class="menu-title mt-1" data-i18n="nav.support_raise_support.main"><%= item.label %></span>
-                              </a>
-                            </li>
-
-                            <%
-                          })
-
-                        %>
-                        <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
+                                    <% }) %>
+                                        <li>
+                                            <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
                                 class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
                                 data-original-title="Support">more_horiz</i>
                         </li>
@@ -246,8 +247,44 @@
                                     data-i18n="">Network Monitor</span></a>
                         </li> -->
                     </ul>
+
+
+                    <!-- Admin Pannel start  -->
+                    <% if(user.isAdmin){ %>
+                        <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow mt-2  "
+                            data-scroll-to-active="true">
+                            <div class="user-profile">
+                                <div class="user-info text-center pt-1 pb-1">
+                                    <div class="text-dark"> <span style="font-size: 1.5rem">
+                                            Admin
+                                        </span></div>
+                                </div>
+                            </div>
+                            <ul class="navigation navigation-main" id="main-menu-navigation"
+                                data-menu="menu-navigation">
+                                <% supportMenu.admin.forEach(item=> {
+                                    %>
+                                    <li class=" nav-item">
+                                        <a href="<%= item.url %>"
+                                            class="d-flex justify-content-start align-items-start">
+                                            <i class="material-icons mr-1">
+                                                <!-- <%= item.icon %> -->
+                                            </i>
+                                            <span class="menu-title <%= item.style %>"
+                                                data-i18n="nav.support_raise_support.main  ">
+                                                <%= item.label %>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <% }) %>
+                                        <li>
+                            </ul>
+                        </div>
+                        <% } %>
+                            <!-- Admin Pannel end -->
                 </div>
             </div>
+
 
             <!-- END: Main Menu-->
             <div class="content-body">
@@ -401,7 +438,7 @@
                                         <div class="row">
                                             <div class=" col-12">
                                                 <div class="card">
-                                                    
+
                                                     <div class="card-content collapse show">
                                                         <div class="card-body pt-0">
                                                             <div class="row mb-1">
@@ -413,8 +450,10 @@
                                                                 </div>
                                                             </div>
                                                             <div class="chartjs">
-                                                                <canvas id="thisYearRevenue" widtsh="400" style="position: absolute; width: 100%"></canvas>
-                                                                <canvas id="lastYearRevenue" widsth="400" style=" width: 100%"></canvas>
+                                                                <canvas id="thisYearRevenue" widtsh="400"
+                                                                    style="position: absolute; width: 100%"></canvas>
+                                                                <canvas id="lastYearRevenue" widsth="400"
+                                                                    style=" width: 100%"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -429,28 +468,30 @@
                             </div>
                         </div>
                         <div class="col-4">
-                          <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Top Users</h4>
-                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li><a onclick="seeall()">Show all</a></li>
-                                    </ul>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Top Users</h4>
+                                    <a class="heading-elements-toggle"><i
+                                            class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a onclick="seeall()">Show all</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-content collapse show">
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <tbody id="logins" style="overflow-y: auto; height: 100%">
-                                                
-                                            </tbody>
-                                        </table>
+                                <div class="card-content collapse show">
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody id="logins" style="overflow-y: auto; height: 100%">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div></div>
+                        </div>
                     </div>
                 </section>
 
@@ -472,7 +513,9 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard ">
-                                        <p>Use the table to suspend or unsuspend student accounts. If the user is suspended then they will not be permitted to login to the Single Sign-On but their cpanel account will still work.</p>
+                                        <p>Use the table to suspend or unsuspend student accounts. If the user is
+                                            suspended then they will not be permitted to login to the Single Sign-On but
+                                            their cpanel account will still work.</p>
 
                                         <div id="jsGrid1" style="height: 200px; overflow-y: auto;"></div>
                                     </div>
@@ -496,8 +539,9 @@
     <footer class="footer footer-static footer-light navbar-border">
         <p class="clearfix blue-grey text-sm-center mb-0 px-2"><span
                 class="float-md-right d-block d-md-inline-block">Copyright &copy; <%= copyrightDate%>&nbsp;&nbsp;<a
-                    class="text-bold-800 grey darken-2" href="https://www.educationhost.co.uk" target="_blank">Education
-                    Host Ltd</a></span></p>
+                        class="text-bold-800 grey darken-2" href="https://www.educationhost.co.uk"
+                        target="_blank">Education
+                        Host Ltd</a></span></p>
     </footer>
     <!-- END: Footer-->
 
@@ -537,7 +581,7 @@
     <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
     <script src="/vendors/js/tables/jsgrid/griddata.js"></script>
     <script src="/js/scripts/tables/jsgrid/jsgrid.js"></script>
-<script src="/js/scripts/tables/jsgrid/susgrid.js"></script>
+    <script src="/js/scripts/tables/jsgrid/susgrid.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- BEGIN: Vendor JS-->
 
@@ -549,28 +593,28 @@
     <script src="/js/scripts/pages/dashboard-ecommerce.js"></script>
     <!-- END: Page JS-->
     <script src="/js/scripts/pages/dashboard-sales.js"></script>
-<script src="/js/core/app.js"></script>
+    <script src="/js/core/app.js"></script>
     <!-- Temporarily here -->
     <script>
-    
-      // Get Logins
-      fetch('/api/user/gettoplogin').then(res => res.json()).then(data => {
-          const userLogins = data.data;
+
+        // Get Logins
+        fetch('/api/user/gettoplogin').then(res => res.json()).then(data => {
+            const userLogins = data.data;
 
 
-          userLogins.forEach(user => {
-            $('#logins').append(`
+            userLogins.forEach(user => {
+                $('#logins').append(`
             
               <tr>
-                <th scope="row" class="border-top-0">${user.firstname+user.lastname}</th>
+                <th scope="row" class="border-top-0">${user.firstname + user.lastname}</th>
                 <td class="border-top-0">${user.logins}</td>
               </tr>
 
             `)
-          })
-      }).catch(err => {
-        console.error('Error fetching login count', err)
-      })
+            })
+        }).catch(err => {
+            console.error('Error fetching login count', err)
+        })
 
         function seeall() {
             fetch('/api/user/getalllogin').then(res => res.json()).then(data => {
@@ -581,7 +625,7 @@
                     $('#logins').append(`
 
               <tr>
-                <th scope="row" class="border-top-0">${user.firstname+user.lastname}</th>
+                <th scope="row" class="border-top-0">${user.firstname + user.lastname}</th>
                 <td class="border-top-0">${user.logins}</td>
               </tr>
 

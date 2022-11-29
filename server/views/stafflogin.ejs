@@ -33,8 +33,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
     <script src="/js/bootstrap.min.js"></script>
 
     <!-- Include bootstrap-multiselect CSS and JS: -->
@@ -93,7 +93,7 @@
                     if (confirm('Go to the client area?')) {
                         window.location = data.data.redirectTo
                     }
-                   
+
 
                 } catch (err) {
                     console.log(err)
@@ -140,81 +140,82 @@
 </head>
 
 <body>
-<!-- Modal start -->
-<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
-     data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newuser">
-                    Lecturer user - Where would you like to go?
-                </h5>
-                <% if (error_msg!=""){ %>
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <div class="alert-text"><%= error_msg %></div>
-                    <div class="alert-close">
-                        <i class="flaticon2-cross kt-icon-sm" data-dismiss="alert"></i>
-                    </div>
+    <!-- Modal start -->
+    <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="newuser" aria-hidden="true"
+        data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newuser">
+                        Lecturer user - Where would you like to go?
+                    </h5>
+                    <% if (error_msg!="" ){ %>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="alert-text">
+                                <%= error_msg %>
+                            </div>
+                            <div class="alert-close">
+                                <i class="flaticon2-cross kt-icon-sm" data-dismiss="alert"></i>
+                            </div>
+                        </div>
+                        <%}%>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
                 </div>
-                <%}%>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <p class="text-center">
+                <div class="modal-body">
+                    <p class="text-center">
                     <div class="card-deck">
                         <div class="card">
                             <img class="card-img-top" src="/images/dashboard.png" alt="Admin dashboard" width="100%"
-                                 height="50%">
+                                height="50%">
                             <div class="card-body">
-                                <h5 class="card-title border-bottom pb-3">
-                                    Lecturer Dashboard
+                                <h5 class="card-title border-bottom pb-3 ">
+                                    Management Dashboard
                                 </h5>
 
-                <p class="card-text">
-                    Log into the Lecturer dashboard to administer your students.
-                </p>
+                                <p class="card-text">
+                                    Log into the Lecturer dashboard to administer your students.
+                                </p>
 
-                <a href="/staff/dashboard" id="adminaccount"
-                   class="btn btn-primary float-right has-spinner">
-										<span class="spinner">
-											<i class="fa fa-spinner fa-spin"></i>
-										</span> Click Here
-                </a>
-            </div>
-        </div>
+                                <a href="/staff/dashboard" id="adminaccount"
+                                    class="btn btn-primary float-right has-spinner">
+                                    <span class="spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </span> Click Here
+                                </a>
+                            </div>
+                        </div>
 
-        <div class="card">
-            <img class="card-img-top" src="/images/hosting.png" alt="Staff web hosting" width="100%"
-                 height="50%">
-            <div class="card-body">
-                <h5 class="card-title border-bottom pb-3">
-                    Lecturer Web Hosting
-                </h5>
+                        <div class="card">
+                            <img class="card-img-top" src="/images/hosting.png" alt="Staff web hosting" width="100%"
+                                height="50%">
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom pb-3">
+                                    Lecturer Web Hosting
+                                </h5>
 
-                <p class="card-text">
-                    Lecturer web hosting account login, as setup on sign up.
-                </p>
+                                <p class="card-text">
+                                    Lecturer web hosting account login, as setup on sign up.
+                                </p>
 
-                <button type="button" id="whmcsaccount"
-                        class="btn btn-primary float-right has-spinner">
-										<span class="spinner">
-											<i class="fa fa-spinner fa-spin"></i>
-										</span> Click Here
-                </button>
+                                <button type="button" id="whmcsaccount" class="btn btn-primary float-right has-spinner">
+                                    <span class="spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </span> Click Here
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    </p>
-</div>
-</div>
-</div>
-</div>
 </body>
 
 </html>
