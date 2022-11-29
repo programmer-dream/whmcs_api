@@ -45,19 +45,24 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         {
           label: "User Manager",
           // style: " text-bold-700 font-size-large ",
+          icon: "group",
         },
         {
           label: "Bulk User Import ",
+          icon: " group_add",
         },
         {
           label: "Add individual user ",
           // style: " text-bold-700 font-size-large ",
+          icon: "person_add",
         },
         {
           label: "Remove users ",
+          icon: "person_remove",
         },
         {
           label: "API import  ",
+          icon: "api",
         },
       ],
     },
