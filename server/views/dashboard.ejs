@@ -54,7 +54,6 @@
 
     <script type="text/javascript">
 
-
         axios.get('/api/user/staffdashboardusercount')
             .then(function (response) {
                 // Get the client data from the response
@@ -220,7 +219,8 @@
                                     </li>
 
                                     <% }) %>
-                                        <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
+                                        <li>
+                                            <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
                                 class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
                                 data-original-title="Support">more_horiz</i>
                         </li>
@@ -247,8 +247,44 @@
                                     data-i18n="">Network Monitor</span></a>
                         </li> -->
                     </ul>
+
+
+                    <!-- Admin Pannel start  -->
+                    <% if(user.isAdmin){ %>
+                        <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow mt-2  "
+                            data-scroll-to-active="true">
+                            <div class="user-profile">
+                                <div class="user-info text-center pt-1 pb-1">
+                                    <div class="text-dark"> <span style="font-size: 1.5rem">
+                                            Admin
+                                        </span></div>
+                                </div>
+                            </div>
+                            <ul class="navigation navigation-main" id="main-menu-navigation"
+                                data-menu="menu-navigation">
+                                <% supportMenu.admin.forEach(item=> {
+                                    %>
+                                    <li class=" nav-item">
+                                        <a href="<%= item.url %>"
+                                            class="d-flex justify-content-start align-items-start">
+                                            <i class="material-icons mr-1">
+                                                <!-- <%= item.icon %> -->
+                                            </i>
+                                            <span class="menu-title <%= item.style %>"
+                                                data-i18n="nav.support_raise_support.main  ">
+                                                <%= item.label %>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <% }) %>
+                                        <li>
+                            </ul>
+                        </div>
+                        <% } %>
+                            <!-- Admin Pannel end -->
                 </div>
             </div>
+
 
             <!-- END: Main Menu-->
             <div class="content-body">
