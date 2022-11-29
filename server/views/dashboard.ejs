@@ -254,14 +254,15 @@
                         <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow mt-2  "
                             data-scroll-to-active="true">
                             <div class="user-profile">
-                                <div class="user-info text-center pt-1 pb-1">
-                                    <div class="text-dark"> <span style="font-size: 1.5rem">
-                                            Admin
-                                        </span></div>
-                                </div>
-                            </div>
+                                
+                                    <div class="text-dark"> </div>  </div>
+                            
                             <ul class="navigation navigation-main" id="main-menu-navigation"
                                 data-menu="menu-navigation">
+                                <li class=" navigation-header"><span data-i18n="nav.category.support">Admin</span><i
+                                    class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+                                    data-original-title="Support">more_horiz</i>
+                            </li>
                                 <% supportMenu.admin.forEach(item=> {
                                     %>
                                     <li class=" nav-item">
