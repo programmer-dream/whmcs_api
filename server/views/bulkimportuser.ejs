@@ -238,8 +238,8 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard ">
-                                        <p>Upload your CSV file to import users into the system. This will setup 5
-										accounts at a time until the CSV file is completed.</p>
+                                        <p>Upload your CSV file to import users into the system. This will setup the number of accounts setup in the settings (typically 5
+										accounts at a time) until the CSV file is completed.</p>
                                         <p>
 										Please ensure that the CSV file is populated as per our <a href="#Modal" data-toggle="modal" data-target="#exampleModalScrollable">quidelines</a></p>
                                         <p>
@@ -256,21 +256,110 @@
                                                 </button>
                                               </div>
                                               <div class="modal-body">
-                                                <h3>CSV file headings</h3>
-                                                <p>First Name</p>
-                                                <p>Last Name</p>
-                                                <p>Email address</p> 
-                                                <p>Student number</p>
-                                                <p>Is lecturer?</p> 
-                                                <p>Is admin?</p>
-                                                <p>Teaching location</p>
-                                                <p>Teaching block *only if enabled on the setting page </p>
-                                                <p>User module 1</p>
-                                                <p>User Module 2 (Can be null)</p> 
-                                                <p>User Module 3 (Can be null)</p>
-                                                <p>User Module 4 (Can be null)</p>
-                                                <p>User Module 5 (Can be null)</p>
-                                                <p>User Module 6 (Can be null)</p>
+                                                <p></p>
+                                                <p>The following fields must be present in the CSV file to support the upload.</p>
+                                                <p>If the fields market mandatory are not present then the upload will fail.</p>
+                                                <p></p>                                                  
+                                                  <table class="table">
+                                                    <thead class="thead-light">
+                                                      <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">CSV Heading</th>
+                                                        <th scope="col">Example Data</th>
+                                                        <th scope="col">Mandatory (Yes/No)</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>First Name</td>
+                                                        <td>Nick</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Last Name</td>
+                                                        <td>Williams</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Email address</td>
+                                                        <td>nick@youruniversity.ac.uk / .edu</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">4</th>
+                                                        <td>Student Number</td>
+                                                        <td>WILN106</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">5</th>
+                                                        <td>Is lecturer?</td>
+                                                        <td>0</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">6</th>
+                                                        <td>Is admin?</td>
+                                                        <td>0</td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">7</th>
+                                                        <td>Teaching location</td>
+                                                        <td><i>Defined in settings</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">8</th>
+                                                        <td>Teaching block *only if enabled on the setting page</td>
+                                                        <td><i>Defined in module manager/settings</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">9</th>
+                                                        <td>User module 1</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">10</th>
+                                                        <td>User module 2</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">11</th>
+                                                        <td>User module 3</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">12</th>
+                                                        <td>User module 4</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">13</th>
+                                                        <td>User module 5</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row">14</th>
+                                                        <td>User module 6</td>
+                                                        <td><i>Defined in module manager</i></td>
+                                                        <td>Yes</td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                <p></p>
+                                                <h3>Additional Notes</h3>
+                                                <p>Teaching location - This must match with the teaching blocks you have setup.</p>
+                                                <p>User modules - Must match the module codes setup in module manager.</p>
                                               </div>
                                               <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -279,7 +368,7 @@
                                             </div>
                                           </div>
                                         </div>
-										If you would like to disable user allowed registration then you can disable
+										Some organisations prefer to remove the option for the user signing up on their own - If you would like to disable user allowed registration then you can disable
 										this in the settings page</p>
 
 										<div class="card">
