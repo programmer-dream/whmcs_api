@@ -281,6 +281,7 @@ router.post("/uploadUserCsv", async (req, res) => {
                         let moduleResponse   = await moduleExist(row_number, user)
                         let teachingLocation = await teachingLocationExist(row_number, user)
                         let blockPeriod      = await blockPeriodExist(row_number, user)
+                        let trueFalseCheck   = await onlyTrueFalse(row_number, user)
                         
                         if(emailResponse){
                             throw emailResponse
@@ -290,6 +291,8 @@ router.post("/uploadUserCsv", async (req, res) => {
                             throw teachingLocation
                         }else if(blockPeriod){
                             throw blockPeriod
+                        }else if(trueFalseCheck){
+                            throw trueFalseCheck
                         }
                         row_number++; 
                     })
@@ -403,6 +406,14 @@ async function blockPeriodExist(row_number, user,callback){
     let result = await user_idpdetailDal.runRawQuery(queryStr)
     if(result[0].count == 0){
         return {status : 'error', message:'block period not exist in the system csv row number '+row_number }
+    }
+    return ''
+}
+
+async function onlyTrueFalse(row_number, user,callback){
+    
+    if(user.field5 != 0 && user.field5 != 1 && user.field6 != 0 && user.field6 != 1){
+        return {status : 'error', message:'Is lecturer? or Is admin? field should be 0 or 1 csv row number '+row_number }
     }
     return ''
 }
