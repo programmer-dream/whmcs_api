@@ -14,6 +14,15 @@ var cookieParser = require('cookie-parser');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var dbconfig=require("./config/sql");
 const winston = require('winston');
+const cron = require("node-cron");
+const student = require("./cron/cron_code");
+
+
+cron.schedule("* 05 * * * *", function () {
+  console.log("running a task every 5 minutes");
+  //student.studentData()
+});
+
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),

@@ -384,7 +384,13 @@
   color: #fff; }
 
 .material-vertical-layout .main-menu.menu-light {
-  border-right: 0; }
+  border-right: 0;
+/*  height: 100vh;
+    overflow: scroll; */
+      z-index: 0;}
+      .import-file-block{
+        padding-bottom: 400px;
+      }
   .material-vertical-layout .main-menu.menu-light .user-profile {
     background: url("../../../../../app-assets/images/gallery/left-menu-bg.jpg") center center no-repeat; }
 

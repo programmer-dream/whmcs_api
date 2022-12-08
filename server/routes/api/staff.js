@@ -12,12 +12,17 @@ const generateRandomString = require("../../utils/generateRandomString");
 const generateRandomPassword = require("../../utils/generaterandompassword");
 const getTimestamp = require("../../utils/getTimestamp");
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
+const user_idpdetailDal=require("../../../Dal/user_idpdetails");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services, System } = require("whmcs-js");
 var mailer=require("../../utils/emailsend");
 // Config for whmcs api calls
 const whmcsConfig = require("../../config/whmcs");
 var configEmail=require("../../config/emailConfig.json");
+var formidable = require('formidable');
+const csv=require('csvtojson')
+
+
 // Id for the staff product
 const staffProductId = process.env.whmcsstaffProductId;
 
@@ -254,4 +259,186 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
 };
+
+
+router.post("/uploadUserCsv", async (req, res) => {
+    
+    let connection = mysql.createConnection(mysqlConfig);
+    let sessionid  = req.session.id;
+
+    await csvData(req, async function(csvData){
+        let row_number = 1
+        if(csvData.length > 1 )
+            delete csvData[0]
+
+            try {
+                if(csvData.length == 1)
+                    throw {status : 'error', message:'Please add few rows in the csv file.'}
+
+                await Promise.all(
+                    csvData.map( async function(user){
+                        let emailResponse    = await emailExist(row_number, user.field3)
+                        let moduleResponse   = await moduleExist(row_number, user)
+                        let teachingLocation = await teachingLocationExist(row_number, user)
+                        let blockPeriod      = await blockPeriodExist(row_number, user)
+                        
+                        if(emailResponse){
+                            throw emailResponse
+                        }else if(moduleResponse){
+                            throw moduleResponse
+                        }else if(teachingLocation){
+                            throw teachingLocation
+                        }else if(blockPeriod){
+                            throw blockPeriod
+                        }
+                        row_number++; 
+                    })
+                )
+
+                csvData.map( async function(user){
+                    let upn1        = user.field3.split("@");
+                    let userid      = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+                    let userData    =  {
+                                        email     : user.field3,
+                                        firstname : user.field1,
+                                        lastname  : user.field2,
+                                        userid    : userid,
+                                        student_id: user.field4,
+                                        sessionid : generateString(),
+                                        isStaff   : user.field5,
+                                        is_admin  : user.field6, 
+                                        teaching_block_period_id: user.field8
+                                      }
+                    let createdUser = await user_idpdetailDal.addUserByCsv(userData);
+                    
+                    if(createdUser){
+                        await saveUserModule(createdUser.ID, user)
+                    }
+                })
+                res.send({status : 'success', message:'Csv uploaded successfully' })
+            }catch(err) {
+                res.send(err)
+            }
+            
+    })
+    
+});
+
+
+
+function generateString(length=15) {
+    let characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
+
+function csvData(req,callback){
+    let form  = new formidable.IncomingForm();
+    
+    form.parse(req, async function (err, fields, files) {
+        const jsonArray= await csv({ noheader:true }).fromFile(files.csv_file.filepath);
+        callback(jsonArray)
+    })
+     
+}
+
+async function emailExist(row_number, email){
+    
+    let queryStr  = "SELECT count(ID) as count FROM user_idpdetails WHERE email='"+email+"'";
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+    if(result[0].count){
+        return {status : 'error', message:'Email already exist in the system csv row number '+row_number }
+    }
+    return ''
+
+}
+
+
+async function moduleExist(row_number, user){
+    let modulesArray = []
+
+    if(user.field9 != '')
+        modulesArray.push(user.field9)
+    if(user.field10 != '')
+        modulesArray.push(user.field10)
+    if(user.field11 != '')
+        modulesArray.push(user.field11)
+    if(user.field12 != '')
+        modulesArray.push(user.field12)
+    if(user.field13 != '')
+        modulesArray.push(user.field13)
+    if(user.field14 != '')
+        modulesArray.push(user.field14)
+
+    if(modulesArray.length > 0 ){
+        let moduleStr = modulesArray.join("','");
+        let queryStr  = "SELECT count(module_id) as count FROM module_details WHERE module_code IN ('"+moduleStr+"')";
+        let result = await user_idpdetailDal.runRawQuery(queryStr)
+        if(modulesArray.length != result[0].count){
+            return {status : 'error', message:'module not exist in the system csv row number '+row_number }
+        }
+    }else{
+        return {status : 'error', message:'please select atleast one module' }
+    }
+}
+
+async function teachingLocationExist(row_number, user){
+    
+    let queryStr  = "SELECT count(teaching_location_id) as count FROM teaching_location_details WHERE teaching_location_id = '"+user.field7+"'";
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+    if(result[0].count == 0){
+        return {status : 'error', message:'teaching location not exist in the system csv row number '+row_number }
+    }
+    return ''
+}
+
+async function blockPeriodExist(row_number, user,callback){
+    
+    let queryStr  = "SELECT count(teaching_block_period_id) as count FROM teaching_block_period_description WHERE teaching_block_period_id = '"+user.field8+"'";
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+    if(result[0].count == 0){
+        return {status : 'error', message:'block period not exist in the system csv row number '+row_number }
+    }
+    return ''
+}
+
+async function saveUserModule(userId, user){
+    let connection = mysql.createConnection(mysqlConfig);
+
+    let modulesArray = []
+
+    if(user.field9 != '')
+        modulesArray.push(user.field9)
+    if(user.field10 != '')
+        modulesArray.push(user.field10)
+    if(user.field11 != '')
+        modulesArray.push(user.field11)
+    if(user.field12 != '')
+        modulesArray.push(user.field12)
+    if(user.field13 != '')
+        modulesArray.push(user.field13)
+    if(user.field14 != '')
+        modulesArray.push(user.field14)
+
+    if(modulesArray.length > 0 ){
+        let moduleStr = modulesArray.join("','");
+                 
+        connection.query(
+            "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')",
+            (err, module_result, fields) => {
+                if(module_result.length > 0){
+                    module_result.map( async function(moduleData){
+                        await user_idpdetailDal.AddModulesUser(userId, moduleData.module_id)
+                    })
+                }
+            }
+        );
+    }
+}
+
 module.exports = router;

@@ -22,6 +22,20 @@ var models = require("sequelize-auto-import")(sequelize, config.dirPath);
 var user_idpdetails = models.user_idpdetails;
 var client_details = models.client_details;
 var loginhistory = models.loginhistory;
+var modules_users_assigned = models.modules_users_assigned
+var module_details = models.module_details
+
+var teaching_block_modules         = models.teaching_block_modules
+var teaching_block_blocks          = models.teaching_block_blocks
+var teaching_block_periods         = models.teaching_block_periods
+var teaching_block_period_description = models.teaching_block_period_description
+var modules                        = models.modules
+var module_location                = models.module_location
+var teaching_location_details      = models.teaching_location_details
+var teaching_location_ip_addresses = models.teaching_location_ip_addresses
+var settings_table                 = models.settings_table
+
+
 var client_availablemodules = models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
 user_idpdetails.belongsTo(client_details, { foreignKey: "universityid" });
@@ -130,6 +144,20 @@ var User_idpdetail = {
         callback({ message: "error", data: err.message });
       });
   },
+  getUserByEmail: function (email, callback) {
+    user_idpdetails
+      .findAll({
+        where: { email: email },
+        include: [{ model: client_details, required: true }],
+      })
+      .then(function (value) {
+        //returning the value here
+        callback({ message: "success", data: value });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  },
   getUserIdpDetailByEmail: function (email, callback) {
     user_idpdetails
       .findAll({ where: { email: email } })
@@ -158,7 +186,7 @@ var User_idpdetail = {
       lastname: para.lastname,
       sessionid: para.sessionid,
       isStaff: 0,
-      expiryDate: new Date(),
+      expiryDate: new Date()
     });
     user
       .save()
@@ -240,5 +268,51 @@ var User_idpdetail = {
         callback({ message: "error", data: err.message });
       });
   },
+  addUserByCsv: async function (para) {
+    const user = await user_idpdetails.create({
+      email: para.email,
+      firstname: para.firstname,
+      userid: para.userid,
+      student_id: para.student_id,
+      lastname: para.lastname,
+      sessionid: para.sessionid,
+      isStaff   : para.isStaff,
+      is_admin  : para.is_admin,
+      expiryDate: new Date(),
+      teaching_block_period_id:para.teaching_block_period_id
+    });
+    
+    return user.toJSON();
+    
+  },
+  AddModulesUser: async function (userId, moduleId) {
+    
+    let modules_user= await modules_users_assigned.create({
+      user_id: userId,
+      module_id:moduleId
+    });
+    
+    return modules_user.toJSON();
+  },
+  runRawQuery: async function (queryStr) {
+    
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    
+    return queryData;
+  },
+  updateSyncStatus: async function (id,callback) {
+     user_idpdetails
+      .findAll({ where: { ID: id } })
+      .then(function (itemInstance) {
+        itemInstance[0]
+          .update({is_synced: 1})
+          .then(function (self) {
+            callback({ message: "success", data: self });
+          });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  }
 };
 module.exports = User_idpdetail;

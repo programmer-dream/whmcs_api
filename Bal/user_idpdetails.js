@@ -15,6 +15,11 @@ var User_idpdetailBal = {
             callback(data);
         })
     },
+    getUserByEmail:function (email,callback) {
+        user_idpdetailDal.getUserByEmail(email,function (data,err) {
+            callback(data);
+        })
+    },
     getAllUsers:function (callback) {
         user_idpdetailDal.getAllUsers(function (data,err) {
             callback(data);
@@ -50,6 +55,15 @@ var User_idpdetailBal = {
             callback(data);
         })
     },
+    addUserByCsv:function (body,callback) {
+        user_idpdetailDal.addUserByCsv(body,function (data,err) {
+            callback(data);
+        })
+    },
+    AddModulesUser:async function (body,callback) {
+        let data = await user_idpdetailDal.AddModulesUser();
+        return data;
+    },
     updateStaf:function (body,callback) {
         user_idpdetailDal.updateStaf(body,function (data,err) {
             callback(data);
@@ -60,6 +74,7 @@ var User_idpdetailBal = {
             callback(data);
         })
     }
+    
 
 
 };

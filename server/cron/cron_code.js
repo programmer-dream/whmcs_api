@@ -1,32 +1,76 @@
-const express = require("express");
-const router = express.Router();
-const generateRandomString = require("../../utils/generateRandomString");
-const generateRandomPassword = require("../../utils/generaterandompassword");
+const generateRandomString = require("../utils/generateRandomString");
+const generateRandomPassword = require("../utils/generaterandompassword");
 const cpanel = require("cpanel-lib");
 const btoa = require("btoa");
 
-const user_idpdetailBal=require("../../../Bal/user_idpdetails");
-const user_idpdetailDal=require("../../../Dal/user_idpdetails");
+const user_idpdetailBal=require("../../Bal/user_idpdetails");
+const user_idpdetailDal=require("../../Dal/user_idpdetails");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services, System } = require("whmcs-js");
 
 // Config for whmcs api calls
-const whmcsConfig = require("../../config/whmcs");
+const whmcsConfig = require("../config/whmcs");
 
 // Id for the student product
 const studentProductId = process.env.whmcsstudentProductID;
 
-const studentUtils = require('../../utils/student')
-const azureConfig=require(process.env.configwithin);
+const studentUtils = require('../utils/student')
+const azureConfig=require(process.env.configwithinUpdated);
 
-// @route 	POST api/student/
-// @desc 	Example student route
-// @access 	Public
-router.post("/",ensureAuthenticated, (req, res) => {
-    const parsedModules = JSON.parse(req.body.module)  
+
+let studentData = async function () {
+    let moduleArr       = {}
+    let usersData       = []
+    
+    let user_sync_count = process.env.USER_SYNC_COUNT;
+    //console.log(process.env.USER_SYNC_TIME,'USER_SYNC_TIME')
+
+    //query for the get user detials 
+    let queryStr  = "SELECT user_idpdetails.ID, user_idpdetails.email, user_idpdetails.universityid, user_idpdetails.is_synced, client_details.*, modules_users_assigned.module_id, modules_users_assigned.user_id, module_details.module_code FROM user_idpdetails join client_details on  user_idpdetails.universityid=client_details.universityid join modules_users_assigned on user_id = ID join module_details on module_details.module_id = modules_users_assigned.module_id WHERE is_synced = 0 LIMIT "+user_sync_count;
+    let result    = await user_idpdetailDal.runRawQuery(queryStr)
+    
+    try{
+        if(result.length){
+            //prepair data for the sync
+            await Promise.all(
+                result.map( async function(user){
+                    
+                    if(!moduleArr[user.ID]){
+                        moduleArr[user.ID] = []
+                        usersData.push(user)
+                    }
+                      
+                    if(moduleArr[user.ID])  
+                        moduleArr[user.ID].push(user.module_code)   
+                    
+                }),
+                usersData.map( async function(user){
+                    let modules = JSON.stringify(moduleArr[user.ID])
+                    
+                    await whmcs_sync(user, modules)
+                    await user_idpdetailDal.updateSyncStatus(user.ID,function(response){});
+                })
+            )
+            //sent response 
+            console.log({status:"success", message:"user synced successfully"})
+        }else{
+            //sent response 
+            console.log({status:"success", message:"nothing to sync"})
+        }
+        
+    }catch( error ){
+        console.log({status:"error", message:error })
+        
+    }
+};
+
+
+async function whmcs_sync(user, modules){
+    const parsedModules  = JSON.parse(modules)
+    //const parsedModules = JSON.parse(req.body.module)  
     const encodedModules = studentUtils.encodeModules(parsedModules)
 
-    user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
+    user_idpdetailBal.getUserByEmail(user.email,function (data,err) {
         if(data.message=="success"){
             // Call the getClients call and store the data in the variable called
             // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
@@ -52,6 +96,7 @@ router.post("/",ensureAuthenticated, (req, res) => {
                     skipvalidation: true
                 })
                 .then(function (addClientResponse) {
+
                     /* RETURNS
                               {
                                   result: 'success',
@@ -253,49 +298,42 @@ router.post("/",ensureAuthenticated, (req, res) => {
 
                                                                 .catch(function (error) {
                                                                     console.log("Error sending email", error);
-                                                                    res.status(401).json({error:error});
+                                                                    //res.status(401).json({error:error});
                                                                 });                                                           
                                                             //res.status(200).json({message:"SUCCESS"});
                                                         })
                                                         .catch(function (error) {
                                                             console.log("Error updating client password", error);
-                                                            res.status(401).json({error:error});
+                                                            //res.status(401).json({error:error});
                                                         });
                                                 })
                                                 .catch(function (error) {
                                                     console.log("Error creating module", error);
-                                                    res.status(401).json({error:error});
+                                                    //res.status(401).json({error:error});
                                                 });
                                         })
                                         .catch(function (error) {
-                                            res.status(401).json({error:error});
+                                            //res.status(401).json({error:error});
                                         });
                                 })
                                 .catch(function (error) {
-                                    res.status(401).json({error:error});
+                                    //res.status(401).json({error:error});
                                 });
                         })
                         .catch(function (error) {
-                            res.status(401).json({error:error});
+                            //res.status(401).json({error:error});
                         });
                 })
                 .catch(function (error) {
-                    res.status(401).json({error:error});
+                    //res.status(401).json({error:error});
                 });
 
-            res.status(200).json({message:"SUCCESS"});
+            //res.status(200).json({message:"SUCCESS"});
         }
 
     })
 
-});
+}
 
-router.get("/verify",function (req,res) {
-    res.redirect(azureConfig.destroySessionUrl);
-})
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/');
-};
-module.exports = router;
+module.exports = { studentData };

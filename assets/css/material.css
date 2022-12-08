@@ -2034,6 +2034,9 @@ hr {
   perspective: 1000px;
   position: relative;
   width: 100%; }
+  .choose-file{
+        transform: translate(16%, 0%);
+  }
   @media (min-width: 576px) {
     .carousel-item {
       -webkit-transition-duration: 0.4875s;
@@ -4638,7 +4641,7 @@ fieldset:disabled a.btn {
     .modal-footer .btn-primary.disabled, .modal-footer .btn-primary:disabled {
       color: rgba(0, 0, 0, 0.26); }
     .modal-footer .btn-secondary, .modal-footer .btn-secondary:active, .modal-footer .btn-secondary:focus, .modal-footer .btn-secondary:hover {
-      color: #607d8b; }
+      color: #ffffff; }
     .modal-footer .btn-secondary.disabled, .modal-footer .btn-secondary:disabled {
       color: rgba(0, 0, 0, 0.26); }
     .modal-footer .btn-danger, .modal-footer .btn-danger:active, .modal-footer .btn-danger:focus, .modal-footer .btn-danger:hover {
@@ -4779,6 +4782,9 @@ fieldset:disabled a.btn {
   min-height: 3rem;
   padding: 0.82031rem 1.5rem;
   position: relative; }
+  .submit-btn{
+        transform: translate(-77%, 0px);
+  }
   @media (min-width: 576px) {
     .list-group-item {
       -webkit-transition-duration: 0.39s;
