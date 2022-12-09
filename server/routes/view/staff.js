@@ -27,7 +27,11 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
+        {
+          label: "Dashboard",
+          url: '/staff/dashboard',
+          icon: "local_offer",
+        },
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
@@ -60,11 +64,8 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         {
           label: "Remove users ",
           icon: "person_remove",
-        },
-        {
-          label: "API import  ",
-          icon: "api",
-        },
+        }
+        
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -86,7 +87,11 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
+        {
+          label: "Dashboard",
+          url: '/staff/dashboard',
+          icon: "local_offer",
+        },
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
@@ -118,11 +123,7 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
         {
           label: "Remove users ",
           icon: "person_remove",
-        },
-        {
-          label: "API import  ",
-          icon: "api",
-        },
+        }
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
