@@ -53,7 +53,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         },
         {
           label: "Bulk User Import",
-          url: process.env.basePath+'/staff/bulkUserImport',
+          url: '/staff/bulkUserImport',
           icon: " group_add",
         },
         {
