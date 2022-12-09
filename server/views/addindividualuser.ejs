@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Dashboard for student management by Education Host Ltd">
     <meta name="author" content="Education Host Ltd">
-    <title>Bulk Import - Education Host Ltd</title>
+    <title>Add Individual User - Education Host Ltd</title>
     <link rel="apple-touch-icon" href="/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="/images/ico/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -225,7 +225,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title font-weight-bold">Bulk Import Tool</h3>
+                                    <h3 class="card-title font-weight-bold">Add Individual User</h3>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -237,169 +237,60 @@
                                     </div>
                                 </div>
                                 <div class="card-content collapse show">
-                                    <div class="card-body card-dashboard ">
-                                        <p>Upload your CSV file to import users into the system. This will setup the number of accounts setup in the settings (typically 5
-										accounts at a time) until the CSV file is completed.</p>
-                                        <p>
-										Please ensure that the CSV file is populated as per our <a href="#Modal" data-toggle="modal" data-target="#exampleModalScrollable">guidelines</a></p>
-                                        <p>
-                                        
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalScrollableTitle"> Guidelines</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
-                                                <p></p>
-                                                <p>The following fields must be present in the CSV file to support the upload.</p>
-                                                <p>If the fields market mandatory are not present then the upload will fail.</p>
-                                                <p></p>                                                  
-                                                  <table class="table">
-                                                    <thead class="thead-light">
-                                                      <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">CSV Heading</th>
-                                                        <th scope="col">Example Data</th>
-                                                        <th scope="col">Mandatory (Yes/No)</th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>First Name</td>
-                                                        <td>Nick</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Last Name</td>
-                                                        <td>Williams</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Email address</td>
-                                                        <td>nick@youruniversity.ac.uk / .edu</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">4</th>
-                                                        <td>Student Number</td>
-                                                        <td>WILN106</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">5</th>
-                                                        <td>Is lecturer?</td>
-                                                        <td>0</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">6</th>
-                                                        <td>Is admin?</td>
-                                                        <td>0</td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">7</th>
-                                                        <td>Teaching location</td>
-                                                        <td><i>Defined in settings</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">8</th>
-                                                        <td>Teaching block *only if enabled on the setting page</td>
-                                                        <td><i>Defined in module manager/settings</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">9</th>
-                                                        <td>User module 1</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">10</th>
-                                                        <td>User module 2</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">11</th>
-                                                        <td>User module 3</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">12</th>
-                                                        <td>User module 4</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">13</th>
-                                                        <td>User module 5</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <th scope="row">14</th>
-                                                        <td>User module 6</td>
-                                                        <td><i>Defined in module manager</i></td>
-                                                        <td>Yes</td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-                                                <p></p>
-                                                <h3>Additional Notes</h3>
-                                                <p>Teaching location - This must match with the teaching blocks you have setup.</p>
-                                                <p>User modules - Must match the module codes setup in module manager.</p>
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                
-                                              </div>
-                                            </div>
+                                    <div class="container p-2">
+                                        <form id="userForm">
+                                          <div class="form-group">
+                                            <label >First Name</label>
+                                            <input type="text" class="form-control" name="first_name" id="firstname"  placeholder="First Name" required>
                                           </div>
-                                        </div>
-										Some organisations prefer to remove the option for the user signing up on their own - If you would like to disable user allowed registration then you can disable
-										this in the settings page</p>
-
-										<div class="card">
-										  <div class="card-body text-center" style="border:1px dashed">
-										    <h2>Drop files or click to upload</h2>
-										    <br />
-										    <!-- action="http://localhost:8080/api/staff/uploadUserCsv" -->
-										    <form  method="POST" enctype="multipart/form-data" id="csvForm"> 
-											  <div class="form-group">
-											    <input type="file"  id="csvFileInput" name="csv_file" class="choose-file">
-											  </div>
-											  <div class="form-group ">
-											    <button class="btn btn-primary submit-btn" id="csvFileBtn" type="submit">Submit</button>
-											  </div>
-											</form>
-										  </div>
-										</div>
-
-
-                                        <!-- <div id="jsGrid" style="height: 200px; overflow-y: auto;"></div> -->
+                                          <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" name="last_name" id="lastname"  placeholder="Last Name" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label >Email</label>
+                                            <input type="email" class="form-control" name="email" id="email"  placeholder="Email" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Student Number</label>
+                                            <input type="text" class="form-control" name="student_number" id="lastname"  placeholder="Student Number" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Teaching Location</label>
+                                            <select class="form-control" name="teaching_location" id="teaching_location" required>
+                                              <option>1</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Teaching Block Period</label>
+                                            <select class="form-control" name="teaching_block_period" id="teaching_block_period" required>
+                                              <option>1</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Modules</label>
+                                            <select multiple class="form-control" name="teaching_block_period" id="teaching_block_period" required>
+                                              <option>FWD01</option>
+                                              <option>AWD02</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="is_lecturer" name="is_lecturer" required>
+                                            <label class="form-check-label">is lecturer ?</label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin" required>
+                                            <label class="form-check-label" >is admin ?</label>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary" id="createUser">Create User</button>
+                                        </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
                 <!-- Student account data end -->
-                
-
-
             </div>
         </div>
     </div>
@@ -439,44 +330,46 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
     <script>
     	$( document ).ready(function() {
-//             $('a[href$="#Modal"]').on( "click", function() {
-//    $('#Modal').modal('show');
-// });
-		    $('#csvFileBtn').off('click').on('click', function(e){
+		    $('#createUser').off('click').on('click', function(e){
 		    	e.preventDefault();
-		    	var formData = new FormData();
-				var imagefile = document.querySelector('#csvFileInput');
+                var userForm = $('#userForm').serialize();
+		    	
+                console.log(userForm, "<<<")
+				//var imagefile = document.querySelector('#csvFileInput');
                 
-                if(imagefile.files.length == 0 ){
-                    swal('Please select a csv file.');
-                    return false;
-                }
-				formData.append("csv_file", imagefile.files[0]);
+                // if(imagefile.files.length == 0 ){
+                //     swal('Please select a csv file.');
+                //     return false;
+                // }
+				//formData.append("csv_file", imagefile.files[0]);
 
-				if(imagefile.files[0].type != 'text/csv'){
-					swal("Please upload a valid csv file");
-					$('#csvForm')[0].reset();
-					return false;
-				}
+				// if(imagefile.files[0].type != 'text/csv'){
+				// 	swal("Please upload a valid csv file");
+				// 	$('#csvForm')[0].reset();
+				// 	return false;
+				// }
 
-				axios.post('/api/staff/uploadUserCsv', formData, {
-				    headers: {
-				      'Content-Type': 'multipart/form-data'
-				    }
-				}).then(function (response) {
-				  $('#csvForm')[0].reset();
-				  if(response.data.status == "success"){
-				  	swal("Success", response.data.message);
-				  }else{
-				  	swal(response.data.message);
-				  }
-		        })
-		        .catch(function () {
-		          console.log('FAILURE!!');
-		        });
+				// axios.post('/api/staff/uploadUserCsv', formData, {
+				//     headers: {
+				//       'Content-Type': 'multipart/form-data'
+				//     }
+				// }).then(function (response) {
+				//   $('#csvForm')[0].reset();
+				//   if(response.data.status == "success"){
+				//   	swal("Success", response.data.message);
+				//   }else{
+				//   	swal(response.data.message);
+				//   }
+		        // })
+		        // .catch(function () {
+		        //   console.log('FAILURE!!');
+		        // });
 		    });
 		});
 
