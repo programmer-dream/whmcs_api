@@ -21,6 +21,7 @@ const whmcsConfig = require("../../config/whmcs");
 var configEmail=require("../../config/emailConfig.json");
 var formidable = require('formidable');
 const csv=require('csvtojson')
+const student = require("../../cron/cron_code");
 
 
 // Id for the staff product
@@ -302,7 +303,13 @@ router.post("/createIndividualUser", async (req, res) => {
         
         let createdUser = await user_idpdetailDal.addUserByCsv(individualUser);  
         if(createdUser){
-
+            let moduleIdsArr = req.body.modules
+            if(!Array.isArray(moduleIdsArr)){
+                moduleIdsArr = [moduleIdsArr];
+            }
+            let modules = JSON.stringify(moduleIdsArr)
+            
+            await student.whmcsSync(createdUser, modules)
             await addUserModule(createdUser.ID, req.body.modules)
         }
         

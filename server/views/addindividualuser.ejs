@@ -257,7 +257,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label>Student Number</label>
-                                            <input type="text" class="form-control" name="student_id" id="studentnumber"  placeholder="Student Number" required>
+                                            <input type="text" class="form-control" name="student_id" id="studentnumber"  placeholder="Student Number">
                                           </div>
                                           <div class="form-group">
                                             <label for="">Teaching Location</label>
@@ -351,20 +351,6 @@
                 var is_valid = $("#userForm").valid();
                 if(is_valid){
                     var userForm = $('#userForm').serialize();
-                    
-                    // var imagefile = document.querySelector('#csvFileInput');
-                    
-                    // if(imagefile.files.length == 0 ){
-                    //     swal('Please select a csv file.');
-                    //     return false;
-                    // }
-                    // formData.append("csv_file", imagefile.files[0]);
-
-                    // if(imagefile.files[0].type != 'text/csv'){
-                    //  swal("Please upload a valid csv file");
-                    //  $('#csvForm')[0].reset();
-                    //  return false;
-                    // }
 
                     axios.post('/api/staff/createIndividualUser', userForm,{}).then(function (response) {
                       

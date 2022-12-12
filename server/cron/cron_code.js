@@ -10,11 +10,9 @@ const { Clients, Orders, Services, System } = require("whmcs-js");
 
 // Config for whmcs api calls
 const whmcsConfig = require("../config/whmcs");
-var mailer=require("../utils/emailsend");
-var configEmail=require("../config/emailConfig.json");
+
 // Id for the student product
 const studentProductId = process.env.whmcsstudentProductID;
-const whmcsstaffProductId = process.env.whmcsstaffProductId;
 
 const studentUtils = require('../utils/student')
 const azureConfig=require(process.env.configwithinUpdated);
@@ -28,9 +26,9 @@ let studentData = async function () {
     //console.log(process.env.USER_SYNC_TIME,'USER_SYNC_TIME')
 
     //query for the get user detials 
-    let queryStr  = "SELECT user_idpdetails.ID, user_idpdetails.email, user_idpdetails.universityid, user_idpdetails.is_synced, user_idpdetails.isStaff, client_details.*, modules_users_assigned.module_id, modules_users_assigned.user_id, module_details.module_code FROM user_idpdetails join client_details on  user_idpdetails.universityid=client_details.universityid join modules_users_assigned on user_id = ID join module_details on module_details.module_id = modules_users_assigned.module_id WHERE is_synced = 0 LIMIT "+user_sync_count;
+    let queryStr  = "SELECT user_idpdetails.ID, user_idpdetails.email, user_idpdetails.universityid, user_idpdetails.is_synced, client_details.*, modules_users_assigned.module_id, modules_users_assigned.user_id, module_details.module_code FROM user_idpdetails join client_details on  user_idpdetails.universityid=client_details.universityid join modules_users_assigned on user_id = ID join module_details on module_details.module_id = modules_users_assigned.module_id WHERE is_synced = 0 LIMIT "+user_sync_count;
     let result    = await user_idpdetailDal.runRawQuery(queryStr)
-    console.log(result,"<<<<")
+    
     try{
         if(result.length){
             //prepair data for the sync
@@ -49,7 +47,7 @@ let studentData = async function () {
                 usersData.map( async function(user){
                     let modules = JSON.stringify(moduleArr[user.ID])
                     
-                    await whmcs_sync(user, modules)
+                    await whmcsSync(user, modules)
                     await user_idpdetailDal.updateSyncStatus(user.ID,function(response){});
                 })
             )
@@ -66,12 +64,12 @@ let studentData = async function () {
     }
 };
 
-
-async function whmcs_sync(user, modules){
+let whmcsSync = async function (user, modules){
+//async function whmcs_sync(user, modules){
     const parsedModules  = JSON.parse(modules)
     //const parsedModules = JSON.parse(req.body.module)  
     const encodedModules = studentUtils.encodeModules(parsedModules)
-
+    console.log(modules, "<<<<")
     user_idpdetailBal.getUserByEmail(user.email,function (data,err) {
         if(data.message=="success"){
             // Call the getClients call and store the data in the variable called
@@ -115,14 +113,11 @@ async function whmcs_sync(user, modules){
                     //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
                     var nameserver1 = process.env.newAccountNameserver1;
                     var nameserver2 = process.env.newAccountNameserver2;
-                    let productId   = studentProductId
-                    if(user.isStaff == 1)
-                        productId   = whmcsstaffProductId
                     addOrder
                         .addOrder({
                             clientid: addClientResponse.clientid,
                             // This product id relates to the student service
-                            pid: productId,
+                            pid: studentProductId,
                             domain: fulldomain,
                             nameserver1: nameserver1,
                             nameserver2: nameserver2,
@@ -196,9 +191,7 @@ async function whmcs_sync(user, modules){
                                                         "Module creation response",
                                                         moduleCreateResponse
                                                     );
-                                                    var url="http://"+process.env.basePath+"/api/user/staffapprov?email="+user.email;
-                                                    if(user.isStaff ==1 )
-                                                        mailer(url,configEmail.staffApproval)
+
                                                     ////////////////////////////////////////////////////////
                                                     // There needs to be a password change here to a random charater password
                                                     // This is to authenticate the user so that folders can be created
@@ -336,6 +329,8 @@ async function whmcs_sync(user, modules){
                 });
 
             //res.status(200).json({message:"SUCCESS"});
+        }else{
+            console.log('nothing found')
         }
 
     })
@@ -343,4 +338,4 @@ async function whmcs_sync(user, modules){
 }
 
 
-module.exports = { studentData };
+module.exports = { studentData, whmcsSync };
