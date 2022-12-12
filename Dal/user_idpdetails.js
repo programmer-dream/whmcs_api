@@ -269,6 +269,10 @@ var User_idpdetail = {
       });
   },
   addUserByCsv: async function (para) {
+    let is_synced = 0
+    if(para.is_synced  == 1){
+        is_synced = 1
+    }
     const user = await user_idpdetails.create({
       email: para.email,
       firstname: para.firstname,
@@ -278,6 +282,7 @@ var User_idpdetail = {
       sessionid: para.sessionid,
       isStaff   : para.isStaff,
       is_admin  : para.is_admin,
+      is_synced : is_synced,
       expiryDate: new Date(),
       teaching_block_period_id:para.teaching_block_period_id
     });
@@ -293,6 +298,65 @@ var User_idpdetail = {
     });
     
     return modules_user.toJSON();
+  },
+  listModules: async function (userId, moduleId) {
+    let allModules = []
+    let modules= await module_details.findAll();
+    
+    if(modules.length){
+      
+        modules.map( async function(module){
+          let obj = {
+            module_id:module.module_id,
+            module_code: module.module_code
+          }
+          allModules.push(obj)
+        })
+      
+      return allModules
+    }else{
+      return []
+    }
+  },
+  listTeachingLocation: async function (userId, moduleId) {
+    let allLocation = []
+    let teaching_location_data= await teaching_location_details.findAll();
+    
+    if(teaching_location_data.length){
+      
+        teaching_location_data.map( async function(location){
+          let obj = {
+            teaching_location_id:location.teaching_location_id,
+            name: location.name
+          }
+          allLocation.push(obj)
+        })
+      
+      return allLocation
+    }else{
+      return []
+    }
+  },
+  listBlockPeriods: async function (userId, moduleId) {
+    let allBlocks = []
+    let teaching_block_data= await teaching_block_period_description.findAll({
+      attributes:['teaching_block_period_id','teaching_block_period_description']
+    });
+    
+    if(teaching_block_data.length){
+      
+        teaching_block_data.map( async function(block){
+          let obj = {
+            teaching_block_period_id:block.teaching_block_period_id,
+            teaching_block_period_description: block.teaching_block_period_description
+          }
+          allBlocks.push(obj)
+        })
+      
+      return allBlocks
+    }else{
+      return []
+    }
   },
   runRawQuery: async function (queryStr) {
     

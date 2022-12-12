@@ -9,6 +9,8 @@ const path = require("path");
 
 const root = path.join(__dirname, "../../../../AD-saml/client/staff");
 
+var user_idpdetailDal=require("../../../Dal/user_idpdetails");
+
 // @route 	GET /staff/dashboard
 
 // @desc 	Serves the staff dashboard
@@ -132,11 +134,14 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
   });
 });
 
-router.get("/addIndividualUser", ensureAuthenticated, function (req, res) {
-  // console.log(req.user, "user data");
+router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) {
+  
   res.render("addindividualuser", {
     email: req.user.upn,
     user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
     supportMenu: {
       main: [
         {
@@ -189,6 +194,7 @@ router.get("/addIndividualUser", ensureAuthenticated, function (req, res) {
       .format("YY")}`,
   });
 });
+
 
 // @route 	GET /staff/login
 

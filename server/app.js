@@ -20,7 +20,7 @@ const student = require("./cron/cron_code");
 
 cron.schedule("0 */5 * * * *", function () {
   console.log("running a task every 5 minutes");
-  student.studentData()
+  //student.studentData()
 });
 
 const logger = winston.createLogger({

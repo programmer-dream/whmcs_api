@@ -260,7 +260,57 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 };
 
+router.post("/createIndividualUser", async (req, res) => {
+    try{
+        
+        let emailResponse    = await emailExist(1, req.body.email)
+        
+        if(emailResponse){
+            throw { status: 'error', message:'Email already exists.'}
+        }
+        
+        let isLecturer = req.body?.is_lecturer
+        let isAdmin = req.body?.is_admin
 
+        if( isLecturer == 'on'){
+            isLecturer = 1
+        }else{
+            isLecturer = 0
+        }
+
+        if( isAdmin == 'on'){
+            isAdmin = 1
+        }else{
+            isAdmin = 0
+        }
+        let upn1        = req.body.email.split("@");
+        let userid      = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+
+        let individualUser = {
+          email: req.body.email,
+          firstname: req.body.first_name,
+          lastname: req.body.last_name,
+          userid: userid,
+          student_id: req.body.student_id,
+          sessionid:  generateString(),
+          isStaff   : isLecturer,
+          is_admin  : isAdmin,
+          is_synced : 1,
+          expiryDate: new Date(),
+          teaching_block_period_id:req.body.teaching_block_period
+        }
+        
+        let createdUser = await user_idpdetailDal.addUserByCsv(individualUser);  
+        if(createdUser){
+
+            await addUserModule(createdUser.ID, req.body.modules)
+        }
+        
+        res.send({status : 'success', message:'User added successfully'})
+    }catch(error){
+        res.send(error)
+    }
+})
 router.post("/uploadUserCsv", async (req, res) => {
     
     let connection = mysql.createConnection(mysqlConfig);
@@ -438,6 +488,27 @@ async function saveUserModule(userId, user){
 
     if(modulesArray.length > 0 ){
         let moduleStr = modulesArray.join("','");
+                 
+        connection.query(
+            "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')",
+            (err, module_result, fields) => {
+                if(module_result.length > 0){
+                    module_result.map( async function(moduleData){
+                        await user_idpdetailDal.AddModulesUser(userId, moduleData.module_id)
+                    })
+                }
+            }
+        );
+    }
+}
+
+async function addUserModule(userId, moduleIdsArr){
+    let connection = mysql.createConnection(mysqlConfig);
+    if(!Array.isArray(moduleIdsArr)){
+        moduleIdsArr = [moduleIdsArr];
+    }
+    if(moduleIdsArr.length > 0 ){
+        let moduleStr = moduleIdsArr.join("','");
                  
         connection.query(
             "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')",
