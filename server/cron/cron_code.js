@@ -10,10 +10,12 @@ const { Clients, Orders, Services, System } = require("whmcs-js");
 
 // Config for whmcs api calls
 const whmcsConfig = require("../config/whmcs");
+var mailer=require("../utils/emailsend");
+var configEmail=require("../config/emailConfig.json");
 
 // Id for the student product
 const studentProductId = process.env.whmcsstudentProductID;
-
+const whmcsstaffProductId = process.env.whmcsstaffProductId;
 const studentUtils = require('../utils/student')
 const azureConfig=require(process.env.configwithinUpdated);
 
@@ -113,11 +115,16 @@ let whmcsSync = async function (user, modules){
                     //var nameserver2 = 'ns2.' + data.data[0].client_detail.dataValues.domainname;
                     var nameserver1 = process.env.newAccountNameserver1;
                     var nameserver2 = process.env.newAccountNameserver2;
+
+                    let productId   = studentProductId
+                    if(user.isStaff == 1)
+                        productId   = whmcsstaffProductId
+
                     addOrder
                         .addOrder({
                             clientid: addClientResponse.clientid,
                             // This product id relates to the student service
-                            pid: studentProductId,
+                            pid: productId,
                             domain: fulldomain,
                             nameserver1: nameserver1,
                             nameserver2: nameserver2,
@@ -191,6 +198,10 @@ let whmcsSync = async function (user, modules){
                                                         "Module creation response",
                                                         moduleCreateResponse
                                                     );
+
+                                                    var url="http://"+process.env.basePath+"/api/user/staffapprov?email="+user.email;
+                                                    if(user.isStaff ==1 )
+                                                        mailer(url,configEmail.staffApproval)
 
                                                     ////////////////////////////////////////////////////////
                                                     // There needs to be a password change here to a random charater password
