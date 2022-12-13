@@ -65,6 +65,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         },
         {
           label: "Remove users ",
+          url: '/staff/removeUsers',
           icon: "person_remove",
         }
         
@@ -125,12 +126,9 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
         },
         {
           label: "Remove users ",
+          url: '/staff/removeUsers',
           icon: "person_remove",
-        },
-        {
-          label: "API import  ",
-          icon: "api",
-        },
+        }
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -186,6 +184,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
         },
         {
           label: "Remove users ",
+          url: '/staff/removeUsers',
           icon: "person_remove",
         }
       ],
@@ -196,7 +195,64 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
   });
 });
 
-
+router.get("/removeUsers", ensureAuthenticated, function (req, res) {
+  // console.log(req.user, "user data");
+  res.render("removeUsers", {
+    email: req.user.upn,
+    user: req.user,
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+        {
+          label: "Dashboard",
+          url: '/staff/dashboard',
+          icon: "local_offer",
+        },
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      admin: [
+        {
+          label: "User Manager",
+          // style: " text-bold-700 font-size-large ",
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import ",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        }
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
 // @route 	GET /staff/login
 
 // @desc 	Serves the staff login page
