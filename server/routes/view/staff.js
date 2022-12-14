@@ -50,7 +50,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
       admin: [
         {
           label: "User Manager",
-          // style: " text-bold-700 font-size-large ",
+          url: '/staff/userManager',
           icon: "group",
         },
         {
@@ -111,7 +111,7 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
       admin: [
         {
           label: "User Manager",
-          // style: " text-bold-700 font-size-large ",
+          url: '/staff/userManager',
           icon: "group",
         },
         {
@@ -169,7 +169,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
       admin: [
         {
           label: "User Manager",
-          // style: " text-bold-700 font-size-large ",
+          url: '/staff/userManager',
           icon: "group",
         },
         {
@@ -228,7 +228,65 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
       admin: [
         {
           label: "User Manager",
-          // style: " text-bold-700 font-size-large ",
+          url: '/staff/userManager',
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import ",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        }
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
+router.get("/userManager", ensureAuthenticated, function (req, res) {
+  // console.log(req.user, "user data");
+  res.render("usermanager", {
+    email: req.user.upn,
+    user: req.user,
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+        {
+          label: "Dashboard",
+          url: '/staff/dashboard',
+          icon: "local_offer",
+        },
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      admin: [
+        {
+          label: "User Manager",
+          url: '/staff/userManager',
           icon: "group",
         },
         {

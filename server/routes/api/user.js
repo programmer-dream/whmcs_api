@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
+const user_idpdetailDal=require("../../../Dal/user_idpdetails");
 const Saml2js = require("saml2js");
 const mysql = require("mysql");
 const mysqlConfig = require("../../config/sql");
@@ -14,6 +15,13 @@ const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 const getTimestamp = require("../../utils/getTimestamp");
 var fs = require('fs');
 const azureConfig=require(process.env.configwithin);
+
+// Get the modules from whmcs-js
+const { Clients, Orders, Services, System } = require("whmcs-js");
+
+// Config for whmcs api calls
+const whmcsConfig = require("../../config/whmcs");
+
 // @route 	POST api/user/login/callback
 // @desc 	Callback for the saml login
 // @access 	Private
@@ -316,6 +324,18 @@ router.get("/staffdashboardlistusers", (req, res) => {
 	});
 });
 
+router.get("/listusers", async (req, res) => {
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
+router.get("/usersManager", async (req, res) => {
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
 // @route 	GET api/user/staffdashboardusersupportstats
 // @desc 	Get the user variables
 // @access 	Public
@@ -412,6 +432,43 @@ router.get("/suspend/:id?",function (req,res) {
 
     })
 })
+
+router.post("/removeUser/:id",function (req,res) {
+    
+    user_idpdetailDal.inActiveUser(req.params.id,function (data,err) {
+        if(data.message=="success"){
+            let user = data.data.toJSON()
+            //console.log(user,"<<< user")
+
+            const whmcsClient = new Clients(whmcsConfig);
+            whmcsClient.getClientsDetails({email:user.email}).then(function (clientResponse) {
+                
+                if(clientResponse.result == 'success'){
+                    whmcsClient.moduleSuspend({serviceid:146}).then(function (suspendResponse) {
+                        console.log(suspendResponse, "<< suspendResponse")
+                    })
+                    // whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(function (productsResponse) {
+                    //     whmcsClient.closeClient({clientid:clientResponse.userid}).then(function (closeResponse) {   //console.log(closeResponse, "<< closeResponse")
+                    //             if(closeResponse.result == 'success'){
+                    //                 whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
+                    //                 //console.log(deletedResponse, "<< deletedResponse")
+                    //             })
+                    //         }
+                    //     })
+                        
+                    // })
+                    
+                }
+            })
+            
+            res.status(200).json(data);
+        }else{
+            res.status(401).json(data);
+        }
+
+    })
+})
+
 router.get("/block",function (req,res) {
 	res.render("block");
 })

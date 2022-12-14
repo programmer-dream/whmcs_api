@@ -109,11 +109,11 @@ $(document).ready(function () {
           var deferred = $.Deferred();
           $.ajax({
             type: "GET",
-            url: "/api/user/listusers",
+            url: "/api/user/usersManager",
             dataType: "json",
             success: function (users) {
               let response = users;
-              console.log(response, "<<< data")
+              //console.log(response, "<<< data")
               var filtered = filterResults(filters, response);
               deferred.resolve(filtered);
             },
@@ -186,61 +186,7 @@ $(document).ready(function () {
           align: "center",
           type: "text",
           filtering: true
-        },
-        {
-                    name: "ID",
-                    title: "Remove user",
-                    type: "text",
-                    filtering: false,
-                    width: 80,
-                    align: "center",
-                    itemTemplate: function (value,data) {
-
-                        var images='<span class="material-symbols-outlined" data-id="'+value+'">person_remove</span>';
-                        
-                        return $(images)
-                            .on("click", function() {
-                                var id=$(this).attr("data-id")
-                                
-                                swal({
-                                    title: "Confirm Your Action",
-                                    text: "Delete selected account?",
-                                    icon: "warning",
-                                    buttons: true,
-                                    dangerMode: true,
-                                })
-                                    .then((willDelete) => {
-                                        if (willDelete) {
-                                            
-                                            var settings= {
-                                                type: "POST",
-                                                dataType: "json",
-                                                url: "/api/user/removeUser/"+id,
-                                                success: function(response) {
-                                                    swal("Account has been Deleted", {
-                                                        icon: "success",
-                                                    });
-                                                    setTimeout(function(){
-                                                    	//location.reload();
-                                                    }, 2000);
-                                                    
-                                                },
-                                                error: function (err, type, httpStatus) {
-                                                    alert('error has occured');
-                                                }
-                                            };
-
-                                            $.ajax(settings);
-                                        } else {
-                                            swal("Action performed!");
-                                        }
-                                    });
-
-                                return false;
-                            });
-                        return "";
-                    }
-                }
+        }
       ]
     });
 

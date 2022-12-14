@@ -103,6 +103,22 @@ var User_idpdetail = {
         callback({ message: "error", data: err.message });
       });
   },
+  inActiveUser: function (id, callback) {
+    user_idpdetails
+      .findAll({ where: { ID: id } })
+      .then(function (itemInstance) {
+        itemInstance[0]
+          .update({
+            isActive: 0,
+          })
+          .then(function (self) {
+            callback({ message: "success", data: self });
+          });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  },
   getUserLoginCount: function (callback) {
     loginhistory
       .findAll()

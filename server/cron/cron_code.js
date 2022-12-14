@@ -70,8 +70,8 @@ let whmcsSync = async function (user, modules){
 //async function whmcs_sync(user, modules){
     const parsedModules  = JSON.parse(modules)
     //const parsedModules = JSON.parse(req.body.module)  
-    const encodedModules = studentUtils.encodeModules(parsedModules)
-    console.log(modules, "<<<<")
+    //const encodedModules = studentUtils.encodeModules(parsedModules)
+    
     user_idpdetailBal.getUserByEmail(user.email,function (data,err) {
         if(data.message=="success"){
             // Call the getClients call and store the data in the variable called
@@ -91,7 +91,7 @@ let whmcsSync = async function (user, modules){
                     // Password 2 is now a requirement of the WHMCS function - added to create a random password for the user 15/6/22 by NW
                     password2: randompassword,
                     // Added to see if this will make it searchable in the admin pages for lecturers (sept 2019)
-                    customfields: encodedModules,
+                    //customfields: encodedModules,
                     phonenumber: data.data[0].dataValues.client_detail.dataValues.Phone,
                     notes: process.env.whmcsaccountnotes,
                     language: process.env.whmcsdefaultlanguage,
