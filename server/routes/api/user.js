@@ -438,26 +438,22 @@ router.post("/removeUser/:id",function (req,res) {
     user_idpdetailDal.inActiveUser(req.params.id,function (data,err) {
         if(data.message=="success"){
             let user = data.data.toJSON()
-            //console.log(user,"<<< user")
 
             const whmcsClient = new Clients(whmcsConfig);
             whmcsClient.getClientsDetails({email:user.email}).then(function (clientResponse) {
                 
                 if(clientResponse.result == 'success'){
-                    whmcsClient.moduleSuspend({serviceid:146}).then(function (suspendResponse) {
-                        console.log(suspendResponse, "<< suspendResponse")
-                    })
-                    // whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(function (productsResponse) {
-                    //     whmcsClient.closeClient({clientid:clientResponse.userid}).then(function (closeResponse) {   //console.log(closeResponse, "<< closeResponse")
-                    //             if(closeResponse.result == 'success'){
-                    //                 whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
-                    //                 //console.log(deletedResponse, "<< deletedResponse")
-                    //             })
-                    //         }
-                    //     })
+
+                    whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(function (productsResponse) {
+                        whmcsClient.closeClient({clientid:clientResponse.userid}).then(function (closeResponse) {   
+                                if(closeResponse.result == 'success'){
+                                    whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
+                                    
+                                })
+                            }
+                        })
                         
-                    // })
-                    
+                    })
                 }
             })
             
