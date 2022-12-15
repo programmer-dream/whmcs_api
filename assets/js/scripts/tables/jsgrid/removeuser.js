@@ -221,7 +221,7 @@ $(document).ready(function () {
                                                         icon: "success",
                                                     });
                                                     setTimeout(function(){
-                                                    	//location.reload();
+                                                    	location.reload();
                                                     }, 2000);
                                                     
                                                 },
