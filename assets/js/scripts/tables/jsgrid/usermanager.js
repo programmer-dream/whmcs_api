@@ -130,7 +130,7 @@ $(document).ready(function () {
           name: "ID",
           title: "ID",
           type: "text",
-          width: 40,
+          width: 50,
           align: "center",
           filtering: true,
           autosearch: true
@@ -144,8 +144,8 @@ $(document).ready(function () {
         },
         {
           name: "user_ID",
-          title: "Student ID",
-          width: 60,
+          title: "User ID",
+          width: 75,
           align: "center",
           type: "text",
           filtering: true
@@ -153,8 +153,8 @@ $(document).ready(function () {
         {
           name: "email",
           title: "User email",
-          width: 60,
           align: "center",
+          width: 200,
           type: "text",
           filtering: true
         },
@@ -174,7 +174,7 @@ $(document).ready(function () {
         {
           name: "Is_Staff",
           title: "Is staff?",
-          width: 60,
+          width: 65,
           align: "center",
           type: "text",
           filtering: true
@@ -182,11 +182,11 @@ $(document).ready(function () {
         {
           name: "Is_Admin",
           title: "Is admin?",
-          width: 60,
+          width: 65,
           align: "center",
           type: "text",
           filtering: true
-        }
+        },
       ]
     });
 

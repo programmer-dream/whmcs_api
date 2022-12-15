@@ -130,7 +130,7 @@ $(document).ready(function () {
           name: "ID",
           title: "ID",
           type: "text",
-          width: 40,
+          width: 50,
           align: "center",
           filtering: true,
           autosearch: true
@@ -144,8 +144,8 @@ $(document).ready(function () {
         },
         {
           name: "user_ID",
-          title: "Student ID",
-          width: 60,
+          title: "User ID",
+          width: 75,
           align: "center",
           type: "text",
           filtering: true
@@ -153,8 +153,8 @@ $(document).ready(function () {
         {
           name: "email",
           title: "User email",
-          width: 60,
           align: "center",
+          width: 200,
           type: "text",
           filtering: true
         },
@@ -174,7 +174,7 @@ $(document).ready(function () {
         {
           name: "Is_Staff",
           title: "Is staff?",
-          width: 60,
+          width: 65,
           align: "center",
           type: "text",
           filtering: true
@@ -182,7 +182,7 @@ $(document).ready(function () {
         {
           name: "Is_Admin",
           title: "Is admin?",
-          width: 60,
+          width: 65,
           align: "center",
           type: "text",
           filtering: true
@@ -192,7 +192,7 @@ $(document).ready(function () {
                     title: "Remove user",
                     type: "text",
                     filtering: false,
-                    width: 80,
+                    width: 90,
                     align: "center",
                     itemTemplate: function (value,data) {
 
@@ -206,7 +206,8 @@ $(document).ready(function () {
                                     title: "Confirm Your Action",
                                     text: "Delete selected account?",
                                     icon: "warning",
-                                    buttons: true,
+                                    //buttons: true,
+                                    buttons: ["No, do not delete the accouts.", "Yes, permanently remove the selected accounts."],
                                     dangerMode: true,
                                 })
                                     .then((willDelete) => {
@@ -229,11 +230,8 @@ $(document).ready(function () {
                                                     alert('error has occured');
                                                 }
                                             };
-
                                             $.ajax(settings);
-                                        } else {
-                                            swal("Action performed!");
-                                        }
+                                        } 
                                     });
 
                                 return false;
