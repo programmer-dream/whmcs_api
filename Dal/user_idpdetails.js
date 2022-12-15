@@ -110,6 +110,7 @@ var User_idpdetail = {
         itemInstance[0]
           .update({
             isActive: 0,
+            to_be_deleted:1
           })
           .then(function (self) {
             callback({ message: "success", data: self });

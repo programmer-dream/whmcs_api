@@ -77,6 +77,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0,
       },
+      to_be_deleted: {
+        type: DataTypes.INTEGER(1),
+        allowNull: false,
+        defaultValue: 0,
+      },
       teaching_block_period_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false
