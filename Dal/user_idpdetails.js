@@ -394,6 +394,12 @@ var User_idpdetail = {
       .catch(function (err) {
         callback({ message: "error", data: err.message });
       });
+  },
+  dropUser: async function (userId) {
+    
+    await user_idpdetails.destroy({where:{ID:userId}});
+    await modules_users_assigned.destroy({where:{user_id:userId}});
+    
   }
 };
 module.exports = User_idpdetail;

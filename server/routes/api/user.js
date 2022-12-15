@@ -456,7 +456,8 @@ router.post("/removeUser/:id",function (req,res) {
                             })
                         )
                         await whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
-                            console.log(deletedResponse, "<<< deletedResponse")   
+                            console.log(deletedResponse, "<<< deletedResponse") 
+                            user_idpdetailDal.dropUser(req.params.id)
                         })
                     })
                 }

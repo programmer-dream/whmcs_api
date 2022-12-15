@@ -30,11 +30,6 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
           icon: "local_offer",
         },
         {
-          label: "Dashboard",
-          url: '/staff/dashboard',
-          icon: "local_offer",
-        },
-        {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
@@ -88,11 +83,6 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
         {
           label: "Raise Support",
           url: process.env.Staffticketlink,
-          icon: "local_offer",
-        },
-        {
-          label: "Dashboard",
-          url: '/staff/dashboard',
           icon: "local_offer",
         },
         {
@@ -208,11 +198,6 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
           icon: "local_offer",
         },
         {
-          label: "Dashboard",
-          url: '/staff/dashboard',
-          icon: "local_offer",
-        },
-        {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
@@ -263,11 +248,6 @@ router.get("/userManager", ensureAuthenticated, function (req, res) {
         {
           label: "Raise Support",
           url: process.env.Staffticketlink,
-          icon: "local_offer",
-        },
-        {
-          label: "Dashboard",
-          url: '/staff/dashboard',
           icon: "local_offer",
         },
         {
