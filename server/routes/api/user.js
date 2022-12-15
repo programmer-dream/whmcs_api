@@ -440,19 +440,24 @@ router.post("/removeUser/:id",function (req,res) {
             let user = data.data.toJSON()
 
             const whmcsClient = new Clients(whmcsConfig);
+            const servicClient = new Services(whmcsConfig);
+
             whmcsClient.getClientsDetails({email:user.email}).then(function (clientResponse) {
-                
+                console.log(clientResponse, "<<< clientResponse")
                 if(clientResponse.result == 'success'){
 
-                    whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(function (productsResponse) {
-                        whmcsClient.closeClient({clientid:clientResponse.userid}).then(function (closeResponse) {   
-                                if(closeResponse.result == 'success'){
-                                    whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
-                                    
+                     whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(async function (productsResponse) {
+                        await Promise.all(
+                            productsResponse.products.product.map( async function(service){
+                                console.log(service.orderid,"<<<< service")
+                                await servicClient.moduleTerminate({serviceid:service.orderid}).then(function (terminateResponse) {
+                                    console.log(terminateResponse, "<<< terminateResponse")
                                 })
-                            }
+                            })
+                        )
+                        await whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
+                            console.log(deletedResponse, "<<< deletedResponse")   
                         })
-                        
                     })
                 }
             })
