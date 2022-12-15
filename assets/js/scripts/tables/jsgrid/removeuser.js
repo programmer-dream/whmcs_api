@@ -207,7 +207,7 @@ $(document).ready(function () {
                                     text: "Delete selected account?",
                                     icon: "warning",
                                     //buttons: true,
-                                    buttons: ["No, do not delete the accouts.", "Yes, permanently remove the selected accounts."],
+                                    buttons: ["No, do not delete the account.", "Yes, permanently remove the selected account."],
                                     dangerMode: true,
                                 })
                                     .then((willDelete) => {
