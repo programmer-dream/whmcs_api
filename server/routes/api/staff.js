@@ -298,7 +298,8 @@ router.post("/createIndividualUser", async (req, res) => {
           is_admin  : isAdmin,
           is_synced : 1,
           expiryDate: new Date(),
-          teaching_block_period_id:req.body.teaching_block_period
+          teaching_block_period_id:req.body.teaching_block_period,
+          teaching_location:req.body.teaching_location
         }
         
         let createdUser = await user_idpdetailDal.addUserByCsv(individualUser);  
@@ -367,7 +368,8 @@ router.post("/uploadUserCsv", async (req, res) => {
                                         sessionid : generateString(),
                                         isStaff   : user.field5,
                                         is_admin  : user.field6, 
-                                        teaching_block_period_id: user.field8
+                                        teaching_block_period_id: user.field8,
+                                        teaching_location:user.field7
                                       }
                     let createdUser = await user_idpdetailDal.addUserByCsv(userData);
                     

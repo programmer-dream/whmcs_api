@@ -86,6 +86,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false
       },
+      user_location_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false
+      },
     },
     {
       tableName: "user_idpdetails",
