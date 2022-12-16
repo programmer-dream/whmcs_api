@@ -203,7 +203,9 @@ var User_idpdetail = {
       lastname: para.lastname,
       sessionid: para.sessionid,
       isStaff: 0,
-      expiryDate: new Date()
+      expiryDate: new Date(),
+      teaching_block_period_id: 1,
+      user_location_id:1
     });
     user
       .save()
