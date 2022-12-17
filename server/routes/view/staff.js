@@ -318,11 +318,14 @@ router.get("/userManager", ensureAuthenticated, function (req, res) {
   });
 });
 
-router.get("/settings", ensureAuthenticated, function (req, res) {
-  // console.log(req.user, "user data");
+router.get("/settings", ensureAuthenticated, async function (req, res) {
+  
   res.render("settings", {
     email: req.user.upn,
     user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
     supportMenu: {
       main: [
         {
@@ -330,6 +333,7 @@ router.get("/settings", ensureAuthenticated, function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
+
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
