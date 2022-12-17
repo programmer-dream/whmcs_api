@@ -4,63 +4,10 @@
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Dashboard for student management by Education Host Ltd">
-    <meta name="author" content="Education Host Ltd">
+    
     <title>Bulk Import - Education Host Ltd</title>
-    <link rel="apple-touch-icon" href="/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/images/ico/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="/vendors/css/material-vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/css/weather-icons/climacons.min.css">
-    <link rel="stylesheet" type="text/css" href="/fonts/meteocons/style.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/css/charts/morris.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/css/charts/chartist.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/css/charts/chartist-plugin-tooltip.css">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="/vendors/css/tables/jsgrid/jsgrid-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/css/tables/jsgrid/jsgrid.min.css">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/material.css">
-    <link rel="stylesheet" type="text/css" href="/css/components.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="/css/material-colors.css">
-    <!-- END: Theme CSS-->
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/core/menu/menu-types/material-vertical-content-menu.css">
-    <link rel="stylesheet" type="text/css" href="/fonts/simple-line-icons/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="/css/pages/timeline.css">
-    <link rel="stylesheet" type="text/css" href="/css/pages/dashboard-ecommerce.css">
-    <!-- END: Page CSS-->
-    <script src="/vendors/js/tables/jquery-1.12.3.js"></script>
-    <!-- BEGIN: Custom CSS-->
-    <link type="text/css" href="/css/style.css">
-    <!-- END: Custom CSS-->
-    <style>
-       /* .main-menu.material-menu.menu-static.menu-light.menu-accordion.menu-shadow {
-            height: 100vh;
-        }*/
-    </style>
-    <!-- Axios CDNs -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script type="text/javascript">
-
-    </script>
+    <%- include('header'); -%>
 
 </head>
 <!-- END: Head-->
@@ -435,13 +382,9 @@
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light navbar-border">
-        <p class="clearfix blue-grey text-sm-center mb-0 px-2"><span
-                class="float-md-right d-block d-md-inline-block">Copyright &copy; <%= copyrightDate%>&nbsp;&nbsp;<a
-                        class="text-bold-800 grey darken-2" href="https://www.educationhost.co.uk"
-                        target="_blank">Education
-                        Host Ltd</a></span></p>
-    </footer>
+
+    <%- include('footer'); -%>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
