@@ -57,116 +57,11 @@
     <div class="app-content content" role="main">
         <div class="content-header row">
         </div>
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="min-height: 1200px;">
 
             <!-- BEGIN: Main Menu-->
 
-            <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow"
-                data-scroll-to-active="true">
-                <div class="user-profile">
-                    <div class="user-info text-center pt-1 pb-1"><img class="user-img img-fluid rounded-circle"
-                            src="/images/logo/logo.png" alt="Dashboard Menu logo" />
-
-                        <div class="text-dark">Hello <br> <span style="font-size: 1.5rem">
-                                <%= user.name.givenName %>
-                                    <%= user.name.familyName %>
-                            </span></div>
-
-                    </div>
-                </div>
-                <div class="main-menu-content">
-                    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                        <li class=" nav-item">
-                            <a href="/staff/dashboard" class="d-flex justify-content-start align-items-start waves-effect waves-dark">
-                                <i class=" material-icons mr-1">dashboard</i>
-                                <span class="menu-title" data-i18n="nav.support_raise_support.main">
-                                    Dashboard
-                                </span>
-                            </a>
-                        </li>
-
-                        <!-- Support Menu-->
-                        <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <% supportMenu.main.forEach(item=> {
-                            %>
-
-                            <li class=" nav-item">
-                                <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
-                                    <i class="material-icons mr-1">
-                                        <%= item.icon %>
-                                    </i>
-                                    <span class="menu-title" data-i18n="nav.support_raise_support.main">
-                                        <%= item.label %>
-                                    </span>
-                                </a>
-                            </li>
-
-                            <% }) %>
-                                <li class=" navigation-header"><span data-i18n="nav.category.support">Other
-                                        Links</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
-                                        data-placement="right" data-original-title="Support">more_horiz</i>
-                                </li>
-                                <% supportMenu.other.forEach(item=> {
-                                    %>
-
-                                    <li class=" nav-item">
-                                        <a href="<%= item.url %>"
-                                            class="d-flex justify-content-start align-items-start">
-                                            <i class="material-icons mr-1">
-                                                <%= item.icon %>
-                                            </i>
-                                            <span class="menu-title mt-1" data-i18n="nav.support_raise_support.main">
-                                                <%= item.label %>
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <% }) %>
-                                        <li>
-                                            
-                    </ul>
-
-
-                    <!-- Admin Pannel start  -->
-                    <% if(user.isAdmin){ %>
-                        <div class="main-menu material-menu menu-static menu-light menu-accordion menu-shadow mt-2  "
-                            data-scroll-to-active="true">
-                            <div class="user-profile">
-                                
-                                    <div class="text-dark"> </div>  </div>
-                            
-                            <ul class="navigation navigation-main" id="main-menu-navigation"
-                                data-menu="menu-navigation">
-                                <li class=" navigation-header"><span data-i18n="nav.category.support">Admin</span><i
-                                    class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                    data-original-title="Support">more_horiz</i>
-                            </li>
-                                <% supportMenu.admin.forEach(item=> {
-                                    %>
-                                    <li class=" nav-item">
-                                        <a href="<%= item.url %>"
-                                            class="d-flex justify-content-start align-items-start">
-                                            <i class="material-icons mr-1">
-                                                <%= item.icon %>
-                                            </i>
-                                            <span class="menu-title <%= item.style %>"
-                                                data-i18n="nav.support_raise_support.main  ">
-                                                <%= item.label %>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <% }) %>
-                                        <li>
-                            </ul>
-                        </div>
-                        <% } %>
-                            <!-- Admin Pannel end -->
-                </div>
-            </div>
-
+            <%- include('menu'); -%>
 
             <!-- END: Main Menu-->
             <div class="content-body ">
@@ -180,14 +75,7 @@
                                     <h3 class="card-title font-weight-bold">Settings</h3>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>                                
+                                                                    </div>                                
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard ">
 
@@ -247,47 +135,7 @@
                                                </tr>                                                                                                  
                                             </tbody>
                                           </table>
-                                          <p></p>
-                                          <p></p>
-                                          <h2>Teaching Locations</h2>
-
-                                          <table class="table table-striped">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                          <div class="col-md-12 mb-4" style="text-align: right;">
-
-                                            <button type="button" class="btn btn-primary">Add Location</button>
-                                            <button type="button" class="btn btn-warning">Edit Location</button>  
-                                            <button type="button" class="btn btn-danger">Remove Location</button>                                        
-                                          </div>
-
+                                          
                                           
 
                                         <!-- University address modal -->
@@ -762,9 +610,88 @@
                     </div>
                 </section>
                 <!-- Student account data end -->
+
+
+                <section id="basic">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold">Teaching Locations</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    
+                                </div>    
+                                
+                                
+                                
+                                <div class="card-content collapse show" >
+                                    <div class="card-body card-dashboard ">
+                                        <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                              <th scope="col">#</th>
+                                              <th scope="col">First</th>
+                                              <th scope="col">Last</th>
+                                              <th scope="col">Handle</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>Mark</td>
+                                              <td>Otto</td>
+                                              <td>@mdo</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">2</th>
+                                              <td>Jacob</td>
+                                              <td>Thornton</td>
+                                              <td>@fat</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">3</th>
+                                              <td>Larry</td>
+                                              <td>the Bird</td>
+                                              <td>@twitter</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                        <div class="col-md-12 mb-4" style="text-align: right;">
+
+                                          <button type="button" class="btn btn-primary">Add Location</button>
+                                          <button type="button" class="btn btn-warning">Edit Location</button>  
+                                          <button type="button" class="btn btn-danger">Remove Location</button>                                        
+                                        </div>
+
+                                        
+                                                       <!-- Text alignment section start -->
+ 
+
+                                    </div>
+                                </div>     
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
+
+
+    
     <!-- END: Content-->
  
     <div class="sidenav-overlay"></div>
