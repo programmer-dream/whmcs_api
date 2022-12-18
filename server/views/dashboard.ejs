@@ -182,35 +182,32 @@
                                     </li>
 
                                     <% }) %>
-                                        <li>
-                                            <!-- <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <li class=" nav-item"><a href="http://support.pixinvent.com/"><i
-                                    class="material-icons">local_offer</i><span class="menu-title"
-                                    data-i18n="nav.support_raise_support.main">Raise Support</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="faq.html"><i class="material-icons">help_outline</i><span
-                                    class="menu-title" data-i18n="">FAQ</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="knowledge-base.html"><i
-                                    class="material-icons">info_outline</i><span class="menu-title"
-                                    data-i18n="">Knowledge Base</span></a>
-                        </li>
-                        <li class=" navigation-header"><span data-i18n="nav.category.support">Other Links</span><i
-                                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                                data-original-title="Support">more_horiz</i>
-                        </li>
-                        <li class=" nav-item"><a href="news-feed.html"><i class="material-icons">list_alt</i><span
-                                    class="menu-title" data-i18n="">Admin Area</span></a>
-                        </li>
-                        <li class=" nav-item"><a href="https://uptime.statuscake.com/?TestID=PzBTSXZwia"
-                                target="_blank"><i class="material-icons">list_alt</i><span class="menu-title"
-                                    data-i18n="">Network Monitor</span></a>
-                        </li> -->
-                    </ul>
+                                <!-- Module Manager links -->
+                                <li>
+                                    <li class=" navigation-header"><span data-i18n="nav.category.support">Module Manager</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
+                                        data-placement="right" data-original-title="Support">more_horiz</i>
+                                </li>
+                                <% supportMenu.other.forEach(item=> {
+                                    %>
 
+                                    <li class=" nav-item">
+                                        <a href="<%= item.url %>"
+                                            class="d-flex justify-content-start align-items-start">
+                                            <i class="material-icons mr-1">
+                                                <%= item.icon %>
+                                            </i>
+                                            <span class="menu-title mt-1" data-i18n="nav.support_raise_support.main">
+                                                <%= item.label %>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <% }) %>
+                                <li>
+
+                    
+</ul>
+                    
 
                     <!-- Admin Pannel start  -->
                     <% if(user.isAdmin){ %>
@@ -246,6 +243,7 @@
                         </div>
                         <% } %>
                             <!-- Admin Pannel end -->
+                            
                 </div>
             </div>
 
@@ -533,9 +531,8 @@
     <script src="/vendors/js/ui/headroom.min.js"></script>
     <script src="/vendors/js/charts/chartist.min.js"></script>
     <script src="/vendors/js/charts/chartist-plugin-tooltip.min.js"></script>
-    <script src="/vendors/js/charts/raphael-min.js"></script>
-    <script src="/vendors/js/charts/morris.min.js"></script>
-    <script src="/vendors/js/timeline/horizontal-timeline.js"></script>
+    <script src="/vendors/js/charts/raphael-min.js"></script>    
+    
     <!-- END: Page Vendor JS-->
 
     <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>

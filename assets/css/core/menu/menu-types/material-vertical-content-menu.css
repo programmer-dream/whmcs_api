@@ -391,8 +391,7 @@
       .import-file-block{
         padding-bottom: 400px;
       }
-  .material-vertical-layout .main-menu.menu-light .user-profile {
-    background: url("../../../../../app-assets/images/gallery/left-menu-bg.jpg") center center no-repeat; }
+  
 
 .material-vertical-layout .main-menu.menu-dark .user-profile {
   background: url("../../../../../app-assets/images/gallery/dark-menu.jpg") center center no-repeat; }
@@ -606,8 +605,7 @@
 
 .material-vertical-layout .main-menu.menu-light {
   border-right: 0; }
-  .material-vertical-layout .main-menu.menu-light .user-profile {
-    background: url("../../../../../app-assets/images/gallery/left-menu-bg.jpg") center center no-repeat; }
+  .material-vertical-layout .main-menu.menu-light .user-profile { }
 
 .material-vertical-layout .main-menu.menu-dark .user-profile {
   background: url("../../../../../app-assets/images/gallery/dark-menu.jpg") center center no-repeat; }

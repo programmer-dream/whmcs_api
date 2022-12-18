@@ -42,6 +42,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
           icon: "list_alt",
         },
       ],
+
       admin: [
         {
           label: "User Manager",
@@ -346,7 +347,7 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           url: process.env.Networkmonitorlink,
           icon: "list_alt",
         },
-      ],
+      ],      
       admin: [
         {
           label: "User Manager",
