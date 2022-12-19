@@ -205,7 +205,8 @@ var User_idpdetail = {
       isStaff: 0,
       expiryDate: new Date(),
       teaching_block_period_id: 1,
-      user_location_id:1
+      user_location_id:1,
+      is_synced:1
     });
     user
       .save()
@@ -328,7 +329,8 @@ var User_idpdetail = {
         modules.map( async function(module){
           let obj = {
             module_id:module.module_id,
-            module_code: module.module_code
+            module_code: module.module_code,
+            module_name: module.module_name
           }
           allModules.push(obj)
         })

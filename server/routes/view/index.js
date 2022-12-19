@@ -6,6 +6,7 @@ const passport = require('passport');
 // Gets the client folder which is needed to serve html files
 const root = path.join(__dirname, '../../../client');
 const user_idpdetailBal=require("../../../Bal/user_idpdetails");
+var user_idpdetailDal=require("../../../Dal/user_idpdetails");
 // @route	GET /test
 // @desc	Serves the test page
 // @access 	Public
@@ -26,14 +27,22 @@ router.get("/", (req, res) => {
 // @route 	GET /home
 // @desc 	Serves the home page
 // @access 	Public
-router.get("/home",ensureAuthenticated, (req, res) => {
+router.get("/home",ensureAuthenticated, (req, res) => { 
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
 		if(data.message=="success"){
-			user_idpdetailBal.getModules(data.data[0].client_detail.dataValues.universityid,function (data1,err1) {
+			user_idpdetailBal.getModules(data.data[0].client_detail.dataValues.universityid,async function (data1,err1) {
                 if(data.message=="success"){
                     var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
+                    var modules =  await user_idpdetailDal.listModules()
+                    var teachingLocation =await user_idpdetailDal.listTeachingLocation()
+    				var teachingBlockPeriods =await user_idpdetailDal.listBlockPeriods()
                     if(data1.data.length>0){
-                        res.render("home",{domain:domain,option:data1.data[0].dataValues});
+                        res.render("home",{domain:domain,
+                        					option:data1.data[0].dataValues,
+                        					modules:modules,
+                        					teachingLocation:teachingLocation,
+                        					teachingBlockPeriods:teachingBlockPeriods
+                        				});
 					}else{
                     	res.send("There are no modules in database");
 					}

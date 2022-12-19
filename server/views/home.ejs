@@ -69,6 +69,11 @@
         }); // end of doc ready
 
     </script>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -151,21 +156,45 @@
                                     </p>
 
                                     <div class="row">
-                                        <div class="col-md-12"></div>
-                                        <div class="col-md-12">
+                                        <!-- <div class="col-md-12"> -->
                                             <div class="form-group">
+                                                <label for="">Teaching Location<span class="error">*</span></label>
+                                                <br/>
                                             <select id="example-dropright" multiple name="multiselect[]" required>
-                                                <option value="<%= option.module1 %>"><%= option.module1 %></option>
+                                                <!-- <option value="<%= option.module1 %>"><%= option.module1 %></option>
                                                 <option value="<%= option.module2 %>"><%= option.module2 %></option>
                                                 <option value="<%= option.module3 %>"><%= option.module3 %></option>
                                                 <option value="<%= option.module4 %>"><%= option.module4 %></option>
                                                 <option value="<%= option.module5 %>"><%= option.module5 %></option>
                                                 <option value="<%= option.module6 %>"><%= option.module6 %></option>
-                                                <option value="<%= option.module7 %>"><%= option.module7 %></option>
+                                                <option value="<%= option.module7 %>"><%= option.module7 %></option> -->
+                                                 <% modules.forEach(item=> { %>
+                                                    <option value="<%= item.module_code %>"><%= item.module_code+" - "+item.module_name %></option>
+                                                <% }) %>
                                             </select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12"></div>
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="">Teaching Location<span class="error">*</span></label>
+                                            <select class="form-control" name="teaching_location" id="teaching_location" required>
+                                                <% teachingLocation.forEach(item=> { %>
+                                                    <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
+                                                <% }) %>
+                                            </select>
+                                          </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                       <div class="form-group">
+                                            <label for="">Teaching Block Period<span class="error">*</span></label>
+                                            <select class="form-control" name="teaching_block_period" id="teaching_block_period" required>
+                                               <% teachingBlockPeriods.forEach(item=> { %>
+                                                    <option value="<%= item.teaching_block_period_id %>"><%= item.teaching_block_period_description %></option>
+                                                <% }) %>
+                                            </select>
+                                          </div>
                                     </div>                                  
 
                                     <div class="text-right"><button class="btn btn-primary btn-next-form">Next</button></div>
