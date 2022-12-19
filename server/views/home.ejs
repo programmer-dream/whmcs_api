@@ -10,6 +10,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
 
 
@@ -123,7 +124,7 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                            <form class="needs-validation" onSubmit="return false" novalidate>
+                            <form class="needs-validation" onSubmit="return false" novalidate id="form2">
                                 <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
                                     <p class="text-center">
                                     <p></p>
@@ -154,31 +155,11 @@
                                         work!</p>
                                     <p class="text-center">Lecturers will use this to locate your work!
                                     </p>
-
                                     <div class="row">
-                                        <!-- <div class="col-md-12"> -->
-                                            <div class="form-group">
-                                                <label for="">Teaching Location<span class="error">*</span></label>
-                                                <br/>
-                                            <select id="example-dropright" multiple name="multiselect[]" required>
-                                                <!-- <option value="<%= option.module1 %>"><%= option.module1 %></option>
-                                                <option value="<%= option.module2 %>"><%= option.module2 %></option>
-                                                <option value="<%= option.module3 %>"><%= option.module3 %></option>
-                                                <option value="<%= option.module4 %>"><%= option.module4 %></option>
-                                                <option value="<%= option.module5 %>"><%= option.module5 %></option>
-                                                <option value="<%= option.module6 %>"><%= option.module6 %></option>
-                                                <option value="<%= option.module7 %>"><%= option.module7 %></option> -->
-                                                 <% modules.forEach(item=> { %>
-                                                    <option value="<%= item.module_code %>"><%= item.module_code+" - "+item.module_name %></option>
-                                                <% }) %>
-                                            </select>
-                                            </div>
-                                        <!-- </div> -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
+                                        <div class="form-group col-sm-8">
                                             <label for="">Teaching Location<span class="error">*</span></label>
                                             <select class="form-control" name="teaching_location" id="teaching_location" required>
+                                                <option value="">select location</option>
                                                 <% teachingLocation.forEach(item=> { %>
                                                     <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
                                                 <% }) %>
@@ -187,17 +168,38 @@
                                         
                                     </div>
                                     <div class="row">
-                                       <div class="form-group">
+                                        <!-- <div class="col-md-12"> -->
+                                            <div class="form-group col-sm-8">
+                                                <label for="">Modules<span class="error">*</span></label>
+                                                <br/>
+                                            <select id="example-dropright" multiple name="multiselect[]" required class="col-sm-8">
+                                                <!-- <option value="<%= option.module1 %>"><%= option.module1 %></option>
+                                                <option value="<%= option.module2 %>"><%= option.module2 %></option>
+                                                <option value="<%= option.module3 %>"><%= option.module3 %></option>
+                                                <option value="<%= option.module4 %>"><%= option.module4 %></option>
+                                                <option value="<%= option.module5 %>"><%= option.module5 %></option>
+                                                <option value="<%= option.module6 %>"><%= option.module6 %></option>
+                                                <option value="<%= option.module7 %>"><%= option.module7 %></option> -->
+                                                 
+                                            </select><br/>
+                                            <label id="example-dropright-error" class="error" for="example-dropright"></label>
+                                            </div>
+                                        <!-- </div> -->
+                                    </div>
+                                    
+                                    <div class="row">
+                                       <div class="form-group col-sm-8">
                                             <label for="">Teaching Block Period<span class="error">*</span></label>
                                             <select class="form-control" name="teaching_block_period" id="teaching_block_period" required>
+                                                <option value="">select period</option>
                                                <% teachingBlockPeriods.forEach(item=> { %>
                                                     <option value="<%= item.teaching_block_period_id %>"><%= item.teaching_block_period_description %></option>
                                                 <% }) %>
                                             </select>
                                           </div>
                                     </div>                                  
-
-                                    <div class="text-right"><button class="btn btn-primary btn-next-form">Next</button></div>
+                                    <input type="hidden" name="ID" id="ID" value="<%= ID%>">
+                                    <div class="text-right"><button class="btn btn-primary btn-next-form" id="form2Btn">Next</button></div>
 
                                 </div>
                                 <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="stepperFormTrigger3">
@@ -332,12 +334,64 @@
 
     window.onload = function() {
         $('#example-dropright').multiselect({
-            buttonWidth: '400px',
-            dropRight: true
+            buttonWidth: '471px',
+            //dropRight: true
         });
 }
+$('#form2Btn').click(function(){
+    var isValid = $("#form2").valid();
+    $('#form2Btn').prop('disabled', false); 
+    if(isValid){
+        $('#form2Btn').prop('disabled', true); 
+    }
+})
 
+$("#teaching_location").change (function () {  
+    var selected = $(this).children("option:selected").val(); 
+    $('#form2Btn').prop('disabled', false); 
+    if(selected !=''){
+        var settings= {
+            type: "GET",
+            dataType: "json",
+            url: "/api/user/getModuleWithLocation/"+selected,
+            success: function(response) {
+                if(response.length){
+                    var optionStr = ''
+                    response.forEach(function(item){
+                        optionStr+= "<option value='"+item.module_code+"'>"+item.module_name+"</option>";
+                       
+                    })
+                    $('#example-dropright').html(optionStr);
+                }else{
+                    $('#example-dropright').html('');
+                    $('#form2Btn').prop('disabled', true);
+                }
+                var slected = $('#teaching_block_period').children("option:selected").val();
+                if(slected == ''){
+                    $('#form2Btn').prop('disabled', true);
+                }else{
+                    $('#form2Btn').prop('disabled', false);
+                }
+                $('#example-dropright').multiselect("destroy");
+                $('#example-dropright').multiselect({buttonWidth: '471px'});
+            },
+            error: function (err, type, httpStatus) {
+                alert('error has occured');
+            }
+        };
 
+        $.ajax(settings);
+    }
+}); 
+
+$("#teaching_block_period").change (function () {
+    var selected = $(this).children("option:selected").val();
+    $('#form2Btn').prop('disabled', false); 
+   
+    if(selected == ''){
+        $('#form2Btn').prop('disabled', true); 
+    }
+})
 </script>
     
 

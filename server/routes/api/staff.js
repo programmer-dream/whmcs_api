@@ -31,9 +31,10 @@ const staffProductId = process.env.whmcsstaffProductId;
 // @desc 	Creates the staff member
 // @access 	Public
 
-router.post("/",ensureAuthenticated, (req, res) => {
+router.post("/",ensureAuthenticated, async (req, res) => {
     // Set the isStaff value in the database to 1
-
+    await user_idpdetailDal.updateLocation(req.body,function(){})
+   
     const staffnumber = 1;
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
         if(data.message=="success"){

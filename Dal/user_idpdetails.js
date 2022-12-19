@@ -103,6 +103,23 @@ var User_idpdetail = {
         callback({ message: "error", data: err.message });
       });
   },
+  updateLocation: function (body, callback) {
+    user_idpdetails
+      .findAll({ where: { ID: body.ID } })
+      .then(function (itemInstance) {
+        itemInstance[0]
+          .update({
+            teaching_block_period_id: body.teaching_block_period,
+            user_location_id:body.teaching_location
+          })
+          .then(function (self) {
+            callback({ message: "success", data: self });
+          });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  },
   inActiveUser: function (id, callback) {
     user_idpdetails
       .findAll({ where: { ID: id } })
@@ -196,6 +213,15 @@ var User_idpdetail = {
       });
   },
   addUser_IdpDetail: function (para, callback) {
+    let teaching_block_period_id = null
+    let user_location_id = null
+
+    if(para.user_location_id)
+      user_location_id = para.user_location_id
+    
+    if(para.teaching_block_period_id)
+      teaching_block_period_id = para.teaching_block_period_id
+
     const user = user_idpdetails.build({
       email: para.email,
       firstname: para.firstname,
@@ -204,8 +230,8 @@ var User_idpdetail = {
       sessionid: para.sessionid,
       isStaff: 0,
       expiryDate: new Date(),
-      teaching_block_period_id: 1,
-      user_location_id:1,
+      teaching_block_period_id: teaching_block_period_id,
+      user_location_id:user_location_id,
       is_synced:1
     });
     user

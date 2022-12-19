@@ -22,7 +22,11 @@ const azureConfig=require(process.env.configwithin);
 // @route 	POST api/student/
 // @desc 	Example student route
 // @access 	Public
-router.post("/",ensureAuthenticated, (req, res) => {
+router.post("/",ensureAuthenticated, async (req, res) => {
+    
+    await addUserModule(req.body.ID, req.body.module)
+    await user_idpdetailDal.updateLocation(req.body,function(){})
+   
     const parsedModules = JSON.parse(req.body.module)  
     const encodedModules = studentUtils.encodeModules(parsedModules)
 
@@ -289,6 +293,39 @@ router.post("/",ensureAuthenticated, (req, res) => {
     })
 
 });
+
+async function addUserModule(userId, moduleIdsArr){
+    moduleIdsArr = JSON.parse(moduleIdsArr)
+    if(!Array.isArray(moduleIdsArr)){
+        moduleIdsArr = [moduleIdsArr];
+    }
+    
+    if(moduleIdsArr.length > 0 ){
+        let moduleStr = moduleIdsArr.join("','");
+        let query = "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')"
+        
+        let module_result = await user_idpdetailDal.runRawQuery(query);    
+        
+        if(module_result.length > 0){
+            module_result.map( async function(moduleData){
+                await user_idpdetailDal.AddModulesUser(userId, moduleData.module_id)
+            })
+
+        }
+        
+    }
+}
+
+// async function updateUserDetail(userId, ){
+    
+//     if(userId &&  location && period){
+        
+//         let query = "UPDATE  user_idpdetails SET teaching_block_period_id='"+period+"', user_location_id='"+location+"' where ID='"+userId+"'"
+        
+//         await user_idpdetailDal.runRawQuery(query);    
+        
+//     }
+// }
 
 router.get("/verify",function (req,res) {
     res.redirect(azureConfig.destroySessionUrl);
