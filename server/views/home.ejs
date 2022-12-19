@@ -358,7 +358,7 @@ $("#teaching_location").change (function () {
                 if(response.length){
                     var optionStr = ''
                     response.forEach(function(item){
-                        optionStr+= "<option value='"+item.module_code+"'>"+item.module_name+"</option>";
+                        optionStr+= "<option value='"+item.module_code+"'>"+item.module_code +" - "+item.module_name+"</option>";
                        
                     })
                     $('#example-dropright').html(optionStr);
