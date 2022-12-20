@@ -21,6 +21,7 @@ const whmcsConfig = require("../../config/whmcs");
 var configEmail=require("../../config/emailConfig.json");
 var formidable = require('formidable');
 const csv=require('csvtojson')
+const cpanel = require("cpanel-lib");
 const student = require("../../cron/cron_code");
 
 
@@ -32,9 +33,11 @@ const staffProductId = process.env.whmcsstaffProductId;
 // @access 	Public
 
 router.post("/",ensureAuthenticated, async (req, res) => {
-    // Set the isStaff value in the database to 1
+    await addUserModules(req.body.ID, req.body.module)
+    
     await user_idpdetailDal.updateLocation(req.body,function(){})
-   
+    const parsedModules = JSON.parse(req.body.module)
+    
     const staffnumber = 1;
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
         if(data.message=="success"){
@@ -140,6 +143,96 @@ router.post("/",ensureAuthenticated, async (req, res) => {
                                                 moduleCreate.moduleCreate({
                                                         serviceid: updateClientProductResponse.serviceid
                                                     }).then(function(moduleCreateResponse) {
+                                                        ////////////////////////////////////////////////////////
+                                                    // There needs to be a password change here to a random charater password
+                                                    // This is to authenticate the user so that folders can be created
+                                                    ////////////////////////////////////////////////////////
+
+                                                    // update client password so that we can connect to the cpanel API
+                                                    const updateClientPassword = new Services(whmcsConfig);
+                                                    const newuserpassword =
+                                                        Math.random()
+                                                            .toString(36)
+                                                            .slice(2) +
+                                                        Math.random()
+                                                            .toString(36)
+                                                            .slice(2);
+
+                                                    updateClientPassword
+                                                        .moduleChangePw({
+                                                            serviceid: updateClientProductResponse.serviceid,
+                                                            servicepassword: newuserpassword
+                                                        })
+                                                        .then(function (updateClientPasswordResponse) {
+                                                            console.log(
+                                                                "Password update response",
+                                                                updateClientPasswordResponse
+                                                            );
+                                                            // Set the cPanel variables for connection
+
+                                                            ////////////////////////////////////////////////////////
+                                                            // The password below should be the password that has been changed above and passed into the options
+                                                            ////////////////////////////////////////////////////////
+                                                            console.log(updateClientPasswordResponse);
+
+                                                            var cpoptions = {
+                                                                host: process.env.webserverhostname,
+                                                                // EH Live host
+                                                                //host: 'benu.zjnucomputing.com',
+                                                                port: 2083,
+                                                                secure: true,
+                                                                // The username is driven from the random username created when creating the service
+                                                                username: randomstring,
+                                                                // USE the newly generated password
+                                                                password: newuserpassword,
+                                                                ignoreCertError: true
+                                                            };
+
+                                                            ////////////////////////////////////////////////////////
+                                                            //Setup the folders/////////////////////////////////////
+                                                            ////////////////////////////////////////////////////////
+
+                                                            var cpanelClient = cpanel.createClient(cpoptions);
+                                                            var count = 0;
+
+                                                            console.log(
+                                                                "modules count",
+                                                                parsedModules.length
+                                                            );
+
+                                                            do {
+                                                                var smodules = parsedModules[count];
+
+                                                                console.log(
+                                                                    "DO while ran, Number of modules: ",
+                                                                    smodules
+                                                                );
+
+                                                                cpanelClient.callApi2(
+                                                                    "Fileman",
+                                                                    "mkdir",
+                                                                    {
+                                                                        path: "/home/" + randomstring + "/public_html/",
+                                                                        name: smodules,
+                                                                        permissions: "755"
+                                                                    },
+                                                                    function (err, res) {
+                                                                        if (err) {
+                                                                            console.log(
+                                                                                `error creating cPanel folfder, on do-while iteration number ${count}`,
+                                                                                err
+                                                                            );
+                                                                        } else {
+                                                                            console.log("Result: %j", res);
+                                                                        }
+                                                                    }
+                                                                );
+                                                                count++;
+                                                            } while (count != parsedModules.length);
+                                                        })
+                                                            //module created 
+                                                            //end module creation
+
                                                      var url="http://"+req.headers.host+"/api/user/staffapprov?email="+req.user.upn;
 
                                                     mailer(url,configEmail.staffApproval)
@@ -530,6 +623,28 @@ async function addUserModule(userId, moduleIdsArr){
                 }
             }
         );
+    }
+}
+
+async function addUserModules(userId, moduleIdsArr){
+    moduleIdsArr = JSON.parse(moduleIdsArr)
+    if(!Array.isArray(moduleIdsArr)){
+        moduleIdsArr = [moduleIdsArr];
+    }
+    
+    if(moduleIdsArr.length > 0 ){
+        let moduleStr = moduleIdsArr.join("','");
+        let query = "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')"
+        
+        let module_result = await user_idpdetailDal.runRawQuery(query);    
+        
+        if(module_result.length > 0){
+            module_result.map( async function(moduleData){
+                await user_idpdetailDal.AddModulesUser(userId, moduleData.module_id)
+            })
+
+        }
+        
     }
 }
 
