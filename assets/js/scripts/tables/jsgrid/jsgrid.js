@@ -165,7 +165,13 @@ $(document).ready(function () {
           items: modules,
           valueField: "module_code",
           textField: "module_code",
-          selectedIndex: -1
+          selectedIndex: -1,
+          itemTemplate: function (value, item) {
+            
+            return (
+              '<span  title="'+value+'- '+item.module_name+'">' + value + "</span>"
+            );
+          }
         },
         {
           name: "domain_name",
@@ -173,7 +179,7 @@ $(document).ready(function () {
           title: "Module Domain",
           align: "center",
           itemTemplate: function (value) {
-            // return $("<a>").attr("href", value).text(value);
+            
             return (
               '<a href="http://' + value + '" target="_blank">' + value + "</a>"
             );
