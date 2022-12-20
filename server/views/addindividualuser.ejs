@@ -107,6 +107,7 @@
                                           <div class="form-group">
                                             <label for="">Teaching Location<span class="error">*</span></label>
                                             <select class="form-control" name="teaching_location" id="teaching_location" required>
+                                                <option value="">select location</option>
                                                 <% teachingLocation.forEach(item=> { %>
                                                     <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
                                                 <% }) %>
@@ -123,9 +124,7 @@
                                           <div class="form-group">
                                             <label>Modules<span class="error">*</span></label>
                                             <select multiple class="form-control" name="modules" id="modules" required>
-                                               <% modules.forEach(item=> { %>
-                                                    <option value="<%= item.module_code %>"><%= item.module_code %></option>
-                                                <% }) %>
+                                              
                                             </select>
                                           </div>
                                           <div class="form-check">
@@ -181,7 +180,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
     <script>
@@ -210,7 +209,35 @@
                 
 		    });
 		});
+    $("#teaching_location").change (function () {  
+        var selected = $(this).children("option:selected").val(); 
+        
+        if(selected !=''){
+            var settings= {
+                type: "GET",
+                dataType: "json",
+                url: "/api/user/getModuleWithLocation/"+selected,
+                success: function(response) {
 
+                    if(response.length){
+                        var optionStr = ''
+                        response.forEach(function(item){
+                            optionStr+= "<option value='"+item.module_code+"'>"+item.module_code +" - "+item.module_name+"</option>";
+                           
+                        })
+                        $('#modules').html(optionStr);
+                    }else{
+                        $('#modules').html('');
+                    }
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+
+            $.ajax(settings);
+        }
+    });
     </script>
 </body>
 <!-- END: Body-->
