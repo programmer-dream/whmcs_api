@@ -278,6 +278,18 @@ router.get("/staffdashboardgetyears", (req, res) => {
 	});
 });
 
+router.get("/getModuleYearLocation", async (req, res) => {
+    let yearQuery = "SELECT DISTINCT YEAR(user_module_start_date) AS year FROM modules_users_assigned"
+    let locationQuery="SELECT DISTINCT name FROM teaching_location_details"
+    let moduleCodeQuery="SELECT DISTINCT module_code FROM module_details"
+    
+    let year = await user_idpdetailDal.runRawQuery(yearQuery)
+    let location = await user_idpdetailDal.runRawQuery(locationQuery)
+    let moduleCode = await user_idpdetailDal.runRawQuery(moduleCodeQuery)
+    
+    res.send({year,location, moduleCode})
+});
+
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
 // @access 	Public
@@ -304,25 +316,52 @@ router.get("/staffdashboardstaffcount", (req, res) => {
 // @route 	GET api/user/staffdashboardlistusers
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/staffdashboardlistusers", (req, res) => {
+router.get("/staffdashboardlistusers", async (req, res) => {
 	const sessionid = req.session.id;
 	const whmcsconnection = mysql.createConnection(whmcsmysqlConfig);
 
-	whmcsconnection.connect(function (err) {
-		if (err) throw err;
+	// whmcsconnection.connect(function (err) {
+	// 	if (err) throw err;
 
-		whmcsconnection.query(
-			"SELECT tblclients.id, CONCAT( tblclients.firstname, ' ', tblclients.lastname ) AS fullname, tblclients.email, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value, CONCAT( tblhosting.domain, '/', tblcustomfieldsvalues.value ) AS domainmodule, YEAR(tblcustomfieldsvalues.created_at) AS ModuleStartDate FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblcustomfieldsvalues.value != '' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
+	// 	whmcsconnection.query(
+	// 		"SELECT tblclients.id, CONCAT( tblclients.firstname, ' ', tblclients.lastname ) AS fullname, tblclients.email, tblhosting.id, tblhosting.userid, tblhosting.domain, tblhosting.username, tblcustomfields.fieldname, tblcustomfieldsvalues.value, CONCAT( tblhosting.domain, '/', tblcustomfieldsvalues.value ) AS domainmodule, YEAR(tblcustomfieldsvalues.created_at) AS ModuleStartDate FROM tblclients LEFT JOIN tblhosting ON tblclients.id = tblhosting.userid LEFT JOIN tblcustomfieldsvalues ON tblhosting.userid = tblcustomfieldsvalues.relid LEFT JOIN tblcustomfields ON tblcustomfieldsvalues.fieldid = tblcustomfields.id WHERE tblcustomfieldsvalues.value != '' AND tblcustomfields.type = 'client' AND tblclients.status = 'Active'",
+	// 		[sessionid],
+	// 		(err, result, fields) => {
+	// 			if (err) throw err;
+	// 			res.send(result);
+	// 		}
+	// 	);
 
-		whmcsconnection.end();
-	});
+	// 	whmcsconnection.end();
+	// });
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, md.module_code, YEAR(mua.user_module_start_date) as mdate, tld.name as location_name, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ,'/', md.module_code) AS domain_name,CONCAT( ud.userid, '.',cd.domainname) AS domain, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid LEFT JOIN modules_users_assigned mua on mua.user_id =ud.ID LEFT JOIN module_details md ON md.module_id = mua.module_id LEFT JOIN teaching_location_details tld ON tld.teaching_location_id= ud.user_location_id WHERE ud.isActive = 1 "
+    let result = await user_idpdetailDal.runRawQuery(query);
+    let modifedResult = []
+    await Promise.all(
+        result.map( async function(rowData){
+        let queryStr =  "SELECT username FROM tblhosting WHERE domain = '"+rowData.domain+"'"
+        let row = await SelectAllElements(whmcsconnection, queryStr);
+        
+            rowData.username = ''
+            if(row.length)
+                rowData.username = row[0].username
+            modifedResult.push(rowData)
+
+        })
+    )
+    res.send(modifedResult);
 });
+
+let SelectAllElements = (whmcsconnection, queryStr) =>{
+    return new Promise((resolve, reject)=>{
+        whmcsconnection.query(queryStr,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+};
 
 router.get("/listusers", async (req, res) => {
     let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"

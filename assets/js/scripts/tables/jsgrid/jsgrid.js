@@ -12,32 +12,19 @@ $(document).ready(function () {
   /****************************
    *      Basic Scenario       *
    ****************************/
-
-  $.ajax({
-    type: "GET",
-    url: "/api/user/staffdashboardgetmodules",
-    dataType: "json",
-    success: function (modules) {
-      modules.unshift({ value: "" });
-
-      $.ajax({
-        type: "GET",
-        url: "/api/user/staffdashboardgetyears",
-        dataType: "json",
-        success: function (years) {
-          years.unshift({ ModuleStartDate: "" });
-          populateGrid(modules, years);
-        },
-        error: function (error) {
-          console.log({ error: error });
-        }
-      });
-    },
-    error: function (jqXHR, exception) {
-      console.log({ error: exception });
-    }
-  });
-
+    $.ajax({
+      type: "GET",
+      url: "/api/user/getModuleYearLocation",
+      dataType: "json",
+      success: function (response) {
+        populateGrid(response.moduleCode, response.year, response.location);
+        
+      },
+      error: function (error) {
+        console.log({ error: error });
+      }
+    });
+  
   function contains(element, filters) {
     return element
       .toString()
@@ -45,56 +32,56 @@ $(document).ready(function () {
       .includes(filters.toString().toLowerCase());
   }
 
-  function isModule(filters, element) {
-    return filters.value === "" || filters.value === element.value;
+  function isID(filters, element) {
+    return (
+      filters.ID === "" || contains(element.ID, filters.ID)
+    );
   }
-
-  function isUserId(filters, element) {
-    return filters.userid === "" || element.userid == filters.userid;
-  }
-
   function isFullname(filters, element) {
     return (
       filters.fullname === "" || contains(element.fullname, filters.fullname)
     );
   }
 
-  function isUserName(filters, element) {
+  function isUsername(filters, element) {
     return (
       filters.username === "" || contains(element.username, filters.username)
     );
   }
-/*
   function isDomain(filters, element) {
-    return filters.domain === "" || contains(element.domain, filters.domain);
-  } */
-
-  function isDomainModule(filters, element) {
     return (
-      filters.domainmodule === "" ||
-      contains(element.domainmodule, filters.domainmodule)
+      filters.domain_name === "" || contains(element.domain_name, filters.domain_name)
     );
   }
-
-  function isYears(filters, element) {
+  function isModule(filters, element) {
     return (
-      filters.ModuleStartDate === "" ||
-      element.ModuleStartDate == filters.ModuleStartDate
+      filters.module_code === "" || contains(element.module_code, filters.module_code)
     );
   }
+  function isLocation(filters, element) {
+    return (
+      filters.location_name === "" || contains(element.location_name, filters.location_name)
+    );
+  }
+  function isDate(filters, element) {
+    return (
+      filters.mdate === "" || contains(element.mdate, filters.mdate)
+    );
+  }
+  
 
   function filterResults(filters, results) {
     var filtered = [];
     for (let i = 0; i < results.length; i++) {
       const element = results[i];
-      if (
-        isModule(filters, element) &&
-        isUserId(filters, element) &&
-        isFullname(filters, element) &&
-        isUserName(filters, element) &&
-       // isDomain(filters, element) &&
-        isDomainModule(filters, element) &&
-        isYears(filters, element)
+      if (isID(filters, element) && 
+        isFullname(filters, element) && 
+        isUsername(filters, element) && 
+        isDomain(filters, element) &&
+        isLocation(filters, element) &&
+        isDate(filters, element) &&
+        isModule(filters, element)
+      
       ) {
         filtered.push(element);
       }
@@ -102,7 +89,8 @@ $(document).ready(function () {
     return filtered;
   }
 
-  function populateGrid(modules, years) {
+  function populateGrid(modules, years, location) {
+    
     $("#jsGrid").jsGrid({
       width: "100%",
       filtering: true,
@@ -140,34 +128,14 @@ $(document).ready(function () {
           });
           return deferred.promise();
         }
-        /* loadData: function (filter) {
-						 var d = $.Deferred();
- 
-						 // server-side filtering
-						 $.ajax({
-								 type: "GET",
-								 url: "/api/user/staffdashboardlistusers",
-								 data: filter,
-								 dataType: "json"
-						 }).done(function (response) {
-								 // client-side filtering
-								 response = $.grep(response, function (item) {
-										 return item.value === filter.value;
-								 });
- 
-								 d.resolve(response);
-						 })
- 
-						 return d.promise();
-				 }*/
       },
 
       fields: [
         {
-          name: "userid",
+          name: "ID",
           title: "ID",
           type: "text",
-          width: 40,
+          width: 30,
           align: "center",
           filtering: true,
           autosearch: true
@@ -177,42 +145,30 @@ $(document).ready(function () {
           title: "Name",
           align: "center",
           type: "text",
+          width: 60,
           filtering: true
         },
         {
           name: "username",
           title: "User",
-          width: 60,
+          width: 40,
           align: "center",
           type: "text",
           filtering: true
         },
-       /* {
-          name: "domain",
-          type: "text",
-          title: "Domain",
-          align: "center",
-          itemTemplate: function (value) {
-            // return $("<a>").attr("href", value).text(value);
-            return (
-              '<a href="http://' + value + '" target="_blank">' + value + "</a>"
-            );
-          },
-          width: 180,
-          filtering: true
-        },*/
         {
-          name: "value",
-          title: "Module",
+          name: "module_code",
+          title: "Module Code",
+          width: 55,
           type: "select",
           filtering: true,
           items: modules,
-          valueField: "value",
-          textField: "value",
+          valueField: "module_code",
+          textField: "module_code",
           selectedIndex: -1
         },
         {
-          name: "domainmodule",
+          name: "domain_name",
           type: "text",
           title: "Module Domain",
           align: "center",
@@ -222,38 +178,37 @@ $(document).ready(function () {
               '<a href="http://' + value + '" target="_blank">' + value + "</a>"
             );
           },
-          width: 220,
+          width: 200,
           filtering: true
         },
         {
-          name: "ModuleStartDate",
-          title: "Module Year",
+          name: "location_name",
+          title: "Teaching Location",
+          width: 80,
           type: "select",
           filtering: true,
-          items: years,
-          valueField: "ModuleStartDate",
-          textField: "ModuleStartDate",
+          items: location,
+          valueField: "name",
+          textField: "name",
           selectedIndex: -1
         },
         {
-          name: "lastedit",
-          title: "Last Edit",
-          type: "text",
-          filtering: false,
-          width: 60,
-          align: "center",
-          itemTemplate: function (value) {
-            return '<img src="/soon.png" alt="Last Edit Feature Coming Soon" "width="32" height="32">';
-
-            return "";
-          }
+          name: "mdate",
+          title: "Module Year",
+          width: 55,
+          type: "select",
+          filtering: true,
+          items: years,
+          valueField: "year",
+          textField: "year",
+          selectedIndex: -1
         },
         {
-          name: "clientarea",
+          name: "username",
           title: "Client Area",
           type: "text",
           filtering: false,
-          width: 70,
+          width: 45,
           align: "center",
           itemTemplate: function (value, item) {
             const a = $('<a href="#" target="_blank">');
@@ -275,20 +230,20 @@ $(document).ready(function () {
             return a;
           }
         },
-          {
-              name: "username",
-              title: "cPanel",
-              type: "text",
-              filtering: false,
-              width: 60,
-              align: "center",
-              itemTemplate: function (value) {
-                  return '<a href="/api/staff/opencpanel/'+ value +'"  target="_blank"><img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" " width="32" height="32"></a>';
+        {
+            name: "username",
+            title: "cPanel",
+            type: "text",
+            filtering: false,
+            width: 30,
+            align: "center",
+            itemTemplate: function (value) {
+                return '<a href="/api/staff/opencpanel/'+ value +'"  target="_blank"><img src="/cpanel.png" alt="Single Sign-On link to student cPanel account" " width="32" height="32"></a>';
 
-                  return "";
+                return "";
 
-              }
-          },
+            }
+        },
        
       ]
     });
