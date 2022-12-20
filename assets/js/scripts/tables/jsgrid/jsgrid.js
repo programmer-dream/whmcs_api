@@ -17,7 +17,14 @@ $(document).ready(function () {
       url: "/api/user/getModuleYearLocation",
       dataType: "json",
       success: function (response) {
-        populateGrid(response.moduleCode, response.year, response.location);
+        //unshift({ module_code: "" })
+        var modules   = response.moduleCode;
+        var years     = response.year;
+        var locations = response.location;
+        modules.unshift({ module_code: "" })
+        years.unshift({ year: "" })
+        locations.unshift({ location: "" })
+        populateGrid(modules, years, locations);
         
       },
       error: function (error) {
