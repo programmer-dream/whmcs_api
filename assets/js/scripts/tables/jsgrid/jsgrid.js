@@ -224,23 +224,25 @@ $(document).ready(function () {
           width: 45,
           align: "center",
           itemTemplate: function (value, item) {
-            const a = $('<a href="#" target="_blank">');
-            const img = $(
-              '<img src="/clientarea.png" alt="Single Sign-On link to student Client Area" "width="32" height="32" >'
-            );
+            
+            return '<a href="/api/staff/login/'+ item.email +'"  target="_blank"><img src="/clientarea.png" alt="Single Sign-On link to student Client Area" "width="32" height="32" ></a>';
+            // const a = $('<a href="/api/staff/login" target="_blank">');
+            // const img = $(
+            //   '<img src="/clientarea.png" alt="Single Sign-On link to student Client Area" "width="32" height="32" >'
+            // );
 
-            try {
-              const { email } = item;
+            // try {
+            //   const { email } = item;
 
-              $.post("/api/staff/login", { email }, data => {
-                a.append(img);
-                a.attr("href", data.data.redirectTo);
-              });
-            } catch (err) {
-              console.log(err);
-            }
+            //   $.post("/api/staff/login", { email }, data => {
+            //     a.append(img);
+            //     a.attr("href", data.data.redirectTo);
+            //   });
+            // } catch (err) {
+            //   console.log(err);
+            // }
 
-            return a;
+            //return a;
           }
         },
         {

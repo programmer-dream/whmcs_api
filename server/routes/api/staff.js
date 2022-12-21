@@ -341,6 +341,36 @@ router.post("/login", async (req, res) => {
     
     
 });
+router.get("/login/:email", async (req, res) => {
+    let connection = mysql.createConnection(whmcsmysqlConfig);
+    
+    let urlemail    = req.params.email;
+    let clientQuery = "SELECT id FROM tblclients WHERE email='"+urlemail+"'"
+    let clientData  = await getWhmcsData(connection, clientQuery)
+    let client_id   = ''
+    
+    if(clientData.length){
+        client_id = clientData[0].id
+        let whmcsParams = { action:"CreateSsoToken", 
+                            username:process.env.whmcsidentifier, 
+                            password:process.env.whmcssecret, 
+                            client_id:client_id,
+                            responsetype:"json"
+                        }
+        //console.log(whmcsParams, "<< whmcsParams")
+        let response = await axios.post('https://whmcs.educationhost.co.uk/includes/api.php', whmcsParams,{
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Access-Control-Allow-Origin': '*',
+                      'Access-Control-Allow-Credentials':'true',
+                      'Access-Control-Allow-Headers':'content-type'
+                    }});
+        res.redirect(response.data.redirect_url)
+        
+    }
+    
+});
+
 router.get("/opencpanel/:id?",function (req,res) {
     var query=process.env.whmopencpanel+req.params.id+'&service=cpaneld';
 
