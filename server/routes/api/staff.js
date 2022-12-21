@@ -24,7 +24,6 @@ var formidable = require('formidable');
 const csv=require('csvtojson')
 const cpanel = require("cpanel-lib");
 const student = require("../../cron/cron_code");
-const WHMCS  = require("whmcs");
 
 // Id for the staff product
 const staffProductId = process.env.whmcsstaffProductId;
