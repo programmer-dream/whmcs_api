@@ -5,6 +5,7 @@ const mysqlConfig = require("../../config/sql");
 const sha1 = require("sha1");
 const autoAuthKey = require("../../config/autoAuth");
 const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
+const whmcsmysqlConfig = require("../../config/whmcsinstallationsql");
 var headers= {authorization: process.env.WHMHeader };
 var axios = require("axios");
 // Import utility functions
@@ -23,7 +24,7 @@ var formidable = require('formidable');
 const csv=require('csvtojson')
 const cpanel = require("cpanel-lib");
 const student = require("../../cron/cron_code");
-
+const WHMCS  = require("whmcs");
 
 // Id for the staff product
 const staffProductId = process.env.whmcsstaffProductId;
@@ -298,40 +299,48 @@ router.post("/",ensureAuthenticated, async (req, res) => {
 // @route 	POST api/staff/login
 // @desc 	Redirect and log the staff member into whmcs
 // @access 	Public
-router.post("/login", (req, res) => {
-    // get the timestamp for WHMCS url
-    var timestamp = getTimestamp();
+router.post("/login", async (req, res) => {
+    let connection = mysql.createConnection(whmcsmysqlConfig);
+    
+    let urlemail    = req.body.email;
+    let clientQuery = "SELECT id FROM tblclients WHERE email='"+urlemail+"'"
+    let clientData  = await getWhmcsData(connection, clientQuery)
+    let client_id   = ''
+    
+    if(clientData.length){
+        client_id = clientData[0].id
+        let whmcsParams = { action:"CreateSsoToken", 
+                            username:process.env.whmcsidentifier, 
+                            password:process.env.whmcssecret, 
+                            client_id:client_id,
+                            responsetype:"json"
+                        }
+        //console.log(whmcsParams, "<< whmcsParams")
+        let response = await axios.post('https://whmcs.educationhost.co.uk/includes/api.php', whmcsParams,{
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Access-Control-Allow-Origin': '*',
+                      'Access-Control-Allow-Credentials':'true',
+                      'Access-Control-Allow-Headers':'content-type'
+                    }});
 
-    // get the email address that is returned from the IDP
-    console.log(req.body);
-    var urlemail = req.body.email;
+        res.send({
+            message: "Logged in successfully",
+            data: {
+                redirectTo: response.data.redirect_url 
+            }
+        });
 
-    // URL to where the user is to go once logged into WHMCS
-    var goto = "clientarea.php";
-
-    // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-    // add the three variables together that are required for the WHMCS hash
-    var hashedstrings = urlemail + timestamp + autoAuthKey;
-
-    // use the sha1 node module to hash the variable
-    var hash = sha1(hashedstrings);
-
-    // Send the URL back to the frontend
-    res.send({
-        message: "Logged in successfully",
-        data: {
-            redirectTo:
-            whmcsLoginUrl +
-            "?email=" +
-            urlemail +
-            "&timestamp=" +
-            timestamp +
-            "&hash=" +
-            hash +
-            "&goto=" +
-            goto
-        }
-    });
+    }else{
+        res.send({
+            message: "Logged in successfully",
+            data: {
+                redirectTo: '' 
+            }
+        });
+    }
+    
+    
 });
 router.get("/opencpanel/:id?",function (req,res) {
     var query=process.env.whmopencpanel+req.params.id+'&service=cpaneld';
@@ -647,5 +656,16 @@ async function addUserModules(userId, moduleIdsArr){
         
     }
 }
+
+let getWhmcsData = (whmcsconnection, queryStr) =>{
+    return new Promise((resolve, reject)=>{
+        whmcsconnection.query(queryStr,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+};
 
 module.exports = router;
