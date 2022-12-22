@@ -498,10 +498,27 @@ router.post("/removeUser/:id",function (req,res) {
                                 })
                             })
                         )
-                        await whmcsClient.deleteClient({clientid:clientResponse.userid}).then(function (deletedResponse) {
-                            console.log(deletedResponse, "<<< deletedResponse") 
-                            user_idpdetailDal.dropUser(req.params.id)
-                        })
+                        
+                        user_idpdetailDal.dropUser(req.params.id)
+
+                        let whmcsParams = { action:"DeleteClient", 
+                                        username:process.env.whmcsidentifier, 
+                                        password:process.env.whmcssecret, 
+                                        clientid:clientResponse.userid,
+                                        responsetype:"json",
+                                        deleteusers:true,
+                                        deletetransactions:true
+                                    }
+                    
+                        let response = await axios.post('https://whmcs.educationhost.co.uk/includes/api.php', whmcsParams,{
+                                headers: {
+                                  'Content-Type': 'application/x-www-form-urlencoded',
+                                  'Access-Control-Allow-Origin': '*',
+                                  'Access-Control-Allow-Credentials':'true',
+                                  'Access-Control-Allow-Headers':'content-type'
+                                }});
+                        console.log(response.data, "<<< axios api")
+                        
                     })
                 }
             })
