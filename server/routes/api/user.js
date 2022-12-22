@@ -15,7 +15,7 @@ const whmcsLoginUrl = require("../../config/whmcs").loginUrl;
 const getTimestamp = require("../../utils/getTimestamp");
 var fs = require('fs');
 const azureConfig=require(process.env.configwithin);
-
+var axios = require("axios");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services, System } = require("whmcs-js");
 
@@ -110,8 +110,13 @@ router.post('/auth/openid/return',
 // @route 	GET api/user/
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/varifyuser",function (req,res) {
+router.get("/varifyuser",async function (req,res) {
+    let connection = mysql.createConnection(whmcsmysqlConfig);
     var email=req.user.upn;
+    let clientQuery = "SELECT id FROM tblclients WHERE email='"+email+"'"
+    let clientData  = await getWhmcsData(connection, clientQuery)
+    let client_id   = ''
+
     var upn1=email.split("@");
     var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
@@ -140,40 +145,34 @@ router.get("/varifyuser",function (req,res) {
             })
         } else {
             // update session id in the database on user login - this is used to pass data from this route to the staff login route
-            user_idpdetailBal.updateUser_IdpDetail({email:email,sessionid:sessionid},function (data,err) {
+            user_idpdetailBal.updateUser_IdpDetail({email:email,sessionid:sessionid},async function (data,err) {
                 if(data.message=="success"){
                     if (result.data[0].isStaff == 1 && result.data[0].isActive == 1) {
                         // res.redirect("/stafflogin");
                         res.redirect("/staff/login");
                     } else if (result.data[0].isActive == 1) {
-                        // get the timestamp in milliseconds and convert it to seconds for WHMCS url
-                        var timestamp = getTimestamp();
+                        if(clientData.length){
+                            client_id = clientData[0].id
+                            let whmcsParams = { action:"CreateSsoToken", 
+                                                username:process.env.whmcsidentifier, 
+                                                password:process.env.whmcssecret, 
+                                                client_id:client_id,
+                                                responsetype:"json"
+                                            }
+                            let response = await axios.post('https://whmcs.educationhost.co.uk/includes/api.php', whmcsParams,{
+                                        headers: {
+                                          'Content-Type': 'application/x-www-form-urlencoded',
+                                          'Access-Control-Allow-Origin': '*',
+                                          'Access-Control-Allow-Credentials':'true',
+                                          'Access-Control-Allow-Headers':'content-type'
+                                        }});
 
-                        // get the email address that is returned from the IDP
-                        var urlemail = email;
+                            res.redirect(response.data.redirect_url);
 
-                        // URL to where the user is to go once logged into WHMCS
-                        var goto = "clientarea.php";
-
-                        // Auto auth key, this needs to match what is setup in the WHMCS config file (see https://docs.whmcs.com/AutoAuth)
-                        // add the three variables together that are required for the WHMCS hash
-                        var hashedstrings = urlemail + timestamp + autoAuthKey;
-
-                        // use the sha1 node module to hash the variable
-                        var hash = sha1(hashedstrings);
-
-                        // create the URL to pass and redirect the user
-                        res.redirect(
-                            whmcsLoginUrl +
-                            "?email=" +
-                            urlemail +
-                            "&timestamp=" +
-                            timestamp +
-                            "&hash=" +
-                            hash +
-                            "&goto=" +
-                            goto
-                        );
+                        }else {
+                            req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+                            res.redirect("/");
+                        }
                     } else {
                         req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
                         res.redirect("/");
@@ -539,4 +538,16 @@ router.get("/logout",function (req,res) {
         res.redirect(azureConfig.destroySessionUrl);
     });
 })
+
+let getWhmcsData = (whmcsconnection, queryStr) =>{
+    return new Promise((resolve, reject)=>{
+        whmcsconnection.query(queryStr,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+};
+
 module.exports = router;
