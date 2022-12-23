@@ -13,6 +13,7 @@ module.exports = function (sequelize, DataTypes) {
       teaching_location_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        defaultValue: 1
       },
       name: {
         type: DataTypes.TEXT,
@@ -43,13 +44,17 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       image: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+        type: DataTypes.BLOB('long')
       },
       ip_address_id: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
       },
+      is_active: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: 1
+      }
     },
     {
       tableName: "teaching_location_details",

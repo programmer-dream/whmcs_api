@@ -518,6 +518,58 @@ router.post("/uploadUserCsv", async (req, res) => {
     
 });
 
+router.post("/createLocation", async (req, res) => {
+    let form  = new formidable.IncomingForm();
+
+    form.parse(req, async function (err, fields, files) {
+        let ipAddress = {
+            ip_address_v4 : fields.ipv4,
+            ip_address_v6 : fields.ipv6
+        }
+        let createdIps = await user_idpdetailDal.createIpAddress(ipAddress)
+        if(createdIps){
+            fields.ip_address_id = createdIps.ip_address_id;
+            let response = await user_idpdetailDal.createLocation(fields)
+        }
+        
+    })
+    res.send({status : 'success', message:'Location saved successfully' })
+});
+
+router.post("/updateLocation", async (req, res) => {
+    let form  = new formidable.IncomingForm();
+
+    form.parse(req, async function (err, fields, files) {
+        let ipAddress = {
+            ip_address_v4 : fields.ipv4,
+            ip_address_v6 : fields.ipv6
+        }
+        let createdIps = await user_idpdetailDal.updateIpAddress(fields.ip_address_id, ipAddress)
+        if(createdIps){
+            fields.ip_address_id = createdIps.ip_address_id;
+            let response = await user_idpdetailDal.updateLocation(fields.id, fields)
+        }
+        
+    })
+    res.send({status : 'success', message:'Location saved successfully' })
+});
+
+router.post("/inActiveLocation", async (req, res) => {
+    let id = req.body.id
+    
+    let response = await user_idpdetailDal.inActiveLocation(id,function(data){})
+    
+    res.send({status : 'success', message:'Location data' })
+});
+
+router.get("/getLocation/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let location = await user_idpdetailDal.getLocation(id)
+    
+    res.send({status : 'success', message:'Location data', data: location})
+});
+
 
 
 function generateString(length=15) {

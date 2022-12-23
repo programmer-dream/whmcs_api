@@ -40,6 +40,7 @@ var client_availablemodules = models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
 user_idpdetails.belongsTo(client_details, { foreignKey: "universityid" });
 loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
+teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -337,6 +338,52 @@ var User_idpdetail = {
     return user.toJSON();
     
   },
+  createLocation: async function (para) {
+    
+    const location = await teaching_location_details.create(para);
+    
+    return location.toJSON();
+    
+  },
+  updateLocation: async function (id, para) {
+    
+    const location = await teaching_location_details.findOne({
+      where:{ unique_id:id }
+    });
+
+    const locationData = await location.update(para);
+    
+    return location.toJSON();
+    
+  },
+  createIpAddress: async function (para) {
+    
+    const ipAddress = await teaching_location_ip_addresses.create(para);
+    
+    return ipAddress.toJSON();
+    
+  },
+  updateIpAddress: async function (id, para) {
+    
+    const ipAddress = await teaching_location_ip_addresses.findOne({
+      where:{ ip_address_id:id }
+    });
+    
+    const ipAddressData = await ipAddress.update(para);
+    
+    return ipAddressData.toJSON();
+    
+  },
+  getLocation: async function (id) {
+    
+    const ipAddress = await teaching_location_details.findOne({
+      where:{ unique_id:id },
+      include : [{ model: teaching_location_ip_addresses, required: true }]
+    });
+    
+    return ipAddress.toJSON();
+    
+  },
   AddModulesUser: async function (userId, moduleId) {
     
     let modules_user= await modules_users_assigned.create({
@@ -366,18 +413,27 @@ var User_idpdetail = {
       return []
     }
   },
-  listTeachingLocation: async function (userId, moduleId) {
+  listTeachingLocation: async function (allData = false) {
     let allLocation = []
-    let teaching_location_data= await teaching_location_details.findAll();
-    
+    let include = []
+    if(allData)
+        include = [{ model: teaching_location_ip_addresses, required: true }]
+
+    let teaching_location_data= await teaching_location_details.findAll({where:{is_active:1}, include});
+   
     if(teaching_location_data.length){
       
         teaching_location_data.map( async function(location){
-          let obj = {
-            teaching_location_id:location.teaching_location_id,
-            name: location.name
+          location = location.toJSON()
+          if(allData){
+            allLocation.push(location)
+          }else{
+            let obj = {
+              teaching_location_id:location.teaching_location_id,
+              name: location.name
+            }
+            allLocation.push(obj)
           }
-          allLocation.push(obj)
         })
       
       return allLocation
@@ -418,6 +474,20 @@ var User_idpdetail = {
       .then(function (itemInstance) {
         itemInstance[0]
           .update({is_synced: 1})
+          .then(function (self) {
+            callback({ message: "success", data: self });
+          });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  },
+  inActiveLocation: async function (id,callback) {
+     teaching_location_details
+      .findAll({ where: { unique_id: id } })
+      .then(function (itemInstance) {
+        itemInstance[0]
+          .update({is_active: 0})
           .then(function (self) {
             callback({ message: "success", data: self });
           });
