@@ -49,9 +49,14 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -59,9 +64,9 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -139,9 +144,14 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -149,9 +159,9 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -229,9 +239,14 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -239,9 +254,9 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -315,9 +330,14 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -325,9 +345,9 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -400,9 +420,14 @@ router.get("/userManager", ensureAuthenticated, function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -410,9 +435,9 @@ router.get("/userManager", ensureAuthenticated, function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -462,7 +487,9 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
   res.render("settings", {
     email: req.user.upn,
     user: req.user,
-    teachingLocation:await user_idpdetailDal.listTeachingLocation(true),
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
     supportMenu: {
       main: [
         {
@@ -491,9 +518,14 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -501,9 +533,9 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -581,9 +613,14 @@ router.get("/moduledash", ensureAuthenticated, async function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -591,9 +628,9 @@ router.get("/moduledash", ensureAuthenticated, async function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -670,9 +707,14 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -680,9 +722,9 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -759,9 +801,14 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -769,9 +816,9 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -848,9 +895,14 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -858,9 +910,9 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
         },
         {
           label: "Student view",
@@ -937,9 +989,14 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           icon: "folder_special",
         },
         {
-          label: "Manage Modules",
+          label: "Add Modules",
           url: '/staff/moduleadd',
           icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
         },
         {
           label: "Assign users",
@@ -947,9 +1004,104 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           icon: "rule_folder",
         },
         {
-          label: "Assign Teaching Locations",
+          label: "Module Dates",
           url: '/staff/moduleatl',
-          icon: "add_location_alt",
+          icon: "date_range",
+        },
+        {
+          label: "Student view",
+          url: '/staff/modulestudentview',
+          icon: "folder_shared",
+        },
+      ],      
+      admin: [
+        {
+          label: "User Manager",
+          url: '/staff/userManager',
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import ",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        },
+        {
+          label: "Settings ",
+          url: '/staff/settings',
+          icon: "settings",
+        }
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
+
+router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
+  
+  res.render("modulecourses", {
+    email: req.user.upn,
+    user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      modules: [
+        {
+          label: "Dashboard",
+          url: '/staff/moduledash',
+          icon: "folder_special",
+        },
+        {
+          label: "Add Modules",
+          url: '/staff/moduleadd',
+          icon: "create_new_folder",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
+        },
+        {
+          label: "Assign users",
+          url: '/staff/moduleassignusers',
+          icon: "rule_folder",
+        },
+        {
+          label: "Module Dates",
+          url: '/staff/moduleatl',
+          icon: "date_range",
         },
         {
           label: "Student view",
