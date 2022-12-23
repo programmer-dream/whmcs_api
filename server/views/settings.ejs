@@ -634,27 +634,21 @@
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i></a>
                                     
-                                </div>    
-                                
-                                 <!-- Markers on the world map -->
+                                </div>                                   
 
-                                        <div id="world-map-markers" class="height-400"></div>
                                    
                                 
                                 <div class="card-content collapse show" >
-                                    <div class="card-body card-dashboard scroll-table-sec">
+                                    <div class="card-body card-dashboard">
                                         <table class="table table-striped" >
                                           <thead>
                                             <tr>
                                               <th scope="col">#</th>
                                               <th scope="col">Name</th>
                                               <th scope="col">Address Line 1</th>
-                                              <th scope="col">Address Line 2 </th>
-                                              <th scope="col">Address Line 3 </th>
                                               <th scope="col">City </th>
                                               <th scope="col">Country </th>
                                               <th scope="col">Postcode</th>
-                                              <th scope="col">Image</th>
                                               <th scope="col">IP addresses</th>
                                               <th scope="col" colspan="2">Action</th>
                                             </tr>
@@ -665,12 +659,9 @@
                                                   <th scope="row"><%= index+1 %></th>
                                                   <td><%= item.name %></td>
                                                   <td><%= item.address_line_1 %></td>
-                                                  <td><%= item.address_line_2 %></td>
-                                                  <td><%= item.address_line_3 %></td>
                                                   <td><%= item.city %></td>
                                                   <td><%= item.country %></td>
                                                   <td><%= item.postcode %></td>
-                                                  <td><%= item.image %></td>
                                                   <td>
                                                     <%= item.teaching_location_ip_address.ip_address_v4 %>/
                                                     <%= item.teaching_location_ip_address.ip_address_v6 %>
