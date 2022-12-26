@@ -639,7 +639,7 @@
                                    
                                 
                                 <div class="card-content collapse show" >
-                                    <div class="card-body card-dashboard">
+                                    <div class="card-body card-dashboard scroll-table-sec">
                                         <table class="table table-striped" >
                                           <thead>
                                             <tr>
@@ -663,8 +663,8 @@
                                                   <td><%= item.country %></td>
                                                   <td><%= item.postcode %></td>
                                                   <td>
-                                                    <%= item.teaching_location_ip_address.ip_address_v4 %>/
-                                                    <%= item.teaching_location_ip_address.ip_address_v6 %>
+                                                    <%= item.teaching_location_ip_address?.ip_address_v4 %>/
+                                                    <%= item.teaching_location_ip_address?.ip_address_v6 %>
                                                   </td>
                                                   <td>
                                                     <span class="material-symbols-outlined editLocation" id="" location_id="<%= item.unique_id %>" data-toggle="modal" data-target="#editModalCenter">edit</span>

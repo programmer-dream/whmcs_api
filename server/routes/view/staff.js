@@ -487,7 +487,7 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
   res.render("settings", {
     email: req.user.upn,
     user: req.user,
-    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(true),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
     supportMenu: {
