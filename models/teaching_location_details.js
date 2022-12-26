@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
       teaching_location_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 0,
       },
       name: {
         type: DataTypes.TEXT,

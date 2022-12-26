@@ -340,9 +340,15 @@ var User_idpdetail = {
   },
   createLocation: async function (para) {
     
-    const location = await teaching_location_details.create(para);
+    let location = await teaching_location_details.create(para);
     
-    return location.toJSON();
+    location = location.toJSON();
+    let addedId = await teaching_location_details.findOne({where:{unique_id: location.unique_id}})
+    let updated = addedId.update({teaching_location_id:location.unique_id})
+    
+    let latestData = await teaching_location_details.findOne({where:{unique_id: location.unique_id}})
+    
+    return latestData.toJSON();
     
   },
   updateLocation: async function (id, para) {
