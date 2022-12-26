@@ -662,7 +662,7 @@
                                    
                                 
                                 <div class="card-content collapse show" >
-                                    <div class="card-body card-dashboard scroll-table-sec">
+                                    <div class="card-body card-dashboard">
                                         <table class="table table-striped" >
                                           <thead>
                                             <tr>
@@ -690,10 +690,10 @@
                                                     <%= item.teaching_location_ip_address?.ip_address_v6 %>
                                                   </td>
                                                   <td>
-                                                    <span class="material-symbols-outlined editLocation" id="" location_id="<%= item.unique_id %>" data-toggle="modal" data-target="#editModalCenter">edit</span>
+                                                    <span class="material-symbols-outlined editLocation" id="" title="Edit teaching location" location_id="<%= item.unique_id %>" data-toggle="modal" data-target="#editModalCenter" style="cursor: pointer;">edit</span>
                                                   </td>
                                                   <td>
-                                                    <span class="material-symbols-outlined archiveLocation" id="" location_id="<%= item.unique_id %>" style="cursor: pointer;">archive</span>
+                                                    <span class="material-symbols-outlined archiveLocation" id="" title="Delete teaching location" location_id="<%= item.unique_id %>" style="cursor: pointer;">archive</span>
                                                   </td>
                                                 </tr>
                                             <% }) %>
@@ -782,13 +782,13 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">IP Addresse</label>
+                <label class="col-sm-3 col-form-label">IP Address (IPv4)</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="ipv4" name="ipv4" placeholder="IPv4" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">IP Addresse</label>
+                <label class="col-sm-3 col-form-label">IP Address (IPv6)</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="ipv6" name="ipv6" placeholder="IPv6" required>
                 </div>
@@ -866,13 +866,13 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">IP Addresse</label>
+                <label class="col-sm-3 col-form-label">IP Address (IPv4)</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="edit_ipv4" name="ipv4" placeholder="IPv4" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">IP Addresse</label>
+                <label class="col-sm-3 col-form-label">IP Address (IPv6)</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="edit_ipv6" name="ipv6" placeholder="IPv6" required>
                 </div>
