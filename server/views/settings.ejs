@@ -121,7 +121,7 @@
                                                 <td>Enable or disable teaching blocks, default is disabled. This setting provides significal changes to how the system operates. Only enable this with advice from Education Host.</td>
                                                 <td>
                                                     <label>
-                                                        <input type="checkbox" data-toggle="toggle"> </label>                                                                                                             
+                                                        <input type="checkbox" data-name="teaching_block_enabled" data-toggle="toggle"onchange="setting_enable_disable(this)"> </label>                                                                                                             
                                                 </td>
                                                </tr>       
                                                <tr>
@@ -155,7 +155,7 @@
                                                 <td>The disable user registration option removes the ability for users to sign up manually. This removes the signup button from the home screen and only allows login to users who are in the system. This is typically turned off if you would like to pre-add your users through the bulk uploader or individual user facilities.</td>
                                                 <td>
                                                     <label>
-                                                        <input type="checkbox" data-toggle="toggle"> </label>                                                                                                             
+                                                        <input type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" > </label>                                                                                                             
                                                 </td>
                                                </tr>
                                                <tr>
@@ -1068,7 +1068,7 @@
                 url: "/api/staff/enableDisable",
                 data:obj,
                 success: function(response) {
-                    swal("Location has been archived.", {
+                    swal("Status has been updated.", {
                         icon: "success",
                     });
                     setTimeout(function(){
