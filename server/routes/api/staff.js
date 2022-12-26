@@ -530,7 +530,7 @@ router.post("/createLocation", async (req, res) => {
         let createdIps = await user_idpdetailDal.createIpAddress(ipAddress)
         if(createdIps){
             fields.ip_address_id = createdIps.ip_address_id;
-            if(files){
+            if(files.image){
                 let img = fs.readFileSync(files.image.filepath);
                 fields.image=new Buffer(img).toString('base64');
             }
@@ -552,7 +552,7 @@ router.post("/updateLocation", async (req, res) => {
         let createdIps = await user_idpdetailDal.updateIpAddress(fields.ip_address_id, ipAddress)
         if(createdIps){
             fields.ip_address_id = createdIps.ip_address_id;
-            if(files){
+            if(files.image){
                 let img = fs.readFileSync(files.image.filepath);
                 fields.image=new Buffer(img).toString('base64');
             }
