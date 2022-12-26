@@ -757,5 +757,12 @@ let getWhmcsData = (whmcsconnection, queryStr) =>{
         });
     });
 };
+// 26-dec
+router.post("/enableDisable", async (req, res) => {
+    console.log(req.body,"testing");
+    let response = await user_idpdetailDal.enabledisablevalue(req.body)
+    console.log(response);
+   
+});
 
 module.exports = router;

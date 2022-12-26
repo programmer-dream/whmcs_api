@@ -8,6 +8,17 @@
     <title>Add Module - Education Host Ltd</title>
 
     <%- include('header'); -%>
+    <style type="text/css">
+    #saveModule{
+       color: #fff;
+     }
+     #image{
+        padding: 0;
+        line-height: 27px;
+        border: 0px;
+        min-height: 33.5px;
+     }
+    </style>
 
 
 <!-- BEGIN: Body-->
@@ -266,13 +277,13 @@
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Add Location</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Module</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form class="p-1" id="addLocationForm">
+            <form class="p-1" id="addModuleForm">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module Code</label>
                 <div class="col-sm-9">
@@ -286,9 +297,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Name</label>
+                <label class="col-sm-3 col-form-label">Module Type</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="module_type" name="module_type" placeholder="Module Name" required>
+                  <input type="text" class="form-control" id="module_type" name="module_type" placeholder="Module type" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -297,15 +308,71 @@
                   <input type="file" class="form-control-file" id="image" name="image">
                 </div>
               </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
+                <div class="col-sm-9 add-location-img-field">
+                  <select class="form-control" name="" id="number_of_occurance">
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                      <option value="NA">Four</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module due date </label>
+                <div class="col-sm-9 add-location-img-field">
+                 <input class="form-control-file" type="date" name="mpdule-due-date">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Teaching location </label>
+                <div class="col-sm-9 add-location-img-field">
+                   <select class="form-control" name="teaching_location" id="teaching_location" multiple >
+                        <option value="">select location</option>
+                        <% teachingLocation.forEach(item=> { %>
+                            <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+              </div>
+              <!--  <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module course </label>
+                <div class="col-sm-9 add-location-img-field">
+                 <select class="form-control" name="" id="teaching-locations">
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                      <option value="NA">Four</option>
+                 </select>
+                </div>
+              </div> -->
+             <!--  <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Teaching block </label>
+                <div class="col-sm-9 add-location-img-field">
+                <input type="text" class="form-control" id="teaching_block" name="teaching_block" placeholder="Teaching block">
+                </div>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveLocation">Save changes</button>
+            <button type="button" class="btn btn-primary" id="saveModule">Save changes</button>
           </div>        
         </div>
       </div>
     </div>
+    <script>
+        $('#saveModule').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#addModuleForm').valid();
+            if(isValid){
+                alert("sdfghj");
+            }
+        });
+        </script>
     
 </body>
 <!-- END: Body-->

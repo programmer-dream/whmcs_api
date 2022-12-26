@@ -147,7 +147,28 @@
                                                 <td>
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-cronmodal-modal-lg">Modify</button>                                                                                                     
                                                 </td>
-                                               </tr>                                                                                                  
+                                               </tr> 
+                                               <!-- 26-dec -->
+                                                <tr>
+                                                <th scope="row"><p>System</p></th>
+                                                <th scope="row"><p>Module dates</p></th>
+                                                <td>The disable user registration option removes the ability for users to sign up manually. This removes the signup button from the home screen and only allows login to users who are in the system. This is typically turned off if you would like to pre-add your users through the bulk uploader or individual user facilities.</td>
+                                                <td>
+                                                    <label>
+                                                        <input type="checkbox" data-toggle="toggle"> </label>                                                                                                             
+                                                </td>
+                                               </tr>
+                                               <tr>
+                                                <th scope="row"><p>System</p></th>
+                                                <th scope="row"><p>Module course</p></th>
+                                                <td>The disable user registration option removes the ability for users to sign up manually. This removes the signup button from the home screen and only allows login to users who are in the system. This is typically turned off if you would like to pre-add your users through the bulk uploader or individual user facilities.</td>
+                                                <td>
+                                                    <label>
+                                                        <input type="checkbox" data-name="module_courses_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)"> 
+                                                    </label>                                                                                                             
+                                                </td>
+                                               </tr>
+                                               <!-- 26-dec -->
                                             </tbody>
                                           </table>
                                           
@@ -1035,6 +1056,33 @@
             $.ajax(settings);
                 
         });
+        function setting_enable_disable(cb)
+        {
+          let attr = cb.getAttribute("data-name");
+          
+           let obj = {}
+                obj[attr] = cb.checked
+           var settings= {
+                type: "POST",
+                dataType: "json",
+                url: "/api/staff/enableDisable",
+                data:obj,
+                success: function(response) {
+                    swal("Location has been archived.", {
+                        icon: "success",
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
+                    
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+            $.ajax(settings);
+        }
+
 
     </script>
 </body>

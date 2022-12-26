@@ -507,6 +507,17 @@ var User_idpdetail = {
     await user_idpdetails.destroy({where:{ID:userId}});
     await modules_users_assigned.destroy({where:{user_id:userId}});
     
-  }
+  },
+  enabledisablevalue: async function (para) {
+     const ipAddress = await settings_table.findOne({
+      where:{ unique_id:'1' }
+    });
+    
+    const ipAddressData = await ipAddress.update(para);
+    
+    return ipAddressData.toJSON();
+    
+    
+  },
 };
 module.exports = User_idpdetail;

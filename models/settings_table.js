@@ -15,7 +15,15 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       teaching_block_enabled: {
-        type: DataTypes.INTEGER(1),
+        type: DataTypes.BOOLEAN(1),
+        allowNull: false,
+      },
+      module_courses_enabled: {
+        type: DataTypes.BOOLEAN(1),
+        allowNull: false,
+      },
+      module_date_enabled: {
+        type: DataTypes.BOOLEAN(1),
         allowNull: false,
       }
     },
