@@ -886,8 +886,9 @@
             if(isValid){
                 var formData = new FormData();
                 var imagefile = document.querySelector('#image');
-
-                //formData.append("image", imagefile.files[0]);
+                if(imagefile){
+                    formData.append("image", imagefile.files[0]);
+                }
                 formData.append("name", $('#name').val());
                 formData.append("address_line_1", $('#address_line_1').val());
                 formData.append("address_line_2", $('#address_line_2').val());
@@ -929,7 +930,9 @@
                 var formData = new FormData();
                 var imagefile = document.querySelector('#image');
 
-                //formData.append("image", imagefile.files[0]);
+                if(imagefile){
+                    formData.append("image", imagefile.files[0]);
+                }
                 formData.append("id", $('#unique_id').val());
                 formData.append("ip_address_id", $('#ip_address_id').val());
                 formData.append("name", $('#edit_name').val());
