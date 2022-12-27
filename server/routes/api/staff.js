@@ -579,7 +579,24 @@ router.get("/getLocation/:id", async (req, res) => {
     res.send({status : 'success', message:'Location data', data: location})
 });
 
+router.post("/createModule", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        if(files.image){
+            let img = fs.readFileSync(files.image.filepath);
+            fields.image=new Buffer(img).toString('base64');
+        }
+        response = await user_idpdetailDal.createModule(fields)
+        if(response){
+            console.log(fields.teaching_location_id,"fields.teaching_location_id");
+          let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
+        }
 
+    })
+    
+    // res.send({status : 'success', message:'Location saved successfully' })
+});
 
 function generateString(length=15) {
     let characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

@@ -24,7 +24,7 @@ var client_details = models.client_details;
 var loginhistory = models.loginhistory;
 var modules_users_assigned = models.modules_users_assigned
 var module_details = models.module_details
-
+var settings_details =models.settings_table
 var teaching_block_modules         = models.teaching_block_modules
 var teaching_block_blocks          = models.teaching_block_blocks
 var teaching_block_periods         = models.teaching_block_periods
@@ -339,7 +339,6 @@ var User_idpdetail = {
     
   },
   createLocation: async function (para) {
-    
     let location = await teaching_location_details.create(para);
     
     location = location.toJSON();
@@ -360,6 +359,32 @@ var User_idpdetail = {
     const locationData = await location.update(para);
     
     return location.toJSON();
+    
+  },
+  createModule: async function (para) {
+    
+    let modules = await module_details.create(para);
+        modules = modules.toJSON();
+    let addedId = await module_details.findOne({where:{module_id: modules.module_id}})
+    
+        addedId=addedId.toJSON()
+    
+    return addedId;
+    
+  },
+  addModuleLocation: async function (module_id,teaching_location_id) {
+    if(teaching_location_id=="all"){
+       let teaching_locations = await teaching_location_details.findAll({where:{is_active:1}})
+       teaching_locations.map(async function(item){
+          teaching_location_id=item.unique_id;
+          await module_location.create({module_id, teaching_location_id})
+
+       })
+    }
+    else{
+      let modulesLocation = await module_location.create({module_id, teaching_location_id});
+      console.log(modulesLocation,"modulesLocation");
+    }
     
   },
   createIpAddress: async function (para) {
@@ -418,6 +443,14 @@ var User_idpdetail = {
     }else{
       return []
     }
+  },
+  listEnablevalue: async function (userId, moduleId){
+     
+     let settings= await settings_details.findOne();
+     if(settings){
+        settings = settings.toJSON()
+     }
+     return settings
   },
   listTeachingLocation: async function (allData = false) {
     let allLocation = []
@@ -509,10 +542,7 @@ var User_idpdetail = {
     
   },
   enabledisablevalue: async function (para) {
-     const ipAddress = await settings_table.findOne({
-      where:{ unique_id:'1' }
-    });
-    
+     const ipAddress = await settings_table.findOne();
     const ipAddressData = await ipAddress.update(para);
     
     return ipAddressData.toJSON();

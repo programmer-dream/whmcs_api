@@ -1,10 +1,7 @@
-
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
-
 <head>
-    
     <title>Add Module - Education Host Ltd</title>
 
     <%- include('header'); -%>
@@ -20,7 +17,7 @@
      }
     </style>
 
-
+</head>
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
@@ -311,26 +308,27 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
                 <div class="col-sm-9 add-location-img-field">
-                  <select class="form-control" name="" id="number_of_occurance">
+                  <select class="form-control" name="number_of_occurance_per_year" 
+                  id="number_of_occurance_per_year">
                       <option value="1">One</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
                       <option value="4">Four</option>
-                      <option value="NA">Four</option>
+                      <option value="0">NA</option>
                     </select>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module due date </label>
                 <div class="col-sm-9 add-location-img-field">
-                 <input class="form-control-file" type="date" name="mpdule-due-date">
+                 <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location </label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="teaching_location" id="teaching_location" multiple >
-                        <option value="">select location</option>
+                        <option value="all">Select all location</option>
                         <% teachingLocation.forEach(item=> { %>
                             <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
                         <% }) %>
@@ -369,7 +367,41 @@
             e.preventDefault();
             var isValid = $('#addModuleForm').valid();
             if(isValid){
-                alert("sdfghj");
+                var formData = new FormData();
+                var imagefile = document.querySelector('#image');
+                if(imagefile.files.length){
+                    formData.append("image", imagefile.files[0]);
+                }
+                formData.append("module_code", $('#module_code').val());
+                formData.append("module_name", $('#module_name').val());
+                formData.append("module_type", $('#module_type').val());
+                formData.append("number_of_occurance_per_year",
+                    $('#number_of_occurance_per_year').val());
+                formData.append("module_due_date", $('#module_due_date').val());
+                formData.append("teaching_location_id", $('#teaching_location').val());
+                axios.post('/api/staff/createModule', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                  console.log(response)
+                  if(response.data.status == "success"){
+                     $('#addLocationForm')[0].reset();
+                     swal("Success", response.data.message);
+                     $('#addModalCenter').hide();
+                     setTimeout(function(){
+                        location.reload();
+                     }, 3000);
+                  }else{
+                     swal(response.data.message);
+
+                  }
+                })
+                .catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+
             }
         });
         </script>
