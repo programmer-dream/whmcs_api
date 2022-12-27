@@ -679,7 +679,7 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
     user: req.user,
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
-    modules:await user_idpdetailDal.listModules(),
+    allModulesList:await user_idpdetailDal.getListModules(),
     supportMenu: {
       main: [
         {

@@ -15,6 +15,19 @@
         border: 0px;
         min-height: 33.5px;
      }
+     .add-modules-cols {
+        margin-bottom: 30px;
+     }
+     .add-modules-cols .card.pull-up {
+        height: 100%;
+        position: relative;
+     }
+     .add-modules-cols .card.pull-up .progress {
+        position: absolute;
+        bottom: 30px;
+        left: 20px;
+        right: 20px;
+    }
     </style>
 
 </head>
@@ -22,8 +35,7 @@
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
     data-open="click" data-menu="vertical-content-menu" data-col="2-columns" >
-
-    <!-- BEGIN: Header-->
+ <!-- BEGIN: Header-->
     <nav
         class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center">
         <div class="navbar-wrapper">
@@ -156,7 +168,37 @@
             </section>
 
             <div class="row">
-                <div class="col-xl-3 col-lg-6 col-12">
+
+                 <% allModulesList.forEach(item=> { 
+                 %>
+                <div class="col-xl-3 col-lg-6 col-12 add-modules-cols">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+
+                                        <h2 class="success"><i> <%= item.module_name %></i></h2>
+                                        <p>Module code:<%= item.module_code %></p>
+                                        <p>The module is taught at <%= item.location_count %> locations.</p>
+                                        <p>There are <%= item.user_count %> students taking this module </p>
+                                    </div>
+                                    <div>
+                                        <!-- <img src="data:image/png;base64, <%= item.image %>"> -->
+                                        <i class="icon-folder success font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-success" role="progressbar"
+                                        style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+               <!--  <div class="col-xl-3 col-lg-6 col-12">
                     <div class="card pull-up">
                         <div class="card-content">
                             <div class="card-body">
@@ -224,30 +266,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-12">
-                    <div class="card pull-up">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h2 class="success"><i>Module Name</i></h2>
-                                        <p>There are X students taking this module.</p>
-                                        <p>The module is taught at X locations.</p>
-                                    </div>
-                                    <div>
-                                        <i class="icon-folder success font-large-2 float-right"></i>
-                                    </div>
-                                </div>
-                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                    <div class="progress-bar bg-gradient-x-success" role="progressbar"
-                                        style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
             </div> <!-- End row -->
             <!--/ eCommerce statistic -->          
             
@@ -335,6 +354,7 @@
                     </select>
                 </div>
               </div>
+              
               <!--  <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module course </label>
                 <div class="col-sm-9 add-location-img-field">

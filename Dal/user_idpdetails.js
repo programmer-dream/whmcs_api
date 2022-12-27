@@ -375,7 +375,7 @@ var User_idpdetail = {
   addModuleLocation: async function (module_id,teaching_location_id) {
     if(teaching_location_id=="all"){
        let teaching_locations = await teaching_location_details.findAll({where:{is_active:1}})
-       teaching_locations.map(async function(item){
+          teaching_locations.map(async function(item){
           teaching_location_id=item.unique_id;
           await module_location.create({module_id, teaching_location_id})
 
@@ -434,11 +434,45 @@ var User_idpdetail = {
           let obj = {
             module_id:module.module_id,
             module_code: module.module_code,
-            module_name: module.module_name
+            module_name: module.module_name,
           }
           allModules.push(obj)
         })
       
+      return allModules
+    }else{
+      return []
+    }
+  },
+
+  getListModules: async function (userId, moduleId) {
+    let allModules = []
+    let modules= await module_details.findAll();
+    
+    if(modules.length){
+        await Promise.all(
+          modules.map( async function(module){
+           let location= await module_location.findAll({where:{module_id: module.module_id}});
+           let users= await modules_users_assigned.findAll({where:{module_id: module.module_id}});
+            module['location_count'] = location.length;
+            module['user_count'] = users.length;
+            let obj = {
+              module_id:module.module_id,
+              module_code: module.module_code,
+              module_name: module.module_name,
+              module_type: module.module_type,
+              image:       module.image,
+              number_of_occurance_per_year: module.number_of_occurance_per_year,
+              module_start_date: module.module_start_date,
+              module_due_date:   module.module_due_date,
+              location_count:    module.location_count,
+              user_count:module.user_count
+            }
+             
+            allModules.push(obj)
+            
+          })
+        )
       return allModules
     }else{
       return []
