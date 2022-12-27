@@ -355,10 +355,12 @@ var User_idpdetail = {
     const location = await teaching_location_details.findOne({
       where:{ unique_id:id }
     });
+    if(location){
+      const locationData = await location.update(para);
+      location = location.toJSON();
+    }
+    return location
 
-    const locationData = await location.update(para);
-    
-    return location.toJSON();
     
   },
   createModule: async function (para) {
