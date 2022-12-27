@@ -279,7 +279,7 @@ router.get("/staffdashboardgetyears", (req, res) => {
 
 router.get("/getModuleYearLocation", async (req, res) => {
     let yearQuery = "SELECT DISTINCT YEAR(user_module_start_date) AS year FROM modules_users_assigned"
-    let locationQuery="SELECT DISTINCT name FROM teaching_location_details"
+    let locationQuery="SELECT DISTINCT name FROM teaching_location_details WHERE is_active=1"
     let moduleCodeQuery="SELECT DISTINCT module_code FROM module_details"
     
     let year = await user_idpdetailDal.runRawQuery(yearQuery)
