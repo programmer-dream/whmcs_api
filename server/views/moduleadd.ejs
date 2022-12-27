@@ -324,6 +324,7 @@
                   <input type="file" class="form-control-file" id="image" name="image">
                 </div>
               </div>
+              <% if(settings.module_date_enabled) { %>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
                 <div class="col-sm-9 add-location-img-field">
@@ -343,10 +344,18 @@
                  <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date">
                 </div>
               </div>
+              <% } %>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module Occurrences Date</label>
+                <div class="col-sm-9 add-location-img-field">
+                   <select class="form-control" name="due_date" id="due_date" multiple required></select>
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location </label>
                 <div class="col-sm-9 add-location-img-field">
-                   <select class="form-control" name="teaching_location" id="teaching_location" multiple >
+                   <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
                         <option value="all">Select all location</option>
                         <% teachingLocation.forEach(item=> { %>
                             <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
@@ -354,6 +363,8 @@
                     </select>
                 </div>
               </div>
+
+              
               
               <!--  <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module course </label>
@@ -424,6 +435,36 @@
 
             }
         });
+        $('#number_of_occurance_per_year').on('change',function(){
+            $('#due_date').html('')
+            $('#module_due_date').val('');
+        })
+        $('#module_due_date').on('change',function(){
+
+            var selecteOccurrence = $('#number_of_occurance_per_year').val();
+            var currentDate = $(this).val();
+            var arrDateObj = currentDate.split("-");
+            
+            if(selecteOccurrence == 1){
+                selecteOccurrence = 3
+            }else if(selecteOccurrence == 2){
+                selecteOccurrence = 6
+            }else if(selecteOccurrence == 3){
+                selecteOccurrence = 9
+            }else if(selecteOccurrence == 4){
+               selecteOccurrence = 12 
+            }
+            
+            var str = "<option value='"+currentDate+"'>"+currentDate+"</option>"
+            for (let i = 1; i < selecteOccurrence; i++) {
+               
+                arrDateObj[0] = String(parseInt(arrDateObj[0])+1)
+                var data = arrDateObj.join("-");
+                str += "<option value='"+data+"'>"+data+"</option>"
+              
+            }
+            $('#due_date').html(str)
+        })
         </script>
     
 </body>
