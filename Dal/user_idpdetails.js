@@ -402,10 +402,16 @@ var User_idpdetail = {
           await module_location.create({module_id, teaching_location_id})
 
        })
+    }else if(teaching_location_id.length >1){
+        var teaching_location_id = teaching_location_id.split(',');
+         teaching_location_id.map(async function(item){
+            teaching_location_id=item;
+            await module_location.create({module_id, teaching_location_id})
+         })
     }
     else{
       let modulesLocation = await module_location.create({module_id, teaching_location_id});
-      console.log(modulesLocation,"modulesLocation");
+      // console.log(modulesLocation,"modulesLocation");
     }
     
   },
