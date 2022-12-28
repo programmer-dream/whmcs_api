@@ -583,17 +583,22 @@ router.post("/createModule", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
+
         if(files.image){
             let img = fs.readFileSync(files.image.filepath);
             fields.image=new Buffer(img).toString('base64');
         }
+        if(fields.number_of_occurance_per_year == 'undefined')
+            delete fields.number_of_occurance_per_year
+
         response = await user_idpdetailDal.createModule(fields)
         if(response){
             let due_date = JSON.parse(fields.module_due_date);
-            due_date.forEach(async function(item, index) {        
-                response = await user_idpdetailDal.createModulesDueDates({'module_id':response.module_id, 'modules_due_date':item.replace('T', ' ')})
-            });
-            
+            if(due_date.length){
+                due_date.forEach(async function(item, index) {        
+                    response = await user_idpdetailDal.createModulesDueDates({'module_id':response.module_id, 'modules_due_date':item.replace('T', ' ')})
+                });
+            }
           let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
         }
 

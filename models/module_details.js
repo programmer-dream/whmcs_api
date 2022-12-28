@@ -26,7 +26,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     number_of_occurance_per_year: {
      type: DataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     module_start_date: {
       type: DataTypes.DATE
