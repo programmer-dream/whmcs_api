@@ -2,6 +2,7 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Add Module - Education Host Ltd</title>
 
     <%- include('header'); -%>
@@ -324,7 +325,6 @@
                   <input type="file" class="form-control-file" id="image" name="image">
                 </div>
               </div>
-              <% if(settings.module_date_enabled) { %>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
                 <div class="col-sm-9 add-location-img-field">
@@ -340,22 +340,20 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module due date </label>
-                <div class="col-sm-9 add-location-img-field">
-                 <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date">
+                <div class="col-sm-8 add-location-img-field">
+                 <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date[]">
+                </div>
+                <div class="col-sm-1">
+                    <i class="fa fa-plus add_date" aria-hidden="true" id="add_date"></i>
                 </div>
               </div>
-              <% } %>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Occurrences Date</label>
-                <div class="col-sm-9 add-location-img-field">
-                   <select class="form-control" name="due_date" id="due_date" multiple required></select>
-                </div>
+              <div id="added_dates">
+                  
               </div>
-
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location </label>
                 <div class="col-sm-9 add-location-img-field">
-                   <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
+                   <select class="form-control" name="teaching_location" id="teaching_location" multiple >
                         <option value="all">Select all location</option>
                         <% teachingLocation.forEach(item=> { %>
                             <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
@@ -363,8 +361,6 @@
                     </select>
                 </div>
               </div>
-
-              
               
               <!--  <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module course </label>
@@ -394,6 +390,11 @@
       </div>
     </div>
     <script>
+        window.onload = function(){  
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('module_due_date').value = now.toISOString().slice(0,16);
+        } 
         $('#saveModule').on('click',function(e){
             e.preventDefault();
             var isValid = $('#addModuleForm').valid();
@@ -417,14 +418,16 @@
                 }).then(function (response) {
                   console.log(response)
                   if(response.data.status == "success"){
-                     $('#addLocationForm')[0].reset();
+                     $('#addModuleForm')[0].reset();
                      swal("Success", response.data.message);
                      $('#addModalCenter').hide();
                      setTimeout(function(){
                         location.reload();
                      }, 3000);
-                  }else{
-                     swal(response.data.message);
+                  }
+                  else{
+                     // swal(response.data.message);
+                    swal("Something went wrong")
 
                   }
                 })
@@ -435,36 +438,67 @@
 
             }
         });
-        $('#number_of_occurance_per_year').on('change',function(){
-            $('#due_date').html('')
-            $('#module_due_date').val('');
-        })
-        $('#module_due_date').on('change',function(){
+         $('.add_date').on('click',function(e){ 
+            e.preventDefault();
+            var newdate
+            var occurance_val= $('#number_of_occurance_per_year').val();
+            var old_date = $('#module_due_date').val();
+            var arrDateObj = old_date.split("-");
+               arrDateObj[0] = String(parseInt(arrDateObj[0])+1)
+               newdate = arrDateObj.join("-");
+                var dummy = `<div class="form-group row new_date">
+                                <label class="col-sm-3 col-form-label">Module due date </label>
+                                <div class="col-sm-8 add-location-img-field">
+                                 <input class="form-control-file date-field" type="datetime-local" name="module_due_date[]" value="`+newdate+`">
+                                </div>
+                                <div class="col-sm-1">
+                                    <i class="fa fa-minus remove_date" aria-hidden="true"></i>
+                                </div>
+                              </div>`;
+                document.getElementById('added_dates').innerHTML+= dummy;
+                
+            $('.date-field').each(function(index, element){
+                $(this).val(updateOneYear(old_date, index));
+            })
+            
+         })
 
-            var selecteOccurrence = $('#number_of_occurance_per_year').val();
-            var currentDate = $(this).val();
-            var arrDateObj = currentDate.split("-");
-            
-            if(selecteOccurrence == 1){
-                selecteOccurrence = 3
-            }else if(selecteOccurrence == 2){
-                selecteOccurrence = 6
-            }else if(selecteOccurrence == 3){
-                selecteOccurrence = 9
-            }else if(selecteOccurrence == 4){
-               selecteOccurrence = 12 
+         $(document).on("click", '.remove_date', function() {
+            $(this).parent().parent().remove();
+          });
+         
+         $(document).on('change', '#number_of_occurance_per_year', function(){
+            var occurance_val= $('#number_of_occurance_per_year').val();
+            $('#added_dates').html('');
+            var old_date = $('#module_due_date').val();
+
+            for (let step = 1; step <occurance_val ; step++) {
+                const newDate = addOneYear(old_date);
+                var dummy = `<div class="form-group row new_date">
+                    <label class="col-sm-3 col-form-label">Module due date </label>
+                    <div class="col-sm-8 add-location-img-field">
+                     <input class="form-control-file date-field" type="datetime-local" name="module_due_date[]" value="`+newDate+`">
+                    </div>
+                  </div>`;
+                document.getElementById('added_dates').innerHTML+= dummy;
+                old_date=newDate;
             }
             
-            var str = "<option value='"+currentDate+"'>"+currentDate+"</option>"
-            for (let i = 1; i < selecteOccurrence; i++) {
-               
-                arrDateObj[0] = String(parseInt(arrDateObj[0])+1)
-                var data = arrDateObj.join("-");
-                str += "<option value='"+data+"'>"+data+"</option>"
-              
+         });
+         function addOneYear(date) {
+              var arrDateObj = date.split("-");
+               arrDateObj[0] = String(parseInt(arrDateObj[0])+1)
+               newdate = arrDateObj.join("-");
+               return newdate
             }
-            $('#due_date').html(str)
-        })
+
+        function updateOneYear(date, index) {
+          var arrDateObj = date.split("-");
+           arrDateObj[0] = String(parseInt(arrDateObj[0])+index+1)
+           newdate = arrDateObj.join("-");
+           return newdate
+        }
+        
         </script>
     
 </body>
