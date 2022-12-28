@@ -451,9 +451,11 @@ var User_idpdetail = {
        include : [{ model: module_location, required: true },
                  { model: modules_due_dates, required: true }]
     });
-    console.log(ipModule,"ipModule")
-    return ipModule.toJSON();
+
+    if(ipModule)
+      return ipModule.toJSON();
     
+    return ipModule
   },
   AddModulesUser: async function (userId, moduleId) {
     
