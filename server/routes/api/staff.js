@@ -622,7 +622,7 @@ router.post("/deleteModule", async (req, res) => {
 
     })
     
-    // res.send({status : 'success', message:'Location saved successfully' })
+    res.send({status : 'success', message:'Module deleted successfully' })
 });
 function generateString(length=15) {
     let characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
