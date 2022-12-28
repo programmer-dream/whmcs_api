@@ -29,6 +29,12 @@
         left: 20px;
         right: 20px;
     }
+    .add-location-img-field input {
+    padding: 0;
+    line-height: 27px;
+    border: 0px;
+    min-height: 33.5px;
+}
     </style>
 
 </head>
@@ -173,12 +179,11 @@
                  <% allModulesList.forEach(item=> { 
                  %>
                 <div class="col-xl-4 col-lg-6 col-12 add-modules-cols">
-                    <div class="card pull-up">
+                    <div class="card pull-up editModule" module_id="<%= item.module_id %>"data-toggle="modal" data-target="#editModalCenter" >
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="media d-flex">
                                     <div class="media-body text-left">
-
                                         <h2 class="success"><i> <%= item.module_name %></i></h2>
                                         <p>Module code: <%= item.module_code %></p>
                                         <p>The module is taught at <%= item.location_count %> locations.</p>
@@ -309,6 +314,96 @@
         </div>
       </div>
     </div>
+    <!-- edit modal start -->
+     <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalCenterTitle">Edit Module</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="editModuleForm">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module Code</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="edit_module_code" name="module_code" placeholder="Module Code" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="edit_module_name" name="module_name" placeholder="Module Name" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module Type</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="module_type" 
+                      id="edit_module_type">
+                          <option value="">Select type</option>
+                          <option value="core">Core</option>
+                          <option value="pinned">Pinned</option>
+                          <option value="elective">Elective</option>
+                        </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module Image</label>
+                <div class="col-sm-9 add-location-img-field">
+                  <input type="file" class="form-control-file" id="edit_image" name="image">
+                </div>
+              </div>
+              <% if(settings.module_date_enabled){ %>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
+                <div class="col-sm-9 add-location-img-field">
+                  <select class="form-control" name="number_of_occurance_per_year" 
+                  id="edit_number_of_occurance_per_year">
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                      <option value="0">NA</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module due date </label>
+                <div class="col-sm-8 add-location-img-field">
+                 <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="module_due_date[]">
+                </div>
+                <div class="col-sm-1">
+                    <i class="fa fa-plus add_date" aria-hidden="true" id="add_date"></i>
+                </div>
+              </div>
+              <div id="edit_added_dates">
+                  
+              </div>
+              <% } %>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Teaching location </label>
+                <div class="col-sm-9 add-location-img-field">
+                   <select class="form-control" name="teaching_location" id="edit_teaching_location" multiple >
+                        <option value="all">Select all locations</option>
+                        <% teachingLocation.forEach(item=> { %>
+                            <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveModule">Save changes</button>
+          </div>        
+        </div>
+      </div>
+    </div>
+    <!-- edit modal end -->
     <script>
         window.onload = function(){  
         var now = new Date();
@@ -425,6 +520,62 @@
            newdate = arrDateObj.join("-");
            return newdate
         }
+        // get module
+        $('.editModule').off('click').on('click',function(e){
+           var id = $(this).attr('module_id');
+
+           var settings= {
+                type: "GET",
+                dataType: "json",
+                url: "/api/staff/getModule/"+id,
+                success: function(response) {
+                    $('#edit_module_code').val(response.data.module_code)
+                    $('#edit_module_name').val(response.data.module_name)
+
+                    $('#edit_module_type').val(response.data.module_type).change()
+                    $('#edit_number_of_occurance_per_year').val(response.data.number_of_occurance_per_year).change()
+                    $('#edit_added_dates').html('');
+                    response.data.modules_due_dates.map(function(element, index){
+                     
+                        if(index == 0){
+                            
+                            $('#edit_module_due_date').val(element.modules_due_date.replace('Z', ''))
+                        }else{
+                            var dummy = `<div class="form-group row new_date">
+                                <label class="col-sm-3 col-form-label">Module due date </label>
+                                <div class="col-sm-8 add-location-img-field">
+                                 <input class="form-control-file date-field" type="datetime-local" name="module_due_date[]" value="`+element.modules_due_date.replace('Z', '')+`">
+                                </div>
+                              </div>`;
+                            document.getElementById('edit_added_dates').innerHTML+= dummy;
+                          
+                        
+                            //document.getElementById('edit_module_due_date').value=element.modules_due_date ;
+                        }
+                        
+                    })
+
+                    var idsArr = []
+                    response.data.module_locations.map(function(element){
+                        idsArr.push(element.teaching_location_id)
+                    })
+                    $('select#edit_teaching_location option').each(function () {
+
+                        if(idsArr.includes(parseInt($(this).val()))){
+                            $(this).prop('selected','selected');
+                        }
+                            
+                    });
+                    
+            
+                   
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+            $.ajax(settings);
+        });
         
         </script>
     

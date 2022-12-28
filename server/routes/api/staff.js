@@ -578,6 +578,13 @@ router.get("/getLocation/:id", async (req, res) => {
     
     res.send({status : 'success', message:'Location data', data: location})
 });
+router.get("/getModule/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let Modules = await user_idpdetailDal.getModule(id)
+     console.log(Modules,"module,js")
+    res.send({status : 'success', message:'Module data', data: Modules})
+});
 
 router.post("/createModule", async (req, res) => {
     let response;

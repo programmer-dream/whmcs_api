@@ -42,7 +42,8 @@ client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
 user_idpdetails.belongsTo(client_details, { foreignKey: "universityid" });
 loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
-module_details.belongsTo(modules_due_dates, { foreignKey: "module_id" });
+module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
+module_details.hasMany(module_location, { foreignKey: "module_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -441,6 +442,17 @@ var User_idpdetail = {
     });
     
     return ipAddress.toJSON();
+    
+  },
+   getModule: async function (id) {
+    
+    const ipModule = await module_details.findOne({
+      where:{ module_id:id },
+       include : [{ model: module_location, required: true },
+                 { model: modules_due_dates, required: true }]
+    });
+    console.log(ipModule,"ipModule")
+    return ipModule.toJSON();
     
   },
   AddModulesUser: async function (userId, moduleId) {
