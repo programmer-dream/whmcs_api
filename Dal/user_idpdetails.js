@@ -34,6 +34,7 @@ var module_location                = models.module_location
 var teaching_location_details      = models.teaching_location_details
 var teaching_location_ip_addresses = models.teaching_location_ip_addresses
 var settings_table                 = models.settings_table
+var modules_due_dates              = models.modules_due_dates
 
 
 var client_availablemodules = models.client_availablemodules;
@@ -41,6 +42,7 @@ client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
 user_idpdetails.belongsTo(client_details, { foreignKey: "universityid" });
 loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
+module_details.belongsTo(modules_due_dates, { foreignKey: "module_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -372,6 +374,24 @@ var User_idpdetail = {
         addedId=addedId.toJSON()
     
     return addedId;
+    
+  },
+  deleteModule: async function (moduleID) {
+    
+    await module_details.destroy({where:{module_id:moduleID}});
+    // await modules_users_assigned.destroy({where:{user_id:userId}});
+    
+  },
+  createModulesDueDates: async function (para) {
+    
+    let modulesdates = await modules_due_dates.create(para);
+        modulesdates = modulesdates.toJSON();
+    return modulesdates;
+    
+  },
+  deleteModulesDueDates: async function (moduleID) {
+    
+    await modules_due_dates.destroy({where:{module_id:moduleID}});
     
   },
   addModuleLocation: async function (module_id,teaching_location_id) {

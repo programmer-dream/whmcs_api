@@ -589,15 +589,30 @@ router.post("/createModule", async (req, res) => {
         }
         response = await user_idpdetailDal.createModule(fields)
         if(response){
-            console.log(fields.teaching_location_id,"fields.teaching_location_id");
-          let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
+            let due_date = fields.due_date;
+             due_date = due_date.split(',')
+            due_date.forEach(async function(item, index) {        
+                response = await user_idpdetailDal.createModulesDueDates({'module_id':response.module_id, 'modules_due_date':item.replace('T', ' ')})
+            });
+            
+          // let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
         }
 
     })
     
     // res.send({status : 'success', message:'Location saved successfully' })
 });
+router.post("/deleteModule", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        await user_idpdetailDal.deleteModule(fields.moduleid);
+        await user_idpdetailDal.deleteModulesDueDates(fields.moduleid);
 
+    })
+    
+    // res.send({status : 'success', message:'Location saved successfully' })
+});
 function generateString(length=15) {
     let characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = ' ';
