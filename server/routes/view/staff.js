@@ -51,7 +51,7 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -146,7 +146,7 @@ router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -241,7 +241,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -332,7 +332,7 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -422,7 +422,7 @@ router.get("/userManager", ensureAuthenticated, function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -521,7 +521,7 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -616,7 +616,7 @@ router.get("/moduledash", ensureAuthenticated, async function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -711,7 +711,7 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -805,7 +805,7 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -899,7 +899,7 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -993,7 +993,7 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
@@ -1088,7 +1088,7 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
-          icon: "create_new_folder",
+          icon: "folder_special",
         },
         {
           label: "Courses",
