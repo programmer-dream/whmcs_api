@@ -30,15 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     module_start_date: {
       type: DataTypes.DATE
-    },
-    module_due_date: {
-      type: DataTypes.DATE,
-      allowNull: false
     }
-    
-    
-
-  
   }, {
     tableName: 'module_details'
   });

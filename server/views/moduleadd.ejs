@@ -172,7 +172,7 @@
 
                  <% allModulesList.forEach(item=> { 
                  %>
-                <div class="col-xl-3 col-lg-6 col-12 add-modules-cols">
+                <div class="col-xl-4 col-lg-6 col-12 add-modules-cols">
                     <div class="card pull-up">
                         <div class="card-content">
                             <div class="card-body">
@@ -404,13 +404,20 @@
                 if(imagefile.files.length){
                     formData.append("image", imagefile.files[0]);
                 }
+                var taskArray = [];
+                $("input[name*='module_due_date']").each(function() {
+                   taskArray.push($(this).val());
+                });
+                
+                formData.append("module_due_date", JSON.stringify(taskArray));
+
                 formData.append("module_code", $('#module_code').val());
                 formData.append("module_name", $('#module_name').val());
                 formData.append("module_type", $('#module_type').val());
                 formData.append("number_of_occurance_per_year",
                     $('#number_of_occurance_per_year').val());
-                formData.append("module_due_date", $('#module_due_date').val());
                 formData.append("teaching_location_id", $('#teaching_location').val());
+                //formData.append("due_date", $('#due_date').val());
                 axios.post('/api/staff/createModule', formData,{ 
                     headers: {
                         'Content-Type': 'multipart/form-data'

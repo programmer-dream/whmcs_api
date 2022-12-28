@@ -589,18 +589,17 @@ router.post("/createModule", async (req, res) => {
         }
         response = await user_idpdetailDal.createModule(fields)
         if(response){
-            let due_date = fields.due_date;
-             due_date = due_date.split(',')
+            let due_date = JSON.parse(fields.module_due_date);
             due_date.forEach(async function(item, index) {        
                 response = await user_idpdetailDal.createModulesDueDates({'module_id':response.module_id, 'modules_due_date':item.replace('T', ' ')})
             });
             
-          // let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
+          let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
         }
 
     })
     
-    // res.send({status : 'success', message:'Location saved successfully' })
+    res.send({status : 'success', message:'Module saved successfully' })
 });
 router.post("/deleteModule", async (req, res) => {
     let response;
