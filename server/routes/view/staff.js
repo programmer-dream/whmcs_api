@@ -17,11 +17,13 @@ var user_idpdetailDal=require("../../../Dal/user_idpdetails");
 
 // @access 	Public
 
-router.get("/dashboard", ensureAuthenticated, function (req, res) {
+router.get("/dashboard", ensureAuthenticated, async function (req, res) {
+
   // console.log(req.user, "user data");
   res.render("dashboard", {
     email: req.user.upn,
     user: req.user,
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -112,11 +114,12 @@ router.get("/dashboard", ensureAuthenticated, function (req, res) {
 });
 
 
-router.get("/bulkUserImport", ensureAuthenticated, function (req, res) {
+router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
   // console.log(req.user, "user data");
   res.render("bulkimportuser", {
     email: req.user.upn,
     user: req.user,
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -211,6 +214,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -298,11 +302,12 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
   });
 });
 
-router.get("/removeUsers", ensureAuthenticated, function (req, res) {
+router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
   // console.log(req.user, "user data");
   res.render("removeUsers", {
     email: req.user.upn,
     user: req.user,
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -388,11 +393,12 @@ router.get("/removeUsers", ensureAuthenticated, function (req, res) {
       .format("YY")}`,
   });
 });
-router.get("/userManager", ensureAuthenticated, function (req, res) {
+router.get("/userManager", ensureAuthenticated,async function (req, res) {
   // console.log(req.user, "user data");
   res.render("usermanager", {
     email: req.user.upn,
     user: req.user,
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -586,6 +592,7 @@ router.get("/moduledash", ensureAuthenticated, async function (req, res) {
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -681,6 +688,7 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     allModulesList:await user_idpdetailDal.getListModules(),
     settings:await user_idpdetailDal.listEnablevalue(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -775,6 +783,7 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -869,6 +878,7 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -963,6 +973,7 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {
@@ -1058,6 +1069,7 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {

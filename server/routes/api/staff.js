@@ -802,7 +802,7 @@ let getWhmcsData = (whmcsconnection, queryStr) =>{
 // 26-dec
 router.post("/enableDisable", async (req, res) => {
     let response = await user_idpdetailDal.enabledisablevalue(req.body)
-    res.send({status : 'success', message:'Status updated successfully' })
+    res.send({status : 'success', message:'Status updated successfully'})
    
 });
 //26 dec

@@ -509,6 +509,10 @@ var User_idpdetail = {
       return []
     }
   },
+  
+  getmoduleEndDate:async function (userId, moduleId) {
+
+  },
 
   getListModules: async function (userId, moduleId) {
     let allModules = []

@@ -157,9 +157,9 @@
                                                </tr> 
                                                <!-- 26-dec -->
                                                 <tr>
-                                                <th scope="row"><p>System</p></th>
-                                                <th scope="row"><p>Module dates</p></th>
-                                                <td>The disable user registration option removes the ability for users to sign up manually. This removes the signup button from the home screen and only allows login to users who are in the system. This is typically turned off if you would like to pre-add your users through the bulk uploader or individual user facilities.</td>
+                                                <th scope="row"><p>Modules</p></th>
+                                                <th scope="row"><p>Enable dates within the module manager tool.</p></th>
+                                                <td>Enableing dates within the module manager tool  will require all modules to have start and end date. User will be locked out of their work for a defined period of the time once the end date is reached. Disabled by default.</td>
                                                 <% var module_date_checked=''
                                                     if(enabledisablevalue.module_date_enabled){
                                                         module_date_checked=`checked`
@@ -1099,6 +1099,7 @@
                         url: "/api/staff/enableDisable",
                         data:obj,
                         success: function(response) {
+                            
                             swal("Status has been updated.", {
                                 icon: "success",
                             });
