@@ -10,6 +10,9 @@
     #saveModule{
        color: #fff;
      }
+     #editSaveModule{
+         color: #fff;
+     }
      #image{
         padding: 0;
         line-height: 27px;
@@ -209,7 +212,7 @@
                                     </div>
                                 </div>
                                 <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                                    <span class="material-symbols-outlined delete" module_id="<%= item.module_id %>">
+                                    <span class="material-symbols-outlined delete" module_id="<%= item.module_id %>" user_count="<%= item.user_count %>">
                                         delete
                                     </span>
                                     <div class="progress-bar bg-gradient-x-success" role="progressbar"
@@ -314,7 +317,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location </label>
                 <div class="col-sm-9 add-location-img-field">
-                   <select class="form-control" name="teaching_location" id="teaching_location" multiple >
+                   <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
                         <option value="all">Select all locations</option>
                         <% teachingLocation.forEach(item=> { %>
                             <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
@@ -343,6 +346,7 @@
           </div>
           <div class="modal-body">
             <form class="p-1" id="editModuleForm">
+             <input type="hidden" name="id" id="unique_id" value="">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module Code</label>
                 <div class="col-sm-9">
@@ -390,7 +394,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module due date </label>
                 <div class="col-sm-8 add-location-img-field">
-                 <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="module_due_date[]">
+                 <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="edit_module_due_date[]">
                 </div>
                 <div class="col-sm-1">
                     <i class="fa fa-plus add_date" aria-hidden="true" id="add_date"></i>
@@ -403,7 +407,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location </label>
                 <div class="col-sm-9 add-location-img-field">
-                   <select class="form-control" name="teaching_location" id="edit_teaching_location" multiple >
+                   <select class="form-control" name="teaching_location" id="edit_teaching_location" multiple required>
                         <option value="all">Select all locations</option>
                         <% teachingLocation.forEach(item=> { %>
                             <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
@@ -415,7 +419,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveModule">Save changes</button>
+            <button type="button" class="btn btn-primary" id="editSaveModule">Save changes</button>
           </div>        
         </div>
       </div>
@@ -526,6 +530,25 @@
             }
             
          });
+
+         $(document).on('change', '#edit_number_of_occurance_per_year', function(){
+            var occurance_val= $('#edit_number_of_occurance_per_year').val();
+            $('#edit_added_dates').html('');
+            var old_date = $('#edit_module_due_date').val();
+              
+            for (let step = 1; step <occurance_val ; step++) {
+                const newDate = addOneYear(old_date);
+                var dummy = `<div class="form-group row new_date">
+                    <label class="col-sm-3 col-form-label">Module due date </label>
+                    <div class="col-sm-8 add-location-img-field">
+                     <input class="form-control-file date-field" type="datetime-local" name="edit_module_due_date[]" value="`+newDate+`">
+                    </div>
+                  </div>`;
+                document.getElementById('edit_added_dates').innerHTML+= dummy;
+                old_date=newDate;
+            }
+            
+         });
          function addOneYear(date) {
               var arrDateObj = date.split("-");
                arrDateObj[0] = String(parseInt(arrDateObj[0])+1)
@@ -548,6 +571,8 @@
                 dataType: "json",
                 url: "/api/staff/getModule/"+id,
                 success: function(response) {
+                    $('#unique_id').val(response.data.module_id)
+                    
                     $('#edit_module_code').val(response.data.module_code)
                     $('#edit_module_name').val(response.data.module_name)
 
@@ -596,6 +621,10 @@
             $.ajax(settings);
         });
         $('.delete').on('click',function(){
+            if($(this).attr('user_count') > 0){
+                swal("Error", "Unable to delete module as there are users currently assigned to it." );
+                return false
+            }
             swal({
             title: "Confirm Your Action",
             text: "Are you sure want to delete?",
@@ -634,6 +663,58 @@
                 }
             });
         })
+        //update module
+        $('#editSaveModule').on('click',function(e){
+            e.preventDefault();
+             var isValid = $('#editModuleForm').valid();
+             console.log(isValid);
+            if(isValid){
+
+                var formData = new FormData();
+                var imagefile = document.querySelector('#edit_image');
+                if(imagefile.files.length){
+                    formData.append("image", imagefile.files[0]);
+                }
+                var taskArray = [];
+                $("input[name*='edit_module_due_date']").each(function() {
+                   taskArray.push($(this).val());
+                });
+                console.log(taskArray);
+                formData.append("module_due_date", JSON.stringify(taskArray));
+                formData.append("id",$('#unique_id').val());
+                formData.append("module_code", $('#edit_module_code').val());
+                formData.append("module_name", $('#edit_module_name').val());
+                formData.append("module_type", $('#edit_module_type').val());
+                formData.append("number_of_occurance_per_year",
+                    $('#edit_number_of_occurance_per_year').val());
+                formData.append("teaching_location_id", $('#edit_teaching_location').val());
+                axios.post('/api/staff/updateModule', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                  console.log(response)
+                  if(response.data.status == "success"){
+                     $('#addModuleForm')[0].reset();
+                     swal("Success", response.data.message);
+                     $('#addModalCenter').hide();
+                     setTimeout(function(){
+                        location.reload();
+                     }, 3000);
+                  }
+                  else{
+                     // swal(response.data.message);
+                    swal("Something went wrong")
+
+                  }
+                })
+                .catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+
+            }
+        });
         </script>
     
 </body>

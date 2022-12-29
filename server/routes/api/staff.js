@@ -582,7 +582,6 @@ router.get("/getModule/:id", async (req, res) => {
     let id = req.params.id
     
     let Modules = await user_idpdetailDal.getModule(id)
-     console.log(Modules,"module,js")
     res.send({status : 'success', message:'Module data', data: Modules})
 });
 
@@ -806,5 +805,34 @@ router.post("/enableDisable", async (req, res) => {
     res.send({status : 'success', message:'Status updated successfully' })
    
 });
+//26 dec
+router.post("/updateModule", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        if(files.image){
+            let img = fs.readFileSync(files.image.filepath);
+            fields.image=new Buffer(img).toString('base64');
+        }
+        if(fields.number_of_occurance_per_year == 'undefined')
+            delete fields.number_of_occurance_per_year
+      
+        response = await user_idpdetailDal.updateModule(fields.id, fields)
+        if(response){
+            let due_date = JSON.parse(fields.module_due_date);
+            if(due_date.length){
+                due_date.forEach(async function(item, index) {  
+                    res = await user_idpdetailDal.deleteModulesDueDates(fields.id)
+                    response = await user_idpdetailDal.createModulesDueDates({'module_id':fields.id, 'modules_due_date':item.replace('T', ' ')})
+                });
+            }
+            res = await user_idpdetailDal.deleteModulesLocations(fields.id)
+            let resdata = await user_idpdetailDal.addModuleLocation(fields.id,fields.teaching_location_id)
+        
+        }
 
+    })
+   
+     res.send({status : 'success', message:'Module updated successfully' })
+});
 module.exports = router;

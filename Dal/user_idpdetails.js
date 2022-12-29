@@ -377,6 +377,19 @@ var User_idpdetail = {
     return addedId;
     
   },
+  updateModule: async function (id, para) {
+    let moduleData;
+    const modules = await module_details.findOne({
+      where:{ module_id:id }
+    });
+    if(modules){
+       moduleData = await modules.update(para);
+      moduleData = moduleData.toJSON();
+    }
+     return moduleData;
+
+    
+  },
   deleteModule: async function (moduleID) {
     
     await module_details.destroy({where:{module_id:moduleID}});
@@ -386,10 +399,20 @@ var User_idpdetail = {
   createModulesDueDates: async function (para) {
     
     let modulesdates = await modules_due_dates.create(para);
-        modulesdates = modulesdates.toJSON();
+
+      if(modulesdates)
+         modulesdates = modulesdates.toJSON();
+
     return modulesdates;
     
   },
+
+  deleteModulesLocations: async function (moduleID) {
+    
+    await module_location.destroy({where:{module_id:moduleID}});
+    
+  },
+  
   deleteModulesDueDates: async function (moduleID) {
     
     await modules_due_dates.destroy({where:{module_id:moduleID}});
@@ -412,7 +435,7 @@ var User_idpdetail = {
     }
     else{
       let modulesLocation = await module_location.create({module_id, teaching_location_id});
-      // console.log(modulesLocation,"modulesLocation");
+     
     }
     
   },
