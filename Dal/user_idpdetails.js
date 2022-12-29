@@ -538,7 +538,10 @@ var User_idpdetail = {
             
           })
         )
-      return allModules
+        let sorted = allModules.sort(function(a, b) { 
+                      return a.module_id - b.module_id;
+                    });
+      return sorted
     }else{
       return []
     }
