@@ -438,7 +438,9 @@
                 }
                 var taskArray = [];
                 $("input[name*='module_due_date']").each(function() {
-                   taskArray.push($(this).val());
+                    if($(this).val()){
+                        taskArray.push($(this).val());
+                    }
                 });
                 
                 formData.append("module_due_date", JSON.stringify(taskArray));
@@ -449,7 +451,7 @@
                 formData.append("number_of_occurance_per_year",
                     $('#number_of_occurance_per_year').val());
                 formData.append("teaching_location_id", $('#teaching_location').val());
-                //formData.append("due_date", $('#due_date').val());
+                
                 axios.post('/api/staff/createModule', formData,{ 
                     headers: {
                         'Content-Type': 'multipart/form-data'
