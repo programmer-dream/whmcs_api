@@ -355,11 +355,11 @@ var User_idpdetail = {
   },
   updateLocation: async function (id, para) {
     
-    const location = await teaching_location_details.findOne({
+    let location = await teaching_location_details.findOne({
       where:{ unique_id:id }
     });
     if(location){
-      const locationData = await location.update(para);
+      let locationData = await location.update(para);
       location = location.toJSON();
     }
     return location

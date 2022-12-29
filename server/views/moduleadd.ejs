@@ -52,6 +52,9 @@
         border: 0px;
         min-height: 33.5px;
     }
+    red{
+        color: red;
+    }
     </style>
 
 </head>
@@ -258,19 +261,19 @@
           <div class="modal-body">
             <form class="p-1" id="addModuleForm">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Code</label>
+                <label class="col-sm-3 col-form-label">Module Code<span class="red">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="module_code" name="module_code" placeholder="Module Code" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Name</label>
+                <label class="col-sm-3 col-form-label">Module Name<span class="red">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="module_name" name="module_name" placeholder="Module Name" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Type</label>
+                <label class="col-sm-3 col-form-label">Module Type <span class="red">*</span></label>
                 <div class="col-sm-9">
                     <select class="form-control" name="module_type" 
                       id="module_type">
@@ -289,7 +292,7 @@
               </div>
               <% if(settings.module_date_enabled){ %>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
+                <label class="col-sm-3 col-form-label">Number of Occurrences per year <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                   <select class="form-control" name="number_of_occurance_per_year" 
                   id="number_of_occurance_per_year">
@@ -302,7 +305,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module due date </label>
+                <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
                 <div class="col-sm-8 add-location-img-field">
                  <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date[]">
                 </div>
@@ -315,7 +318,7 @@
               </div>
               <% } %>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Teaching location </label>
+                <label class="col-sm-3 col-form-label">Teaching location <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
                         <option value="all">Select all locations</option>
@@ -348,22 +351,22 @@
             <form class="p-1" id="editModuleForm">
              <input type="hidden" name="id" id="unique_id" value="">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Code</label>
+                <label class="col-sm-3 col-form-label">Module Code<span class="red">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="edit_module_code" name="module_code" placeholder="Module Code" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Name</label>
+                <label class="col-sm-3 col-form-label">Module Name<span class="red">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="edit_module_name" name="module_name" placeholder="Module Name" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module Type</label>
+                <label class="col-sm-3 col-form-label">Module Type<span class="red">*</span></label>
                 <div class="col-sm-9">
                     <select class="form-control" name="module_type" 
-                      id="edit_module_type">
+                      id="edit_module_type" required>
                           <option value="">Select type</option>
                           <option value="core">Core</option>
                           <option value="pinned">Pinned</option>
@@ -379,7 +382,7 @@
               </div>
               <% if(settings.module_date_enabled){ %>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Number of Occurrences per year </label>
+                <label class="col-sm-3 col-form-label">Number of Occurrences per year <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                   <select class="form-control" name="number_of_occurance_per_year" 
                   id="edit_number_of_occurance_per_year">
@@ -392,9 +395,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module due date </label>
+                <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
                 <div class="col-sm-8 add-location-img-field">
-                 <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="edit_module_due_date[]">
+                 <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="edit_module_due_date[]" required>
                 </div>
                 <div class="col-sm-1">
                     <i class="fa fa-plus add_date" aria-hidden="true" id="add_date"></i>
@@ -405,7 +408,7 @@
               </div>
               <% } %>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Teaching location </label>
+                <label class="col-sm-3 col-form-label">Teaching location <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="teaching_location" id="edit_teaching_location" multiple required>
                         <option value="all">Select all locations</option>
@@ -565,7 +568,7 @@
         // get module
         $('.editModule').off('click').on('click',function(e){
            var id = $(this).attr('module_id');
-
+           $('#editModuleForm')[0].reset();
            var settings= {
                 type: "GET",
                 dataType: "json",
@@ -695,9 +698,9 @@
                 }).then(function (response) {
                   console.log(response)
                   if(response.data.status == "success"){
-                     $('#addModuleForm')[0].reset();
+                     $('#editModuleForm')[0].reset();
                      swal("Success", response.data.message);
-                     $('#addModalCenter').hide();
+                     $('#editModalCenter').hide();
                      setTimeout(function(){
                         location.reload();
                      }, 3000);
