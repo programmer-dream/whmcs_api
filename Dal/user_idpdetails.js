@@ -551,15 +551,8 @@ var User_idpdetail = {
             group: ['module_id']}
            );
            if(due_dates){
-            // let minDate=due_dates.dataValues.min.format('MM/DD/YYYY');
-            // console.log(todayDate,"ajj da din")
-            // console.log(minDate,"kal da din")
-            // diff  = new Date(todayDate - due_dates.dataValues.min),
-            // days  = diff/1000/60/60/24;
-            // console.log(days,"daysdays")
-             module['due_date'] = due_dates.dataValues.min;
-           }
-           else{
+             module['due_date'] = moment(due_dates.dataValues.min).format('YYYY-MM-DD');
+           }else{
              module['due_date'] = "";
            }
            let obj = {
@@ -601,7 +594,7 @@ var User_idpdetail = {
            );
             if(due_dates){
               due_dates=due_dates.toJSON();
-              module['due_date'] = due_dates.min;
+              module['due_date'] = moment(due_dates.min).format('YYYY-MM-DD');
             }
             else{
               module['due_date'] = "";
