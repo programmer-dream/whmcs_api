@@ -46,11 +46,6 @@ router.get("/dashboard", ensureAuthenticated, async function (req, res) {
       ],
       modules: [
         {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
           label: "Manage Modules",
           url: '/staff/moduleadd',
           icon: "folder_special",
@@ -141,11 +136,6 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
@@ -238,11 +228,6 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
       ],
       modules: [
         {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
           label: "Manage Modules",
           url: '/staff/moduleadd',
           icon: "folder_special",
@@ -330,11 +315,6 @@ router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
       ],
       modules: [
         {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
           label: "Manage Modules",
           url: '/staff/moduleadd',
           icon: "folder_special",
@@ -420,11 +400,6 @@ router.get("/userManager", ensureAuthenticated,async function (req, res) {
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
@@ -520,11 +495,6 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
       ],
       modules: [
         {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
           label: "Manage Modules",
           url: '/staff/moduleadd',
           icon: "folder_special",
@@ -584,101 +554,6 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
   });
 });
 
-router.get("/moduledash", ensureAuthenticated, async function (req, res) {
-  
-  res.render("moduledash", {
-    email: req.user.upn,
-    user: req.user,
-    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
-    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
-    modules:await user_idpdetailDal.listModules(),
-    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
-    supportMenu: {
-      main: [
-        {
-          label: "Raise Support",
-          url: process.env.Staffticketlink,
-          icon: "local_offer",
-        },
-
-        {
-          label: "Knowledge Base",
-          url: process.env.Staffknowledgebaselink,
-          icon: "info_outline",
-        },
-      ],
-      other: [
-        {
-          label: "Network Monitor",
-          url: process.env.Networkmonitorlink,
-          icon: "list_alt",
-        },
-      ],
-      modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
-          label: "Manage Modules",
-          url: '/staff/moduleadd',
-          icon: "folder_special",
-        },
-        {
-          label: "Courses",
-          url: '/staff/modulecourses',
-          icon: "featured_play_list",
-        },
-        {
-          label: "Assign users",
-          url: '/staff/moduleassignusers',
-          icon: "rule_folder",
-        },
-        {
-          label: "Module Dates",
-          url: '/staff/moduleatl',
-          icon: "date_range",
-        },
-        {
-          label: "Student view",
-          url: '/staff/modulestudentview',
-          icon: "folder_shared",
-        },
-      ],      
-      admin: [
-        {
-          label: "User Manager",
-          url: '/staff/userManager',
-          icon: "group",
-        },
-        {
-          label: "Bulk User Import ",
-          url: '/staff/bulkUserImport',
-          icon: " group_add",
-        },
-        {
-          label: "Add individual user ",
-          url: '/staff/addIndividualUser',
-          icon: "person_add",
-        },
-        {
-          label: "Remove users ",
-          url: '/staff/removeUsers',
-          icon: "person_remove",
-        },
-        {
-          label: "Settings ",
-          url: '/staff/settings',
-          icon: "settings",
-        }
-      ],
-    },
-    copyrightDate: `${moment().format("YYYY")}/${moment()
-      .add(1, "year")
-      .format("YY")}`,
-  });
-});
 router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
   
   res.render("moduleadd", {
@@ -711,11 +586,6 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
@@ -806,11 +676,6 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
@@ -908,11 +773,6 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
       ],
       modules: [
         {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
-        {
           label: "Manage Modules",
           url: '/staff/moduleadd',
           icon: "folder_special",
@@ -1002,11 +862,6 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',
@@ -1098,11 +953,6 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
         },
       ],
       modules: [
-        {
-          label: "Dashboard",
-          url: '/staff/moduledash',
-          icon: "folder_special",
-        },
         {
           label: "Manage Modules",
           url: '/staff/moduleadd',

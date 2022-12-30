@@ -24,47 +24,8 @@ data-scroll-to-active="true">
                 </span>
             </a>
         </li>
-        <!-- Support Menu-->
-        <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
-                class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
-                data-original-title="Support">more_horiz</i>
-        </li>
-        <% supportMenu.main.forEach(item=> {
-            %>
-
-            <li class=" nav-item">
-                <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
-                    <i class="material-icons mr-1">
-                        <%= item.icon %>
-                    </i>
-                    <span class="menu-title" data-i18n="nav.support_raise_support.main">
-                        <%= item.label %>
-                    </span>
-                </a>
-            </li>
-
-            <% }) %>
-                <li class=" navigation-header"><span data-i18n="nav.category.support">Other
-                        Links</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
-                        data-placement="right" data-original-title="Support">more_horiz</i>
-                </li>
-                <% supportMenu.other.forEach(item=> {
-                    %>
-
-                    <li class=" nav-item">
-                        <a href="<%= item.url %>"
-                            class="d-flex justify-content-start align-items-start">
-                            <i class="material-icons mr-1">
-                                <%= item.icon %>
-                            </i>
-                            <span class="menu-title" data-i18n="nav.support_raise_support.main">
-                                <%= item.label %>
-                            </span>
-                        </a>
-                    </li>
-
-                    <% }) %>
-                <!-- Module Manager links -->
+                    
+        <!-- Module Manager links -->
                 <li>
                     <li class=" navigation-header"><span data-i18n="nav.category.support">Module Manager</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
                         data-placement="right" data-original-title="Support">more_horiz</i>
@@ -88,8 +49,49 @@ data-scroll-to-active="true">
 
                     <% }) %>
                 <li>
-                    
 
+                        <!-- Support Menu-->
+        <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
+            class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
+            data-original-title="Support">more_horiz</i>
+    </li>
+    <% supportMenu.main.forEach(item=> {
+        %>
+
+        <li class=" nav-item">
+            <a href="<%= item.url %>" class="d-flex justify-content-start align-items-start">
+                <i class="material-icons mr-1">
+                    <%= item.icon %>
+                </i>
+                <span class="menu-title" data-i18n="nav.support_raise_support.main">
+                    <%= item.label %>
+                </span>
+            </a>
+        </li>
+
+        <% }) %>
+                  
+                    
+                    <li class=" navigation-header"><span data-i18n="nav.category.support">Other
+                        Links</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
+                        data-placement="right" data-original-title="Support">more_horiz</i>
+                </li>
+                <% supportMenu.other.forEach(item=> {
+                    %>
+
+                    <li class=" nav-item">
+                        <a href="<%= item.url %>"
+                            class="d-flex justify-content-start align-items-start">
+                            <i class="material-icons mr-1">
+                                <%= item.icon %>
+                            </i>
+                            <span class="menu-title" data-i18n="nav.support_raise_support.main">
+                                <%= item.label %>
+                            </span>
+                        </a>
+                    </li>
+
+                    <% }) %>
     
 </ul>
     
