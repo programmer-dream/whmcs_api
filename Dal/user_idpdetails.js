@@ -1,5 +1,5 @@
 var Sequelize = require("sequelize");
-
+var moment =require("moment");
 var config = require("../server/config/sql");
 //database connection.
 var sequelize = new Sequelize(config.database, config.user, config.password, {
@@ -509,7 +509,123 @@ var User_idpdetail = {
       return []
     }
   },
+  getAllmodules: async function() {
+    let allModules = []
+    let modules= await module_details.findAll({include: [{ model: modules_due_dates, required: true }]});
+    console.log(modules,"modules,modules")
+    if(modules.length){
+      await Promise.all(
+        modules.map( async function(module){
+            let obj = {
+              module_id:module.module_id,
+              module_code: module.module_code,
+              module_name: module.module_name,
+              module_due_date: module.modules_due_dates,
+              number_of_occurance_per_year:module.number_of_occurance_per_year
+            }
+          allModules.push(obj)
+        })
+      ) 
+     return allModules
+    }else{
+        return []
+     }
+
+  },
+ 
+  listModuleswithdates: async function() {
+    let allModules = []
+    let due_dates
+    var todayDate = moment().format('YYYY-MM-DD');
+    let modules= await module_details.findAll();
+
+    if(modules){
+      await Promise.all(
+        modules.map( async function(module){
+          due_dates= await modules_due_dates.findOne(
+            {
+              where:{module_id: module.module_id,
+              modules_due_date:sequelize.where(sequelize.fn('date', sequelize.col('modules_due_date')),'>',todayDate)
+            },
+            attributes: [[Sequelize.fn('min', Sequelize.col('modules_due_date')), 'min']],
+            group: ['module_id']}
+           );
+           if(due_dates){
+            // let minDate=due_dates.dataValues.min.format('MM/DD/YYYY');
+            // console.log(todayDate,"ajj da din")
+            // console.log(minDate,"kal da din")
+            // diff  = new Date(todayDate - due_dates.dataValues.min),
+            // days  = diff/1000/60/60/24;
+            // console.log(days,"daysdays")
+             module['due_date'] = due_dates.dataValues.min;
+           }
+           else{
+             module['due_date'] = "";
+           }
+           let obj = {
+                module_code: module.module_code,
+                module_name: module.module_name,
+                module_type: module.module_type,
+                module_id:module.module_id,
+                module_duedate: module.due_date
+                }
+            allModules.push(obj)
+         })
+      )
+    let sorted = allModules.sort(function(a, b) { 
+                      return a.module_id - b.module_id;
+                    });
+      return sorted  
+        
+    }else{
+      return []
+    }
+    
+  },
   
+ modulesRecentlyEnd:async function () {
+    let allModules = []
+    let due_dates
+    let todayDate = moment().format('YYYY-MM-DD');
+    let modules= await module_details.findAll();
+    if(modules){
+      await Promise.all(
+        modules.map( async function(module){
+          due_dates= await modules_due_dates.findOne(
+            {
+              where:{module_id: module.module_id,
+              modules_due_date:sequelize.where(sequelize.fn('date', sequelize.col('modules_due_date')),'<',todayDate)
+            },
+            attributes: [[Sequelize.fn('min', Sequelize.col('modules_due_date')), 'min']],
+            group: ['module_id']}
+           );
+            if(due_dates){
+              due_dates=due_dates.toJSON();
+              module['due_date'] = due_dates.min;
+            }
+            else{
+              module['due_date'] = "";
+            }
+             let obj = {
+                  module_code: module.module_code,
+                  module_name: module.module_name,
+                  module_type: module.module_type,
+                  module_id:module.module_id,
+                  module_duedate: module.due_date
+                  }
+              allModules.push(obj)
+         })
+      )
+    let sorted = allModules.sort(function(a, b) { 
+                      return a.module_id - b.module_id;
+                    });
+      return sorted  
+        
+    }else{
+      return []
+    }
+
+  },
   getmoduleEndDate:async function (userId, moduleId) {
 
   },

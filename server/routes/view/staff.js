@@ -871,13 +871,19 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
   });
 });
 router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
-  
+    var now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    let dtoday = now.toISOString().slice(0,16);
   res.render("moduleatl", {
     email: req.user.upn,
     user: req.user,
+    dtoday:dtoday,
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
+    allmodules:await user_idpdetailDal.getAllmodules(),
+    modulesWithDuedates: await user_idpdetailDal.listModuleswithdates(),
+    modulesRecentlyEnd:await user_idpdetailDal.modulesRecentlyEnd(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [

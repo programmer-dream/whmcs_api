@@ -123,14 +123,14 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            
+                                            <% modulesWithDuedates.forEach((item, index)=> { %>
                                                 <tr> 
                                                   <th scope="row">1</th>
-                                                  <td>test</td>
-                                                  <td>tset</td>
-                                                  <td>tset</td>
+                                                  <td><%= item.module_code %></td>
+                                                  <td><%= item.module_name %></td>
+                                                  <td><%= item.module_duedate %></td>
                                                 </tr>
-                                         
+                                            <% }) %>
                                           </tbody>
                                         </table>
 
@@ -162,14 +162,18 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            
+                                            <% modulesRecentlyEnd.forEach((item, index)=> { 
+                                                if(!item.module_duedate)
+                                                   return;
+                                                 %>
+
                                                 <tr> 
                                                   <th scope="row">1</th>
-                                                  <td>test</td>
-                                                  <td>tset</td>
-                                                  <td>tset</td>
+                                                  <td><%= item.module_code %></td>
+                                                  <td><%= item.module_name %></td>
+                                                  <td><%= item.module_duedate %></td>
                                                 </tr>
-                                         
+                                            <% }) %>
                                           </tbody>
                                         </table>
 
@@ -203,13 +207,19 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            
+                                             <% allmodules.forEach((item,index)=> { %>
                                                 <tr> 
                                                   <th scope="row">1</th>
-                                                  <td>test</td>
-                                                  <td>tset</td>
-                                                  <td>tset</td>
-                                                  <td>tset</td>
+                                                  <td><%= item.module_code %></td>
+                                                  <td><%= item.module_name %></td>
+                                                  <td><%= item.number_of_occurance_per_year%></td>
+                                                  <td>
+                                                    <% item.module_due_date.forEach((item,index)=> { 
+
+                                                    %>
+                                                    <p><%= item.modules_due_date %></p>
+                                                    <% }) %>
+                                                  </td>
                                                   
                                                    <td>
                                                     <span class="material-symbols-outlined editLocation" id="" title="Edit teaching location" location_id="" data-toggle="modal" data-target="#editModalCenter" style="cursor: pointer;">edit</span>
@@ -218,7 +228,7 @@
                                                     <span class="material-symbols-outlined archiveLocation" id="" title="Delete teaching location" location_id="" style="cursor: pointer;">archive</span>
                                                   </td>
                                                 </tr>
-                                         
+                                               <% }) %>
                                           </tbody>
                                         </table>
 
