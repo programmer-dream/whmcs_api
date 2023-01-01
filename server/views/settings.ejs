@@ -142,7 +142,7 @@
                                                <!-- 26-dec -->
                                                 <tr>
                                                 <th scope="row"><p>Modules</p></th>
-                                                <th scope="row"><p>Enable dates within the module manager tool.</p></th>
+                                                <th scope="row"><p>Module Dates</p></th>
                                                 <td>Enabling dates within the module manager tool will require all modules to have start and end date. User will be locked out of their work for a defined period of the time once the end date is reached. Disabled by default.</td>
                                                 <% var module_date_checked=''
                                                     if(enabledisablevalue.module_date_enabled){
@@ -155,6 +155,14 @@
                                                         <input type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
                                                 </td>
                                                </tr>
+                                               <tr>
+                                                <th scope="row"><p>Modules</p></th>
+                                                <th scope="row"><p>Marking duration</p></th>
+                                                <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
+                                                <td>
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Modify</button>                                                                                                           
+                                                </td>
+                                               </tr>       
                                                <tr>
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Module course</p></th>
