@@ -160,13 +160,13 @@
                                                 <th scope="row"><p>Marking duration</p></th>
                                                 <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
                                                 <td>
-                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Modify</button>                                                                                                           
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
                                                 </td>
                                                </tr>       
                                                <tr>
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Module course</p></th>
-                                                <td>This setting removes module signup and adds the ability for courses to be selected. A course is a pre-defined collection of modules.</td>
+                                                <td>This setting removes the option of selecting a module on signup/iport and adds in the concept of courses, which can be assigned to a student. A course is a pre-defined collection of modules.</td>
                                                 <% var checked=''
                                                     if(enabledisablevalue.module_courses_enabled){
                                                         checked=`checked`
@@ -600,7 +600,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="terminologymodal">Modify the cron</h5>
+                <h5 class="modal-title" id="cronmodal">Modify the Cron</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -609,7 +609,7 @@
                 <div class="row">
                   <div class="col-12">
                     
-                      <!-- Start of text and terminology section -->
+                      <!-- Start of the cron section -->
                       <p></p>
                        
                       <table class="table table-striped">
@@ -639,7 +639,7 @@
                       <p></p>
                       <p></p>
 
-                  <!-- End of text and terminology section -->
+                  <!-- End of the cron section -->
 
 
 
@@ -656,7 +656,59 @@
 </div>
 
                                   
-
+                  <!-- Duration modal -->
+                  <div class="modal fade bd-duration-modal-lg" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="durationmodal">Modify the Duration</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col-12">
+                                    
+                                      <!-- Start of text for the duration section -->
+                                      <p></p>
+                                       
+                                      <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Current value</th>
+                                            <th scope="col">Modify</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">1</th>
+                                            <td>Modify the marking duration. This is the amount of time that a users module folder should not be accessible.</td>
+                                            <td>14</td>
+                                            <td><button type="button" class="btn btn-primary">Modify</button></td>
+                                          </tr>                                          
+                                        </tbody>
+                                      </table>
+                                      <p></p>
+                                      <p></p>
+                
+                                  <!-- End of text for the duration section -->
+                
+                
+                
+                                      
+                                      <p></p>
+                                      <p></p>
+                                      <p></p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
