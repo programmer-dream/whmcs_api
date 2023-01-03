@@ -24,7 +24,30 @@ data-scroll-to-active="true">
                 </span>
             </a>
         </li>
-                    
+              
+        <li class=" nav-item"><a href="#"><i class="la la-android"></i><span class="menu-title" data-i18n="Menu levels">Menu levels</span></a>
+            <ul class="menu-content">
+                <li><a class="menu-item" href="#"><i></i><span data-i18n="Second level">Second level</span></a>
+                </li>
+                <li><a class="menu-item" href="#"><i></i><span data-i18n="Second level child">Second level child</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="#"><i></i><span data-i18n="Third level">Third level</span></a>
+                        </li>
+                        <li><a class="menu-item" href="#"><i></i><span data-i18n="Third level child">Third level child</span></a>
+                            <ul class="menu-content">
+                                <li><a class="menu-item" href="#"><i></i><span data-i18n="Fourth level">Fourth level</span></a>
+                                </li>
+                                <li><a class="menu-item" href="#"><i></i><span data-i18n="Fourth level">Fourth level</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+
+
         <!-- Module Manager links -->
                 <li>
                     <li class=" navigation-header"><span data-i18n="nav.category.support">Module Manager</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
@@ -50,6 +73,26 @@ data-scroll-to-active="true">
                     <% }) %>
                 <li>
 
+                    <li class=" navigation-header"><span data-i18n="nav.category.support">Teaching Blocks</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
+                        data-placement="right" data-original-title="Support">more_horiz</i>
+                </li>
+                <% supportMenu.blocks.forEach(item=> {
+                    %>
+
+                    <li class=" nav-item">
+                        <a href="<%= item.url %>"
+                            class="d-flex justify-content-start align-items-start">
+                            <i class="material-icons mr-1">
+                                <%= item.icon %>
+                            </i>
+                            <span class="menu-title" data-i18n="nav.support_raise_support.main">
+                                <%= item.label %>
+                            </span>
+                        </a>
+                    </li>
+
+                    <% }) %>
+
                         <!-- Support Menu-->
         <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
             class="material-icons nav-menu-icon" data-toggle="tooltip" data-placement="right"
@@ -72,7 +115,7 @@ data-scroll-to-active="true">
         <% }) %>
                   
                     
-                    <li class=" navigation-header"><span data-i18n="nav.category.support">Other
+            <li class=" navigation-header"><span data-i18n="nav.category.support">Other
                         Links</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
                         data-placement="right" data-original-title="Support">more_horiz</i>
                 </li>
@@ -92,6 +135,7 @@ data-scroll-to-active="true">
                     </li>
 
                     <% }) %>
+                   
     
 </ul>
     

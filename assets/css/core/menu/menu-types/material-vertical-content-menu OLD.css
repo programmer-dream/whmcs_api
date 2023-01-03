@@ -5,6 +5,7 @@
 	item seperation.
 	----------------------------------------------------------------------------------------
 	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	 Version: 3.0
 	Author: PIXINVENT
 	Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -24,7 +25,12 @@
 
 .vertical-content-menu.menu-expanded .main-menu {
   width: 260px;
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
   backface-visibility: hidden;
   top: inherit; }
   .vertical-content-menu.menu-expanded .main-menu .navigation .navigation-header .ft-minus,
@@ -42,26 +48,42 @@
       right: 20px; }
   .vertical-content-menu.menu-expanded .main-menu .navigation li.has-sub > a:not(.mm-next):after {
     content: "\f112";
-    font-family: "LineAwesome";
+    font-family: 'LineAwesome';
     font-size: 1rem;
     display: inline-block;
     position: absolute;
     right: 20px;
-    top: 13px;
+    top: 14px;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
     transform: rotate(0deg);
     transition: -webkit-transform 0.2s ease-in-out; }
   .vertical-content-menu.menu-expanded .main-menu .navigation li.has-sub .has-sub > a:not(.mm-next):after {
-    top: 11px; }
+    top: 8px; }
   .vertical-content-menu.menu-expanded .main-menu .navigation li.open > a:not(.mm-next):after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
     transform: rotate(90deg); }
+  .vertical-content-menu.menu-expanded .main-menu .main-menu-footer {
+    width: 260px; }
 
 .vertical-content-menu.menu-expanded .content-body {
   margin-left: 288px;
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all; }
 
 .vertical-content-menu.menu-expanded.menu-flipped .content-body {
   margin: 0;
   margin-right: 288px;
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all; }
 
 @media (min-width: 576px) {
@@ -94,20 +116,27 @@
 
 .vertical-content-menu.menu-collapsed .main-menu {
   width: 70px;
+  -webkit-transform: translateZ(-160px) translateX(-160px);
+  -moz-transform: translateZ(-160px) translateX(-160px);
   transform: translateZ(-160px) translateX(-160px);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all;
   top: inherit; }
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-header .user-content {
     padding: 20px 10px; }
+  .vertical-content-menu.menu-collapsed .main-menu .main-menu-footer,
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-header .media-body .media-heading,
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-header .media-body .text-muted,
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-header .media-right {
     display: none; }
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-header .media-body {
     opacity: 0; }
-  .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > span.menu-title,
-  .vertical-content-menu.menu-collapsed .main-menu .main-menu-content a.menu-title {
+  .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > span.menu-title, .vertical-content-menu.menu-collapsed .main-menu .main-menu-content a.menu-title {
     right: -260px;
     width: 260px;
     font-weight: 600;
@@ -116,15 +145,15 @@
     text-align: left;
     background-color: #00bcd4;
     border-color: #00bcd4;
-    padding: 15px 20px; }
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > span.menu-title,
-      .vertical-content-menu.menu-collapsed .main-menu .main-menu-content a.menu-title {
-        left: 59px !important; } }
+    padding: 14px 20px; }
   .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content {
     left: 70px;
     width: 260px;
-    transition: visibility 0.25s, opacity 0.25s;
+    -webkit-transition: visibility .25s,opacity .25s;
+    -o-transition: visibility .25s,opacity .25s;
+    -moz-transition: visibility .25s,opacity .25s;
+    transition: visibility .25s,opacity .25s;
+    -webkit-box-shadow: 25px 5px 75px 2px rgba(64, 70, 74, 0.2);
     box-shadow: 25px 5px 75px 2px rgba(64, 70, 74, 0.2);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     border-left: 1px solid rgba(0, 0, 0, 0.02); }
@@ -133,25 +162,44 @@
       position: relative; }
       .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li a {
         display: block;
-        padding: 12px 20px 12px 20px;
+        padding: 8px 20px 8px 20px;
+        -webkit-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
         transition: all 0.2s ease; }
       .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li.has-sub > a:not(.mm-next):after {
         content: "\f112";
-        font-family: "LineAwesome";
+        font-family: 'LineAwesome';
         font-size: 1rem;
         display: inline-block;
         position: absolute;
         right: 20px;
-        top: 13px;
+        top: 14px;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
         transform: rotate(0deg);
         transition: -webkit-transform 0.2s ease-in-out; }
       .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li.has-sub .has-sub > a:not(.mm-next):after {
-        top: 11px; }
+        top: 8px; }
       .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li.open > a:not(.mm-next):after {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
         transform: rotate(90deg); }
       .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li:hover > a, .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li.hover > a {
+        -webkit-transform: translateX(4px);
+        -moz-transform: translateX(4px);
+        -ms-transform: translateX(4px);
+        -o-transform: translateX(4px);
         transform: translateX(4px); }
         .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li:hover > a > a, .vertical-content-menu.menu-collapsed .main-menu .main-menu-content > ul.menu-content li.hover > a > a {
+          -webkit-transform: translateX(-4px);
+          -moz-transform: translateX(-4px);
+          -ms-transform: translateX(-4px);
+          -o-transform: translateX(-4px);
           transform: translateX(-4px); }
   .vertical-content-menu.menu-collapsed .main-menu .navigation {
     overflow: visible; }
@@ -193,11 +241,17 @@
 
 .vertical-content-menu.menu-collapsed .content-body {
   margin-left: 95px;
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all; }
 
 .vertical-content-menu.menu-collapsed.menu-flipped .content-body {
   margin-left: 0px;
   margin-right: 95px;
+  -webkit-transition: 300ms ease all;
+  -o-transition: 300ms ease all;
+  -moz-transition: 300ms ease all;
   transition: 300ms ease all; }
 
 @media (min-width: 576px) {
@@ -245,6 +299,9 @@
     width: 260px; }
   body.vertical-content-menu .content-body {
     margin-left: 288px;
+    -webkit-transition: 300ms ease all;
+    -o-transition: 300ms ease all;
+    -moz-transition: 300ms ease all;
     transition: 300ms ease all; } }
 
 @media (max-width: 991.98px) {
@@ -254,18 +311,28 @@
     width: 70px; }
   body.vertical-content-menu .content-body {
     margin-left: 95px;
+    -webkit-transition: 300ms ease all;
+    -o-transition: 300ms ease all;
+    -moz-transition: 300ms ease all;
     transition: 300ms ease all; }
-  body.vertical-overlay-menu[data-menu="vertical-content-menu"].boxed-layout .main-menu.menu-fixed {
-    top: 0; } }
+  body.vertical-overlay-menu[data-menu="vertical-content-menu"].boxed-layout.menu-open .main-menu {
+    -webkit-transform: translate3d(80px, 0, 0) !important;
+    -moz-transform: translate3d(80px, 0, 0) !important;
+    transform: translate3d(80px, 0, 0) !important; } }
 
 @media (max-width: 767.98px) {
   body.vertical-content-menu .content-body {
     margin-left: 0px !important; }
   html.loading .main-menu, html.loading .vertical-overlay-menu.menu-hide .main-menu, .vertical-overlay-menu.menu-hide html.loading .main-menu {
     opacity: 0;
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
     transform: translate3d(0px, 0, 0); } }
 
 .material-vertical-layout.menu-collapsed .main-menu.menu-light, .material-vertical-layout.menu-collapsed .main-menu.menu-static {
+  -webkit-transition: none !important;
+  -o-transition: none !important;
+  -moz-transition: none !important;
   transition: none !important; }
   .material-vertical-layout.menu-collapsed .main-menu.menu-light .user-profile .user-img, .material-vertical-layout.menu-collapsed .main-menu.menu-static .user-profile .user-img {
     width: 75% !important; }
@@ -287,7 +354,14 @@
     white-space: nowrap;
     display: inline-block; }
 
+@media screen and (max-width: 575px) {
+  body.vertical-overlay-menu[data-menu="vertical-content-menu"].boxed-layout.menu-open .main-menu {
+    -webkit-transform: translate3d(70px, 0, 0) !important;
+    -moz-transform: translate3d(70px, 0, 0) !important;
+    transform: translate3d(70px, 0, 0) !important; } }
+
 .material-vertical-layout .main-menu .user-profile {
+  -webkit-background-size: cover;
   background-size: cover; }
   .material-vertical-layout .main-menu .user-profile .user-info .user-img {
     border: 3px solid #fff;
@@ -306,16 +380,18 @@
     font-size: 1rem; }
 
 .material-vertical-layout .main-menu .main-menu-content .navigation li.active > a {
-  background: #673ab7 !important;
+  background: #673ab7;
   color: #fff; }
 
-.material-vertical-layout .main-menu .main-menu-content .navigation li.active.open > a {
-  margin-bottom: .25rem; }
-
 .material-vertical-layout .main-menu.menu-light {
-  border-right: 0; }
-  .material-vertical-layout .main-menu.menu-light .user-profile {
-    background: url("../../../../../app-assets/images/gallery/left-menu-bg.jpg") center center no-repeat; }
+  border-right: 0;
+/*  height: 100vh;
+    overflow: scroll; */
+      z-index: 0;}
+      .import-file-block{
+        padding-bottom: 400px;
+      }
+  
 
 .material-vertical-layout .main-menu.menu-dark .user-profile {
   background: url("../../../../../app-assets/images/gallery/dark-menu.jpg") center center no-repeat; }
@@ -370,11 +446,12 @@
 
 /*=========================================================================================
 	File Name: vertical-overlay-menu.scss
-	Description: A overlay style vertical menu with show and hide support. It support
-	light & dark version, filpped layout, right side icons, native scroll and borders menu
+	Description: A overlay style vertical menu with show and hide support. It support 
+	light & dark version, filpped layout, right side icons, native scroll and borders menu 
 	item seperation.
 	----------------------------------------------------------------------------------------
 	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	 Version: 3.0
 	Author: PIXINVENT
 	Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -383,10 +460,10 @@
 
 .vertical-overlay-menu .navbar .navbar-header {
   float: left;
-  width: 280px; }
+  width: 260px; }
 
 .vertical-overlay-menu .navbar.navbar-brand-center .navbar-container {
-  margin-left: auto; }
+  margin-left: 0; }
 
 .vertical-overlay-menu .navbar.navbar-brand-center .navbar-header {
   float: left;
@@ -394,100 +471,117 @@
 
 .vertical-overlay-menu .main-menu, .vertical-overlay-menu.menu-hide .main-menu {
   opacity: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  transition: width 0.25s, opacity 0.25s, transform 0.25s;
-  width: 280px;
-  left: -280px; }
+  -webkit-transition: width .25s, opacity .25s, -webkit-transform .25s;
+  transition: width .25s, opacity .25s, -webkit-transform .25s;
+  -o-transition: width .25s, opacity .25s, -o-transform .25s;
+  -moz-transition: width .25s, opacity .25s, transform .25s, -moz-transform .25s;
+  transition: width .25s, opacity .25s, transform .25s;
+  transition: width .25s, opacity .25s, transform .25s, -webkit-transform .25s, -moz-transform .25s, -o-transform .25s;
+  width: 260px;
+  left: -260px; }
   .vertical-overlay-menu .main-menu.menu-fixed {
+    height: -webkit-calc(100% - 5rem);
+    height: -moz-calc(100% - 5rem);
     height: calc(100% - 5rem); }
     .vertical-overlay-menu .main-menu.menu-fixed .main-menu-content {
+      height: -webkit-calc(100% - 12rem) !important;
+      height: -moz-calc(100% - 12rem) !important;
       height: calc(100% - 12rem) !important;
-      position: relative;
-      padding-top: 3px; }
-  .vertical-overlay-menu .main-menu.material-menu .main-menu-content .navigation li.active > a {
-    border: none; }
-  .vertical-overlay-menu .main-menu .navigation .navigation-header {
-    padding-left: 34px; }
-    .vertical-overlay-menu .main-menu .navigation .navigation-header .ft-minus,
-    .vertical-overlay-menu .main-menu .navigation .navigation-header .nav-menu-icon {
-      display: none; }
-  .vertical-overlay-menu .main-menu .navigation > li > a {
-    padding-left: 32px; }
-    .vertical-overlay-menu .main-menu .navigation > li > a > i {
-      font-size: 1.6rem;
-      margin-right: 12px;
-      float: left; }
-      .vertical-overlay-menu .main-menu .navigation > li > a > i:before {
-        transition: 200ms ease all; }
-    .vertical-overlay-menu .main-menu .navigation > li > a span.badge {
-      right: 26px !important; }
-  .vertical-overlay-menu .main-menu .navigation > li.hover > a {
-    padding-left: 28px; }
-  .vertical-overlay-menu .main-menu .navigation > li ul li > a {
-    padding-left: 68px; }
-  .vertical-overlay-menu .main-menu .navigation > li .active > a {
-    padding-left: 54px; }
-  .vertical-overlay-menu .main-menu .navigation > li ul .open > ul li > a {
-    padding-left: 74px; }
-  .vertical-overlay-menu .main-menu .navigation > li ul .open > ul li:not(.active):hover > a {
-    padding-left: 78px; }
-  .vertical-overlay-menu .main-menu .navigation > li.open > ul > li:hover > a {
-    padding-left: 72px; }
-  .vertical-overlay-menu .main-menu .navigation > li.open > ul > li:hover.active > a {
-    padding-left: 54px; }
+      position: relative; }
+  .vertical-overlay-menu .main-menu .navigation .navigation-header .ft-minus,
+  .vertical-overlay-menu .main-menu .navigation .navigation-header .nav-menu-icon {
+    display: none; }
+  .vertical-overlay-menu .main-menu .navigation > li > a > i {
+    font-size: 1.6rem;
+    margin-right: 12px;
+    float: left; }
+    .vertical-overlay-menu .main-menu .navigation > li > a > i:before {
+      -webkit-transition: 200ms ease all;
+      -o-transition: 200ms ease all;
+      -moz-transition: 200ms ease all;
+      transition: 200ms ease all; }
   .vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after {
     content: "\f112";
-    font-family: "LineAwesome";
+    font-family: 'LineAwesome';
     font-size: 1rem;
     display: inline-block;
     position: absolute;
     right: 20px;
-    top: 13px;
+    top: 14px;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
     transform: rotate(0deg);
     transition: -webkit-transform 0.2s ease-in-out; }
   .vertical-overlay-menu .main-menu .navigation li.has-sub .has-sub > a:not(.mm-next):after {
-    top: 11px; }
+    top: 8px; }
   .vertical-overlay-menu .main-menu .navigation li.open > a:not(.mm-next):after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
     transform: rotate(90deg); }
-  .vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after {
-    right: 28px;
-    top: 13px; }
+  .vertical-overlay-menu .main-menu .main-menu-footer {
+    bottom: 55px; }
+  .vertical-overlay-menu .main-menu .main-menu-footer {
+    width: 260px; }
 
 .vertical-overlay-menu.menu-open .main-menu {
   opacity: 1;
-  transform: translate3d(280px, 0, 0);
-  transition: width 0.25s, opacity 0.25s, transform 0.25s; }
+  -webkit-transform: translate3d(260px, 0, 0);
+  -moz-transform: translate3d(260px, 0, 0);
+  transform: translate3d(260px, 0, 0);
+  -webkit-transition: width .25s, opacity .25s, -webkit-transform .25s;
+  transition: width .25s, opacity .25s, -webkit-transform .25s;
+  -o-transition: width .25s, opacity .25s, -o-transform .25s;
+  -moz-transition: width .25s, opacity .25s, transform .25s, -moz-transform .25s;
+  transition: width .25s, opacity .25s, transform .25s;
+  transition: width .25s, opacity .25s, transform .25s, -webkit-transform .25s, -moz-transform .25s, -o-transform .25s; }
 
 .vertical-overlay-menu.menu-flipped .main-menu {
-  right: -280px;
+  right: -260px;
   left: inherit; }
 
 .vertical-overlay-menu.menu-flipped .navbar .navbar-container {
   margin: 0;
-  margin-right: 280px; }
+  margin-right: 260px; }
 
 .vertical-overlay-menu.menu-flipped .navbar .navbar-header {
   float: right; }
 
 .vertical-overlay-menu.menu-flipped.menu-open .main-menu {
-  transform: translate3d(-280px, 0, 0); }
+  -webkit-transform: translate3d(-260px, 0, 0);
+  -moz-transform: translate3d(-260px, 0, 0);
+  transform: translate3d(-260px, 0, 0); }
 
 .vertical-overlay-menu footer.footer.fixed-bottom {
   z-index: 999; }
 
 .vertical-overlay-menu.boxed-layout.menu-open .main-menu {
-  transform: translate3d(280px, 0, 0) !important; }
+  -webkit-transform: translate3d(270px, 0, 0) !important;
+  -moz-transform: translate3d(270px, 0, 0) !important;
+  transform: translate3d(270px, 0, 0) !important; }
 
-.vertical-overlay-menu.boxed-layout {
-  position: relative; }
-  .vertical-overlay-menu.boxed-layout .main-menu.menu-fixed {
-    position: absolute; }
+@media (max-width: 991.98px) {
+  .vertical-overlay-menu .main-menu .main-menu-footer {
+    bottom: 0px; }
+  .vertical-overlay-menu[data-menu="vertical-compact-menu"].boxed-layout.menu-open .main-menu {
+    -webkit-transform: translate3d(120px, 0, 0) !important;
+    -moz-transform: translate3d(120px, 0, 0) !important;
+    transform: translate3d(120px, 0, 0) !important; } }
 
 @media screen and (max-width: 575px) {
   .vertical-overlay-menu.boxed-layout.menu-open .main-menu {
-    transform: translate3d(280px, 0, 0) !important; } }
+    -webkit-transform: translate3d(260px, 0, 0) !important;
+    -moz-transform: translate3d(260px, 0, 0) !important;
+    transform: translate3d(260px, 0, 0) !important; } }
 
 .material-vertical-layout .main-menu .user-profile {
+  -webkit-background-size: cover;
   background-size: cover; }
   .material-vertical-layout .main-menu .user-profile .user-info .user-img {
     border: 3px solid #fff;
@@ -506,16 +600,12 @@
     font-size: 1rem; }
 
 .material-vertical-layout .main-menu .main-menu-content .navigation li.active > a {
-  background: #673ab7 !important;
+  background: #673ab7;
   color: #fff; }
-
-.material-vertical-layout .main-menu .main-menu-content .navigation li.active.open > a {
-  margin-bottom: .25rem; }
 
 .material-vertical-layout .main-menu.menu-light {
   border-right: 0; }
-  .material-vertical-layout .main-menu.menu-light .user-profile {
-    background: url("../../../../../app-assets/images/gallery/left-menu-bg.jpg") center center no-repeat; }
+  .material-vertical-layout .main-menu.menu-light .user-profile { }
 
 .material-vertical-layout .main-menu.menu-dark .user-profile {
   background: url("../../../../../app-assets/images/gallery/dark-menu.jpg") center center no-repeat; }
@@ -540,15 +630,3 @@
   top: 0.7rem; }
   .material-vertical-layout.vertical-overlay-menu .main-menu .navigation > li > a i.material-icons {
     font-size: 1.5rem; }
-
-@keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
-@keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }

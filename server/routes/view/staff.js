@@ -37,6 +37,23 @@ router.get("/dashboard", ensureAuthenticated, async function (req, res) {
           icon: "info_outline",
         },
       ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
       other: [
         {
           label: "Network Monitor",
@@ -128,6 +145,23 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
           icon: "info_outline",
         },
       ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
       other: [
         {
           label: "Network Monitor",
@@ -161,7 +195,8 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -169,7 +204,7 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -182,12 +217,14 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -212,11 +249,27 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -252,7 +305,8 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -260,7 +314,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -273,12 +327,14 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -306,6 +362,23 @@ router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
           icon: "info_outline",
         },
       ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
       other: [
         {
           label: "Network Monitor",
@@ -339,7 +412,8 @@ router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -347,7 +421,7 @@ router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -360,12 +434,14 @@ router.get("/removeUsers", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -390,6 +466,23 @@ router.get("/userManager", ensureAuthenticated,async function (req, res) {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -479,11 +572,27 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -519,7 +628,8 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -527,7 +637,7 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -540,12 +650,14 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -571,11 +683,27 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -611,7 +739,8 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -619,7 +748,7 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -632,12 +761,14 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -661,11 +792,27 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -701,7 +848,8 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -709,7 +857,7 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -722,12 +870,14 @@ router.get("/moduleassignusers", ensureAuthenticated, async function (req, res) 
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -757,11 +907,27 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -797,7 +963,8 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -805,7 +972,7 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -818,12 +985,14 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -847,11 +1016,27 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -887,7 +1072,8 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -895,7 +1081,7 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -908,12 +1094,14 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
@@ -938,11 +1126,27 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
           url: process.env.Staffticketlink,
           icon: "local_offer",
         },
-
         {
           label: "Knowledge Base",
           url: process.env.Staffknowledgebaselink,
           icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
         },
       ],
       other: [
@@ -978,7 +1182,8 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
           url: '/staff/modulestudentview',
           icon: "folder_shared",
         },
-      ],      
+      ],
+
       admin: [
         {
           label: "User Manager",
@@ -986,7 +1191,7 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
           icon: "group",
         },
         {
-          label: "Bulk User Import ",
+          label: "Bulk User Import",
           url: '/staff/bulkUserImport',
           icon: " group_add",
         },
@@ -999,12 +1204,344 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
           label: "Remove users ",
           url: '/staff/removeUsers',
           icon: "person_remove",
-        },
+        }
+        ,
         {
           label: "Settings ",
           url: '/staff/settings',
           icon: "settings",
         }
+                
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
+
+router.get("/blockmanageblocks", ensureAuthenticated, async function (req, res) {
+  
+  res.render("blockmanageblocks", {
+    email: req.user.upn,
+    user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      modules: [
+        {
+          label: "Manage Modules",
+          url: '/staff/moduleadd',
+          icon: "folder_special",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
+        },
+        {
+          label: "Assign users",
+          url: '/staff/moduleassignusers',
+          icon: "rule_folder",
+        },
+        {
+          label: "Module Dates",
+          url: '/staff/moduleatl',
+          icon: "date_range",
+        },
+        {
+          label: "Student view",
+          url: '/staff/modulestudentview',
+          icon: "folder_shared",
+        },
+      ],
+
+      admin: [
+        {
+          label: "User Manager",
+          url: '/staff/userManager',
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        }
+        ,
+        {
+          label: "Settings ",
+          url: '/staff/settings',
+          icon: "settings",
+        }
+                
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
+
+router.get("/blockstudentextensions", ensureAuthenticated, async function (req, res) {
+  
+  res.render("blockstudentextensions", {
+    email: req.user.upn,
+    user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      modules: [
+        {
+          label: "Manage Modules",
+          url: '/staff/moduleadd',
+          icon: "folder_special",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
+        },
+        {
+          label: "Assign users",
+          url: '/staff/moduleassignusers',
+          icon: "rule_folder",
+        },
+        {
+          label: "Module Dates",
+          url: '/staff/moduleatl',
+          icon: "date_range",
+        },
+        {
+          label: "Student view",
+          url: '/staff/modulestudentview',
+          icon: "folder_shared",
+        },
+      ],
+
+      admin: [
+        {
+          label: "User Manager",
+          url: '/staff/userManager',
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        }
+        ,
+        {
+          label: "Settings ",
+          url: '/staff/settings',
+          icon: "settings",
+        }
+                
+      ],
+    },
+    copyrightDate: `${moment().format("YYYY")}/${moment()
+      .add(1, "year")
+      .format("YY")}`,
+  });
+});
+
+router.get("/blockintakeperiods", ensureAuthenticated, async function (req, res) {
+  
+  res.render("blockintakeperiods", {
+    email: req.user.upn,
+    user: req.user,
+    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
+    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    modules:await user_idpdetailDal.listModules(),
+    enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    supportMenu: {
+      main: [
+        {
+          label: "Raise Support",
+          url: process.env.Staffticketlink,
+          icon: "local_offer",
+        },
+        {
+          label: "Knowledge Base",
+          url: process.env.Staffknowledgebaselink,
+          icon: "info_outline",
+        },
+      ],
+      blocks: [
+        {
+          label: "Manage Blocks",
+          url: '/staff/blockmanageblocks',
+          icon: "view_timeline",
+        },
+        {
+          label: "Student Extensions",
+          url: '/staff/blockstudentextensions',
+          icon: "assignment_turned_in",
+        },
+        {
+          label: "Intake Periods",
+          url: '/staff/blockintakeperiods',
+          icon: "start",
+        },
+      ],
+      other: [
+        {
+          label: "Network Monitor",
+          url: process.env.Networkmonitorlink,
+          icon: "list_alt",
+        },
+      ],
+      modules: [
+        {
+          label: "Manage Modules",
+          url: '/staff/moduleadd',
+          icon: "folder_special",
+        },
+        {
+          label: "Courses",
+          url: '/staff/modulecourses',
+          icon: "featured_play_list",
+        },
+        {
+          label: "Assign users",
+          url: '/staff/moduleassignusers',
+          icon: "rule_folder",
+        },
+        {
+          label: "Module Dates",
+          url: '/staff/moduleatl',
+          icon: "date_range",
+        },
+        {
+          label: "Student view",
+          url: '/staff/modulestudentview',
+          icon: "folder_shared",
+        },
+      ],
+
+      admin: [
+        {
+          label: "User Manager",
+          url: '/staff/userManager',
+          icon: "group",
+        },
+        {
+          label: "Bulk User Import",
+          url: '/staff/bulkUserImport',
+          icon: " group_add",
+        },
+        {
+          label: "Add individual user ",
+          url: '/staff/addIndividualUser',
+          icon: "person_add",
+        },
+        {
+          label: "Remove users ",
+          url: '/staff/removeUsers',
+          icon: "person_remove",
+        }
+        ,
+        {
+          label: "Settings ",
+          url: '/staff/settings',
+          icon: "settings",
+        }
+                
       ],
     },
     copyrightDate: `${moment().format("YYYY")}/${moment()
