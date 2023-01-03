@@ -3,7 +3,7 @@
 <!-- BEGIN: Head-->
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Add Module - Education Host Ltd</title>
+    <title>Manage Modules - Education Host Ltd</title>
 
     <%- include('header'); -%>
     <style type="text/css">
@@ -55,6 +55,9 @@
     red{
         color: red;
     }
+    .btn {
+          line-height: 1.5;
+        }
     </style>
 
 </head>
@@ -130,7 +133,7 @@
                                 <div class="card-content collapse show" >
                                     <div class="card-body card-dashboard ">
 
-                                        <p>Add a new module below. By default, adding a new module will add this as an option for the student on signup (or when adding a user as an admin). 
+                                        <p>Adding a new module will present this to the student for selection on signup (or when adding a user as an admin). 
                                         Extended functionalty of adding a module (such as module dates and courses) can be accessed by enabing this in the settings page.</p>
                                         
                                                        <!-- Text alignment section start -->
@@ -261,6 +264,7 @@
           </div>
           <div class="modal-body">
             <form class="p-1" id="addModuleForm">
+              <h4 class="form-section"><i class="ft-folder"></i> Module Information</h4>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module Code<span class="red">*</span></label>
                 <div class="col-sm-9">
@@ -285,13 +289,14 @@
                         </select>
                 </div>
               </div>
-              <div class="form-group row">
+             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module Image</label>
                 <div class="col-sm-9 add-location-img-field">
                   <input type="file" class="form-control-file" id="image" name="image">
                 </div>
               </div>
               <% if(settings.module_date_enabled){ %>
+              <h4 class="form-section"><i class="ft-clock"></i> Module due dates</h4>
               <div class="form-group row">
                 <label class="col-sm-5 col-form-label">Number of Occurrences per year <span class="red">*</span></label>
                 <div class="col-sm-7 add-location-img-field">
@@ -318,6 +323,8 @@
                   
               </div>
               <% } %>
+            <h4 class="form-section"><i class="ft-map"></i> Teaching location</h4>
+            <p><b><i>Select one/many or all teaching locations that the module is being taught from.</i></b></p> 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
@@ -332,8 +339,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveModule">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="saveModule"> <i class="la la-check-square-o"></i> Save changes</button>
           </div>        
         </div>
       </div>
@@ -351,6 +358,7 @@
           <div class="modal-body">
             <form class="p-1" id="editModuleForm">
              <input type="hidden" name="id" id="unique_id" value="">
+             <h4 class="form-section"><i class="ft-folder"></i> Module Information</h4>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Module Code<span class="red">*</span></label>
                 <div class="col-sm-9">
@@ -382,6 +390,7 @@
                 </div>
               </div>
               <% if(settings.module_date_enabled){ %>
+             <h4 class="form-section"><i class="ft-clock"></i> Module due dates</h4>
               <div class="form-group row">
                 <label class="col-sm-5 col-form-label">Number of Occurrences per year <span class="red">*</span></label>
                 <div class="col-sm-7 add-location-img-field">
@@ -408,6 +417,8 @@
                   
               </div>
               <% } %>
+              <h4 class="form-section"><i class="ft-map"></i> Teaching location</h4>
+            <p><b><i>Add additional locations that the module is being taught from.</i></b></p> 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Teaching location <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
