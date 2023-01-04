@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { DateTime } = require("luxon");
 const router = express.Router();
 const moment = require("moment");
 
@@ -557,9 +557,8 @@ router.get("/userManager", ensureAuthenticated,async function (req, res) {
 });
 
 router.get("/settings", ensureAuthenticated, async function (req, res) {
-  console.log('ssssss------------------>');
+  
   res.render("settings", {
-
     email: req.user.upn,
     user: req.user,
     teachingLocation:await user_idpdetailDal.listTeachingLocation(true),
@@ -890,6 +889,9 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
     var now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     let dtoday = now.toISOString().slice(0,16);
+
+
+  
   res.render("moduleatl", {
     email: req.user.upn,
     user: req.user,
@@ -901,6 +903,7 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
     modulesWithDuedates: await user_idpdetailDal.listModuleswithdates(),
     modulesRecentlyEnd:await user_idpdetailDal.modulesRecentlyEnd(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    module_agent : await module_status(),
     supportMenu: {
       main: [
         {
@@ -1579,5 +1582,20 @@ function ensureAuthenticated(req, res, next) {
   req.flash("error_msg", "Your account is not approved yet.");
   res.redirect("/staff/login");
 }
+async function module_status (){
+  let setting = await user_idpdetailDal.listEnablevalue()
+  //console.log(setting, "<<< setting")
+    if(setting.cron_running_date){
+      let endDate = DateTime.now();
+      let strDate  = setting.cron_running_date;
+          strDate  = strDate.toISOString().replace('Z','')
+      let startDate = DateTime.fromISO(strDate);
+      let minDiff = endDate.diff(startDate).as('minutes');
+      console.log(minDiff, "<< minDiff")
+      return parseInt(minDiff);
+    }else{
+      return null;
+    }
+  }
 
 module.exports = router;
