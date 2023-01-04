@@ -40,6 +40,7 @@ var modules_due_dates              = models.modules_due_dates
 var client_availablemodules = models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
 user_idpdetails.belongsTo(client_details, { foreignKey: "universityid" });
+modules_users_assigned.belongsTo(user_idpdetails, { foreignKey: "user_id" });
 loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
 module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
@@ -631,7 +632,11 @@ var User_idpdetail = {
         await Promise.all(
           modules.map( async function(module){
            let location= await module_location.findAll({where:{module_id: module.module_id}});
-           let users= await modules_users_assigned.findAll({where:{module_id: module.module_id, to_be_deleted:0}});
+           let users= await modules_users_assigned.findAll({
+            where:{module_id: module.module_id},
+            include: [{ model: user_idpdetails, where:{to_be_deleted:0}, required: true }]
+            });
+
             module['location_count'] = location.length;
             module['user_count'] = users.length;
             let obj = {
