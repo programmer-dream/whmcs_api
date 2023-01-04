@@ -703,8 +703,8 @@
                                           <tr>
                                             <th scope="row">1</th>
                                             <td>Modify the marking duration. This is the amount of time that a users module folder should not be accessible.</td>
-                                            <td>14</td>
-                                            <td><button type="button" class="btn btn-primary">Modify</button></td>
+                                            <td><input type="number" value="<%= enabledisablevalue.marking_duration %>" id="marking_duration"></td>
+                                            <td><button type="button" class="btn btn-primary" onclick="add_marking_duration()">Modify</button></td>
                                           </tr>                                          
                                         </tbody>
                                       </table>
@@ -1264,6 +1264,30 @@
                         dataType: "json",
                         url: "/api/staff/enableDisable",
                         data:{'extension_duration':extension_value},
+                        success: function(response) {
+                            
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                            
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                    $.ajax(settings);
+        }
+        function add_marking_duration()
+        {
+            var marking_duration=$('#marking_duration').val();
+            var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/staff/enableDisable",
+                        data:{'marking_duration':marking_duration},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
