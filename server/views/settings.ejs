@@ -167,7 +167,15 @@
                                                 <td>
                                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
                                                 </td>
-                                               </tr>       
+                                               </tr> 
+                                       <tr>
+                                                <th scope="row"><p>Modules</p></th>
+                                                <th scope="row"><p>Extension duration</p></th>
+                                                <td>The setting define the periods(days) that a user should granted on extension</td>
+                                                <td>
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-extemsion-duration-modal-lg">Modify</button>                                                                                                           
+                                                </td>
+                                               </tr>              
                                                <tr>
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Module course</p></th>
@@ -715,6 +723,60 @@
                     </div>
                 </div>
 
+                <!---extension duration ----->
+                <div class="modal fade bd-extemsion-duration-modal-lg" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="durationmodal">Modify the Extension Duration</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col-12">
+                                    
+                                      <!-- Start of text for the duration section -->
+                                      <p></p>
+                                       
+                                      <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Current value</th>
+                                            <th scope="col">Modify</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">1</th>
+                                            <td>The setting define the periods(days) that a user should granted an extension </td>
+                                            <td><input type="number" value="7" id="extension_value"></td>
+                                            <td><button type="button" class="btn btn-primary" onclick="add_extension_duration()">Modify</button></td>
+                                          </tr>                                          
+                                        </tbody>
+                                      </table>
+                                      <p></p>
+                                      <p></p>
+                
+                                  <!-- End of text for the duration section -->
+                
+                
+                
+                                      
+                                      <p></p>
+                                      <p></p>
+                                      <p></p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
 
 
 
@@ -1037,6 +1099,7 @@
 
             }
         });
+
         $('#editSaveLocation').on('click',function(e){
             e.preventDefault();
             var isValid = $('#editLocationForm').valid();
@@ -1187,6 +1250,30 @@
                 location.reload();
                 }
             });    
+        }
+        function add_extension_duration()
+        {
+            var extension_value=$('#extension_value').val();
+            var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/staff/enableDisable",
+                        data:{'extension_duration':extension_value},
+                        success: function(response) {
+                            
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            // setTimeout(function(){
+                            //     location.reload();
+                            // }, 2000);
+                            
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                    $.ajax(settings);
         }
 
 

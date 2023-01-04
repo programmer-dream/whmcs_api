@@ -557,8 +557,9 @@ router.get("/userManager", ensureAuthenticated,async function (req, res) {
 });
 
 router.get("/settings", ensureAuthenticated, async function (req, res) {
-  
+  console.log('ssssss------------------>');
   res.render("settings", {
+
     email: req.user.upn,
     user: req.user,
     teachingLocation:await user_idpdetailDal.listTeachingLocation(true),
