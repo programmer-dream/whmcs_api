@@ -35,6 +35,9 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false,
         defaultValue:0
+      },
+      cron_running_date: {
+        type: DataTypes.DATE
       }
     },
     {
