@@ -26,6 +26,10 @@
         .btn {
           line-height: 1.5;
         }
+        .material-vertical-layout .main-menu.menu-light {
+    border-right: 0;
+    z-index: 0;
+}
          
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -753,7 +757,8 @@
                                           <tr>
                                             <th scope="row">1</th>
                                             <td>The setting define the periods(days) that a user should granted an extension </td>
-                                            <td><input type="number" value="7" id="extension_value"></td>
+                                            <td><input type="number" value="<%= enabledisablevalue.extension_duration %>" id="extension_value"></td>
+
                                             <td><button type="button" class="btn btn-primary" onclick="add_extension_duration()">Modify</button></td>
                                           </tr>                                          
                                         </tbody>
@@ -1264,9 +1269,9 @@
                             swal("Status has been updated.", {
                                 icon: "success",
                             });
-                            // setTimeout(function(){
-                            //     location.reload();
-                            // }, 2000);
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
                             
                         },
                         error: function (err, type, httpStatus) {
