@@ -1,8 +1,12 @@
 # Items requiring updating
 The following items are becoming end of life and should be coded into the application soon!
 
-1. WHMCS authentication method
-2. WHM TOKENS in server/routes/api/staff.js - https://api.docs.cpanel.net/whm/tokens/
+1. WHM TOKENS in server/routes/api/staff.js - https://api.docs.cpanel.net/whm/tokens/
+
+# Software requirements for server
+
+1. MySQL X 
+2. Node JS 16.X
 
 # Variables to change
 
