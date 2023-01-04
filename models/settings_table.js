@@ -25,6 +25,16 @@ module.exports = function (sequelize, DataTypes) {
       module_date_enabled: {
         type: DataTypes.BOOLEAN(1),
         allowNull: false,
+      },
+      extension_duration: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:7
+      },
+      marking_duration: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
       }
     },
     {
