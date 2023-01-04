@@ -631,7 +631,7 @@ var User_idpdetail = {
         await Promise.all(
           modules.map( async function(module){
            let location= await module_location.findAll({where:{module_id: module.module_id}});
-           let users= await modules_users_assigned.findAll({where:{module_id: module.module_id}});
+           let users= await modules_users_assigned.findAll({where:{module_id: module.module_id, to_be_deleted:0}});
             module['location_count'] = location.length;
             module['user_count'] = users.length;
             let obj = {
