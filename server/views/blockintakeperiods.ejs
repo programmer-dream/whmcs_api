@@ -116,19 +116,94 @@
                 <section id="basic">
                     <div class="row">
                         <div class="col-12">
+                           
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title font-weight-bold">Intake periods</h3>
+                                    <h3 class="card-title font-weight-bold">Intake period overview</h3>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
                                 </div>                                
                                 <div class="card-content collapse show" >
                                     <div class="card-body card-dashboard ">
 
-                                        <div id="calendar"></div>
+                                        <p>You currently have X number of intake periods setup.</p>
+                                        <p></p>
+                                        <p>The last intake period has an end date of XX/XX/XXXX.</p>                                   
+
+                                    </div>
+                                </div>     
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold">Intake period calendar</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div>                                
+                                <div class="card-content collapse show" >
+                                    <div class="card-body card-dashboard ">
+                                        <p>Calendar display of eaching periods, try to ensure there are no dates without an intake period throughout the years.</p>                                        
+                                        <div id="calendar"></div>                                  
+                                    </div>
+                                </div>     
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold">Add/Edit/Remove Intake periods</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div>                                
+                                <div class="card-content collapse show" >
+                                    <div class="card-body card-dashboard ">
+
+                                        <p>We advise setting up atleast 5 years of intake periods.</p>  
                                         
+                                        <table class="table table-striped">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Intake Name</th>
+                                                <th scope="col">Intake Start Date</th>
+                                                <th scope="col">Intake End Date</th>
+                                                <th scope="col">Edit</th>
+                                                <th scope="col">Remove</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <th scope="row">1</th>
+                                                <td>February 2023</td>
+                                                <td>01/02/2023</td>
+                                                <td>30/04/2023</td>
+                                                <td>Edit</td>
+                                                <td>Remove</td>
+                                              </tr>                                              
+                                              <tr>
+                                                <th scope="row">2</th>
+                                                <td>May 2023</td>
+                                                <td>01/05/2023</td>
+                                                <td>31/08/2023</td>
+                                                <td>Edit</td>
+                                                <td>Remove</td>
+                                              </tr>
+                                              <tr>
+                                                <th scope="row">3</th>
+                                                <td>September 2023</td>
+                                                <td>01/09/2023</td>
+                                                <td>31/10/2023</td>
+                                                <td>Edit</td>
+                                                <td>Remove</td>
+                                              </tr>
+                                              
+                                            </tbody>
+                                          </table>
+                                          
+                                          <div class="col-md-12 mb-4" style="text-align: right;">
 
-
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#notingyet">Add Intake Period</button>
+                                            <!-- <button type="button" class="btn btn-warning">Edit Location</button>   -->
+                                            <!-- <button type="button" class="btn btn-danger">Remove Location</button>                                         -->
+                                          </div>
                                     </div>
                                 </div>     
                             </div>
