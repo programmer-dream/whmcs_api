@@ -1,5 +1,6 @@
 var Sequelize = require("sequelize");
 var moment =require("moment");
+const { DateTime } = require("luxon");
 var config = require("../server/config/sql");
 //database connection.
 var sequelize = new Sequelize(config.database, config.user, config.password, {
@@ -529,8 +530,8 @@ var User_idpdetail = {
       ) 
      return allModules
     }else{
-        return []
-     }
+      return []
+    }
 
   },
  
@@ -552,7 +553,10 @@ var User_idpdetail = {
             group: ['module_id']}
            );
            if(due_dates){
-             module['due_date'] = moment(due_dates.dataValues.min).format('YYYY-MM-DD');
+             let endDate= DateTime.fromISO(due_dates.dataValues.min.toISOString().replace('Z',''));
+             let startDate = DateTime.now();
+             let minDiff = endDate.diff(startDate,["days","hours"]).toObject();
+             module['due_date'] = minDiff
            }else{
              module['due_date'] = "";
            }
@@ -594,8 +598,7 @@ var User_idpdetail = {
             group: ['module_id']}
            );
             if(due_dates){
-              due_dates=due_dates.toJSON();
-              module['due_date'] = moment(due_dates.min).format('YYYY-MM-DD');
+              module['due_date'] = DateTime.fromISO(due_dates.dataValues.min.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss');
             }
             else{
               module['due_date'] = "";

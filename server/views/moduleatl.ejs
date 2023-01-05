@@ -7,6 +7,13 @@
     
     <title>Module Dates - Education Host Ltd</title>
 
+    <style type="text/css">
+        .due-date-col {
+            width: 210px;
+        }
+
+    </style>
+
     <%- include('header'); -%>
 
 
@@ -130,10 +137,10 @@
                                           <tbody>
                                             <% modulesWithDuedates.forEach((item, index)=> { %>
                                                 <tr> 
-                                                  <th scope="row">1</th>
+                                                  <th scope="row"><%= index = index+1 %></th>
                                                   <td><%= item.module_code %></td>
                                                   <td><%= item.module_name %></td>
-                                                  <td><%= item.module_duedate %></td>
+                                                  <td><%= item.module_duedate.days %> day and <%= parseInt(item.module_duedate.hours) %> hours</td>
                                                 </tr>
                                             <% }) %>
                                           </tbody>
@@ -173,7 +180,7 @@
                                                  %>
 
                                                 <tr> 
-                                                  <th scope="row">1</th>
+                                                  <th scope="row"><%= index = index+1 %></th>
                                                   <td><%= item.module_code %></td>
                                                   <td><%= item.module_name %></td>
                                                   <td><%= item.module_duedate %></td>
@@ -207,14 +214,14 @@
                                               <th scope="col">Module Code </th>
                                               <th scope="col">Module Name </th>
                                               <th scope="col">Recurrences in year </th>
-                                              <th scope="col">Due dates  </th>
+                                              <th scope="col" class="due-date-col">Due dates  </th>
                                               <th scope="col">Edit dates  </th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                              <% allmodules.forEach((item,index)=> { %>
                                                 <tr> 
-                                                  <th scope="row">1</th>
+                                                  <th scope="row"><%= index = index+1 %></th>
                                                   <td><%= item.module_code %></td>
                                                   <td><%= item.module_name %></td>
                                                   <td><%= item.number_of_occurance_per_year%></td>
@@ -222,15 +229,12 @@
                                                     <% item.module_due_date.forEach((item,index)=> { 
 
                                                     %>
-                                                    <p><%= item.modules_due_date %></p>
+                                                    <p><%= DateTime.fromISO(item.modules_due_date.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm'); %></p>
                                                     <% }) %>
                                                   </td>
                                                   
                                                    <td>
-                                                    <span class="material-symbols-outlined editLocation" id="" title="Edit teaching location" location_id="" data-toggle="modal" data-target="#editModalCenter" style="cursor: pointer;">edit</span>
-                                                  </td>
-                                                  <td>
-                                                    <span class="material-symbols-outlined archiveLocation" id="" title="Delete teaching location" location_id="" style="cursor: pointer;">archive</span>
+                                                    <span class="material-symbols-outlined editDates" id="" title="Edit teaching location" module_id="<%= item.module_id %>" data-toggle="modal" data-target="#editModalCenter" style="cursor: pointer;">edit</span>
                                                   </td>
                                                 </tr>
                                                <% }) %>
@@ -254,6 +258,35 @@
  
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
+
+    <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Module Dates</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="addModuleForm">
+              
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
+                <div class="col-sm-8 add-location-img-field">
+                 <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date[]">
+                </div>
+              </div>
+              
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="saveModule"> <i class="la la-check-square-o"></i> Save changes</button>
+          </div>        
+        </div>
+      </div>
+    </div>
 
     <!-- BEGIN: Footer-->
 

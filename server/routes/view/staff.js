@@ -904,6 +904,7 @@ router.get("/moduleatl", ensureAuthenticated, async function (req, res) {
     modulesRecentlyEnd:await user_idpdetailDal.modulesRecentlyEnd(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     module_agent : await module_status(),
+    DateTime:DateTime,
     supportMenu: {
       main: [
         {
