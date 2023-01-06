@@ -601,10 +601,11 @@ var User_idpdetail = {
          })
       )
     let sorted = allModules.sort(function(a, b) { 
-                      return a.module_id - b.module_id;
+                      return a.module_duedate.days - b.module_duedate.days || a.module_duedate.hours - b.module_duedate.hours;
                     });
+    console.log(sorted, "<<< sorted")
       return sorted  
-        
+      
     }else{
       return []
     }
