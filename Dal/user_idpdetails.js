@@ -37,6 +37,10 @@ var teaching_location_ip_addresses = models.teaching_location_ip_addresses
 var settings_table                 = models.settings_table
 var modules_due_dates              = models.modules_due_dates
 
+var course_details                 = models.course_details
+var courses_modules_assigned       = models.courses_modules_assigned
+var courses_blocks_assigned        = models.courses_blocks_assigned
+
 
 var client_availablemodules = models.client_availablemodules;
 client_details.hasMany(user_idpdetails, { foreignKey: "universityid" });
