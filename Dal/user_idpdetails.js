@@ -469,6 +469,35 @@ var User_idpdetail = {
     return ipAddress.toJSON();
     
   },
+  getModuleData: async function (id) {
+    let allModules = []
+    const modulesDates = await modules_due_dates.findAll({
+      where:{module_id:id}
+    });
+    
+    if(modulesDates.length){
+        modulesDates.map( async function(moduleDate){
+          moduleDate = moduleDate.toJSON()
+          allModules.push(moduleDate)
+        })
+    }
+        
+    return allModules;
+    
+  },
+  saveModuleData: async function ( modulesDates) {
+    let modulesDate = {}
+    if(modulesDates.length){
+        modulesDates.map( async function(moduleDate){
+          modulesDate = await modules_due_dates.findOne({where:{unique_id:moduleDate.unique_id}})
+          modulesDate.update({modules_due_date:moduleDate.date})
+        })
+    }
+        
+    return true;
+    
+  }
+  ,
    getModule: async function (id) {
     
     const ipModule = await module_details.findOne({

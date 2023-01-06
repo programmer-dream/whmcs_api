@@ -342,6 +342,11 @@ router.post("/login", async (req, res) => {
     
     
 });
+router.get("/getModuleDates/:id", async (req, res) => {
+    let moduelId = req.params.id
+
+    res.send({status:'success',data:moduelId});
+})
 router.get("/login/:email", async (req, res) => {
     let connection = mysql.createConnection(whmcsmysqlConfig);
     
@@ -578,11 +583,17 @@ router.get("/getLocation/:id", async (req, res) => {
     
     res.send({status : 'success', message:'Location data', data: location})
 });
-router.get("/getModule/:id", async (req, res) => {
+router.get("/getmoduledata/:id", async (req, res) => {
     let id = req.params.id
     
-    let Modules = await user_idpdetailDal.getModule(id)
-    res.send({status : 'success', message:'Module data', data: Modules})
+    let allModulesDates = await user_idpdetailDal.getModuleData(id)
+    res.send({status : 'success', message:'Module data', data: allModulesDates})
+});
+router.post("/savemoduledata", async (req, res) => {
+
+    let moduleDatesArray = req.body.module_dates
+    let allModulesDates = await user_idpdetailDal.saveModuleData(moduleDatesArray)
+    res.send({status : 'success', message:'Dates updated successfully', data: []})
 });
 
 router.post("/createModule", async (req, res) => {

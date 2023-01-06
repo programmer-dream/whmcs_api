@@ -269,15 +269,9 @@
             </button>
           </div>
           <div class="modal-body">
-            <form class="p-1" id="addModuleForm">
-              
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
-                <div class="col-sm-8 add-location-img-field">
-                 <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date[]">
-                </div>
-              </div>
-              
+            <form class="p-1" id="editModuleDates">
+                <input id="moduleId" type="hidden">
+              <div id="moduleDateFields"></div>
             </form>
           </div>
           <div class="modal-footer">
@@ -300,7 +294,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
 
-    
+    <script>
+        $('.editDates').on('click',function(e){
+            var moduleId = $(this).attr('module_id');
+            $('#moduleId').val(moduleId);
+            $('#moduleDateFields').html('')
+             
+            axios.get('/api/staff/getmoduledata/'+moduleId).then(function (response) {
+                console.log(response.data.data, "<< response")
+                var allDueDates = response.data.data
+                allDueDates.map(function(item){
+                    var date = item.modules_due_date.replace('Z','')
+                        //date = date.toISOString().
+                    var inputField = "<div class='form-group row'><label class='col-sm-3 col-form-label'>Module due date</label><div class='col-sm-8 add-location-img-field'><input class='form-control-file dates' type='datetime-local'  name='module_due_date[]' unique_id='"+item.unique_id+"' value='"+date+"'></div></div>"
+                    //console.log(date, "<< date")
+                    $('#moduleDateFields').append(inputField)
+                })
+            })
+            .catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+
+        });
+        $('#saveModule').on('click',function(e){
+            var moduleId = $('#moduleId').val();
+
+            var editDates = []
+            $('.dates').each(function(item){
+                editDates.push({unique_id:$(this).attr('unique_id'),date:$(this).val()})
+            })
+
+            axios.post('/api/staff/savemoduledata/',{module_dates:editDates}).
+            then(function (response) {
+                swal("Success", response.data.message);
+                setTimeout(function(){
+                    location.reload();
+                }, 3000);
+            })
+            .catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+        });
+    </script>
 </body>
 <!-- END: Body-->
 
