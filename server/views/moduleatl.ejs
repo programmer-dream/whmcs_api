@@ -140,7 +140,14 @@
                                                   <th scope="row"><%= index = index+1 %></th>
                                                   <td><%= item.module_code %></td>
                                                   <td><%= item.module_name %></td>
-                                                  <td><%= item.module_duedate.days %> day and <%= parseInt(item.module_duedate.hours) %> hours</td>
+
+                                                  <td><% if(item.module_duedate == "No due date"){ %>
+                                                        <%= item.module_duedate %>
+
+                                                     <%   }else{ %>
+                                                     <%= item.module_duedate.days %> day and <%= parseInt(item.module_duedate.hours) %> hours
+                                                <% } %>
+                                            </td>
                                                 </tr>
                                             <% }) %>
                                           </tbody>

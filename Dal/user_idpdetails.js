@@ -587,7 +587,7 @@ var User_idpdetail = {
              let minDiff = endDate.diff(startDate,["days","hours"]).toObject();
              module['due_date'] = minDiff
            }else{
-             module['due_date'] = "";
+             module['due_date'] = "No due date";
            }
            let obj = {
                 module_code: module.module_code,
@@ -596,6 +596,7 @@ var User_idpdetail = {
                 module_id:module.module_id,
                 module_duedate: module.due_date
                 }
+            
             allModules.push(obj)
          })
       )
