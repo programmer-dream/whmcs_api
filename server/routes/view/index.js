@@ -35,13 +35,15 @@ router.get("/home",ensureAuthenticated, (req, res) => {
                     var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
                     var teachingLocation =await user_idpdetailDal.listTeachingLocation()
     				var teachingBlockPeriods =await user_idpdetailDal.listBlockPeriods()
+    				var isSettingEnabled =await user_idpdetailDal.listEnablevalue()
                     if(data1.data.length>0){
                     	
                         res.render("home",{domain:domain,
                         					option:data1.data[0].dataValues,
                         					teachingLocation:teachingLocation,
                         					teachingBlockPeriods:teachingBlockPeriods,
-                        					ID : data.data[0].dataValues.ID
+                        					ID : data.data[0].dataValues.ID,
+                        					isCourseEnabled :isSettingEnabled.module_courses_enabled
                         				});
 					}else{
                     	res.send("There are no modules in database");

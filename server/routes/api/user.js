@@ -373,6 +373,18 @@ router.get("/getModuleWithLocation/:id", async (req, res) => {
     res.send(result);
 });
 
+router.get("/getCourseWithLocation/:id", async (req, res) => {
+    let query = "SELECT * FROM course_details WHERE teaching_location_id ="+req.params.id
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
+router.get("/getModuleWithCourse/:id", async (req, res) => {
+    let query = "SELECT module_details.* FROM module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id = module_details.module_id WHERE  courses_modules_assigned.course_id="+req.params.id
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
 router.get("/usersManager", async (req, res) => {
     let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
     let result = await user_idpdetailDal.runRawQuery(query);

@@ -74,6 +74,28 @@
         .error{
             color: red;
         }
+
+        #tableRender {
+            width: 100%;
+        }
+
+        #tableRender table, #tableRender table th, #tableRender table td {
+            border: 1px solid #000;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        #tableRender table th {
+          font-weight:800;
+        }
+
+        #tableRender table th, #tableRender table td {
+            font-size: 14px;
+            padding: 7px;
+        }
+        .select-table-col {
+            width: 90px;
+        }
     </style>
 </head>
 
@@ -167,6 +189,7 @@
                                           </div>
                                         
                                     </div>
+                                    <% if(!isCourseEnabled) { %>
                                     <div class="row">
                                         <!-- <div class="col-md-12"> -->
                                             <div class="form-group col-sm-8">
@@ -186,7 +209,28 @@
                                             </div>
                                         <!-- </div> -->
                                     </div>
-                                    
+                                    <% } else { %>
+                                    <!-- start course -->
+                                    <div class="row">
+                                        <div class="form-group col-sm-8">
+                                            <label for="">Course<span class="error">*</span></label>
+                                            <select class="form-control" name="course" id="course" required>
+                                                <option value="">select course</option>
+                                                
+                                            </select>
+                                          </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-8">
+                                            <label for="">Module Dropdown</label>
+                                            <div id="tableRender">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }%>
+                                    <!-- end course -->
                                     <div class="row">
                                        <div class="form-group col-sm-8">
                                             <label for="">Teaching Block Period<span class="error">*</span></label>
@@ -383,6 +427,69 @@ $("#teaching_location").change (function () {
         $.ajax(settings);
     }
 }); 
+
+$("#teaching_location").change (function () {
+    $('#course').html('<option>select course</option')  
+    var selected = $(this).children("option:selected").val(); 
+    $('#form2Btn').prop('disabled', false); 
+    if(selected !=''){
+        var settings= {
+            type: "GET",
+            dataType: "json",
+            url: "/api/user/getCourseWithLocation/"+selected,
+            success: function(course) {
+                var courseList = ''
+                course.map(function(item){
+                    courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+                })
+                $('#course').append(courseList);
+            },
+            error: function (err, type, httpStatus) {
+                alert('error has occured');
+            }
+        };
+
+        $.ajax(settings);
+    }
+});
+
+$("#course").change (function () {  
+    var selected = $(this).val()
+    var table = "<table style='width:100%'><tr><th class='select-table-col'>Selection </th><th>Type</th><th>Module Name</th></tr>";
+    
+
+    var settings= {
+        type: "GET",
+        dataType: "json",
+        url: "/api/user/getModuleWithCourse/"+selected,
+        success: function(modules) {
+
+            modules.map(function(moduleData){
+                if(moduleData.module_type == 'core' || moduleData.module_type == 'pinned'){
+                    var isChecked = 'checked'
+                    var disabled  = "onclick='return false'"
+                }
+                table +="<tr><td><input type='checkbox' name='module[]' value='"+moduleData.module_id+"' "+isChecked+" "+disabled+"></td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
+                isChecked = ''
+                disabled  = ''
+                //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+            })
+            
+            table += '</table>'
+            $('#tableRender').html(table)
+            //console.log(moduleData, "<< ")
+            
+        },
+        error: function (err, type, httpStatus) {
+            alert('error has occured');
+        }
+    };
+
+    $.ajax(settings);
+
+    tableEnd = table+"</table>";
+    
+});
 
 $("#teaching_block_period").change (function () {
     var selected = $(this).children("option:selected").val();
