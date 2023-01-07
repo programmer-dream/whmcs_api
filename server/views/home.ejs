@@ -190,6 +190,7 @@
                                         
                                     </div>
                                     <% if(!isCourseEnabled) { %>
+                                    <input type="hidden" name="isCourseEnabled" id="isCourseEnabled" value="0">
                                     <div class="row">
                                         <!-- <div class="col-md-12"> -->
                                             <div class="form-group col-sm-8">
@@ -210,6 +211,7 @@
                                         <!-- </div> -->
                                     </div>
                                     <% } else { %>
+                                    <input type="hidden" name="isCourseEnabled" id="isCourseEnabled" value="1">
                                     <!-- start course -->
                                     <div class="row">
                                         <div class="form-group col-sm-8">
@@ -469,7 +471,7 @@ $("#course").change (function () {
                     var isChecked = 'checked'
                     var disabled  = "onclick='return false'"
                 }
-                table +="<tr><td><input type='checkbox' name='module[]' value='"+moduleData.module_id+"' "+isChecked+" "+disabled+"></td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
+                table +="<tr><td><input class='moduleCheckced' type='checkbox' name='module[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
                 isChecked = ''
                 disabled  = ''
                 //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
