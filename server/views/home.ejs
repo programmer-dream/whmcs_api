@@ -431,7 +431,8 @@ $("#teaching_location").change (function () {
 }); 
 
 $("#teaching_location").change (function () {
-    $('#course').html('<option>select course</option')  
+    $('#course').html('<option>select course</option')
+    $('#tableRender').html('')  
     var selected = $(this).children("option:selected").val(); 
     $('#form2Btn').prop('disabled', false); 
     if(selected !=''){
