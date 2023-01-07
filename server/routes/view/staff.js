@@ -242,6 +242,7 @@ router.get("/addIndividualUser", ensureAuthenticated, async function (req, res) 
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    settingEnabled: await user_idpdetailDal.listEnablevalue(),
     supportMenu: {
       main: [
         {

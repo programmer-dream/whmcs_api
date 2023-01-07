@@ -12,7 +12,27 @@
         .btn {
           line-height: 1.5;
         }
-         
+         #tableRender {
+            width: 100%;
+        }
+
+        #tableRender table, #tableRender table th, #tableRender table td {
+            border: 1px solid #000;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        #tableRender table th {
+          font-weight:800;
+        }
+
+        #tableRender table th, #tableRender table td {
+            font-size: 14px;
+            padding: 7px;
+        }
+        .select-table-col {
+            width: 90px;
+        }
     </style>
 </head>
 <!-- END: Head-->
@@ -124,6 +144,39 @@
                                                 <% }) %>
                                             </select>
                                           </div>
+
+                                          <!-- start course -->
+                                          <% if(settingEnabled.module_courses_enabled) {%>
+
+                                          <h4 class="form-section"><i class="ft-map"></i> Course</h4>
+                                          <p><b><i>Select the Course.</i></b></p>   
+
+                                            
+                                            <!-- start course -->
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="">Course<span class="error">*</span></label>
+                                                    <select class="form-control" name="course" id="course" required>
+                                                        <option value="">select course</option>
+                                                        
+                                                    </select>
+                                                  </div>
+                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-group col-sm-8">
+                                                    <label for="">Module Dropdown</label>
+                                                    <div id="tableRender">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <select style="display:none" multiple  name="modules" id="modules">
+                                              
+                                            </select>
+                                            <% } else { %>
+                                            <!-- end course -->
+
                                           <h4 class="form-section"><i class="ft-folder"></i> Module details</h4>
                                           <p><b><i>Select the modules that the student is taking. These will be setup within the user cPanel account. Only modules available at the selected location will show below.</i></b></p>                                                 
                                           <div class="form-group">
@@ -132,7 +185,7 @@
                                               
                                             </select>
                                           </div>
-                                          
+                                          <% } %>
                                           <h4 class="form-section"><i class="ft-plus"></i> Additional information</h4>
                                           <p><b><i>Additional options for the user who is being setup. </i></b></p>                                                 
                                           <div class="form-check">
@@ -200,8 +253,15 @@
 		    	e.preventDefault();
                 var is_valid = $("#userForm").valid();
                 if(is_valid){
+                    var options = '';
+                    $(".moduleCheckced").each(function(){
+                        if($(this).is(":checked")){
+                            var value = $(this).val();
+                           options += "<option value='"+value+"' selected>"+value+"</option>"
+                        }
+                    });
+                    $('#modules').html(options)
                     var userForm = $('#userForm').serialize();
-
                     axios.post('/api/staff/createIndividualUser', userForm,{}).then(function (response) {
                       
                       if(response.data.status == "success"){
@@ -247,6 +307,70 @@
 
             $.ajax(settings);
         }
+    });
+
+    $("#teaching_location").change (function () {
+        $('#course').html('<option>select course</option');
+        $('#tableRender').html('')  
+        var selected = $(this).children("option:selected").val(); 
+        $('#form2Btn').prop('disabled', false); 
+        if(selected !=''){
+            var settings= {
+                type: "GET",
+                dataType: "json",
+                url: "/api/user/getCourseWithLocation/"+selected,
+                success: function(course) {
+                    var courseList = ''
+                    course.map(function(item){
+                        courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+                    })
+                    $('#course').append(courseList);
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+
+            $.ajax(settings);
+        }
+    });
+
+    $("#course").change (function () {  
+        var selected = $(this).val()
+        var table = "<table style='width:100%'><tr><th class='select-table-col'>Selection </th><th>Type</th><th>Module Name</th></tr>";
+        
+
+        var settings= {
+            type: "GET",
+            dataType: "json",
+            url: "/api/user/getModuleWithCourse/"+selected,
+            success: function(modules) {
+
+                modules.map(function(moduleData){
+                    if(moduleData.module_type == 'core' || moduleData.module_type == 'pinned'){
+                        var isChecked = 'checked'
+                        var disabled  = "onclick='return false'"
+                    }
+                    table +="<tr><td><input class='moduleCheckced' type='checkbox' name='modules[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
+                    isChecked = ''
+                    disabled  = ''
+                    //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+                })
+                
+                table += '</table>'
+                $('#tableRender').html(table)
+                //console.log(moduleData, "<< ")
+                
+            },
+            error: function (err, type, httpStatus) {
+                alert('error has occured');
+            }
+        };
+
+        $.ajax(settings);
+
+        tableEnd = table+"</table>";
+        
     });
     </script>
 </body>
