@@ -374,7 +374,7 @@ router.get("/getModuleWithLocation/:id", async (req, res) => {
 });
 
 router.get("/getCourseWithLocation/:id", async (req, res) => {
-    let query = "SELECT * FROM course_details WHERE teaching_location_id ="+req.params.id
+    let query = "SELECT * FROM course_details JOIN course_location ON course_details.id= course_location.course_id WHERE teaching_location_id ="+req.params.id
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });
