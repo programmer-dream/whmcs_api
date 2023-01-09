@@ -83,7 +83,13 @@
                                         <p>Upload your CSV file to import users into the system. This will setup the number of accounts setup in the settings (typically 5
 										accounts at a time) until the CSV file is completed.</p>
                                         <p>
-										Please ensure that the CSV file is populated as per our <a href="#Modal" data-toggle="modal" data-target="#exampleModalScrollable">guidelines</a>, a sample CSV can be found <a href="/Education_Host_Sample_bulk_import_CSV.csv">here</a>.</p>
+										Please ensure that the CSV file is populated as per our <a href="#Modal" data-toggle="modal" data-target="#exampleModalScrollable">guidelines</a>, a sample CSV can be found 
+                                        <% if(!enabledisablevalue.module_courses_enabled){ %>
+                                        <a href="/Education_Host_Sample_bulk_import_CSV.csv">here</a>
+                                        <% }else{ %>
+                                        <a href="/Education_Host_Sample_bulk_import_Course_CSV.csv">here</a>
+                                         <% } %>
+                                        .</p>
                                         <p>
                                           
                                         <!-- Modal -->
