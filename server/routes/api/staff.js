@@ -463,6 +463,8 @@ router.post("/uploadUserCsv", async (req, res) => {
     let sessionid  = req.session.id;
 
     await csvData(req, async function(csvData){
+        let settingEnabled = await user_idpdetailDal.listEnablevalue()
+        
         let row_number = 1
         if(csvData.length > 1 )
             delete csvData[0]
@@ -474,10 +476,24 @@ router.post("/uploadUserCsv", async (req, res) => {
                 await Promise.all(
                     csvData.map( async function(user){
                         let emailResponse    = await emailExist(row_number, user.field3)
-                        let moduleResponse   = await moduleExist(row_number, user)
+                        let moduleResponse   = {}
+
+                        if(settingEnabled.module_courses_enabled){
+                            
+                            moduleResponse     = await moduleExistWithCourse(row_number, user)
+                            let courseLocation = await iscourseExistOnLocation(row_number, user) 
+                            
+                            if(courseLocation){
+                                throw courseLocation
+                            }
+                        }else{
+                            moduleResponse   = await moduleExist(row_number, user)
+                        }
+
                         let teachingLocation = await teachingLocationExist(row_number, user)
                         let blockPeriod      = await blockPeriodExist(row_number, user)
                         let trueFalseCheck   = await onlyTrueFalse(row_number, user)
+
                         
                         if(emailResponse){
                             throw emailResponse
@@ -512,7 +528,11 @@ router.post("/uploadUserCsv", async (req, res) => {
                     let createdUser = await user_idpdetailDal.addUserByCsv(userData);
                     
                     if(createdUser){
-                        await saveUserModule(createdUser.ID, user)
+                        if(settingEnabled.module_courses_enabled){
+                            await saveUserCourseModule(createdUser.ID, user)
+                        }else{
+                            await saveUserModule(createdUser.ID, user)
+                        }
                     }
                 })
                 res.send({status : 'success', message:'Csv uploaded successfully' })
@@ -671,7 +691,44 @@ async function emailExist(row_number, email){
     return ''
 
 }
+async function iscourseExistOnLocation(row_number, user){
+    let courseId   = user.field9
+    let locationId = user.field7
 
+    let queryStr  = "SELECT count(id) as count FROM course_location WHERE teaching_location_id='"+locationId+"' AND course_id='"+courseId+"'";
+    //console.log(queryStr)
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+    //console.log(result, queryStr)
+    if(result[0].count == 0){
+        return {status : 'error', message:'Course not exist on that location in the system csv row number '+row_number }
+    }
+    return ''
+}
+async function moduleExistWithCourse(row_number, user){
+    let modulesArray = []
+
+    if(user.field10 != '')
+        modulesArray.push(user.field10)
+    if(user.field11 != '')
+        modulesArray.push(user.field11)
+    if(user.field12 != '')
+        modulesArray.push(user.field12)
+    if(user.field13 != '')
+        modulesArray.push(user.field13)
+    if(user.field14 != '')
+        modulesArray.push(user.field14)
+    if(user.field15 != '')
+        modulesArray.push(user.field15)
+
+    if(modulesArray.length > 0 ){
+        let moduleStr = modulesArray.join("','");
+        let queryStr  = "SELECT count(module_id) as count FROM module_details WHERE module_code IN ('"+moduleStr+"')";
+        let result = await user_idpdetailDal.runRawQuery(queryStr)
+        if(modulesArray.length != result[0].count){
+            return {status : 'error', message:'module not exist in the system csv row number '+row_number }
+        }
+    }
+}
 
 async function moduleExist(row_number, user){
     let modulesArray = []
@@ -761,6 +818,48 @@ async function saveUserModule(userId, user){
             }
         );
     }
+}
+
+async function saveUserCourseModule(userId, user){    
+
+    let courseId = user.field9
+    let modulesArray = []
+
+    if(user.field10 != '')
+        modulesArray.push(user.field10)
+    if(user.field11 != '')
+        modulesArray.push(user.field11)
+    if(user.field12 != '')
+        modulesArray.push(user.field12)
+    if(user.field13 != '')
+        modulesArray.push(user.field13)
+    if(user.field14 != '')
+        modulesArray.push(user.field14)
+    if(user.field15 != '')
+        modulesArray.push(user.field15)
+
+    let resultIds = []
+    if(modulesArray.length > 0 ){
+        let moduleStr = modulesArray.join("','");
+        let electiveStr  = "SELECT module_id FROM module_details WHERE module_code IN ('"+moduleStr+"')";
+        resultIds = await user_idpdetailDal.runRawQuery(electiveStr)
+    }   
+
+    let queryStr  = "SELECT module_details.module_id FROM module_details JOIN courses_modules_assigned ON courses_modules_assigned.module_id=module_details.module_id WHERE course_id ='"+courseId+"'";
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+
+    
+    if(result){
+        Promise.all(
+            result.map(async function(module){
+                await user_idpdetailDal.AddModulesUser(userId, module.module_id)
+            }),
+            resultIds.map(async function(module){
+                await user_idpdetailDal.AddModulesUser(userId, module.module_id)
+            })
+        )
+    }
+
 }
 
 async function addUserModule(userId, moduleIdsArr){
