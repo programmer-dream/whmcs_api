@@ -323,6 +323,8 @@
                   
               </div>
               <% } %>
+
+            <% if(!settings.module_courses_enabled){ %>
             <h4 class="form-section"><i class="ft-map"></i> Teaching location</h4>
             <p><b><i>Select one/many or all teaching locations that the module is being taught from.</i></b></p> 
               <div class="form-group row">
@@ -336,6 +338,32 @@
                     </select>
                 </div>
               </div>
+            <% }else{ %>
+            <h4 class="form-section"><i class="ft-map"></i>Course</h4>
+            <p><b><i>Select Course</i></b></p> 
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
+                <div class="col-sm-9 add-location-img-field">
+                   <select class="form-control" name="course" id="course" required>
+                        <option value="all">Select Course</option>
+                        <% courseList.map(function (course) { %>
+                            <option value="<%= course.id %>"><%= course.course_name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
+                <div class="col-sm-9 add-location-img-field">
+                   <select class="form-control" name="year" id="year" required>
+                        <option value="all">Select Year</option>
+                        <option value="1">Year 1</option>
+                        <option value="2">Year 2</option>
+                        <option value="3">Year 3</option>
+                    </select>
+                </div>
+              </div>
+            <% } %>
             </form>
           </div>
           <div class="modal-footer">
@@ -417,6 +445,8 @@
                   
               </div>
               <% } %>
+
+              <% if(!settings.module_courses_enabled){ %>
               <h4 class="form-section"><i class="ft-map"></i> Teaching location</h4>
             <p><b><i>Add additional locations that the module is being taught from.</i></b></p> 
               <div class="form-group row">
@@ -430,6 +460,33 @@
                     </select>
                 </div>
               </div>
+              <% }else{ %>
+                <h4 class="form-section"><i class="ft-map"></i>Course</h4>
+                <p><b><i>Select Course</i></b></p>
+                <input type="hidden" name="courseUniqueId" id="courseUniqueId"> 
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
+                    <div class="col-sm-9 add-location-img-field">
+                       <select class="form-control" name="course" id="editCourse" required>
+                            <option value="all">Select Course</option>
+                            <% courseList.map(function (course) { %>
+                                <option value="<%= course.id %>"><%= course.course_name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
+                    <div class="col-sm-9 add-location-img-field">
+                       <select class="form-control" name="year" id="editYear" required>
+                            <option value="all">Select Year</option>
+                            <option value="1">Year 1</option>
+                            <option value="2">Year 2</option>
+                            <option value="3">Year 3</option>
+                        </select>
+                    </div>
+                  </div>
+                <% } %>
             </form>
           </div>
           <div class="modal-footer">
@@ -470,7 +527,8 @@
                 formData.append("number_of_occurance_per_year",
                     $('#number_of_occurance_per_year').val());
                 formData.append("teaching_location_id", $('#teaching_location').val());
-                
+                formData.append("module_course_year", $('#year').val());
+                formData.append("courseId", $('#course').val());
                 axios.post('/api/staff/createModule', formData,{ 
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -586,6 +644,7 @@
                 dataType: "json",
                 url: "/api/staff/getModule/"+id,
                 success: function(response) {
+                    //console.log(response.data)
                     $('#unique_id').val(response.data.module_id)
                     
                     $('#edit_module_code').val(response.data.module_code)
@@ -593,6 +652,9 @@
 
                     $('#edit_module_type').val(response.data.module_type).change()
                     $('#edit_number_of_occurance_per_year').val(response.data.number_of_occurance_per_year).change()
+                    $('#editYear').val(response.data.module_course_year).change()
+                    $('#editCourse').val(response.data.courses_modules_assigned.course_id).change()
+                    $('#courseUniqueId').val(response.data.courses_modules_assigned.id)
                     $('#edit_added_dates').html('');
                     response.data.modules_due_dates.map(function(element, index){
                      
@@ -703,6 +765,9 @@
                 formData.append("number_of_occurance_per_year",
                     $('#edit_number_of_occurance_per_year').val());
                 formData.append("teaching_location_id", $('#edit_teaching_location').val());
+                formData.append("module_course_year", $('#editYear').val());
+                formData.append("courseUniqueId", $('#courseUniqueId').val());
+                formData.append("courseId", $('#editCourse').val());
                 axios.post('/api/staff/updateModule', formData,{ 
                     headers: {
                         'Content-Type': 'multipart/form-data'

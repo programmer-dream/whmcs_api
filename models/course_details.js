@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     course_id: {
       type: DataTypes.INTEGER(11),
@@ -15,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    teaching_location_id: {
+    course_location_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     }

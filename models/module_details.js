@@ -31,6 +31,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     module_start_date: {
       type: DataTypes.DATE
+    },
+    module_course_year: {
+      type: DataTypes.INTEGER(11)
     }
   }, {
     tableName: 'module_details'

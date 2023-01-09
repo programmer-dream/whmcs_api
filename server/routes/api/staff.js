@@ -642,7 +642,12 @@ router.post("/createModule", async (req, res) => {
                     response = await user_idpdetailDal.createModulesDueDates({'module_id':response.module_id, 'modules_due_date':item.replace('T', ' ')})
                 });
             }
-          let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
+            let settingEnabled = await user_idpdetailDal.listEnablevalue()
+            if(!settingEnabled.module_courses_enabled){
+                let resdata = await user_idpdetailDal.addModuleLocation(response.module_id,fields.teaching_location_id)
+            }else{
+                await user_idpdetailDal.addModuleCourse(response.module_id,fields.courseId)
+            }
         }
 
     })
@@ -942,8 +947,15 @@ router.post("/updateModule", async (req, res) => {
                     response = await user_idpdetailDal.createModulesDueDates({'module_id':fields.id, 'modules_due_date':item.replace('T', ' ')})
                 });
             }
-            res = await user_idpdetailDal.deleteModulesLocations(fields.id)
-            let resdata = await user_idpdetailDal.addModuleLocation(fields.id,fields.teaching_location_id)
+
+            let settingEnabled = await user_idpdetailDal.listEnablevalue()
+            if(!settingEnabled.module_courses_enabled){
+                res = await user_idpdetailDal.deleteModulesLocations(fields.id)
+                let resdata = await user_idpdetailDal.addModuleLocation(fields.id,fields.teaching_location_id)
+            }else{
+                await user_idpdetailDal.updateModuleCourse(fields.id,fields.courseId, fields.courseUniqueId)
+            }
+            
         
         }
 

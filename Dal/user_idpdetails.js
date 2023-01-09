@@ -50,6 +50,7 @@ loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
 module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
 module_details.hasMany(module_location, { foreignKey: "module_id" });
+module_details.hasOne(courses_modules_assigned, { foreignKey: "module_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -445,6 +446,16 @@ var User_idpdetail = {
     }
     
   },
+  addModuleCourse: async function (module_id,course_id) {
+    await courses_modules_assigned.create({module_id,course_id})
+    
+  },
+  updateModuleCourse: async function (module_id,course_id, id) {
+
+    let cma = await courses_modules_assigned.findOne({where :{id:id}})
+
+    cma.update({module_id, course_id});
+  },
   createIpAddress: async function (para) {
     
     const ipAddress = await teaching_location_ip_addresses.create(para);
@@ -506,8 +517,9 @@ var User_idpdetail = {
     
     const ipModule = await module_details.findOne({
       where:{ module_id:id },
-       include : [{ model: module_location, required: true },
-                 { model: modules_due_dates, required: true }]
+       include : [{ model: module_location },
+                 { model: modules_due_dates },
+                 { model: courses_modules_assigned}]
     });
 
     if(ipModule)
@@ -709,6 +721,23 @@ var User_idpdetail = {
         settings = settings.toJSON()
      }
      return settings
+  },
+  courseList: async function () {
+    let allCourse = []
+    let course_details_data= await course_details.findAll();
+   
+    if(course_details_data.length){
+      
+        course_details_data.map( async function(course){
+          course = course.toJSON()
+          allCourse.push(course)
+          
+        })
+      
+      return allCourse
+    }else{
+      return []
+    }
   },
   listTeachingLocation: async function (allData = false) {
     let allLocation = []
