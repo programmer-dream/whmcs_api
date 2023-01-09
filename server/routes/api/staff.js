@@ -586,7 +586,13 @@ router.get("/getLocation/:id", async (req, res) => {
 router.get("/getmoduledata/:id", async (req, res) => {
     let id = req.params.id
     
-    let allModulesDates = await user_idpdetailDal.getModuleData(id)
+    let allModulesDates = await user_idpdetailDal.getModule(id)
+    res.send({status : 'success', message:'Module data', data: allModulesDates})
+});
+router.get("/getModule/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let allModulesDates = await user_idpdetailDal.getModule(id)
     res.send({status : 'success', message:'Module data', data: allModulesDates})
 });
 router.post("/savemoduledata", async (req, res) => {
