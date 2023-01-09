@@ -677,6 +677,7 @@ router.get("/moduleadd", ensureAuthenticated, async function (req, res) {
     allModulesList:await user_idpdetailDal.getListModules(),
     settings:await user_idpdetailDal.listEnablevalue(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    courseList:await user_idpdetailDal.courseList(),
     supportMenu: {
       main: [
         {
