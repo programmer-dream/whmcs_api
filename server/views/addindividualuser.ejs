@@ -165,7 +165,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-group col-sm-8">
-                                                    <label for="">Module Dropdown</label>
+                                                    <label for="">Select your electives</label>
                                                     <div id="tableRender">
                                                         
                                                     </div>
@@ -337,7 +337,7 @@
 
     $("#course").change (function () {  
         var selected = $(this).val()
-        var table = "<table style='width:100%'><tr><th class='select-table-col'>Selection </th><th>Type</th><th>Module Name</th></tr>";
+        var table = "<table style='width:100%'><tr><th class='select-table-col'>Selection </th><th>Year</th><th>Type</th><th>Module Name</th></tr>";
         
 
         var settings= {
@@ -351,7 +351,7 @@
                         var isChecked = 'checked'
                         var disabled  = "onclick='return false'"
                     }
-                    table +="<tr><td><input class='moduleCheckced' type='checkbox' name='modules[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
+                    table +="<tr><td><input class='moduleCheckced' type='checkbox' name='modules[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>Year "+moduleData.module_course_year+"</td><td>"+moduleData.module_type+"</td><td>"+moduleData.module_name+"</td></tr>"
                     isChecked = ''
                     disabled  = ''
                     //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 

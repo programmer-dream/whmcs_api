@@ -380,9 +380,24 @@ router.get("/getCourseWithLocation/:id", async (req, res) => {
 });
 
 router.get("/getModuleWithCourse/:id", async (req, res) => {
-    let query = "SELECT module_details.* FROM module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id = module_details.module_id WHERE  courses_modules_assigned.course_id="+req.params.id
+    let query = "SELECT module_details.* FROM module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id = module_details.module_id WHERE  courses_modules_assigned.course_id="+req.params.id+" ORDER BY module_details.module_course_year"
     let result = await user_idpdetailDal.runRawQuery(query);
-    res.send(result);
+
+    let pinned   = []
+    let core     = []
+    let elective = []
+    result.map(function(course){
+        if(course.module_type == 'pinned'){ 
+            pinned.push(course)
+        }else if(course.module_type == 'core'){
+            core.push(course)
+        }else{
+            elective.push(course)
+        }
+    })
+    let finalArray = pinned.concat(core, elective);
+    
+    res.send(finalArray);
 });
 
 router.get("/usersManager", async (req, res) => {
