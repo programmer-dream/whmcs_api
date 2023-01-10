@@ -309,7 +309,7 @@
                     </select>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row" id="hideShowDate">
                 <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
                 <div class="col-sm-8 add-location-img-field">
                  <input class="form-control-file" type="datetime-local" id="module_due_date" name="module_due_date[]">
@@ -344,7 +344,6 @@
                 <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="course" id="course" required>
-                        <option value="all">Select Course</option>
                         <% courseList.map(function (course) { %>
                             <option value="<%= course.id %>"><%= course.course_name %></option>
                         <% }) %>
@@ -355,7 +354,6 @@
                 <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="year" id="year" required>
-                        <option value="all">Select Year</option>
                         <option value="1">Year 1</option>
                         <option value="2">Year 2</option>
                         <option value="3">Year 3</option>
@@ -430,7 +428,7 @@
                     </select>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row" id="editHideShowDate">
                 <label class="col-sm-3 col-form-label">Module due date <span class="red">*</span></label>
                 <div class="col-sm-8 add-location-img-field">
                  <input class="form-control-file" type="datetime-local" id="edit_module_due_date" name="edit_module_due_date[]" required>
@@ -466,7 +464,6 @@
                     <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
                     <div class="col-sm-9 add-location-img-field">
                        <select class="form-control" name="course" id="editCourse" required>
-                            <option value="all">Select Course</option>
                             <% courseList.map(function (course) { %>
                                 <option value="<%= course.id %>"><%= course.course_name %></option>
                             <% }) %>
@@ -477,7 +474,6 @@
                     <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
                     <div class="col-sm-9 add-location-img-field">
                        <select class="form-control" name="year" id="editYear" required>
-                            <option value="all">Select Year</option>
                             <option value="1">Year 1</option>
                             <option value="2">Year 2</option>
                             <option value="3">Year 3</option>
@@ -586,6 +582,12 @@
          $(document).on('change', '#number_of_occurance_per_year', function(){
             var occurance_val= $('#number_of_occurance_per_year').val();
             $('#added_dates').html('');
+            if(occurance_val == 0){
+                $('#hideShowDate').hide();
+            }else{
+                 $('#hideShowDate').show();
+            }
+            
             var old_date = $('#module_due_date').val();
 
             for (let step = 1; step <occurance_val ; step++) {
@@ -604,6 +606,13 @@
 
          $(document).on('change', '#edit_number_of_occurance_per_year', function(){
             var occurance_val= $('#edit_number_of_occurance_per_year').val();
+
+            if(occurance_val == 0){
+                $('#editHideShowDate').hide();
+            }else{
+                 $('#editHideShowDate').show();
+            }
+
             $('#edit_added_dates').html('');
             var old_date = $('#edit_module_due_date').val();
               
