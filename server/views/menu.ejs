@@ -31,9 +31,10 @@ data-scroll-to-active="true">
                         data-placement="right" data-original-title="Support">more_horiz</i>
                 </li>
                 <% supportMenu.modules.forEach(item=> {
-                    if(!enabledisablevalue.module_date_enabled && item.label == 'Module Dates'){ 
+                    if(!enabledisablevalue.module_date_enabled && item.label == 'Module Dates'
+                    || !enabledisablevalue.module_courses_enabled && item.label == 'Courses'){ 
                         return;
-
+                                    
                     }%>
                     <li class=" nav-item">
                         <a href="<%= item.url %>"
