@@ -38,6 +38,7 @@ var settings_table                 = models.settings_table
 var modules_due_dates              = models.modules_due_dates
 
 var course_details                 = models.course_details
+var course_location                = models.course_location
 var courses_modules_assigned       = models.courses_modules_assigned
 var courses_blocks_assigned        = models.courses_blocks_assigned
 
@@ -50,7 +51,9 @@ loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
 module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
 module_details.hasMany(module_location, { foreignKey: "module_id" });
-module_details.hasOne(courses_modules_assigned, { foreignKey: "module_id" });
+module_details.hasMany(courses_modules_assigned, { foreignKey: "module_id" });
+courses_modules_assigned.belongsTo(course_location, { foreignKey: "course_id" });
+course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -678,16 +681,29 @@ var User_idpdetail = {
     let allModules = []
     let modules= await module_details.findAll();
     
+    let settings= await settings_details.findOne();
+    
     if(modules.length){
         await Promise.all(
           modules.map( async function(module){
-           let location= await module_location.findAll({where:{module_id: module.module_id}});
+           let location = {}
+           let locationCount = 0
+
+           if(settings.module_courses_enabled){
+              let queryStr = "SELECT course_location.teaching_location_id FROM `courses_modules_assigned` JOIN course_location ON courses_modules_assigned.course_id = course_location.course_id WHERE module_id = "+module.module_id+" GROUP BY course_location.teaching_location_id";
+              let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+              locationCount = queryData.length
+              
+           }else{
+              location= await module_location.findAll({where:{module_id: module.module_id}});
+              locationCount = location.length
+           }
            let users= await modules_users_assigned.findAll({
             where:{module_id: module.module_id},
             include: [{ model: user_idpdetails, where:{to_be_deleted:0}, required: true }]
             });
 
-            module['location_count'] = location.length;
+            module['location_count'] = locationCount;
             module['user_count'] = users.length;
             let obj = {
               module_id:module.module_id,
