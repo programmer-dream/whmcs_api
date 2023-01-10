@@ -342,11 +342,7 @@ router.post("/login", async (req, res) => {
     
     
 });
-router.get("/getModuleDates/:id", async (req, res) => {
-    let moduelId = req.params.id
 
-    res.send({status:'success',data:moduelId});
-})
 router.get("/login/:email", async (req, res) => {
     let connection = mysql.createConnection(whmcsmysqlConfig);
     

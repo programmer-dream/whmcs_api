@@ -318,9 +318,9 @@
             $('#moduleId').val(moduleId);
             $('#moduleDateFields').html('')
              
-            axios.get('/api/staff/getmoduledata/'+moduleId).then(function (response) {
+            axios.get('/api/staff/getmoduledata/'+moduleId).then(function (response) { 
                 console.log(response.data.data, "<< response")
-                var allDueDates = response.data.data
+                var allDueDates = response.data.data.modules_due_dates
                 allDueDates.map(function(item){
                     var date = item.modules_due_date.replace('Z','')
                         //date = date.toISOString().
@@ -340,7 +340,8 @@
 
             var editDates = []
             $('.dates').each(function(item){
-                editDates.push({unique_id:$(this).attr('unique_id'),date:$(this).val()})
+                var dateStr = $(this).val().replace('T',' ')
+                editDates.push({unique_id:$(this).attr('unique_id'),date:dateStr})
             })
 
             axios.post('/api/staff/savemoduledata/',{module_dates:editDates}).
