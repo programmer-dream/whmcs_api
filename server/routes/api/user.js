@@ -93,7 +93,7 @@ router.post('/auth/openid/return',
                                 goto
                             );
                         } else {
-                            req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+                            req.flash('error_msg', 'Your account is currently locked for marking. If you believe this is in error then please let the teaching team know.')
 							res.redirect("/");
                         }
 					}else{
@@ -170,11 +170,11 @@ router.get("/varifyuser",async function (req,res) {
                             res.redirect(response.data.redirect_url);
 
                         }else {
-                            req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+                            req.flash('error_msg', 'Your account is currently locked for marking. If you believe this is in error then please let the teaching team know.')
                             res.redirect("/");
                         }
                     } else {
-                        req.flash('error_msg', 'Your account is currently suspended. If you believe this is in error then please contact with Admin!')
+                        req.flash('error_msg', 'Your account is currently locked for marking. If you believe this is in error then please let the teaching team know.')
                         res.redirect("/");
                     }
                 }else{
