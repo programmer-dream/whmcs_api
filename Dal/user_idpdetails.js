@@ -52,8 +52,8 @@ teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey
 module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
 module_details.hasMany(module_location, { foreignKey: "module_id" });
 module_details.hasOne(courses_modules_assigned, { foreignKey: "module_id" });
-//courses_modules_assigned.belongsTo(course_location, { foreignKey: "course_id" });
-//course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
+courses_modules_assigned.belongsTo(module_details, { foreignKey: "module_id" });
+course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -744,13 +744,17 @@ var User_idpdetail = {
     let course_details_data= await course_details.findAll();
    
     if(course_details_data.length){
-      
-        course_details_data.map( async function(course){
-          course = course.toJSON()
-          allCourse.push(course)
-          
-        })
-      
+        await Promise.all(
+          course_details_data.map( async function(course){
+            let queryStr = "SELECT courses_modules_assigned.*, module_details.module_name, module_details.module_type, module_details.module_course_year   FROM `courses_modules_assigned` JOIN module_details ON module_details.module_id = courses_modules_assigned.module_id WHERE courses_modules_assigned.course_id="+course.id
+            
+            let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+            course = course.toJSON()
+            course['modules'] = queryData
+            allCourse.push(course)
+          })
+      )
+      console.log(allCourse, "<< all99")
       return allCourse
     }else{
       return []
