@@ -363,7 +363,7 @@ var User_idpdetail = {
     return latestData.toJSON();
     
   },
-  updateLocation: async function (id, para) {
+  updateLocationNew: async function (id, para) {
     
     let location = await teaching_location_details.findOne({
       where:{ unique_id:id }
