@@ -281,7 +281,8 @@
                 <label class="col-sm-3 col-form-label">Module Type <span class="red">*</span></label>
                 <div class="col-sm-9">
                     <select class="form-control" name="module_type" 
-                      id="module_type">
+                      id="module_type" required>
+                          <option value="">Select type</option>
                           <option value="core">Core</option>
                           <option value="pinned">Pinned</option>
                           <option value="elective">Elective</option>
@@ -344,6 +345,7 @@
                 <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="course" id="course" required>
+                        <option value="">Select Course</option>
                         <% courseList.map(function (course) { %>
                             <option value="<%= course.id %>"><%= course.course_name %></option>
                         <% }) %>
@@ -354,6 +356,7 @@
                 <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
                 <div class="col-sm-9 add-location-img-field">
                    <select class="form-control" name="year" id="year" required>
+                        <option value="">Select Year</option>
                         <option value="1">Year 1</option>
                         <option value="2">Year 2</option>
                         <option value="3">Year 3</option>
@@ -401,6 +404,7 @@
                 <div class="col-sm-9">
                     <select class="form-control" name="module_type" 
                       id="edit_module_type" required>
+                          <option value="">Select type</option>
                           <option value="core">Core</option>
                           <option value="pinned">Pinned</option>
                           <option value="elective">Elective</option>
@@ -464,6 +468,7 @@
                     <label class="col-sm-3 col-form-label">Course <span class="red">*</span></label>
                     <div class="col-sm-9 add-location-img-field">
                        <select class="form-control" name="course" id="editCourse" required>
+                            <option value="">Select Course</option>
                             <% courseList.map(function (course) { %>
                                 <option value="<%= course.id %>"><%= course.course_name %></option>
                             <% }) %>
@@ -474,6 +479,7 @@
                     <label class="col-sm-3 col-form-label">Year <span class="red">*</span></label>
                     <div class="col-sm-9 add-location-img-field">
                        <select class="form-control" name="year" id="editYear" required>
+                            <option value="">Select Year</option>
                             <option value="1">Year 1</option>
                             <option value="2">Year 2</option>
                             <option value="3">Year 3</option>

@@ -51,9 +51,9 @@ loginhistory.belongsTo(user_idpdetails, { foreignKey: "userid" });
 teaching_location_details.belongsTo(teaching_location_ip_addresses, { foreignKey: "ip_address_id" });
 module_details.hasMany(modules_due_dates, { foreignKey: "module_id" });
 module_details.hasMany(module_location, { foreignKey: "module_id" });
-module_details.hasMany(courses_modules_assigned, { foreignKey: "module_id" });
-courses_modules_assigned.belongsTo(course_location, { foreignKey: "course_id" });
-course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
+module_details.hasOne(courses_modules_assigned, { foreignKey: "module_id" });
+//courses_modules_assigned.belongsTo(course_location, { foreignKey: "course_id" });
+//course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
 
 // CRUD Array
 var User_idpdetail = {
@@ -454,10 +454,11 @@ var User_idpdetail = {
     
   },
   updateModuleCourse: async function (module_id,course_id, id) {
-
+    console.log(module_id, course_id, id)
     let cma = await courses_modules_assigned.findOne({where :{id:id}})
 
-    cma.update({module_id, course_id});
+    if(cma)
+      cma.update({module_id, course_id});
   },
   createIpAddress: async function (para) {
     
