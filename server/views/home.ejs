@@ -443,7 +443,7 @@ $("#teaching_location").change (function () {
             success: function(course) {
                 var courseList = ''
                 course.map(function(item){
-                    courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+                    courseList +="<option value='"+item.course_id+"'>"+item.course_name+"</option>" 
                 })
                 $('#course').append(courseList);
             },
