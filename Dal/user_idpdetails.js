@@ -61,6 +61,7 @@ var User_idpdetail = {
     user_idpdetails
       .findAll({
         limit: 10,
+        where : {isActive: 1},
         order: [[Sequelize.col("logins"), "DESC"]],
       })
       .then(function (data) {
