@@ -85,6 +85,7 @@ var User_idpdetail = {
   getAllUsers: function (callback) {
     user_idpdetails
       .findAll({
+        where : {isActive: 1},
         attributes: [
           "userid",
           "email",
