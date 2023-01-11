@@ -215,6 +215,9 @@ $(document).ready(function () {
                                                     swal("Student account has been suspended / un-suspended!", {
                                                         icon: "success",
                                                     });
+                                                    setTimeout(function(){
+                                                        location.reload();
+                                                    }, 3000);
 
                                                 },
                                                 error: function (err, type, httpStatus) {
