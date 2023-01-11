@@ -385,8 +385,14 @@ router.get("/getCalenderData/", async (req, res) => {
     res.send(result);
 });
 
+router.get("/countofintakeperiods/", async (req, res) => {
+    let query = "SELECT COUNT(*) FROM teaching_block_intake_description WHERE intake_start_date > NOW()"
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
 router.get("/getModuleWithCourse/:id", async (req, res) => {
-    let query = "SELECT module_details.* FROM module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id = module_details.module_id WHERE  courses_modules_assigned.course_id="+req.params.id+" ORDER BY module_details.module_course_year"
+    let query = "SELECT module_details.* FROM module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id = module_details.module_id WHERE courses_modules_assigned.course_id="+req.params.id+" ORDER BY module_details.module_course_year"
     let result = await user_idpdetailDal.runRawQuery(query);
 
     let finalObject = {}
