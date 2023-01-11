@@ -227,29 +227,52 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
 
     <!-- Calendar code -->
     <script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
     <script>
-        const currentYear = new Date().getFullYear();
 
-        new Calendar('#calendar', {
-        style:'background',
-        dataSource: [
-            {
-            startDate: new Date(currentYear, 8, 1),
-            endDate: new Date(currentYear, 10, 30)
-            },
-            {
-            startDate: new Date(currentYear, 11, 1),
-            endDate: new Date(2024, 1, 1)
-            }
-        ]
+        $(document).ready(function () {
+            calenderData([]);
         })
 
+        function calenderData(data) {
+            
+            var settings= {
+                type: "GET",
+                dataType: "json",
+                url: "/api/user/getCalenderData",
+                success: function(reponse) {
+                    var clData = []
+                    reponse.map(function(dateData){
+                        var oldStartDate = new Date(dateData.startDate)
+                        var oldEndDate  = new Date(dateData.endDate)
+                        //console.log(oldStartDate, oldEndDate, "old")
+                        var startDate = new Date (oldStartDate.setMonth(oldStartDate.getMonth() - 1))
+                        var endDate   = new Date (oldEndDate.setMonth(oldEndDate.getMonth() - 1))
+                        //console.log(startDate, endDate, "new")
+                        var obj       = {startDate, endDate}
+
+                        clData.push(obj)
+                    })
+                    
+                    new Calendar('#calendar', {
+                        style:'background',
+                        dataSource: clData
+                    })
+                    
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+            
+            $.ajax(settings);
+        }
+        
     </script>
     
 </body>
