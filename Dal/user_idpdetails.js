@@ -229,14 +229,14 @@ var User_idpdetail = {
       });
   },
   addUser_IdpDetail: function (para, callback) {
-    let teaching_block_period_id = null
+    let teaching_block_intake_id = null
     let user_location_id = null
 
     if(para.user_location_id)
       user_location_id = para.user_location_id
     
-    if(para.teaching_block_period_id)
-      teaching_block_period_id = para.teaching_block_period_id
+    if(para.teaching_block_intake_id)
+      teaching_block_intake_id = para.teaching_block_intake_id
 
     const user = user_idpdetails.build({
       email: para.email,
@@ -246,7 +246,7 @@ var User_idpdetail = {
       sessionid: para.sessionid,
       isStaff: 0,
       expiryDate: new Date(),
-      teaching_block_period_id: teaching_block_period_id,
+      teaching_block_intake_id: teaching_block_intake_id,
       user_location_id:user_location_id,
       is_synced:1
     });
@@ -740,6 +740,13 @@ var User_idpdetail = {
         settings = settings.toJSON()
      }
      return settings
+  },
+  getIntakePeriod: async function (todayDate){
+     let queryStr = "SELECT teaching_block_intake_description.*, Min(intake_end_date) as date FROM `teaching_block_intake_description` WHERE DATE(intake_end_date) > '"+todayDate+"' GROUP BY teaching_block_period_id limit 1"
+            
+      let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+
+     return queryData
   },
   courseList: async function () {
     let allCourse = []

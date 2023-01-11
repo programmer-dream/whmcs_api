@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const passport = require('passport');
+const { DateTime } = require("luxon");
 
 // Gets the client folder which is needed to serve html files
 const root = path.join(__dirname, '../../../client');
@@ -27,23 +28,27 @@ router.get("/", (req, res) => {
 // @route 	GET /home
 // @desc 	Serves the home page
 // @access 	Public
-router.get("/home",ensureAuthenticated, (req, res) => { 
+router.get("/home",ensureAuthenticated, async (req, res) => {
+	let todayDate     = DateTime.now().toFormat('yyyy-MM-dd');
+	let intakePeriod  = await user_idpdetailDal.getIntakePeriod(todayDate)
+	//console.log(intakePeriod, "<< intakePeriod2")
     user_idpdetailBal.getUserBySessionId(req.sessionID,function (data,err) {
 		if(data.message=="success"){
 			user_idpdetailBal.getModules(data.data[0].client_detail.dataValues.universityid,async function (data1,err1) {
                 if(data.message=="success"){
                     var domain=data.data[0].dataValues.userid+"."+data.data[0].client_detail.dataValues.domainname;
                     var teachingLocation =await user_idpdetailDal.listTeachingLocation()
-    				var teachingBlockPeriods =await user_idpdetailDal.listBlockPeriods()
+    				//var teachingBlockPeriods =await user_idpdetailDal.listBlockPeriods()
     				var isSettingEnabled =await user_idpdetailDal.listEnablevalue()
                     if(data1.data.length>0){
                     	
                         res.render("home",{domain:domain,
                         					option:data1.data[0].dataValues,
                         					teachingLocation:teachingLocation,
-                        					teachingBlockPeriods:teachingBlockPeriods,
+                        					teachingBlockPeriods:intakePeriod,
                         					ID : data.data[0].dataValues.ID,
-                        					isCourseEnabled :isSettingEnabled.module_courses_enabled
+                        					isCourseEnabled :isSettingEnabled.module_courses_enabled,
+                        					isSettingEnabled :isSettingEnabled
                         				});
 					}else{
                     	res.send("There are no modules in database");

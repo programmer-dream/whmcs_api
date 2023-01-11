@@ -81,7 +81,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0,
       },
-      teaching_block_period_id: {
+      teaching_block_intake_id: {
         type: DataTypes.INTEGER(11)
       },
       user_location_id: {

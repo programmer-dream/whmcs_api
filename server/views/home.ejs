@@ -232,10 +232,11 @@
                                         </div>
                                     </div>
                                     <% }%>
+                                    <% if(isSettingEnabled.teaching_block_enabled) { %>
                                     <!-- end course -->
                                     <div class="row">
                                        <div class="form-group col-sm-8">
-                                            <label for="">Teaching Block Period<span class="error">*</span></label>
+                                            <label for="">Teaching Intake period<span class="error">*</span></label>
                                             <select class="form-control" name="teaching_block_period" id="teaching_block_period" required>
                                                 <option value="">select period</option>
                                                <% teachingBlockPeriods.forEach(item=> { %>
@@ -243,7 +244,8 @@
                                                 <% }) %>
                                             </select>
                                           </div>
-                                    </div>                                  
+                                    </div>  
+                                    <% } %>
                                     <input type="hidden" name="ID" id="ID" value="<%= ID%>">
                                     <div class="text-right"><button class="btn btn-primary btn-next-form" id="form2Btn">Next</button></div>
 

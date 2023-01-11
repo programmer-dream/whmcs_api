@@ -2,7 +2,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    "teaching_block_periods",
+    "teaching_block_intakes",
     {
       unique_id: {
         type: DataTypes.INTEGER(11),
@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     },
     {
-      tableName: "teaching_block_periods",
+      tableName: "teaching_block_intakes",
     }
   );
 };
