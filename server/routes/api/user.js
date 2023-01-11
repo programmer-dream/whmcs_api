@@ -520,6 +520,30 @@ router.get("/suspend/:id?",function (req,res) {
 	}
     user_idpdetailBal.suspendUser({user:req.params.id,isActive:status},function (data,err) {
         if(data.message=="success"){
+            let jsonData       = data.data.toJSON()
+            let email          = jsonData.email
+            //change whmcs user passowrd PASSWORD_RANDOM from ENV
+
+            const whmcsClient = new Clients(whmcsConfig);
+            const servicClient = new Services(whmcsConfig);
+
+            whmcsClient.getClientsDetails({email:email}).then(function (clientResponse) {
+                console.log(clientResponse, "<<< clientResponse")
+                if(clientResponse.result == 'success'){
+
+                     whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(async function (productsResponse) {
+                        await Promise.all(
+                            productsResponse.products.product.map( async function(service){
+                                console.log(service.orderid,"<<<< service")
+                                await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:process.env.PASSWORD_RANDOM}).then(function (changeResponse) {
+                                    console.log(changeResponse, "<<< changeResponse")
+                                })
+                            })
+                        )
+                                                
+                    })
+                }
+            })
             res.status(200).json(data);
         }else{
             res.status(401).json(data);
