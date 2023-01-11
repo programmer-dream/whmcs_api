@@ -346,7 +346,7 @@ var User_idpdetail = {
       is_admin  : para.is_admin,
       is_synced : is_synced,
       expiryDate: new Date(),
-      teaching_block_period_id:para.teaching_block_period_id,
+      teaching_block_intake_id:para.teaching_block_period_id,
       user_location_id:para.teaching_location
     });
     

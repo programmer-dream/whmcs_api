@@ -123,6 +123,7 @@
                                             <label>Student Number</label>
                                             <input type="text" class="form-control" name="student_id" id="studentnumber"  placeholder="Student Number">
                                           </div>   
+                                        <% if(settingEnabled.teaching_block_enabled) { %>
                                           <h4 class="form-section"><i class="ft-users"></i> Teaching intake</h4>
                                           <p><b><i>Select the intake that the student should join.</i></b></p>   
                                           <div class="form-group">
@@ -132,7 +133,8 @@
                                                     <option value="<%= item.teaching_block_period_id %>"><%= item.teaching_block_period_description %></option>
                                                 <% }) %>
                                             </select>
-                                          </div>   
+                                          </div>
+                                          <% } %>   
                                           <h4 class="form-section"><i class="ft-map"></i> Teaching location</h4>
                                           <p><b><i>Select the teaching location that the student is working from.</i></b></p>                                   
                                           <div class="form-group">
