@@ -85,11 +85,11 @@
                                         <p>
 										Please ensure that the CSV file is populated as per our <a href="#Modal" data-toggle="modal" data-target="#exampleModalScrollable">guidelines</a>, a sample CSV can be found 
                                         <% if(!enabledisablevalue.module_courses_enabled){ %>
-                                        <a href="/Education_Host_Sample_bulk_import_CSV.csv">here</a>
+                                        <a href="/Education_Host_Sample_bulk_import_CSV.csv">here.</a>
                                         <% }else{ %>
-                                        <a href="/Education_Host_Sample_bulk_import_Course_CSV.csv">here</a>
+                                        <a href="/Education_Host_Sample_bulk_import_Course_CSV.csv">here.</a>
                                          <% } %>
-                                        .</p>
+                                        </p>
                                         <p>
                                           
                                         <!-- Modal -->
@@ -162,7 +162,7 @@
                                                       </tr>
                                                       <tr>
                                                         <th scope="row">8</th>
-                                                        <td>Teaching intake *only if enabled on the setting page</td>
+                                                        <td>Teaching intake</td>
                                                         <td><i>Defined in module manager/settings</i></td>
                                                         <td>Yes</td>
                                                       </tr>
@@ -283,7 +283,7 @@
                                                       </tr>
                                                       <tr>
                                                         <th scope="row">8</th>
-                                                        <td>Teaching intake *only if enabled on the setting page</td>
+                                                        <td>Teaching intake</td>
                                                         <td><i>Defined in module manager/settings</i></td>
                                                         <td>Yes</td>
                                                       </tr>
@@ -339,7 +339,7 @@
                                         <% } %>
                                         </div>
 										Some organisations prefer to remove the option for the user signing up on their own - If you would like to disable user allowed registration then you can disable
-										this in the settings page</p>
+										this in the settings page.</p>
 
 										<div class="card">
 										  <div class="card-body text-center" style="border:1px dashed">
@@ -361,6 +361,9 @@
                                         <!-- <div id="jsGrid" style="height: 200px; overflow-y: auto;"></div> -->
                                     </div>
 
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -368,7 +371,48 @@
                 </section>
                 <!-- Student account data end -->
                 
-
+ <section id="basic-listgroup">
+                    <div class="row match-height">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Available Modules</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
+                                   </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <p>The following modules are available. Additional modules can be added in the Manage modules page.</p>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">Cras justo odio</li>
+                                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                                            <li class="list-group-item">Morbi leo risus</li>
+                                            <li class="list-group-item">Porta ac consectetur ac</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4 class="card-title">Available Teaching Locations</h4>
+                                  <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
+                                 </div>
+                              <div class="card-content collapse show">
+                                  <div class="card-body">
+                                      <p>The following teaching locations are available. More teaching locations can be added within the settings page as required.</p>
+                                      <ul class="list-group">
+                                          <li class="list-group-item">Cras justo odio</li>
+                                          <li class="list-group-item">Dapibus ac facilisis in</li>
+                                          <li class="list-group-item">Morbi leo risus</li>
+                                          <li class="list-group-item">Porta ac consectetur ac</li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </section>
 
             </div>
         </div>
