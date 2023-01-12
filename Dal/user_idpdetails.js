@@ -36,7 +36,7 @@ var teaching_location_details      = models.teaching_location_details
 var teaching_location_ip_addresses = models.teaching_location_ip_addresses
 var settings_table                 = models.settings_table
 var modules_due_dates              = models.modules_due_dates
-
+var teaching_block_intake_description     = models.teaching_block_period_description
 var course_details                 = models.course_details
 var course_location                = models.course_location
 var courses_modules_assigned       = models.courses_modules_assigned
@@ -57,6 +57,48 @@ course_details.hasMany(courses_modules_assigned, { foreignKey: "course_id" });
 
 // CRUD Array
 var User_idpdetail = {
+  createIntake: async function (para) {
+    var teachingblockintake = await teaching_block_intake_description.create(para);
+    if(teachingblockintake)
+         teachingblockintake = teachingblockintake.toJSON();
+    return teachingblockintake;
+    
+  },
+  getListIntakes: async function (userId, moduleId) {
+    let allIntakes = []
+    let modules= await teaching_block_intake_description.findAll();
+  //   console.log(modules);
+  // console.log("<<<< blockintakeperiods");
+    return modules;
+  },
+  updateIntake: async function (data) {
+    let intakedata = await teaching_block_intake_description.findOne({where :{ teaching_block_period_id: data.intake_id }})
+    if(intakedata){
+      var teaching_block_period_description = data.teaching_block_period_description;
+      var intake_start_date = data.intake_start_date;
+      var intake_end_date = data.intake_end_date;
+      intakedata.update({teaching_block_period_description,intake_start_date,intake_end_date})
+    }
+
+  },
+  deleteIntakedata: async function (IntakeID) {
+    
+    await teaching_block_intake_description.destroy({where:{teaching_block_period_id:IntakeID}});
+    // await modules_users_assigned.destroy({where:{user_id:userId}});
+    
+  },
+  getIntake: async function (id) {
+    
+    const intakedata = await teaching_block_intake_description.findOne({
+      where:{ teaching_block_period_id:id }
+    });
+
+    if(intakedata)
+      return intakedata.toJSON();
+    
+    return intakedata
+    
+  },
   getTopLogins: function (callback) {
     user_idpdetails
       .findAll({

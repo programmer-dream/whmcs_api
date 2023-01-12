@@ -6,10 +6,14 @@
 <head>
     
     <title>Intake periods - Education Host Ltd</title>
-
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     
     <%- include('header'); -%>
-    
+
     <style>
+#editSaveModule, #saveModule {
+    color: #fff;
+}
 .calendar .calendar-header {
   background-color: #f5f5f5;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -170,31 +174,16 @@
                                               </tr>
                                             </thead>
                                             <tbody>
+                                              <% allIntakesList.forEach((item,index)=>{ %>
                                               <tr>
-                                                <th scope="row">1</th>
-                                                <td>February 2023</td>
-                                                <td>01/02/2023</td>
-                                                <td>30/04/2023</td>
-                                                <td>Edit</td>
-                                                <td>Remove</td>
-                                              </tr>                                              
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>May 2023</td>
-                                                <td>01/05/2023</td>
-                                                <td>31/08/2023</td>
-                                                <td>Edit</td>
-                                                <td>Remove</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>September 2023</td>
-                                                <td>01/09/2023</td>
-                                                <td>31/10/2023</td>
-                                                <td>Edit</td>
-                                                <td>Remove</td>
-                                              </tr>
-                                              
+                                                <th scope="row"><%= index = index+1 %></th>
+                                                <td><%= item.teaching_block_period_description %></td>
+                                                <td><%= new Date(item.intake_start_date).toISOString().replace('T', ' ').replace('0Z', ' ') %></td>
+                                                <td><%= new Date(item.intake_end_date).toISOString().replace('T', ' ').replace('0Z', ' ') %></td>
+                                                <td><a href="#" class="edite_intake" data_intake_id="<%= item.teaching_block_period_id %>" data-toggle="modal" data-target="#editIntakeCenter">Edit</a></td>
+                                                <td><a href="#" class="remove_intake" data_intake_id="<%= item.teaching_block_period_id %>" >Remove</a></td>
+                                              </tr>                              
+                                              <% }) %> 
                                             </tbody>
                                           </table>
                                           
@@ -222,7 +211,87 @@
     <!-- BEGIN: Footer-->
 
     <%- include('footer'); -%>
-
+    <!-- add Intake start -->
+    <div class="modal fade" id="notingyet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Intake Period</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="addIntakeForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake Name<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="intake_name" name="intake_name" placeholder="Intake Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake Start Date<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input class="form-control-file" type="datetime-local" id="intake_start_date" name="intake_start_date" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake End Date<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input class="form-control-file" type="datetime-local" id="intake_end_date" name="intake_end_date" required>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="saveModule"> <i class="la la-check-square-o"></i> Save</button>
+          </div>       
+        </div>
+      </div>
+    </div>
+    <!-- add Intake end -->
+    <!-- edit Intake start -->
+    <div class="modal fade" id="editIntakeCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalCenterTitle">Edit Module</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="editIntakeForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake Name<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="hidden" name="intake_id" id="intake_id" value="" >
+                        <input type="text" class="form-control" id="edit_intake_name" name="edit_intake_name" placeholder="Intake Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake Start Date<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input class="form-control-file" type="datetime-local" id="edit_intake_start_date" name="edit_intake_start_date" required value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Intake End Date<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input class="form-control-file" type="datetime-local" id="edit_intake_end_date" name="edit_intake_end_date" required value="">
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i>Close</button>
+            <button type="button" class="btn btn-primary" id="editSaveModule"><i class="la la-check-square-o"></i> Save changes</button>
+          </div>        
+        </div>
+      </div>
+    </div>
+    <!-- edit Intake end -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -272,7 +341,123 @@
             
             $.ajax(settings);
         }
-        
+        $('.edite_intake').on('click',function(e){
+            e.preventDefault();
+            var data_intake_id = $(this).attr('data_intake_id');
+            $('#intake_id').val(data_intake_id);
+            // $('#moduleDateFields').html('')
+            axios.get('/api/staff/getintakedata/'+data_intake_id).then(function (response) { 
+                
+                var data = response.data.data;
+                var teaching_block_period_description = data.teaching_block_period_description;
+                var intake_start_date = data.intake_start_date;
+                var intake_end_date = data.intake_end_date;
+                console.log(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
+                $('#edit_intake_name').val(teaching_block_period_description);
+                $('#edit_intake_start_date').val(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
+                $('#edit_intake_end_date').val(moment(intake_end_date).format("YYYY-MM-DDThh:mm:ss"));
+                console.log(moment(intake_end_date).format("YYYY-MM-DDThh:mm:ss"))
+            }).catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+        });
+        $('.remove_intake').on('click',function(e){
+            e.preventDefault();
+            var data_intake_id = $(this).attr('data_intake_id');
+            swal({
+                  title: "Are you sure?",
+                  text: "Once deleted, you will not be able to recover this data!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    axios.get('/api/staff/deleteIntake/'+data_intake_id,{ 
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(function (response) {
+                        if(response.data.status == "success"){
+                            swal("Your data deleted!", {
+                              icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 3000);
+                        }else{
+                            swal("Something went wrong")
+                        }
+                    }).catch(function (error ) {
+                        console.log(error)
+                        console.log('FAILURE!!');
+                    });
+                }
+            });
+        });
+        $('#editSaveModule').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#editIntakeForm').valid();
+            if(isValid){
+                var formData = new FormData();
+                formData.append("intake_id", $('#intake_id').val());
+                formData.append("teaching_block_period_description", $('#edit_intake_name').val());
+                formData.append("intake_start_date", $('#edit_intake_start_date').val());
+                formData.append("intake_end_date", $('#edit_intake_end_date').val());
+                axios.post('/api/staff/updateIntake', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                    console.log(response)
+                    if(response.data.status == "success"){
+                        $('#editIntakeForm')[0].reset();
+                        swal("Success", response.data.message);
+                        $('#editIntakeCenter').hide();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 3000);
+                    }else{
+                         // swal(response.data.message);
+                        swal("Something went wrong")
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+            }
+        });
+        $('#saveModule').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#addIntakeForm').valid();
+            if(isValid){
+                var formData = new FormData();
+                formData.append("teaching_block_period_description", $('#intake_name').val());
+                formData.append("intake_start_date", $('#intake_start_date').val());
+                formData.append("intake_end_date", $('#intake_end_date').val());
+                axios.post('/api/staff/createIntake', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                    console.log(response)
+                    if(response.data.status == "success"){
+                        $('#addIntakeForm')[0].reset();
+                        swal("Success", response.data.message);
+                        $('#notingyet').hide();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 3000);
+                    }else{
+                         // swal(response.data.message);
+                        swal("Something went wrong")
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+            }
+        });
     </script>
     
 </body>

@@ -342,7 +342,42 @@ router.post("/login", async (req, res) => {
     
     
 });
+router.post("/createIntake", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
 
+        console.log(fields.intake_start_date);
+        let intake_start_date = fields.intake_start_date;
+        let intake_end_date = fields.intake_end_date;
+        intake_start_date.replace('T', ' ');
+        intake_end_date.replace('T', ' ');
+        var intakedata = {'teaching_block_period_description':fields.teaching_block_period_description,'intake_start_date':intake_start_date.replace('T', ' '),'intake_end_date':intake_end_date.replace('T', ' ')}
+        response = await user_idpdetailDal.createIntake(intakedata);
+        res.send({status : 'success', message:'Intake saved successfully' })
+    })
+    
+  });
+  router.post("/updateIntake", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        var intakedata = {'intake_id':fields.intake_id,'teaching_block_period_description':fields.teaching_block_period_description,'intake_start_date':fields.intake_start_date.replace('T', ' '),'intake_end_date':fields.intake_end_date.replace('T', ' ')}
+        response = await user_idpdetailDal.updateIntake(intakedata);
+        res.send({status : 'success', message:'Intake update successfully' })
+    })
+  });
+  router.get("/deleteIntake/:id", async (req, res) => {
+    let id = req.params.id
+    let allModulesDates = await user_idpdetailDal.deleteIntakedata(id)
+    res.send({status : 'success'})
+  });
+  router.get("/getintakedata/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let allModulesDates = await user_idpdetailDal.getIntake(id)
+    res.send({status : 'success', message:'Module data', data: allModulesDates})
+  });
 router.get("/login/:email", async (req, res) => {
     let connection = mysql.createConnection(whmcsmysqlConfig);
     

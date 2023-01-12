@@ -7,9 +7,11 @@ module.exports = function (sequelize, DataTypes) {
       teaching_block_period_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
       },
       teaching_block_period_description: {
-        type: DataTypes.INTEGER(11),
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       intake_start_date: {

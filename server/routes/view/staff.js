@@ -1452,6 +1452,7 @@ router.get("/blockintakeperiods", ensureAuthenticated, async function (req, res)
     user: req.user,
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
+    allIntakesList:await user_idpdetailDal.getListIntakes(),
     modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     supportMenu: {

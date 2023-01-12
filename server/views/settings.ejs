@@ -164,7 +164,7 @@
                                                         <input type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
                                                 </td>
                                                </tr>
-                                               <tr>
+                                               <tr class="hide_on_check">
                                                 <th scope="row"><p>Modules</p></th>
                                                 <th scope="row"><p>Marking duration</p></th>
                                                 <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
@@ -172,7 +172,7 @@
                                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
                                                 </td>
                                                </tr> 
-                                       <tr>
+                                                <tr class="hide_on_check">
                                                 <th scope="row"><p>Modules</p></th>
                                                 <th scope="row"><p>Extension duration</p></th>
                                                 <td>The setting define the periods(days) that a user should granted on extension</td>
@@ -1061,6 +1061,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
     <script>
+
+        if($('input[data-name="module_date_enabled"]').is(':checked')){
+            $(".hide_on_check").show();
+        }else{
+            $(".hide_on_check").hide();
+        }
         $('#saveLocation').on('click',function(e){
             e.preventDefault();
             var isValid = $('#addLocationForm').valid();
