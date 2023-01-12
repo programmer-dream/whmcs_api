@@ -94,6 +94,31 @@
                     </div>
                 </section>
                 <!-- Student account data end -->
+
+                  <!-- Student account data start -->
+                  <section id="basic">
+                    <div class="row">
+                        <div class="col-12">                            
+
+                            <div class="card">
+                                <div class="card-header">
+                                    
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <h4 class="form-section" style="text-align: center;"><i class="ft-folder"></i> Course: Computing Course 2</h4>
+                                            <div id="spreadsheet1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Basic Horizontal Timeline -->
+                        </div>
+                    </div>
+                </section>
+                <!-- Student account data end -->
             </div>
         </div>
     </div>
@@ -141,6 +166,31 @@
          
         jspreadsheet(document.getElementById('spreadsheet'), options);
         </script>
+
+
+<script>
+    var options = {
+        data: [
+           [ 'Module Release Date', '16/05/2022', '12/09/2022' ],
+           [ 'Submission Date','20/07/2022', '16/11/2022'],
+           [ 'Pinned Modules','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>', '<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>'],
+           [ 'May 2022 Intake ','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>','<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>'],
+           [ 'Nov 2022 Intake','', '<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>','','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>'],
+           [ 'Feb 2023 Intake',''],
+           [ 'May 2023 Intake',''],
+           [ 'Sept 2023 Intake','']
+        
+        ],
+        columns: [
+            { type:'text', width:200, title:'Intake' },
+            { type:'html', width:600, title:'May - July 2022' },
+            { type:'html', width:600, title:'Sept - Nov 2023' },            
+         ],
+         minDimensions:[2,2],
+    }
+     
+    jspreadsheet(document.getElementById('spreadsheet1'), options);
+    </script>
 </body>
 <!-- END: Body-->
 
