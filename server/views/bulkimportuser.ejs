@@ -388,7 +388,7 @@
                                       <p>The following modules are available. Additional modules can be added in the <a href="/staff/moduleadd">Manage modules</a> page.</p>
                                       <ul class="list-group">
                                         <% availablemodules.forEach((item,index)=>{ %>
-                                          <li class="list-group-item" ><%= item.Module_Details %></li>
+                                          <li class="list-group-item" module_id="<%= item.module_id %>"><%= item.Module_Details %></li>
                                         <% }) %>
                                       </ul>
                                   </div>

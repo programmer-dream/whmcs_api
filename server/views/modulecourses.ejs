@@ -130,11 +130,9 @@
                                               </tr>
                                             </thead>
                                             <tbody>
-                                              <tr>
-                                                <td rowspan="5" class="align-middle"><p class="text-center">Course name</p></td>
-                                                <td>Location 1</td>                                                                                     
-                                              </tr>
-                                              <tr>                                                
+                                               <%= allcoursesdate %>
+                                              
+                                              <!-- <tr>                                                
                                                 <td>Location 2</td>                                                
                                               </tr>
                                               <tr>
@@ -145,7 +143,7 @@
                                               </tr>
                                               <tr>
                                                 <td>Location 5</td>
-                                              </tr>
+                                              </tr> -->
                                             </tbody>
                                           </table>
                                           <div class="col-md-12 mb-4" style="text-align: right;">
@@ -170,15 +168,94 @@
     <!-- BEGIN: Footer-->
 
     <%- include('footer'); -%>
-
+    <!-- add Intake start -->
+    <div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Course</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="addcourseForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course Id<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="course_id" name="course_id" placeholder="Course id" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course Name<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Course Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Teaching location<span class="red">*</span></label>
+                    <div class="col-sm-9 add-location-img-field">
+                       <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
+                            <option value="all">Select all locations</option>
+                            <% teachingLocation.forEach(item=> { %>
+                                <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="savecourse"> <i class="la la-check-square-o"></i> Save</button>
+          </div>       
+        </div>
+      </div>
+    </div>
+    <!-- add Intake end -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
-
+    <script type="text/javascript">
+        $('#savecourse').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#addcourseForm').valid();
+            if(isValid){
+                var formData = new FormData();
+                formData.append("course_id", $('#course_id').val());
+                formData.append("course_name", $('#course_name').val());
+                formData.append("teaching_location", $('#teaching_location').val());
+                axios.post('/api/staff/createCourse', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                    // console.log(response)
+                    if(response.data.status == "success"){
+                        $('#addcourseForm')[0].reset();
+                        swal("Success", response.data.message);
+                        $('#addModalCenter').hide();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 3000);
+                    }else{
+                        if(response.data.status == "error"){
+                          swal(response.data.message);  
+                      }else{
+                        swal("Something went wrong");
+                        }
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+            }
+        });
+    </script>
     
 </body>
 <!-- END: Body-->

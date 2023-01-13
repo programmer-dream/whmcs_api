@@ -358,6 +358,34 @@ router.post("/createIntake", async (req, res) => {
     })
     
   });
+router.post("/createCourse", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        let course_id = fields.course_id
+        if(course_id){
+            let course_data = await user_idpdetailDal.getCourse(course_id);
+            if(typeof course_data !== 'undefined' && course_data.length == 0 ){
+                response = await user_idpdetailDal.createCourse({"course_id":fields.course_id,"course_name":fields.course_name});
+                if(response.id){
+                    let Courseid = response.id;
+                    let  teaching_location_id = fields.teaching_location.split(",");
+                    teaching_location_id.forEach(async function(item, index) {
+
+                        response = await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':Courseid})
+                    });
+                    
+                    res.send({status : 'success', message:'Course saved successfully' })
+                }
+                
+            }else{
+                res.send({status : 'error', message:'Course id is already exists' })
+                
+            }
+        }
+    })
+    
+  });
   router.post("/updateIntake", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();
@@ -378,6 +406,7 @@ router.post("/createIntake", async (req, res) => {
     let allModulesDates = await user_idpdetailDal.getIntake(id)
     res.send({status : 'success', message:'Module data', data: allModulesDates})
   });
+
 router.get("/login/:email", async (req, res) => {
     let connection = mysql.createConnection(whmcsmysqlConfig);
     

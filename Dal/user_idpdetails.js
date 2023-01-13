@@ -99,6 +99,61 @@ var User_idpdetail = {
     return intakedata
     
   },
+  createCourse: async function (para) {
+    
+      var createcoursedetails = await course_details.create(para);
+      if(createcoursedetails)
+           createcoursedetails = createcoursedetails.toJSON();
+      return createcoursedetails;
+    
+  },
+  createCourselocation: async function (para) {
+    
+      var createcourselocation = await course_location.create(para);
+      if(createcourselocation)
+           createcourselocation = createcourselocation.toJSON();
+      return createcourselocation;
+    
+  },
+  getCourse: async function (course_id) {
+    const course_data = await course_details.findOne({
+      where:{ course_id:course_id }
+    });
+    if(course_data){
+      return course_data.toJSON();
+    }else{
+      return [];
+    }
+  },
+  listcoursesdate: async function () {
+    let queryStr  = "SELECT * FROM course_details";
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    let html = "";
+    await Promise.all(
+        queryData.map( async function(module){
+          let queryforcount  = `SELECT  COUNT(*) as course_id_count FROM course_location WHERE course_id =`;
+          queryforcount += module.id;
+      
+            let querycountData = await sequelize.query(queryforcount,{ type: Sequelize.QueryTypes.SELECT });
+            let count = querycountData[0].course_id_count;
+            if(querycountData.shift().course_id_count == 0){
+              count = 1;
+            }
+            html += '<tr><td rowspan="'+count+'" class="align-middle"><p class="text-center">'+module.course_name+'</p></td></tr>';
+            let queryforlocation  = `SELECT  *  FROM course_location WHERE course_id =`;
+              queryforlocation += module.id;
+            let querycountlocationData = await sequelize.query(queryforlocation,{ type: Sequelize.QueryTypes.SELECT });
+              querycountlocationData.map( async function(module){
+                let queryforlocationdetails  = "SELECT * FROM teaching_location_details WHERE unique_id = "+module.teaching_location_id;
+                let queryqueryforlocationdetailsData = await sequelize.query(queryforlocationdetails,{ type: Sequelize.QueryTypes.SELECT });
+                html += "<tr><td>"+queryqueryforlocationdetailsData[0].name+"</td></tr>";
+              // console.log(queryqueryforlocationdetailsData[0].name, "<<<<<<< quhhheryqueryforlocationdetailsData");
+              })
+             
+          })
+      )
+    return html;
+  },
   availableTeachingLocations: async function () {
     let queryStr  = "SELECT teaching_location_id, name FROM teaching_location_details WHERE is_active = 1";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
@@ -124,7 +179,7 @@ var User_idpdetail = {
 
   },  
   getAvailableModules: async function () {
-    let sqlquery  = `SELECT CONCAT(module_code, ' - ' , module_type,' -' , module_name) AS Module_Details FROM module_details`;
+    let sqlquery  = `SELECT module_id,CONCAT(module_code, ' - ' , module_type,' -' , module_name) AS Module_Details FROM module_details`;
     let queryData = await sequelize.query(sqlquery,{ type: Sequelize.QueryTypes.SELECT });
     return queryData;
   },
