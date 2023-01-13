@@ -129,7 +129,9 @@
                                 <div class="card-content collapse show" >
                                     <div class="card-body card-dashboard ">
 
-                                        <p>You currently have X number of intake periods setup.</p>
+                                        <% activeintakecount.forEach((item,index)=>{ %> 
+                                        <p> You currently have <%= item.name %> intake periods setup.</p>
+                                        <% }) %> 
                                         <p></p>
                                         <p>The last intake period has an end date of <span id="last_intake">XX/XX/XXXX<span>.</p>                                   
 

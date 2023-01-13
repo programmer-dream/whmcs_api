@@ -111,6 +111,12 @@ var User_idpdetail = {
     return queryData;
 
   },
+  activeintakecount: async function () {
+    let queryStr  = "SELECT COUNT(teaching_block_period_id) as name FROM teaching_block_intake_description WHERE intake_end_date > NOW()";
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    return queryData;
+
+  },
   availableintakesbulkuploader: async function () {
     let queryStr  = "SELECT teaching_block_period_id, teaching_block_period_description as name FROM teaching_block_intake_description";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
