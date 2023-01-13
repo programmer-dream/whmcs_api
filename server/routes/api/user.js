@@ -187,7 +187,11 @@ router.get("/varifyuser",async function (req,res) {
     })
 })
 
-
+router.get("/lastintakedate/", async (req, res) => {
+  let query = "SELECT MAX(DATE(intake_end_date)) as intake_end_date FROM teaching_block_intake_description"
+  let result = await user_idpdetailDal.runRawQuery(query);
+  res.send(result);
+});
 router.get("/", (req, res) => {
     const sessionid = req.session.id;
     const connection = mysql.createConnection(mysqlConfig);

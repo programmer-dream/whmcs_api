@@ -6,7 +6,6 @@
 <head>
     
     <title>Intake periods - Education Host Ltd</title>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      
     <%- include('header'); -%>
 
@@ -132,7 +131,7 @@
 
                                         <p>You currently have X number of intake periods setup.</p>
                                         <p></p>
-                                        <p>The last intake period has an end date of XX/XX/XXXX.</p>                                   
+                                        <p>The last intake period has an end date of <span id="last_intake">XX/XX/XXXX<span>.</p>                                   
 
                                     </div>
                                 </div>     
@@ -306,10 +305,26 @@
 
         $(document).ready(function () {
             calenderData([]);
+            $.ajax({type: "GET",
+                dataType: "json",
+                url: "/api/user/lastintakedate",
+                success: function(reponse) {
+                    if(reponse){
+                        let intake_date = reponse.shift().intake_end_date;
+                        let objectDate = new Date(intake_date);
+                        let day = objectDate.getDate();
+                        let month = objectDate.getMonth();
+                        let year = objectDate.getFullYear();
+                        let format1 = day + "/" + month + "/" + year;
+                        $("#last_intake").text(format1);
+                    }
+                },error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            });
         })
 
         function calenderData(data) {
-            
             var settings= {
                 type: "GET",
                 dataType: "json",
@@ -337,8 +352,7 @@
                 error: function (err, type, httpStatus) {
                     alert('error has occured');
                 }
-            };
-            
+            };     
             $.ajax(settings);
         }
         $('.edite_intake').on('click',function(e){
@@ -352,11 +366,11 @@
                 var teaching_block_period_description = data.teaching_block_period_description;
                 var intake_start_date = data.intake_start_date;
                 var intake_end_date = data.intake_end_date;
-                console.log(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
+                // console.log(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
                 $('#edit_intake_name').val(teaching_block_period_description);
-                $('#edit_intake_start_date').val(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
-                $('#edit_intake_end_date').val(moment(intake_end_date).format("YYYY-MM-DDThh:mm:ss"));
-                console.log(moment(intake_end_date).format("YYYY-MM-DDThh:mm:ss"))
+                $('#edit_intake_start_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
+                $('#edit_intake_end_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
+                console.log(new Date(intake_start_date).toISOString());
             }).catch(function (error ) {
                 console.log(error)
                 console.log('FAILURE!!');
