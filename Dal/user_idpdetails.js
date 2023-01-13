@@ -155,13 +155,13 @@ var User_idpdetail = {
     return html;
   },
   availableTeachingLocations: async function () {
-    let queryStr  = "SELECT teaching_location_id, name FROM teaching_location_details WHERE is_active = 1";
+    let queryStr  = "SELECT teaching_location_id, CONCAT('ID: ', teaching_location_id, ' - ', name) as name FROM teaching_location_details WHERE is_active = 1";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
     return queryData;
 
   },
   availablecoursesbulkuploader: async function () {
-    let queryStr  = "SELECT course_id, course_name AS name FROM course_details";
+    let queryStr  = "SELECT course_id, CONCAT(\" ID: \", course_id, ' - ', course_name) AS name FROM course_details";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
     return queryData;
 
@@ -173,7 +173,7 @@ var User_idpdetail = {
 
   },
   availableintakesbulkuploader: async function () {
-    let queryStr  = "SELECT teaching_block_period_id, teaching_block_period_description as name FROM teaching_block_intake_description";
+    let queryStr  = "SELECT CONCAT(\" ID: \", teaching_block_period_id, ' - ', teaching_block_period_description) as name FROM teaching_block_intake_description";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
     return queryData;
 
