@@ -371,54 +371,93 @@
                 </section>
                 <!-- Student account data end -->
                 
- <section id="basic-listgroup">
-                    <div class="row match-height">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card">
+ 
+
+                <!-- Columns section start -->
+                <section id="columns">                
+                  <div class="row">
+                      <div class="col-md-12 mt-1">
+                          <div class="card-columns">
+                              <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Available Modules</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
-                                   </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        <p>The following modules are available. Additional modules can be added in the Manage modules page.</p>
-                                        <ul class="list-group">
-                                          <% availablemodules.forEach((item,index)=>{ %>
-                                            <li class="list-group-item" ><%= item.Module_Details %></li>
-                                          <% }) %>
-                                           <!--  <li class="list-group-item">Cras justo odio</li>
-                                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                                            <li class="list-group-item">Morbi leo risus</li>
-                                            <li class="list-group-item">Porta ac consectetur ac</li>-->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                          <div class="card">
-                              <div class="card-header">
-                                  <h4 class="card-title">Available Teaching Locations</h4>
+                                  <h4 class="card-title">Available Modules</h4>
                                   <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
                                  </div>
                               <div class="card-content collapse show">
                                   <div class="card-body">
-                                      <p>The following teaching locations are available. More teaching locations can be added within the settings page as required.</p>
+                                      <p>The following modules are available. Additional modules can be added in the <a href="/staff/moduleadd">Manage modules</a> page.</p>
                                       <ul class="list-group">
-                                        <% availableteachinglocations.forEach((item,index)=>{ %>
-                                            <li class="list-group-item" teachinglocations-id="<%= item.teaching_location_id %>"><%= item.name %></li>
-                                          <% }) %>
-                                          <!-- <li class="list-group-item">Cras justo odio</li>
-                                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                                          <li class="list-group-item">Morbi leo risus</li>
-                                          <li class="list-group-item">Porta ac consectetur ac</li>--> 
+                                        <% availablemodules.forEach((item,index)=>{ %>
+                                          <li class="list-group-item" ><%= item.Module_Details %></li>
+                                        <% }) %>
                                       </ul>
                                   </div>
                               </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-content">
+                                    <div class="card-header">
+                                      <h4 class="card-title">Available Teaching Locations</h4>
+                                      <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
+                                    </div>
+                                  <div class="card-content collapse show">
+                                      <div class="card-body">
+                                          <p>The following teaching locations are available. More teaching locations can be added within the <a href="/staff/settings">settings</a> page as required.</p>
+                                          <ul class="list-group">
+                                            <% availableteachinglocations.forEach((item,index)=>{ %>
+                                                <li class="list-group-item" teachinglocations-id="<%= item.teaching_location_id %>"><%= item.name %></li>
+                                              <% }) %>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="card-header">
+                                    <h4 class="card-title">Available Courses</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
+                                  </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <p>The following teaching courses are available. More courses can be added within the courses page as required and if enabled.</p>
+                                        <ul class="list-group">
+                                          <% availablecoursesbulkuploader.forEach((item,index)=>{ %>
+                                              <li class="list-group-item" course-id="<%= item.course_id %>"><%= item.name %></li>
+                                            <% }) %>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
+                              </div>
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="card-header">
+                                    <h4 class="card-title">Available Intakes</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis font-medium-3"></i></a>
+                                  </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <p>The following teaching intakes are available.</p>
+                                        <ul class="list-group">
+                                          <% availableintakesbulkuploader.forEach((item,index)=>{ %>
+                                              <li class="list-group-item" teaching_block_period_id="<%= item.teaching_block_period_id %>"><%= item.name %></li>
+                                            <% }) %>
+                                            <!-- <li class="list-group-item">Cras justo odio</li>
+                                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                                            <li class="list-group-item">Morbi leo risus</li>
+                                            <li class="list-group-item">Porta ac consectetur ac</li>--> 
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
+                              </div>                           
+                                                           
+                              
                           </div>
                       </div>
-                    </div>
-                </section>
+                  </div>
+              </section>
 
             </div>
         </div>

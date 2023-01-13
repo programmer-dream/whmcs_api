@@ -105,6 +105,18 @@ var User_idpdetail = {
     return queryData;
 
   },
+  availablecoursesbulkuploader: async function () {
+    let queryStr  = "SELECT course_id, course_name AS name FROM course_details";
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    return queryData;
+
+  },
+  availableintakesbulkuploader: async function () {
+    let queryStr  = "SELECT teaching_block_period_id, teaching_block_period_description as name FROM teaching_block_intake_description";
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    return queryData;
+
+  },  
   getAvailableModules: async function () {
     let sqlquery  = `SELECT CONCAT(module_code, ' - ' , module_type,' -' , module_name) AS Module_Details FROM module_details`;
     let queryData = await sequelize.query(sqlquery,{ type: Sequelize.QueryTypes.SELECT });

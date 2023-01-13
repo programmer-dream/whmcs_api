@@ -134,6 +134,8 @@ router.get("/bulkUserImport", ensureAuthenticated, async function (req, res) {
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     availableteachinglocations:await user_idpdetailDal.availableTeachingLocations(),
     availablemodules:await user_idpdetailDal.getAvailableModules(),
+    availablecoursesbulkuploader:await user_idpdetailDal.availablecoursesbulkuploader(),
+    availableintakesbulkuploader:await user_idpdetailDal.availableintakesbulkuploader(),
     supportMenu: {
       main: [
         {
