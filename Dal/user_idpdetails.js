@@ -99,6 +99,17 @@ var User_idpdetail = {
     return intakedata
     
   },
+  availableTeachingLocations: async function () {
+    let queryStr  = "SELECT teaching_location_id, name FROM teaching_location_details WHERE is_active = 1";
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    return queryData;
+
+  },
+  getAvailableModules: async function () {
+    let sqlquery  = `SELECT CONCAT(module_code, ' - ' , module_type,' -' , module_name) AS Module_Details FROM module_details`;
+    let queryData = await sequelize.query(sqlquery,{ type: Sequelize.QueryTypes.SELECT });
+    return queryData;
+  },
   getTopLogins: function (callback) {
     user_idpdetails
       .findAll({

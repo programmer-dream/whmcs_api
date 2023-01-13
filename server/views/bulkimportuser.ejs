@@ -383,10 +383,13 @@
                                     <div class="card-body">
                                         <p>The following modules are available. Additional modules can be added in the Manage modules page.</p>
                                         <ul class="list-group">
-                                            <li class="list-group-item">Cras justo odio</li>
+                                          <% availablemodules.forEach((item,index)=>{ %>
+                                            <li class="list-group-item" ><%= item.Module_Details %></li>
+                                          <% }) %>
+                                           <!--  <li class="list-group-item">Cras justo odio</li>
                                             <li class="list-group-item">Dapibus ac facilisis in</li>
                                             <li class="list-group-item">Morbi leo risus</li>
-                                            <li class="list-group-item">Porta ac consectetur ac</li>
+                                            <li class="list-group-item">Porta ac consectetur ac</li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -402,10 +405,13 @@
                                   <div class="card-body">
                                       <p>The following teaching locations are available. More teaching locations can be added within the settings page as required.</p>
                                       <ul class="list-group">
-                                          <li class="list-group-item">Cras justo odio</li>
+                                        <% availableteachinglocations.forEach((item,index)=>{ %>
+                                            <li class="list-group-item" teachinglocations-id="<%= item.teaching_location_id %>"><%= item.name %></li>
+                                          <% }) %>
+                                          <!-- <li class="list-group-item">Cras justo odio</li>
                                           <li class="list-group-item">Dapibus ac facilisis in</li>
                                           <li class="list-group-item">Morbi leo risus</li>
-                                          <li class="list-group-item">Porta ac consectetur ac</li>
+                                          <li class="list-group-item">Porta ac consectetur ac</li>--> 
                                       </ul>
                                   </div>
                               </div>

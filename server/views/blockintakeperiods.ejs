@@ -366,11 +366,9 @@
                 var teaching_block_period_description = data.teaching_block_period_description;
                 var intake_start_date = data.intake_start_date;
                 var intake_end_date = data.intake_end_date;
-                // console.log(moment(intake_start_date).format("YYYY-MM-DDThh:mm:ss"));
                 $('#edit_intake_name').val(teaching_block_period_description);
                 $('#edit_intake_start_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
                 $('#edit_intake_end_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
-                console.log(new Date(intake_start_date).toISOString());
             }).catch(function (error ) {
                 console.log(error)
                 console.log('FAILURE!!');
