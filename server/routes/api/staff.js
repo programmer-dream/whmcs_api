@@ -358,6 +358,27 @@ router.post("/createIntake", async (req, res) => {
     })
     
   });
+
+router.post("/createBlock", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+
+        
+        let tb_start_date_time = fields.tb_start_date_time;
+        let tb_end_date_time   = fields.tb_end_date_time;
+        
+        var blockData = {
+                        'name':fields.name,
+                        'tb_start_date_time':tb_start_date_time.replace('T', ' '),
+                        'tb_end_date_time':tb_end_date_time.replace('T', ' ')
+                    }
+        console.log(blockData, "<< blockData")
+        response = await user_idpdetailDal.createBlock(blockData);
+        res.send({status : 'success', message:'Block saved successfully' })
+    })
+    
+    });
 router.post("/createCourse", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();
@@ -400,11 +421,24 @@ router.post("/createCourse", async (req, res) => {
     let allModulesDates = await user_idpdetailDal.deleteIntakedata(id)
     res.send({status : 'success'})
   });
+
+  router.get("/deleteBlock/:id", async (req, res) => {
+    let id = req.params.id
+    await user_idpdetailDal.deleteBlock(id)
+    res.send({status : 'success'})
+  });
+
   router.get("/getintakedata/:id", async (req, res) => {
     let id = req.params.id
     
     let allModulesDates = await user_idpdetailDal.getIntake(id)
     res.send({status : 'success', message:'Module data', data: allModulesDates})
+  });
+  router.get("/getblockdata/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let allBlocks = await user_idpdetailDal.getBlock(id)
+    res.send({status : 'success', message:'Block data', data: allBlocks})
   });
 
 router.get("/login/:email", async (req, res) => {

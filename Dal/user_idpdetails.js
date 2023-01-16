@@ -64,12 +64,26 @@ var User_idpdetail = {
     return teachingblockintake;
     
   },
+  createBlock: async function (para) {
+    var teachingBlock = await teaching_block_blocks.create(para);
+    if(teachingBlock)
+         teachingBlock = teachingBlock.toJSON();
+    return teachingBlock;
+    
+  },
   getListIntakes: async function (userId, moduleId) {
   
     let intakeQuery  = "SELECT * FROM teaching_block_intake_description WHERE intake_end_date > NOW()";
     let allIntakes = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
 
     return allIntakes;
+  },
+  getTeachingBlocks: async function (userId, moduleId) {
+  
+    let blockQuery  = "SELECT * FROM teaching_block_blocks;";
+    let allBlocks = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    return allBlocks;
   },
   updateIntake: async function (data) {
     let intakedata = await teaching_block_intake_description.findOne({where :{ teaching_block_period_id: data.intake_id }})
@@ -87,6 +101,11 @@ var User_idpdetail = {
     // await modules_users_assigned.destroy({where:{user_id:userId}});
     
   },
+  deleteBlock: async function (id) {
+    
+    await teaching_block_blocks.destroy({where:{teaching_block_id:id}});
+  
+  },
   getIntake: async function (id) {
     
     const intakedata = await teaching_block_intake_description.findOne({
@@ -97,6 +116,23 @@ var User_idpdetail = {
       return intakedata.toJSON();
     
     return intakedata
+    
+  },
+  getBlock: async function (id) {
+    
+    let blockData = await teaching_block_blocks.findOne({
+      where:{ teaching_block_id:id }
+    });
+
+    if(blockData){
+
+      blockData = blockData.toJSON()
+      blockData.tb_start_date_time = DateTime.fromISO(blockData.tb_start_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss');
+      blockData.tb_end_date_time = DateTime.fromISO(blockData.tb_end_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss');
+
+    }
+    
+    return blockData
     
   },
   createCourse: async function (para) {

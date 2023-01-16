@@ -1241,6 +1241,8 @@ router.get("/blockmanageblocks", ensureAuthenticated, async function (req, res) 
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    getTeachingBlocks:await user_idpdetailDal.getTeachingBlocks(),
+    DateTime:DateTime,
     supportMenu: {
       main: [
         {

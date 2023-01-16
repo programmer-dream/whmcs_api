@@ -7,6 +7,8 @@ module.exports = function (sequelize, DataTypes) {
       teaching_block_id: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
       },
       name: {
         type: DataTypes.STRING(100),
@@ -16,14 +18,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT('tiny'),
         allowNull: false,
       },
-      tb_end_date_time: {
+      tb_start_date_time: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      linked_block_id: {
-        type: DataTypes.INTEGER(11),
+      tb_end_date_time: {
+        type: DataTypes.DATE,
         allowNull: false,
-      },
+      }
     },
     {
       tableName: "teaching_block_blocks",
