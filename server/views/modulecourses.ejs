@@ -130,12 +130,19 @@
                                               </tr>
                                             </thead>
                                             <tbody>
-                                               <%= allcoursesdate %>
-                                              
-                                              <!-- <tr>                                                
-                                                <td>Location 2</td>                                                
+                                            <% courseLocations.map(function(course){ %>
+                                               <tr>
+                                                <td rowspan="<%= course.locations.length+1 %>" class="align-middle"><p class="text-center">
+                                                <%= course.course_name %></p>
+                                                </td>
+                                                <!-- <td>Location 1</td>                                                 -->
                                               </tr>
-                                              <tr>
+                                               <% course.locations.map(function(location){ %>
+                                              <tr>                                                
+                                                <td><%= location.location_name %></td>                                                
+                                              </tr>
+                                              <% }) %>
+                                              <!-- <tr>
                                                 <td>Location 3</td>
                                               </tr>
                                               <tr>
@@ -144,6 +151,7 @@
                                               <tr>
                                                 <td>Location 5</td>
                                               </tr> -->
+                                            <% }) %>
                                             </tbody>
                                           </table>
                                           <div class="col-md-12 mb-4" style="text-align: right;">

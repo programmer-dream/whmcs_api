@@ -1129,6 +1129,7 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
     allcoursesdate:await user_idpdetailDal.listcoursesdate(),
     teachingLocation:await user_idpdetailDal.listTeachingLocation(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    courseLocations:await user_idpdetailDal.courseLocations(),
     courseList:await user_idpdetailDal.courseList(),
     supportMenu: {
       main: [

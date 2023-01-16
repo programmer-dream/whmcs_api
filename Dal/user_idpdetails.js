@@ -889,11 +889,34 @@ var User_idpdetail = {
             allCourse.push(course)
           })
       )
-      console.log(allCourse, "<< all99")
+      //console.log(allCourse, "<< all99")
       return allCourse
     }else{
       return []
     }
+  },
+  courseLocations: async function () {
+    let allCourse = []
+    let course_details_data= await course_details.findAll();
+
+
+    if(course_details_data.length){
+        await Promise.all(
+          course_details_data.map( async function(course){
+            let queryStr = "SELECT course_details.id , teaching_location_details.name location_name FROM `course_details` JOIN course_location ON course_details.id= course_location.course_id JOIN teaching_location_details ON course_location.teaching_location_id = teaching_location_details.unique_id WHERE course_details.id ="+course.id
+            
+            let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+            course = course.toJSON()
+            course['locations'] = queryData
+            allCourse.push(course)
+          })
+      )
+      
+      return allCourse
+    }else{
+      return []
+    }
+    
   },
   listTeachingLocation: async function (allData = false) {
     let allLocation = []
