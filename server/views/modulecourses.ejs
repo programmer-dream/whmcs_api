@@ -96,7 +96,7 @@
                                             </thead>
                                             <tbody>
                                             <% courseList.map(function(course) { %>
-                                              <tr style="border:1px solid red;">
+                                              <tr >
                                                 <td rowspan="<%= course.modules.length+1 %>" class="align-middle"><p class="text-center"><%= course.course_name %></p></td>                                               
                                               </tr>
                                             <% course.modules.map(function(module) { %>
