@@ -373,12 +373,34 @@ router.post("/createBlock", async (req, res) => {
                         'tb_start_date_time':tb_start_date_time.replace('T', ' '),
                         'tb_end_date_time':tb_end_date_time.replace('T', ' ')
                     }
-        console.log(blockData, "<< blockData")
+        //console.log(blockData, "<< blockData")
         response = await user_idpdetailDal.createBlock(blockData);
         res.send({status : 'success', message:'Block saved successfully' })
     })
     
-    });
+});
+
+router.post("/editBlock", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+
+        let id                 = fields.id;
+        let tb_start_date_time = fields.tb_start_date_time;
+        let tb_end_date_time   = fields.tb_end_date_time;
+        
+        var blockData = {
+                        'name':fields.name,
+                        'tb_start_date_time':tb_start_date_time.replace('T', ' '),
+                        'tb_end_date_time':tb_end_date_time.replace('T', ' ')
+                    }
+        //console.log(blockData, "<< blockData")
+        response = await user_idpdetailDal.editBlock(id, blockData);
+        res.send({status : 'success', message:'Block saved successfully' })
+    })
+    
+});
+
 router.post("/createCourse", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();

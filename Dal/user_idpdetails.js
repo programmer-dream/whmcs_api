@@ -71,6 +71,13 @@ var User_idpdetail = {
     return teachingBlock;
     
   },
+  editBlock: async function (id, para) {
+    var teachingBlock = await teaching_block_blocks.findOne({ where : {teaching_block_id: id } });
+    if(teachingBlock)
+         teachingBlock = teachingBlock.update(para);
+    return teachingBlock;
+    
+  },
   getListIntakes: async function (userId, moduleId) {
   
     let intakeQuery  = "SELECT * FROM teaching_block_intake_description WHERE intake_end_date > NOW()";

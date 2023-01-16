@@ -378,9 +378,42 @@
             }).then(function (response) {
                 console.log(response)
                 if(response.data.status == "success"){
-                    $('#addIntakeForm')[0].reset();
+                    $('#addBlockForm')[0].reset();
                     swal("Success", response.data.message);
-                    $('#notingyet').hide();
+                    //$('#notingyet').hide();
+                    setTimeout(function(){
+                        location.reload();
+                    }, 3000);
+                }else{
+                     // swal(response.data.message);
+                    swal("Something went wrong")
+                }
+            }).catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+        }
+    });
+    $('#editSaveBlock').on('click',function(e){
+        e.preventDefault();
+        var isValid = $('#editBlockForm').valid();
+      
+        if(isValid){
+            var formData = new FormData();
+            formData.append("id", $('#teaching_block_id').val());
+            formData.append("name", $('#edit_block_name').val());
+            formData.append("tb_start_date_time", $('#edit_tb_start_date_time').val());
+            formData.append("tb_end_date_time", $('#edit_tb_end_date_time').val());
+            axios.post('/api/staff/editBlock', formData,{ 
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function (response) {
+                console.log(response)
+                if(response.data.status == "success"){
+                    $('#addBlockForm')[0].reset();
+                    swal("Success", response.data.message);
+                    //$('#notingyet').hide();
                     setTimeout(function(){
                         location.reload();
                     }, 3000);
