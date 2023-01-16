@@ -13,7 +13,17 @@
     <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css" />
     <script src="https://jsuites.net/v4/jsuites.js"></script>
     <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
-
+    <style type="text/css">
+    .modal-btns .modal-footer button {
+        min-height: 40px;
+        color: #fff !important;
+        display: flex;
+        align-items: center;
+    }
+    .modal-btns .modal-footer button i {
+        margin-right: 4px;
+    }
+    </style>
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
@@ -172,7 +182,7 @@
 
     <%- include('footer'); -%>
     <!-- add Intake start -->
-    <div class="modal fade" id="newBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade modal-btns" id="newBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -212,7 +222,7 @@
     </div>
     <!-- add Intake end -->
     <!-- edit Intake start -->
-    <div class="modal fade" id="editBlockCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade modal-btns" id="editBlockCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
