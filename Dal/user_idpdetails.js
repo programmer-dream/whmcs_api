@@ -65,11 +65,11 @@ var User_idpdetail = {
     
   },
   getListIntakes: async function (userId, moduleId) {
-    let allIntakes = []
-    let modules= await teaching_block_intake_description.findAll();
-  //   console.log(modules);
-  // console.log("<<<< blockintakeperiods");
-    return modules;
+  
+    let intakeQuery  = "SELECT * FROM teaching_block_intake_description WHERE intake_end_date > NOW()";
+    let allIntakes = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    return allIntakes;
   },
   updateIntake: async function (data) {
     let intakedata = await teaching_block_intake_description.findOne({where :{ teaching_block_period_id: data.intake_id }})
