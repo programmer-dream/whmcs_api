@@ -15,8 +15,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       image: {
-        type: DataTypes.TEXT('tiny'),
-        allowNull: false,
+        type: DataTypes.TEXT('tiny')
       },
       tb_start_date_time: {
         type: DataTypes.DATE,
