@@ -1066,5 +1066,56 @@ var User_idpdetail = {
     
     
   },
+  listCourse: async function () {
+     let blockQuery  = "SELECT * FROM course_details"
+    let allCourse = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    return allCourse;
+    
+  },
+  listCourseRelatedData: async function (id) {
+     let blockQuery  = "SELECT course_details.*,teaching_block_blocks.name as block_name,teaching_block_blocks.tb_start_date_time,teaching_block_blocks.tb_end_date_time FROM course_details join courses_blocks_assigned on course_details.id=courses_blocks_assigned.course_id join teaching_block_blocks on teaching_block_blocks.teaching_block_id =courses_blocks_assigned.teaching_block_id where teaching_block_blocks.tb_end_date_time >NOW() and course_details.id="+id+"limit 2; "
+    let allCourse = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    return allCourse;
+    
+  },
+  listblockData: async function (id) {
+    let release = ['Module Release Date']
+    let submission = ['Submission Date']
+    let pinned=[ 'Pinned Modules']
+    let columns = [{ type:'html', width:200, title:'Intake' }]
+    let blockQuery  = "SELECT course_details.*,teaching_block_blocks.name as block_name,teaching_block_blocks.tb_start_date_time,teaching_block_blocks.tb_end_date_time FROM course_details join courses_blocks_assigned on course_details.id=courses_blocks_assigned.course_id join teaching_block_blocks on teaching_block_blocks.teaching_block_id =courses_blocks_assigned.teaching_block_id  where  course_details.id="+id
+
+    let allBlocks = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
+    let moduleQuery="SELECT module_details.* from module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id=module_details.module_id where courses_modules_assigned.course_id= "+id+" AND module_details.module_type='pinned'";
+      let allModule = await sequelize.query(moduleQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    let moduleStr = ''
+    await Promise.all(
+      allModule.map(function(module){
+        console.log(module, "<<< count")
+        moduleStr += '<div class="alert alert-info" role="alert">   '+module.module_name+'- Pinned <br> - '+module.module_code+'</div>'
+      })
+    )
+    
+
+    await Promise.all(
+      allBlocks.map(function(block){
+        let temp = { type:'html', width:600, title: block.block_name}
+        let course_id=block.id;
+        
+        release.push(block.tb_start_date_time)
+        submission.push(block.tb_end_date_time)
+        columns.push(temp)
+        pinned.push(moduleStr);
+      })
+
+    )
+
+    return {columns, release, submission,pinned};
+    
+  },
+
 };
 module.exports = User_idpdetail;

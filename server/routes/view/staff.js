@@ -1243,6 +1243,7 @@ router.get("/blockmanageblocks", ensureAuthenticated, async function (req, res) 
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     getTeachingBlocks:await user_idpdetailDal.getTeachingBlocks(),
     courseList:await user_idpdetailDal.courseList(),
+    listCourse:await user_idpdetailDal.listCourse(),
     DateTime:DateTime,
     supportMenu: {
       main: [

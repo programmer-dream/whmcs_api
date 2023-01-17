@@ -1086,4 +1086,27 @@ router.post("/updateModule", async (req, res) => {
    
      res.send({status : 'success', message:'Module updated successfully' })
 });
+router.get("/getCourseListdata/:id", async (req, res) => {
+    let id = req.params.id
+    let blockData = await user_idpdetailDal.listblockData(id);
+    options = {
+        data: [
+           blockData.release,
+           blockData.submission,
+           blockData.pinned,
+           [ 'May 2022 Intake ','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>','<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>'],
+           [ 'Nov 2022 Intake','', '<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>','','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>'],
+           [ 'Feb 2023 Intake',''],
+           [ 'May 2023 Intake',''],
+           [ 'Sept 2023 Intake','']
+        
+        ],
+        columns: blockData.columns,
+        minDimensions:[2,2],
+    };
+    let parseOptions = JSON.stringify(options)
+    console.log('option->>>>>>');
+    console.log(parseOptions);
+    res.send({status : 'success', message:'Module updated successfully', data: parseOptions})
+  });
 module.exports = router;
