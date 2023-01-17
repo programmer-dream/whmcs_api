@@ -179,8 +179,11 @@
                                               <tr>
                                                 <th scope="row"><%= index = index+1 %></th>
                                                 <td><%= item.teaching_block_period_description %></td>
-                                                <td><%= new Date(item.intake_start_date).toISOString().replace('T', ' ').replace('0Z', ' ') %></td>
-                                                <td><%= new Date(item.intake_end_date).toISOString().replace('T', ' ').replace('0Z', ' ') %></td>
+                                                <td><%= DateTime.fromISO(item.intake_start_date.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss') %></td>
+
+                                                <td>
+                                                    <%= DateTime.fromISO(item.intake_end_date.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss') %>
+                                                </td>
                                                 <td><a href="#" class="edite_intake" data_intake_id="<%= item.teaching_block_period_id %>" data-toggle="modal" data-target="#editIntakeCenter"><span class="material-symbols-outlined">edit</span></a></td>
                                                 <td><a href="#" class="remove_intake" data_intake_id="<%= item.teaching_block_period_id %>" ><span class="material-symbols-outlined">delete</span></a></td>
                                               </tr>                              

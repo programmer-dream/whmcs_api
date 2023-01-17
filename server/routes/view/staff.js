@@ -1466,6 +1466,7 @@ router.get("/blockintakeperiods", ensureAuthenticated, async function (req, res)
     modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     activeintakecount:await user_idpdetailDal.activeintakecount(),
+    DateTime:DateTime,
     supportMenu: {
       main: [
         {
