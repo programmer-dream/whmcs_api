@@ -24,7 +24,7 @@
         margin-right: 4px;
     }
     </style>
-<!-- BEGIN: Body-->
+<!-- BEGIN: Body--> 
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
     data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
@@ -144,6 +144,8 @@
                                                 <th scope="col">Block Name</th>
                                                 <th scope="col">Start date and time</th>
                                                 <th scope="col">End date and time </th>
+                                                <th scope="col">Course id </th>
+                                                <th scope="col">Course name </th>
                                                 <th scope="col">Edit</th>
                                                 <th scope="col">Remove</th>
                                               </tr>
@@ -155,6 +157,8 @@
                                                 <td><%= item.name %></td>
                                                 <td><%= DateTime.fromISO(item.tb_start_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss') %></td>
                                                 <td><%= DateTime.fromISO(item.tb_end_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss') %></td>
+                                                <td><%= item.course_id %></td>
+                                                <td><%= item.course_name %></td>
                                                 <td><a href="#" class="edit_block" data_block_id="<%= item.teaching_block_id %>" data-toggle="modal" data-target="#editBlockCenter"><span class="material-symbols-outlined">edit</span></a></td>
                                                 <td><a href="#" class="remove_block" data_block_id="<%= item.teaching_block_id %>" ><span class="material-symbols-outlined">delete</span></a></td>
                                               </tr>                              
@@ -209,6 +213,17 @@
                     <label class="col-sm-3 col-form-label">Block End Date<span class="red">*</span></label>
                     <div class="col-sm-9">
                         <input class="form-control-file" type="datetime-local" id="tb_end_date_time" name="tb_end_date_time" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                    <select class="form-control" name="course" id="course" required>
+                            <option value="">Select Course</option>
+                            <% courseList.map(function (course) { %>
+                                <option value="<%= course.id %>"><%= course.course_name %></option>
+                            <% }) %>
+                        </select>
                     </div>
                 </div>
             </form>
@@ -381,6 +396,7 @@
             formData.append("name", $('#block_name').val());
             formData.append("tb_start_date_time", $('#tb_start_date_time').val());
             formData.append("tb_end_date_time", $('#tb_end_date_time').val());
+            formData.append("course_id", $('#course').val());
             axios.post('/api/staff/createBlock', formData,{ 
                 headers: {
                     'Content-Type': 'multipart/form-data'

@@ -367,7 +367,7 @@ router.post("/createBlock", async (req, res) => {
         
         let tb_start_date_time = fields.tb_start_date_time;
         let tb_end_date_time   = fields.tb_end_date_time;
-        
+        let course_id=fields.course_id;
         var blockData = {
                         'name':fields.name,
                         'tb_start_date_time':tb_start_date_time.replace('T', ' '),
@@ -375,6 +375,13 @@ router.post("/createBlock", async (req, res) => {
                     }
         //console.log(blockData, "<< blockData")
         response = await user_idpdetailDal.createBlock(blockData);
+        var teaching_block_id=response.teaching_block_id;
+        var courseData={
+            'course_id':course_id,
+            'teaching_block_id':teaching_block_id
+        };
+        
+        await user_idpdetailDal.assignedCourseBlock(courseData);
         res.send({status : 'success', message:'Block saved successfully' })
     })
     
