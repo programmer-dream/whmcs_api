@@ -94,7 +94,7 @@ var User_idpdetail = {
   },
   getTeachingBlocks: async function (userId, moduleId) {
   
-    let blockQuery  = "SELECT teaching_block_blocks.*,courses_blocks_assigned.course_id ,course_details.course_name as course_name,course_details.course_id FROM teaching_block_blocks join courses_blocks_assigned on teaching_block_blocks.teaching_block_id=courses_blocks_assigned.teaching_block_id join course_details on course_details.id=courses_blocks_assigned.course_id;";
+    let blockQuery  = "SELECT teaching_block_blocks.*,courses_blocks_assigned.course_id ,course_details.course_name as course_name,course_details.course_id FROM teaching_block_blocks join courses_blocks_assigned on teaching_block_blocks.teaching_block_id=courses_blocks_assigned.teaching_block_id join course_details on course_details.id=courses_blocks_assigned.course_id WHERE teaching_block_blocks.tb_end_date_time > NOW();";
     let allBlocks = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
 
     return allBlocks;
