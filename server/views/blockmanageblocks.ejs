@@ -98,8 +98,7 @@
 
             <!-- END: Main Menu-->
             <div class="content-body ">
-
-                <!-- Student account data start -->
+               
                 <% courseList.map(function(course){ %>
                 <section id="basic">
                     <div class="row">
@@ -118,36 +117,84 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--/ Basic Horizontal Timeline -->
+                            </div>                           
                         </div>
                     </div>
                 </section>
                 <% }) %> 
-                <!-- Student account data end -->
 
-                  <!-- Student account data start -->
-                  <!-- <section id="basic">
-                    <div class="row">
-                        <div class="col-12">                            
 
-                            <div class="card">
-                                <div class="card-header">
-                                    
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>                                    
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        <div class="card-text">
-                                            <h4 class="form-section" style="text-align: center;"><i class="ft-folder"></i> Course: Computing Course 2</h4>
-                                            <div id="spreadsheet1"></div>
+                <!-- EXAMPLE ACCORDIAN 
+
+                            <div class="mb-2 mt-2">
+                                <h5 class="mb-0 text-uppercase">Accordion with Icon</h5>
+                                <p>Use class <code>.collapse-icon.</code> to set icon accordion toggle. Use <code>.accordion-icon-rotate</code>
+                                    class for rotation animation for icons.</p>
+                            </div>
+                            <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
+                                <div class="card accordion collapse-icon accordion-icon-rotate">
+                                    <a id="heading11" class="card-header info" data-toggle="collapse" href="#accordion11" aria-expanded="true" aria-controls="accordion11">
+                                        <div class="card-title lead">Accordion Group Item #1</div>
+                                    </a>
+                                    <div id="accordion11" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse show">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                Caramels dessert chocolate cake pastry jujubes bonbon. Jelly wafer jelly beans. Caramels chocolate cake
+                                                liquorice cake wafer jelly beans croissant apple pie. Oat cake brownie pudding jelly beans. Wafer liquorice
+                                                chocolate bar chocolate bar liquorice. Tootsie roll gingerbread gingerbread chocolate bar tart chupa chups
+                                                sugar plum toffee. Carrot cake macaroon sweet danish. Cupcake soufflé toffee marzipan candy canes pie jelly-o.
+                                                Cotton candy bonbon powder topping carrot cake cookie caramels lemon drops liquorice. Dessert cookie ice cream
+                                                toffee apple pie.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a id="heading12" class="card-header info" data-toggle="collapse" href="#accordion12" aria-expanded="false" aria-controls="accordion12">
+                                        <div class="card-title lead collapsed">Accordion Group Item #2</div>
+                                    </a>
+                                    <div id="accordion12" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading12" class="collapse" aria-expanded="false">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                Sugar plum bear claw oat cake chocolate jelly tiramisu dessert pie. Tiramisu macaroon muffin jelly marshmallow
+                                                cake. Pastry oat cake chupa chups. Caramels marshmallow carrot cake topping donut sesame snaps toffee tootsie
+                                                roll. Lollipop sweet jelly beans oat cake biscuit pastry chocolate cake. Cupcake chocolate biscuit lemon drops
+                                                cotton candy marshmallow oat cake donut. Croissant chocolate cake oat cake brownie topping carrot cake jelly
+                                                beans. Dessert gingerbread marshmallow pudding donut lemon drops cake. Cake topping gummi bears cake.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a id="heading13" class="card-header info" data-toggle="collapse" href="#accordion13" aria-expanded="false" aria-controls="accordion13">
+                                        <div class="card-title lead collapsed">Accordion Group Item #3</div>
+                                    </a>
+                                    <div id="accordion13" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading13" class="collapse" aria-expanded="false">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                Candy cupcake sugar plum oat cake wafer marzipan jujubes lollipop macaroon. Cake dragée jujubes donut chocolate
+                                                bar chocolate cake cupcake chocolate topping. Dessert jelly beans toffee muffin tiramisu sesame snaps brownie.
+                                                Cake halvah pastry soufflé oat cake candy candy canes. Lemon drops gummies gingerbread toffee. Tart jelly candy
+                                                pastry. Pastry cake jelly beans carrot cake marzipan lollipop muffin. Soufflé jujubes cupcake. Powder danish
+                                                candy carrot cake pastry. Tart marshmallow caramels cake macaroon gummies lollipop.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a id="heading14" class="card-header info" data-toggle="collapse" href="#accordion14" aria-expanded="false" aria-controls="accordion14">
+                                        <div class="card-title lead collapsed">Accordion Group Item #4</div>
+                                    </a>
+                                    <div id="accordion14" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading14" class="collapse" aria-expanded="false">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                Sesame snaps chocolate lollipop sesame snaps apple pie chocolate cake sweet roll. Dragée candy canes carrot
+                                                cake chupa chups danish cake sugar plum candy. Cake powder biscuit bear claw. Sesame snaps cotton candy
+                                                cheesecake topping ice cream cookie tiramisu. Liquorice bonbon cookie pie halvah. Cookie toffee ice cream
+                                                cotton candy lollipop fruitcake. Tart cheesecake tiramisu danish marzipan pie pastry chocolate cake. Pastry
+                                                bonbon lollipop oat cake pastry halvah dessert jelly. Toffee caramels croissant apple pie chupa chups toffee
+                                                muffin chupa chups apple pie.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
+
+-->
+
                 <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title font-weight-bold">Add/Edit Blocks</h3>
