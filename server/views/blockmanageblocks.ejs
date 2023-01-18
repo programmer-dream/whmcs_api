@@ -104,30 +104,43 @@ tbody.draggable .alert {
 
             <!-- END: Main Menu-->
             <div class="content-body ">
-               
-                <% courseList.map(function(course){ %>
-                <section id="basic">
-                    <div class="row">
-                        <div class="col-12">                            
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Manage Block</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>                                    
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        <div class="card-text">
-                                            <h4 class="form-section" style="text-align: center;"><i class="ft-folder"></i> Course: <span class="course_name"><%= course.course_name %></span></h4>
-                                            <div class="spreadsheetCls" id="spreadsheet-<%= course.id %>" course_id="<%= course.id %>"></div>
+                           <div id="accordionWrap1" >
+                                <div class="card accordion collapse-icon accordion-icon-rotate">
+                                    <% courseList.map(function(course){ %>
+                                    <a id="heading11" class="card-header info card-title" data-toggle="collapse" href="#accordion<%= course.id %>" >
+                                        <div class="card-title lead"><%= course.course_name %></div>
+                                    </a>
+                                    <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
+                                        <div class="card-content">
+                                            <section id="basic">
+                                                <div class="row">
+                                                    <div class="col-12">                            
+
+                                                        <div class="card ">
+                                                            
+                                                            <div class="card-content collapse show">
+                                                                <div class="card-body">
+                                                                    <div class="card-text">
+                                                                        <h4 class="form-section" style="text-align: center;"><i class="ft-folder"></i> Course: <span class="course_name" id="<%= course.id %>"><%= course.course_name %></span></h4>
+                                                                        <div class="spreadsheetCls" id="spreadsheet-<%= course.id %>" course_id="<%= course.id %>"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                           
+                                                    </div>
+                                                </div>
+                                            </section>
                                         </div>
+                                    
+                                    
+                                        </div>
+                                        <% }) %> 
                                     </div>
                                 </div>
-                            </div>                           
-                        </div>
-                    </div>
-                </section>
-                <% }) %> 
+
+               
+               
 
 
                 <!-- EXAMPLE ACCORDIAN 
@@ -532,6 +545,17 @@ tbody.draggable .alert {
             });
         }
     });
+    // $('.course-accordian').on('click',function(e){
+    //     var attr_id=$(this).attr('id');
+    //     if($('#spreadsheet-'+attr_id).is(':hidden')) {
+
+    //        $('#spreadsheet-'+attr_id).show(); 
+    //     }else{
+
+    //         $('#spreadsheet-'+attr_id).hide(); 
+    //     }
+
+    // })
     </script>
 </body>
 <!-- END: Body-->
