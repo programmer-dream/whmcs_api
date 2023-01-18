@@ -48,7 +48,22 @@ tbody.draggable .alert {
 .jexcel_content table.jexcel {
     table-layout: auto;
 }
-    </style>
+.card.accordion.collapse-icon.accordion-icon-rotate{
+/*    padding-bottom: 15px;*/
+}
+.card.accordion.collapse-icon .card-header.card-title {
+    margin-bottom: 15px;
+}
+.card.accordion.collapse-icon .card-header.card_title{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.card.accordion.collapse-icon .card-header {
+    width: calc(100% - 28px);
+    margin: auto;
+}
+</style>
+
 <!-- BEGIN: Body--> 
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
@@ -106,10 +121,17 @@ tbody.draggable .alert {
             <div class="content-body ">
 
                            <div id="accordionWrap1" >
+
                                 <div class="card accordion collapse-icon accordion-icon-rotate">
+                                     <div class="card-header card_title">
+                                    <h3 class="card-title font-weight-bold">Manage Blocks</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div> 
                                     <% courseList.map(function(course){ %>
                                     <a id="heading11" class="card-header info card-title" data-toggle="collapse" href="#accordion<%= course.id %>" >
                                         <div class="card-title lead"><%= course.course_name %></div>
+
                                     </a>
                                     <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
                                         <div class="card-content">
@@ -140,7 +162,7 @@ tbody.draggable .alert {
                                 </div>
 
                
-               
+                
 
 
                 <!-- EXAMPLE ACCORDIAN 
