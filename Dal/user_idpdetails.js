@@ -1084,38 +1084,72 @@ var User_idpdetail = {
     let release = ['Module Release Date']
     let submission = ['Submission Date']
     let pinned=[ 'Pinned Modules']
+    let blockList=[]
+    let intakeModule=[]
+    
     let columns = [{ type:'html', width:200, title:'Intake' }]
-    let blockQuery  = "SELECT course_details.*,teaching_block_blocks.name as block_name,teaching_block_blocks.tb_start_date_time,teaching_block_blocks.tb_end_date_time FROM course_details join courses_blocks_assigned on course_details.id=courses_blocks_assigned.course_id join teaching_block_blocks on teaching_block_blocks.teaching_block_id =courses_blocks_assigned.teaching_block_id  where  course_details.id="+id
+    let blockQuery  = "SELECT course_details.*,teaching_block_blocks.name as block_name,teaching_block_blocks.teaching_block_id as block_id, teaching_block_blocks.tb_start_date_time,teaching_block_blocks.tb_end_date_time FROM course_details join courses_blocks_assigned on course_details.id=courses_blocks_assigned.course_id join teaching_block_blocks on teaching_block_blocks.teaching_block_id =courses_blocks_assigned.teaching_block_id  where  course_details.id="+id
 
     let allBlocks = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
     let moduleQuery="SELECT module_details.* from module_details JOIN courses_modules_assigned on courses_modules_assigned.module_id=module_details.module_id where courses_modules_assigned.course_id= "+id+" AND module_details.module_type='pinned'";
       let allModule = await sequelize.query(moduleQuery,{ type: Sequelize.QueryTypes.SELECT });
 
+      //get all intake
+      let intakeQuery="SELECT * from teaching_block_intake_description";
+      let allIntake = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+      //get inake moudule 
+      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code, teaching_block_intakes.teaching_block_period_id, teaching_block_modules.teaching_block_id FROM teaching_block_intakes JOIN teaching_block_modules ON teaching_block_modules.teaching_block_id = teaching_block_intakes.teaching_block_id JOIN module_details ON module_details.module_id = teaching_block_modules.module_id;";
+      let allIntakeModule = await sequelize.query(intakeModuleQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+      console.log(allIntakeModule,'allIntakeModule->>>>>>//');
+
     let moduleStr = ''
-    await Promise.all(
-      allModule.map(function(module){
-        console.log(module, "<<< count")
-        moduleStr += '<div class="alert alert-info" role="alert">   '+module.module_name+'- Pinned <br> - '+module.module_code+'</div>'
+      await Promise.all(
+        allModule.map(function(module){
+          //console.log(module, "<<< count")
+          moduleStr += '<div class="alert alert-info" role="alert">   '+module.module_name+'- Pinned <br> - '+module.module_code+'</div>'
       })
     )
     
+    let intakeobj = {}
+    let moduleIntakeStr = ''
+      await Promise.all(
+        allIntakeModule.map(function(intakemodule){
+          
+          if(!intakeobj[intakemodule.teaching_block_period_id])
+              intakeobj[intakemodule.teaching_block_period_id] = ''
 
+          intakeobj[intakemodule.teaching_block_period_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'- Pinned <br> - '+intakemodule.module_code+'</div>'
+
+      })
+    )
+
+    //console.log(intakeobj, "<<< intakeobj")
     await Promise.all(
       allBlocks.map(function(block){
         let temp = { type:'html', width:600, title: block.block_name}
         let course_id=block.id;
         
-        release.push(block.tb_start_date_time)
-        submission.push(block.tb_end_date_time)
+        release.push(DateTime.fromISO(block.tb_start_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss'))
+        submission.push(DateTime.fromISO(block.tb_end_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss'))
         columns.push(temp)
         pinned.push(moduleStr);
+        blockList.push(block.block_id)
       })
 
     )
 
-    return {columns, release, submission,pinned};
+    return {columns, release, submission,pinned, allIntake,blockList,intakeobj};
     
   },
+  // listblockBlockModule: async function (block_id) {
+  //   let blockModule  = "SELECT module_details.* from teaching_block_blocks join teaching_block_modules on teaching_block_blocks.teaching_block_id=teaching_block_modules.teaching_block_id join module_details on module_details.module_id=teaching_block_modules.module_id where teaching_block_modules.teaching_block_id="+block_id
+
+  //   let allBlocksModule = await sequelize.query(blockModule,{ type: Sequelize.QueryTypes.SELECT });
+  //   return allBlocksModule;
+  // }
+
 
 };
 module.exports = User_idpdetail;

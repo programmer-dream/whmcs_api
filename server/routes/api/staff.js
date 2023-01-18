@@ -1089,18 +1089,35 @@ router.post("/updateModule", async (req, res) => {
 router.get("/getCourseListdata/:id", async (req, res) => {
     let id = req.params.id
     let blockData = await user_idpdetailDal.listblockData(id);
-    options = {
-        data: [
-           blockData.release,
-           blockData.submission,
-           blockData.pinned,
-           [ 'May 2022 Intake ','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>','<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>'],
-           [ 'Nov 2022 Intake','', '<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>','','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>'],
-           [ 'Feb 2023 Intake',''],
-           [ 'May 2023 Intake',''],
-           [ 'Sept 2023 Intake','']
+    //[ 'May 2022 Intake ','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>','<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>'],
+    
+    let data = [
+       blockData.release,
+       blockData.submission,
+       blockData.pinned
+    ]
+    //let blockList=blockData.blockList;
+    let intakeModule=blockData.allIntakeModule;
+
+    await Promise.all(
+      blockData.allIntake.map(function(intake){
+        // intakeStr='<div class="alert alert-primary" role="alert">'+intake.teaching_block_period_description+'</div>';
         
-        ],
+       
+
+        
+
+        if(blockData.intakeobj[intake.teaching_block_period_id]){
+            let tempArr = [intake.teaching_block_period_description]
+            tempArr.push(blockData.intakeobj[intake.teaching_block_period_id])
+            data.push(tempArr)
+        }
+        console.log(data,'<< data55')
+      })
+    )
+
+    options = {
+        data: data,
         columns: blockData.columns,
         minDimensions:[2,2],
     };
