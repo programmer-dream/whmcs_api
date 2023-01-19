@@ -1136,7 +1136,7 @@ var User_idpdetail = {
           if(!blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id])
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'- Pinned <br/> - '+intakemodule.module_code+'</div>'
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'</div>'
 
       })
     )
