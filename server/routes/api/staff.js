@@ -1043,13 +1043,19 @@ let getWhmcsData = (whmcsconnection, queryStr) =>{
         });
     });
 };
-// 26-dec
+
 router.post("/enableDisable", async (req, res) => {
     let response = await user_idpdetailDal.enabledisablevalue(req.body)
     res.send({status : 'success', message:'Status updated successfully'})
    
 });
-//26 dec
+router.post("/linkModule", async (req, res) => {
+    console.log(req.body, "<< ")
+    let response = await user_idpdetailDal.linkModule(req.body)
+    res.send({status : 'success', message:'Module added successfully'})
+   
+});
+
 router.post("/updateModule", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();

@@ -18,6 +18,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false,
       },
+      module_id: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+      },
     },
     {
       tableName: "teaching_block_intakes",

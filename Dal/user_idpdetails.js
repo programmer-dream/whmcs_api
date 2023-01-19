@@ -1066,6 +1066,12 @@ var User_idpdetail = {
     
     
   },
+  linkModule: async function (para) {
+     
+    await teaching_block_periods.create(para);
+    
+    
+  },
   listCourse: async function () {
      let blockQuery  = "SELECT * FROM course_details"
     let allCourse = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
@@ -1154,10 +1160,10 @@ var User_idpdetail = {
           
           if(!blockobj[intakeData.teaching_block_period_id+","+blockId]){
            
-            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push('<span class="material-symbols-outlined addDynamicModule" block-id="'+blockId+'" intake-id="'+intakeData.teaching_block_period_id+'">add</span>')
+            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push('<span class="material-symbols-outlined addDynamicModule" block-id="'+blockId+'" intake-id="'+intakeData.teaching_block_period_id+'" data-toggle="modal" data-target="#addModuleModal" style="cursor: pointer;">add</span>')
           }else{
             
-            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push(blockobj[intakeData.teaching_block_period_id+","+blockId]+'<span class="material-symbols-outlined addDynamicModule" block-id="'+blockId+'" intake-id="'+intakeData.teaching_block_period_id+'">add</span>')
+            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push(blockobj[intakeData.teaching_block_period_id+","+blockId]+'<span class="material-symbols-outlined addDynamicModule" block-id="'+blockId+'" intake-id="'+intakeData.teaching_block_period_id+'" data-toggle="modal" data-target="#addModuleModal" style="cursor: pointer;">add</span>')
           }
         })
         
