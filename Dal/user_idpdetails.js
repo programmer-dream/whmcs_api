@@ -1154,7 +1154,7 @@ var User_idpdetail = {
           
           if(!blockobj[intakeData.teaching_block_period_id+","+blockId]){
            
-            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push('')
+            intagelikeDataArrayObj[intakeData.teaching_block_period_id].push('<span class="material-symbols-outlined addDynamicModule">add</span>')
           }else{
             
             intagelikeDataArrayObj[intakeData.teaching_block_period_id].push(blockobj[intakeData.teaching_block_period_id+","+blockId])
