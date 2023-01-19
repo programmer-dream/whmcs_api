@@ -622,6 +622,8 @@ tbody.draggable span.material-symbols-outlined {
         $('#getIntakeID').val($(this).attr('intake-id'));
         $('#getBlockId').val($(this).attr('block-id'));
         var courseId = $($(this).closest('.spreadsheetCls')).attr('course_id');
+        $("#module_id").empty();
+        $('#module_id').append('<option value="">Select Module</option>');
         axios.get('/api/staff/getCourseModule/'+courseId).then(function (response) {
             moduleList = ''
             response.data.data.map(function(item){
