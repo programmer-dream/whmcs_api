@@ -419,7 +419,7 @@ tbody.draggable span.material-symbols-outlined {
                    
                     <div class="col-sm-9">
                     <select class="form-control" name="module" id="module_id" required>
-                            <option value="">Select Module</option>
+                            <option value="">Add Module</option>
                             
                         </select>
                     </div>
@@ -623,7 +623,7 @@ tbody.draggable span.material-symbols-outlined {
         $('#getBlockId').val($(this).attr('block-id'));
         var courseId = $($(this).closest('.spreadsheetCls')).attr('course_id');
         $("#module_id").empty();
-        $('#module_id').append('<option value="">Select Module</option>');
+        $('#module_id').append('<option value="">Add Module</option>');
         axios.get('/api/staff/getCourseModule/'+courseId).then(function (response) {
             moduleList = ''
             response.data.data.map(function(item){
