@@ -398,6 +398,42 @@ tbody.draggable .alert {
         </div>
       </div>
     </div>
+    <!-- Add intake and block to module-->
+    <div class="modal fade modal-btns" id="addIntakeBlockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalCenterTitle">Edit Block</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="editBlockForm">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Module list<span class="red">*</span></label>
+                    <input type="hidden" class="intake_value" value="2">
+                     <input type="hidden" class="block_value" value="2">
+                   
+                    <div class="col-sm-9">
+                    <select class="form-control" name="course" id="module_itake_id" required>
+                            <option value="">Select Module</option>
+                            <% modules.map(function (module) { %>
+                                <option value="<%= module.module_id %>"><%= module.module_name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+                
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i>Close</button>
+            <button type="button" class="btn btn-primary" id="saveintakeBlock"><i class="la la-check-square-o"></i> Save changes</button>
+          </div>        
+        </div>
+      </div>
+    </div>
     <!-- edit Intake end -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -592,6 +628,31 @@ tbody.draggable .alert {
     //     }
 
     // })
+    
+   
+        
+        $('#addIntakeBlockModal').modal('show'); 
+        
+    $('#saveintakeBlock').on('click',function(e){
+        var intake_value=$('.intake_value').val();
+        var block_value=$('.block_value').val();
+        var module_id=$("#module_itake_id").find(':selected').val();
+        alert(intake_value);
+        alert(block_value);
+        alert(module_id);
+        // axios.get('/api/staff/getCourseListdata/'+course_id,{ 
+                        
+        //     }).then(function (response) {
+        //         //data = JSON.parse(response.data.data)
+        //         //jspreadsheet(document.getElementById(tableID), data);
+
+        //     }).catch(function (error ) {
+        //         //console.log(error)
+        //     });
+
+    })
+        
+    
     </script>
 </body>
 <!-- END: Body-->
