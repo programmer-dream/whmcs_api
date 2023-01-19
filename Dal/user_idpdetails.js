@@ -1099,10 +1099,10 @@ var User_idpdetail = {
       let allIntake = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //get inake moudule 
-      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code, teaching_block_intakes.teaching_block_period_id, teaching_block_modules.teaching_block_id FROM teaching_block_intakes JOIN teaching_block_modules ON teaching_block_modules.teaching_block_id = teaching_block_intakes.teaching_block_id JOIN module_details ON module_details.module_id = teaching_block_modules.module_id;";
+      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
       let allIntakeModule = await sequelize.query(intakeModuleQuery,{ type: Sequelize.QueryTypes.SELECT });
 
-      //console.log(allIntakeModule,'allIntakeModule->>>>>>//');
+      //console.log(allIntakeModule,'<< allIntakeModule');
 
     let moduleStr = ''
       await Promise.all(
@@ -1129,30 +1129,14 @@ var User_idpdetail = {
 
     )
 
-    let intakeobj = {}
     let blockobj = {}
-    let intakeIds = []
-    let blockIds = []
-    let moduleIntakeStr = ''
-
     await Promise.all(
         allIntakeModule.map(function(intakemodule){
           
-          if(!intakeobj[intakemodule.teaching_block_period_id])
-              intakeobj[intakemodule.teaching_block_period_id] = ''
-
-          intakeobj[intakemodule.teaching_block_period_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'- Pinned <br/> - '+intakemodule.module_code+'</div>'
-
           if(!blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id])
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
           blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'- Pinned <br/> - '+intakemodule.module_code+'</div>'
-          if(!intakeIds.includes(intakemodule.teaching_block_period_id)){
-              intakeIds.push(intakemodule.teaching_block_period_id)
-          }
-          if(!blockIds.includes(intakemodule.teaching_block_id)){
-              blockIds.push(intakemodule.teaching_block_id)
-          }
 
       })
     )
@@ -1163,8 +1147,6 @@ var User_idpdetail = {
 
       allIntake.map(async function(intakeData, intakeIndex){
         
-        let tempObject = {}
-        //let tempA = []
         if(!intagelikeDataArrayObj[intakeData.teaching_block_period_id])
             intagelikeDataArrayObj[intakeData.teaching_block_period_id] = []
 
@@ -1182,7 +1164,7 @@ var User_idpdetail = {
       })
     )
     
-    return {columns, release, submission,pinned, allIntake,blockList,intakeobj, intagelikeDataArrayObj};
+    return {columns, release, submission,pinned, allIntake,blockList, intagelikeDataArrayObj};
     
   }
 
