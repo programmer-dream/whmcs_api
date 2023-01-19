@@ -418,11 +418,9 @@ tbody.draggable span.material-symbols-outlined {
                      <input type="hidden" id="getBlockId" value="">
                    
                     <div class="col-sm-9">
-                    <select class="form-control" name="course" id="module_id" required>
+                    <select class="form-control" name="module" id="module_id" required>
                             <option value="">Select Module</option>
-                            <% modules.map(function (module) { %>
-                                <option value="<%= module.module_id %>"><%= module.module_name %></option>
-                            <% }) %>
+                            
                         </select>
                     </div>
                 </div>
@@ -623,37 +621,50 @@ tbody.draggable span.material-symbols-outlined {
     $(document).on('click', '.addDynamicModule', function() {
         $('#getIntakeID').val($(this).attr('intake-id'));
         $('#getBlockId').val($(this).attr('block-id'));
+        var courseId = $($(this).closest('.spreadsheetCls')).attr('course_id');
+        axios.get('/api/staff/getCourseModule/'+courseId).then(function (response) {
+            moduleList = ''
+            response.data.data.map(function(item){
+                moduleList +="<option value='"+item.module_id+"'>"+item.module_name+"</option>" 
+            })
+            $('#module_id').append(moduleList);
+
+        }).catch(function (error ) {
+            console.log(error)
+        });
     });
     
         
      $(document).on('click', '#saveLinkModule',function(e){
-        var intakeId=$('#getIntakeID').val();
-        var blockId=$('#getBlockId').val();
-        var moduleId=$("#module_id").val();
+        if($('#linkModuleForm').valid()){
+            var intakeId=$('#getIntakeID').val();
+            var blockId=$('#getBlockId').val();
+            var moduleId=$("#module_id").val();
 
-        let obj = {
-            teaching_block_period_id: intakeId,
-            teaching_block_id: blockId,
-            module_id:moduleId 
-        }
-            
-        axios.post('/api/staff/linkModule', obj).then(function (response) {
-            
-            if(response.data.status == "success"){
-                $('#linkModuleForm')[0].reset();
-                swal("Success", response.data.message);
-                
-                setTimeout(function(){
-                    location.reload();
-                }, 3000);
-            }else{
-                
-                swal("Something went wrong")
+            let obj = {
+                teaching_block_period_id: intakeId,
+                teaching_block_id: blockId,
+                module_id:moduleId 
             }
-        }).catch(function (error ) {
-            console.log(error)
-            console.log('FAILURE!!');
-        });
+                
+            axios.post('/api/staff/linkModule', obj).then(function (response) {
+                
+                if(response.data.status == "success"){
+                    $('#linkModuleForm')[0].reset();
+                    swal("Success", response.data.message);
+                    
+                    setTimeout(function(){
+                        location.reload();
+                    }, 3000);
+                }else{
+                    
+                    swal("Something went wrong")
+                }
+            }).catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+        }
     })
         
     

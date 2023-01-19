@@ -738,6 +738,15 @@ router.get("/getModule/:id", async (req, res) => {
     let allModulesDates = await user_idpdetailDal.getModule(id)
     res.send({status : 'success', message:'Module data', data: allModulesDates})
 });
+router.get("/getCourseModule/:id", async (req, res) => {
+    let courseId = req.params.id
+
+    let queryStr  = "SELECT module_details.module_id, module_details.module_name FROM module_details JOIN courses_modules_assigned ON courses_modules_assigned.module_id=module_details.module_id WHERE course_id ='"+courseId+"'";
+
+    let result = await user_idpdetailDal.runRawQuery(queryStr)
+
+    res.send({status : 'success', message:'Module data', data: result})
+});
 router.post("/savemoduledata", async (req, res) => {
 
     let moduleDatesArray = req.body.module_dates
@@ -1050,7 +1059,7 @@ router.post("/enableDisable", async (req, res) => {
    
 });
 router.post("/linkModule", async (req, res) => {
-    console.log(req.body, "<< ")
+
     let response = await user_idpdetailDal.linkModule(req.body)
     res.send({status : 'success', message:'Module added successfully'})
    
