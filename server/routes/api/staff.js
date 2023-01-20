@@ -741,7 +741,7 @@ router.get("/getModule/:id", async (req, res) => {
 router.get("/getCourseModule/:id", async (req, res) => {
     let courseId = req.params.id
 
-    let queryStr  = "SELECT module_details.module_id, module_details.module_name FROM module_details JOIN courses_modules_assigned ON courses_modules_assigned.module_id=module_details.module_id WHERE course_id ='"+courseId+"'";
+    let queryStr  = "SELECT module_details.module_id,module_details.module_code,module_details.module_type, module_details.module_name FROM module_details JOIN courses_modules_assigned ON courses_modules_assigned.module_id=module_details.module_id WHERE course_id ='"+courseId+"'";
 
     let result = await user_idpdetailDal.runRawQuery(queryStr)
 

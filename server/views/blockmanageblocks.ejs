@@ -615,7 +615,8 @@ tbody.draggable span.material-symbols-outlined {
         axios.get('/api/staff/getCourseModule/'+courseId).then(function (response) {
             moduleList = ''
             response.data.data.map(function(item){
-                moduleList +="<option value='"+item.module_id+"'>"+item.module_name+"</option>" 
+                var opt_value=item.module_code+ ' - '+item.module_name+' ('+item.module_type+')';
+                moduleList +="<option value='"+item.module_id+"'>"+opt_value+"</option>" 
             })
             $('#module_id').append(moduleList);
 
@@ -690,6 +691,7 @@ tbody.draggable span.material-symbols-outlined {
                         //location.reload();
                         var url=window.location.origin+'/staff/blockmanageblocks'+'?accordion='+accordian_id;
                         window.location.href = url;
+
                         
                     }, 3000);
                 }else{
@@ -711,6 +713,9 @@ tbody.draggable span.material-symbols-outlined {
         if(urlParams.has('accordion')){
              var accordin_id=urlParams.get('accordion');
             $('#'+accordin_id).addClass('show');
+            // $('html, body').animate({
+            //                 scrollTop: $("#"+accordin_id).offset().top
+            //             }, 2000);
         }
        
 
