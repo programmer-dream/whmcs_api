@@ -164,7 +164,7 @@ tbody.draggable span.material-symbols-outlined {
                                         <div class="card-title lead">Course: <%= course.course_name %></div>
 
                                     </a>
-                                    <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
+                                    <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse get-accordian ">
                                         <div class="card-content">
                                             <section id="basic">
                                                 <div class="row">
@@ -653,6 +653,8 @@ tbody.draggable span.material-symbols-outlined {
         }
     })
      $(document).on('click', '.deleteDynamicModule', function() {
+        var accordian_id=$(this).closest('.get-accordian').attr('id');
+        
         var module_id=$(this).attr('module-id');
         var intake_id=$(this).attr('intake-id');
         var block_id=$(this).attr('block_id');
@@ -678,7 +680,10 @@ tbody.draggable span.material-symbols-outlined {
                     swal("Success", response.data.message);
                     
                     setTimeout(function(){
-                        location.reload();
+                        //location.reload();
+                        var url=window.location.origin+'/staff/blockmanageblocks'+'?accordion='+accordian_id;
+                        window.location.href = url;
+                        
                     }, 3000);
                 }else{
                     
@@ -694,6 +699,16 @@ tbody.draggable span.material-symbols-outlined {
         
 
     })
+     $(document).ready(function(){
+        var urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('accordion')){
+             var accordin_id=urlParams.get('accordion');
+            $('#'+accordin_id).addClass('show');
+        }
+       
+
+     })
+     
 
         
     
