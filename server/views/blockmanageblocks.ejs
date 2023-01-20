@@ -78,6 +78,11 @@ tbody.draggable .alert {
 tbody.draggable span.material-symbols-outlined {
     color: #607d8b;
 }
+.manage-text {
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
 </style>
 
 <!-- BEGIN: Body--> 
@@ -144,9 +149,10 @@ tbody.draggable span.material-symbols-outlined {
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
                                 </div> 
+                                <p class="manage-text">Manage the assignment of modules within blocks for each course below.</p>
                                     <% courseList.map(function(course){ %>
                                     <a id="heading11" class="card-header info card-title" data-toggle="collapse" href="#accordion<%= course.id %>" >
-                                        <div class="card-title lead"><%= course.course_name %></div>
+                                        <div class="card-title lead">Course:<%= course.course_name %></div>
 
                                     </a>
                                     <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
@@ -668,6 +674,7 @@ tbody.draggable span.material-symbols-outlined {
             });
         }
     })
+
         
     
     </script>
