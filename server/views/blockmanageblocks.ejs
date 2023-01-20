@@ -152,7 +152,7 @@ tbody.draggable span.material-symbols-outlined {
                                 <p class="manage-text">Manage the assignment of modules within blocks for each course below.</p>
                                     <% courseList.map(function(course){ %>
                                     <a id="heading11" class="card-header info card-title" data-toggle="collapse" href="#accordion<%= course.id %>" >
-                                        <div class="card-title lead">Course:<%= course.course_name %></div>
+                                        <div class="card-title lead">Course: <%= course.course_name %></div>
 
                                     </a>
                                     <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
