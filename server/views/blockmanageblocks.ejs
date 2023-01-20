@@ -74,6 +74,15 @@ tbody.draggable .alert {
     border-radius: 0px;
     font-size: 14px;
     line-height: 17px;
+    position: relative;
+}
+tbody.draggable .alert .deleteDynamicModule {
+    color: #fff;
+    font-size: 13px;
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    font-weight: bold;
 }
 tbody.draggable span.material-symbols-outlined {
     color: #607d8b;
@@ -673,6 +682,48 @@ tbody.draggable span.material-symbols-outlined {
                 console.log('FAILURE!!');
             });
         }
+    })
+     $(document).on('click', '.deleteDynamicModule', function() {
+        var module_id=$(this).attr('module-id');
+        var intake_id=$(this).attr('intake-id');
+        var block_id=$(this).attr('block_id');
+        
+        let obj={
+            teaching_block_period_id: intake_id,
+            teaching_block_id: block_id,
+            module_id:module_id 
+        }
+        swal({
+              title: "Are you sure?",
+              text: "Once deleted, you will not be able to recover this data!",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+            
+             axios.post('/api/staff/unlinkModule', obj).then(function (response) {
+                
+                if(response.data.status == "success"){
+                    //$('#linkModuleForm')[0].reset();
+                    swal("Success", response.data.message);
+                    
+                    setTimeout(function(){
+                        location.reload();
+                    }, 3000);
+                }else{
+                    
+                    swal("Something went wrong")
+                }
+            }).catch(function (error ) {
+                console.log(error)
+                console.log('FAILURE!!');
+            });
+        }
+        })
+       
+        
+
     })
 
         

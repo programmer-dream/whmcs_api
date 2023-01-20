@@ -1064,6 +1064,18 @@ router.post("/linkModule", async (req, res) => {
     res.send({status : 'success', message:'Module added successfully'})
    
 });
+router.post("/unlinkModule", async (req, res) => {
+
+    let module_id=req.body.module_id;
+    let teaching_block_period_id=req.body.teaching_block_period_id;
+    let teaching_block_id=req.body.teaching_block_id;
+    let response = await user_idpdetailDal.unlinkModule(module_id,teaching_block_period_id,teaching_block_id)
+    if(response.status=="success"){
+        res.send({status : 'success', message:'Module unlinked successfully'})
+    }
+    
+   
+});
 
 router.post("/updateModule", async (req, res) => {
     let response;

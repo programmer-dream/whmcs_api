@@ -41,6 +41,7 @@ var course_details                 = models.course_details
 var course_location                = models.course_location
 var courses_modules_assigned       = models.courses_modules_assigned
 var courses_blocks_assigned        = models.courses_blocks_assigned
+var teaching_block_intakes         =models.teaching_block_intakes
 
 
 var client_availablemodules = models.client_availablemodules;
@@ -1072,6 +1073,14 @@ var User_idpdetail = {
     
     
   },
+  unlinkModule: async function (module_id,teaching_block_period_id,teaching_block_id) {
+     
+    if(await teaching_block_intakes.destroy({where:{module_id:module_id,teaching_block_period_id:teaching_block_period_id,teaching_block_id:teaching_block_id}})){
+      return {'status':'success'};
+    }
+    
+    
+  },
   listCourse: async function () {
      let blockQuery  = "SELECT * FROM course_details"
     let allCourse = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
@@ -1105,7 +1114,7 @@ var User_idpdetail = {
       let allIntake = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //get inake moudule 
-      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
+      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code,module_details.module_id, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
       let allIntakeModule = await sequelize.query(intakeModuleQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //console.log(allIntakeModule,'<< allIntakeModule');
@@ -1142,7 +1151,7 @@ var User_idpdetail = {
           if(!blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id])
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'</div>'
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
 
       })
     )
