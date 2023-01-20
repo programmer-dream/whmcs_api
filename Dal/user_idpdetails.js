@@ -1158,14 +1158,16 @@ var User_idpdetail = {
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
           let color = ''
+          let pinned = ''
           if(intakemodule.module_type == 'pinned'){
             color = 'pinned_color'
+            pinned = '- Pinned '
           }else if(intakemodule.module_type == 'core'){
             color = 'core_color'
           }else{
             color = 'elective_color'
           }
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">   '+intakemodule.module_name+pinned+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
 
       })
     )
