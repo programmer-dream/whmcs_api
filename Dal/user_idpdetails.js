@@ -1120,7 +1120,7 @@ var User_idpdetail = {
       let allIntake = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //get inake moudule 
-      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code,module_details.module_id, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
+      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code,module_details.module_id, module_details.module_type, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
       let allIntakeModule = await sequelize.query(intakeModuleQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //console.log(allIntakeModule,'<< allIntakeModule');
@@ -1129,7 +1129,7 @@ var User_idpdetail = {
       await Promise.all(
         allModule.map(function(module){
           //console.log(module, "<<< count")
-          moduleStr += '<div class="alert alert-info" role="alert">   '+module.module_name+'- Pinned <br/> - '+module.module_code+'</div>'
+          moduleStr += '<div class="alert pinned_color" role="alert">   '+module.module_name+'- Pinned <br/> - '+module.module_code+'</div>'
       })
     )
     
@@ -1157,7 +1157,15 @@ var User_idpdetail = {
           if(!blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id])
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert alert-primary" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
+          let color = ''
+          if(intakemodule.module_type == 'pinned'){
+            color = 'pinned_color'
+          }else if(intakemodule.module_type == 'core'){
+            color = 'core_color'
+          }else{
+            color = 'elective_color'
+          }
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
 
       })
     )
