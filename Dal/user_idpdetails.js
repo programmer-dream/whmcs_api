@@ -1108,7 +1108,7 @@ var User_idpdetail = {
     let blockList=[]
     let intakeModule=[]
     
-    let columns = [{ type:'html', width:200, title:'Intake' }]
+    let columns = [{ type:'html', readOnly:true, width:200, title:'Intake' }]
     let blockQuery  = "SELECT course_details.*,teaching_block_blocks.name as block_name,teaching_block_blocks.teaching_block_id as block_id, teaching_block_blocks.tb_start_date_time,teaching_block_blocks.tb_end_date_time FROM course_details join courses_blocks_assigned on course_details.id=courses_blocks_assigned.course_id join teaching_block_blocks on teaching_block_blocks.teaching_block_id =courses_blocks_assigned.teaching_block_id  where  course_details.id="+id
 
     let allBlocks = await sequelize.query(blockQuery,{ type: Sequelize.QueryTypes.SELECT });
@@ -1138,7 +1138,7 @@ var User_idpdetail = {
     //console.log(intakeobj, "<<< intakeobj")
     await Promise.all(
       allBlocks.map(function(block){
-        let temp = { type:'html', width:600, title: block.block_name}
+        let temp = { type:'html',readOnly:true, width:600, title: block.block_name}
         let course_id=block.id;
         
         release.push(DateTime.fromISO(block.tb_start_date_time.toISOString().replace('Z','')).toFormat('yyyy-MM-dd HH:mm:ss'))

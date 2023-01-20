@@ -104,6 +104,9 @@ tbody.draggable span.material-symbols-outlined {
     background-color: #ffc599;
     color: #000000
 }
+.jexcel > tbody > tr > td.readonly {
+    color: unset;
+}
 </style>
 
 <!-- BEGIN: Body--> 
@@ -488,6 +491,10 @@ tbody.draggable span.material-symbols-outlined {
             }).then(function (response) {
                 data = JSON.parse(response.data.data)
                 jspreadsheet(document.getElementById(tableID), data);
+                // jspreadsheet(document.getElementById(tableID), {
+                //     data:data,
+                //     oneditionstart:true
+                // })
 
             }).catch(function (error ) {
                 console.log(error)
