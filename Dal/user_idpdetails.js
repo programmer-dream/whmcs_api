@@ -941,11 +941,17 @@ var User_idpdetail = {
             allCourse.push(course)
           })
       )
-      //console.log(allCourse, "<< all99")
-      return allCourse
+
+      let sorted = allCourse.sort(function(a, b) { 
+        return a.id - b.id;
+      });
+      
+      return sorted
+
     }else{
       return []
     }
+    
   },
   courseLocations: async function () {
     let allCourse = []
