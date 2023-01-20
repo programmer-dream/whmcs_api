@@ -161,7 +161,7 @@ tbody.draggable span.material-symbols-outlined {
                                 <p class="manage-text">Manage the assignment of modules within blocks for each course below.</p>
                                     <% courseList.map(function(course){ %>
                                     <a id="heading11" class="card-header info card-title" data-toggle="collapse" href="#accordion<%= course.id %>" >
-                                        <div class="card-title lead">Course:<%= course.course_name %></div>
+                                        <div class="card-title lead">Course: <%= course.course_name %></div>
 
                                     </a>
                                     <div id="accordion<%= course.id %>" role="tabpanel" data-parent="#accordionWrap1" aria-labelledby="heading11" class="collapse ">
@@ -457,37 +457,6 @@ tbody.draggable span.material-symbols-outlined {
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
- 
-    <script>
-        
-        var options = {
-            data: [
-               [ 'Module Release Date', '16/05/2022', '12/09/2022' ],
-               [ 'Submission Date','20/07/2022', '16/11/2022'],
-               [ 'Pinned Modules','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>', '<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>','<div class="alert alert-info" role="alert">  P1 - Pinned <br> - COM001</div><div class="alert alert-info" role="alert">  P2 - Pinned <br> - COM002</div>'],
-               [ 'May 2022 Intake ','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>','<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>'],
-               [ 'Nov 2022 Intake','', '<div class="alert alert-secondary" role="alert">  M3 - IT Project<br> Management <br> - COM5011</div><div class="alert alert-warning" role="alert">  M4 - Systems Analysis <br> and Design <br> - COM5002</div>','','<div class="alert alert-primary" role="alert">  M1 - Human Computer  <br>Interaction <br> - COM5009</div><div class="alert alert-success" role="alert">  M2 - Data Analysis <br> and Visualisation <br> - COM5010</div>'],
-               [ 'Feb 2023 Intake',''],
-               [ 'May 2023 Intake',''],
-               [ 'Sept 2023 Intake','']
-            
-            ],
-            columns: [
-                { type:'text', width:200, title:'Intake' },
-                { type:'html', width:200, title:'May - July 2022' },
-                { type:'html', width:200, title:'Sept - Nov 2022' },
-                { type:'html', width:200, title:'Nov - Feb 2023' },
-                { type:'html', width:200, title:'Feb - May 2023' },
-                { type:'html', width:200, title:'May - Jul 2023' },
-                { type:'html', width:200, title:'Sept 23 - Nov 2023' },
-             ],
-             minDimensions:[2,2],
-        }
-         
-        jspreadsheet(document.getElementById('spreadsheet1'), options);
-        </script>
-
-
 <script>
 
     
