@@ -1130,6 +1130,7 @@ router.get("/getCourseListdata/:id", async (req, res) => {
     options = {
         data: data,
         columns: blockData.columns,
+        columnSorting:false,
         minDimensions:[2,2],
     };
     let parseOptions = JSON.stringify(options)
