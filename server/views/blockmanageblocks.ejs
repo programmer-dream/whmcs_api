@@ -431,6 +431,7 @@ tbody.draggable span.material-symbols-outlined {
                     <label class="col-sm-3 col-form-label">Module list<span class="red">*</span></label>
                     <input type="hidden" id="getIntakeID" value="">
                      <input type="hidden" id="getBlockId" value="">
+                     <input type="hidden" id="accrd_id" value="">
                    
                     <div class="col-sm-9">
                     <select class="form-control" name="module" id="module_id" required>
@@ -603,8 +604,11 @@ tbody.draggable span.material-symbols-outlined {
     });
 
     $(document).on('click', '.addDynamicModule', function() {
+        var accordian_id=$(this).closest('.get-accordian').attr('id');
+
         $('#getIntakeID').val($(this).attr('intake-id'));
         $('#getBlockId').val($(this).attr('block-id'));
+        $('#accrd_id').val(accordian_id);
         var courseId = $($(this).closest('.spreadsheetCls')).attr('course_id');
         $("#module_id").empty();
         $('#module_id').append('<option value="">Add Module</option>');
@@ -623,6 +627,7 @@ tbody.draggable span.material-symbols-outlined {
         
      $(document).on('click', '#saveLinkModule',function(e){
         if($('#linkModuleForm').valid()){
+            var accordian_id=$('#accrd_id').val();
             var intakeId=$('#getIntakeID').val();
             var blockId=$('#getBlockId').val();
             var moduleId=$("#module_id").val();
@@ -640,7 +645,9 @@ tbody.draggable span.material-symbols-outlined {
                     swal("Success", response.data.message);
                     
                     setTimeout(function(){
-                        location.reload();
+                        //location.reload();
+                        var url=window.location.origin+'/staff/blockmanageblocks'+'?accordion='+accordian_id;
+                        window.location.href = url;
                     }, 3000);
                 }else{
                     
