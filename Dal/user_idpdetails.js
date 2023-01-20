@@ -1129,7 +1129,7 @@ var User_idpdetail = {
       await Promise.all(
         allModule.map(function(module){
           //console.log(module, "<<< count")
-          moduleStr += '<div class="alert pinned_color" role="alert">   '+module.module_name+'- Pinned <br/> - '+module.module_code+'</div>'
+          moduleStr += '<div class="alert pinned_color" role="alert">   '+module.module_code+' - '+module.module_name+' (pinned)</div>'
       })
     )
     
@@ -1158,14 +1158,18 @@ var User_idpdetail = {
               blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] = ''
 
           let color = ''
+          let type = ''
           if(intakemodule.module_type == 'pinned'){
             color = 'pinned_color'
+            type = ' (pinned)'
           }else if(intakemodule.module_type == 'core'){
             color = 'core_color'
+            type = ' (core)'
           }else{
             color = 'elective_color'
+            type = ' (elective)'
           }
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">   '+intakemodule.module_name+'<br/> - '+intakemodule.module_code+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">'+intakemodule.module_code+' - '+intakemodule.module_name+type+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
 
       })
     )
