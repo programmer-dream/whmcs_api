@@ -94,15 +94,15 @@ tbody.draggable span.material-symbols-outlined {
 }
 .pinned_color{
     background-color: #ABC4FF;
-    color: #ffffff
+    color: '#000000'
 }
 .core_color{
     background-color: #718355;
-    color: #ffffff
+    color: #5EBAA6
 }
 .elective_color{
     background-color: #ffc599;
-    color: #ffffff
+    color: #000000
 }
 </style>
 
@@ -447,7 +447,7 @@ tbody.draggable span.material-symbols-outlined {
                    
                     <div class="col-sm-9">
                     <select class="form-control" name="module" id="module_id" required>
-                            <option value="">Add Module</option>
+                            <option value="">Select Module</option>
                             
                         </select>
                     </div>
@@ -457,7 +457,7 @@ tbody.draggable span.material-symbols-outlined {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i>Close</button>
-            <button type="button" class="btn btn-primary" id="saveLinkModule"><i class="la la-check-square-o"></i> Save changes</button>
+            <button type="button" class="btn btn-primary" id="saveLinkModule"><i class="la la-check-square-o"></i>  Add Module</button>
           </div>        
         </div>
       </div>
@@ -626,7 +626,7 @@ tbody.draggable span.material-symbols-outlined {
         $('#accrd_id').val(accordian_id);
         var courseId = $($(this).closest('.spreadsheetCls')).attr('course_id');
         $("#module_id").empty();
-        $('#module_id').append('<option value="">Add Module</option>');
+        $('#module_id').append('<option value="">Select Module</option>');
         axios.get('/api/staff/getCourseModule/'+courseId).then(function (response) {
             moduleList = ''
             response.data.data.map(function(item){
