@@ -184,6 +184,41 @@ tbody.draggable span.material-symbols-outlined {
 
             <!-- END: Main Menu-->
             <div class="content-body ">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold">Teaching Block Agent</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div>                                
+                                <div class="card-content collapse show" >
+                                    <div class="card-body card-dashboard ">
+
+                                        <!-- Module agent ok -->
+                                       
+                                        <% if(teaching_block_agent != null && teaching_block_agent <= 5){ %>
+                                           <div class="alert alert-success mb-2" role="alert">
+                                            <strong>Module Agent</strong> is ONLINE.
+                                        </div>
+                                         <% } 
+                                            else if(!teaching_block_agent) { %>  
+                                          
+                                        <div class="alert alert-warning mb-2" role="alert">
+                                            <strong>Teaching Block Agent</strong> not installed.
+
+                                        </div>
+                                        
+                                        <% } else if(teaching_block_agent > 5){ %>
+                                        <div class="alert alert-danger mb-2" role="alert">
+                                            <strong>Teaching Block Agent</strong> if OFFLINE or not responding.
+                                        </div>
+                                        <% }  %>  
+                                        
+                                        <!-- Module agent warning -->
+                                        
+
+                                    </div>
+                                </div>     
+                            </div>
 
                            <div id="accordionWrap1" >
 

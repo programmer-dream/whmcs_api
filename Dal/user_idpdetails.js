@@ -297,6 +297,22 @@ var User_idpdetail = {
         callback({ message: "error", data: err.message });
       });
   },
+  suspendCustomUser: function (obj, callback) {
+    user_idpdetails
+      .findAll({ where: { ID: obj.ID } })
+      .then(function (itemInstance) {
+        itemInstance[0]
+          .update({
+            isActive: obj.isActive,
+          })
+          .then(function (self) {
+            callback({ message: "success", data: self });
+          });
+      })
+      .catch(function (err) {
+        callback({ message: "error", data: err.message });
+      });
+  },
   updateLocation: function (body, callback) {
     user_idpdetails
       .findAll({ where: { ID: body.ID } })
@@ -1030,6 +1046,13 @@ var User_idpdetail = {
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
     
     return queryData;
+  },
+  updateModuleData: async function (data, where) {
+    let moduleAssigned = await modules_users_assigned.findOne({where:where})
+    moduleAssigned.update(data)
+    //let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    
+    //return queryData;
   },
   updateSyncStatus: async function (id,callback) {
      user_idpdetails

@@ -38,6 +38,24 @@ module.exports = function (sequelize, DataTypes) {
       },
       cron_running_date: {
         type: DataTypes.DATE
+      },
+      block_extension_duration: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
+      },
+      block_marking_duration: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
+      },
+      block_module_in_moderation: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
+      },
+      block_cron_running: {
+        type: DataTypes.DATE
       }
     },
     {

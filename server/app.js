@@ -16,11 +16,25 @@ var dbconfig=require("./config/sql");
 const winston = require('winston');
 const cron = require("node-cron");
 const student = require("./cron/cron_code");
+const blockCode = require("./cron/block_cron");
 
 
 cron.schedule("0 */5 * * * *", function () {
-  console.log("running a task every 5 minutes");
-  student.studentData()
+  //console.log("running a task every 5 minutes");
+  //student.studentData()
+});
+
+cron.schedule("0 * * * * *", function () {
+  console.log("running a task every 00 on second");
+  blockCode.updateDatesInModule()
+});
+cron.schedule("5 * * * * *", function () {
+  console.log("running a task every 05 on second");
+  blockCode.suspend_user()
+});
+cron.schedule("10 * * * * *", function () {
+  console.log("running a task every 10 on second");
+  blockCode.active_suspend_user()
 });
 
 const logger = winston.createLogger({

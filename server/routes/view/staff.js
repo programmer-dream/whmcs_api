@@ -1244,6 +1244,7 @@ router.get("/blockmanageblocks", ensureAuthenticated, async function (req, res) 
     getTeachingBlocks:await user_idpdetailDal.getTeachingBlocks(),
     courseList:await user_idpdetailDal.courseList(),
     listCourse:await user_idpdetailDal.listCourse(),
+    teaching_block_agent:await teaching_block_agent(),
     DateTime:DateTime,
     supportMenu: {
       main: [
@@ -1606,7 +1607,24 @@ async function module_status (){
           strDate  = strDate.toISOString().replace('Z','')
       let startDate = DateTime.fromISO(strDate);
       let minDiff = endDate.diff(startDate).as('minutes');
-      console.log(minDiff, "<< minDiff")
+      //console.log(minDiff, "<< minDiff")
+      return parseInt(minDiff);
+    }else{
+      return null;
+    }
+  }
+
+  async function teaching_block_agent (){
+  let setting = await user_idpdetailDal.listEnablevalue()
+    console.log(setting, "<<< setting 1")
+    if(setting.block_cron_running){
+      let endDate = DateTime.now();
+      console.log(endDate, "<<< endDate 2")
+      let strDate  = setting.block_cron_running;
+        strDate  = strDate.toISOString().replace('Z','')
+      let startDate = DateTime.fromISO(strDate);
+      let minDiff = endDate.diff(startDate).as('minutes');
+      console.log(minDiff, "<< minDiff 3")
       return parseInt(minDiff);
     }else{
       return null;
