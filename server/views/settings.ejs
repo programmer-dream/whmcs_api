@@ -166,10 +166,18 @@
                                                </tr>
                                                <tr class="hide_on_chec">
                                                 <th scope="row"><p>Modules</p></th>
-                                                <th scope="row"><p>Marking duration</p></th>
+                                                <th scope="row"><p>Block Marking duration</p></th>
                                                 <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
                                                 <td>
                                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
+                                                </td>
+                                               </tr>
+                                               <tr class="hide_on_chec">
+                                                <th scope="row"><p>Modules</p></th>
+                                                <th scope="row"><p>Block extension  duration</p></th>
+                                                <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
+                                                <td>
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg-ext">Modify</button>                                                                                                           
                                                 </td>
                                                </tr> 
                                                 <tr class="hide_on_check">
@@ -691,7 +699,7 @@
 </div>
 
                                   
-                  <!-- Duration modal -->
+                  <!-- block marking duration modal -->
                   <div class="modal fade bd-duration-modal-lg" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -721,13 +729,62 @@
                                           <tr>
                                             <th scope="row">1</th>
                                             <td>Modify the marking duration. This is the amount of time that a users module folder should not be accessible.</td>
-                                            <td><input type="number" value="<%= enabledisablevalue.marking_duration %>" id="marking_duration"></td>
+                                            <td><input type="number" value="<%= enabledisablevalue.block_marking_duration %>" id="block_marking_duration"></td>
                                             <td><button type="button" class="btn btn-primary" onclick="add_marking_duration()">Modify</button></td>
                                           </tr>   
+                                                                                
+                                        </tbody>
+                                      </table>
+                                      <p></p>
+                                      <p></p>
+                
+                                  <!-- End of text for the duration section -->
+                
+                
+                
+                                      
+                                      <p></p>
+                                      <p></p>
+                                      <p></p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                  <!-- Block extension -->
+                  <div class="modal fade bd-duration-modal-lg-ext" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="durationmodal">Modify the Duration</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col-12">
+                                    
+                                      <!-- Start of text for the duration section -->
+                                      <p></p>
+                                       
+                                      <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Current value</th>
+                                            <th scope="col">Modify</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            
                                           <tr>
                                             <th scope="row">2</th>
                                             <td>Modify the extension duration. This is the amount of time that a users module folder should not be accessible.</td>
-                                            <td><input type="number" value="<%= enabledisablevalue.extension_duration %>" id="extension_duration"></td>
+                                            <td><input type="number" value="<%= enabledisablevalue.block_extension_duration %>" id="block_extension_duration"></td>
                                             <td><button type="button" class="btn btn-primary" onclick="add_extension_duration()">Modify</button></td>
                                           </tr>                                        
                                         </tbody>
@@ -1336,12 +1393,12 @@
         }
         function add_extension_duration()
         {
-            var extension_value=$('#extension_value').val();
+            var extension_value=$('#block_extension_duration').val();
             var settings= {
                         type: "POST",
                         dataType: "json",
                         url: "/api/staff/enableDisable",
-                        data:{'extension_duration':extension_value},
+                        data:{'block_extension_duration':extension_value},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
@@ -1360,12 +1417,12 @@
         }
         function add_marking_duration()
         {
-            var marking_duration=$('#marking_duration').val();
+            var marking_duration=$('#block_marking_duration').val();
             var settings= {
                         type: "POST",
                         dataType: "json",
                         url: "/api/staff/enableDisable",
-                        data:{'marking_duration':marking_duration},
+                        data:{'block_marking_duration':marking_duration},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
@@ -1382,30 +1439,7 @@
                     };
                     $.ajax(settings);
         }
-        function add_extension_duration()
-        {
-            var extension_duration=$('#extension_duration').val();
-            var settings= {
-                        type: "POST",
-                        dataType: "json",
-                        url: "/api/staff/enableDisable",
-                        data:{'extension_duration':extension_duration},
-                        success: function(response) {
-                            
-                            swal("Status has been updated.", {
-                                icon: "success",
-                            });
-                            setTimeout(function(){
-                                location.reload();
-                            }, 2000);
-                            
-                        },
-                        error: function (err, type, httpStatus) {
-                            alert('error has occured');
-                        }
-                    };
-                    $.ajax(settings);
-        }
+       
 
 
     </script>
