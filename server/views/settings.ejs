@@ -167,7 +167,7 @@
                                                <tr class="hide_on_chec">
                                                 <th scope="row"><p>Teaching Block</p></th>
                                                 <th scope="row"><p>Block Marking duration</p></th>
-                                                <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
+                                                <td>The setting define the periods(days) that a user should granted on extension</td>
                                                 <td>
                                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
                                                 </td>
@@ -175,7 +175,7 @@
                                                <tr class="hide_on_chec">
                                                 <th scope="row"><p>Teaching Block</p></th>
                                                 <th scope="row"><p>Block extension  duration</p></th>
-                                                <td>This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.</td>
+                                                <td>The setting define the periods(days) that a user should granted on extension</td>
                                                 <td>
                                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg-ext">Modify</button>                                                                                                           
                                                 </td>
@@ -728,7 +728,7 @@
                                         <tbody>
                                           <tr>
                                             <th scope="row">1</th>
-                                            <td>Modify the marking duration. This is the amount of time that a users module folder should not be accessible.</td>
+                                            <td>The setting define the periods(days) that a user should granted an extension</td>
                                             <td><input type="number" value="<%= enabledisablevalue.block_marking_duration %>" id="block_marking_duration"></td>
                                             <td><button type="button" class="btn btn-primary" onclick="add_marking_duration()">Modify</button></td>
                                           </tr>   
@@ -783,9 +783,9 @@
                                             
                                           <tr>
                                             <th scope="row">2</th>
-                                            <td>Modify the extension duration. This is the amount of time that a users module folder should not be accessible.</td>
+                                            <td>The setting define the periods(days) that a user should granted an extension</td>
                                             <td><input type="number" value="<%= enabledisablevalue.block_extension_duration %>" id="block_extension_duration"></td>
-                                            <td><button type="button" class="btn btn-primary" onclick="add_extension_duration()">Modify</button></td>
+                                            <td><button type="button" class="btn btn-primary" onclick="add_block_extension_duration()">Modify</button></td>
                                           </tr>                                        
                                         </tbody>
                                       </table>
@@ -1391,7 +1391,7 @@
                 }
             });    
         }
-        function add_extension_duration()
+        function add_block_extension_duration()
         {
             var extension_value=$('#block_extension_duration').val();
             var settings= {
@@ -1399,6 +1399,30 @@
                         dataType: "json",
                         url: "/api/staff/enableDisable",
                         data:{'block_extension_duration':extension_value},
+                        success: function(response) {
+                            
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                            
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                    $.ajax(settings);
+        }
+        function add_extension_duration()
+        {
+            var extension_value=$('#extension_value').val();
+            var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/staff/enableDisable",
+                        data:{'extension_duration':extension_value},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
