@@ -18,6 +18,15 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false,
       },
+      block_moderation_start_date: {
+        type: DataTypes.DATE
+      },
+      block_moderation_end_date: {
+        type: DataTypes.DATE
+      },
+      block_is_extended: {
+        type: DataTypes.INTEGER(11)
+      }
     },
     {
       tableName: "modules_users_assigned",
