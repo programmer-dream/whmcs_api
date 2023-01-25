@@ -21,7 +21,7 @@ const blockCode = require("./cron/block_cron");
 
 cron.schedule("0 */5 * * * *", function () {
   console.log("running a task every 5 minutes");
-  //student.studentData()
+  student.studentData()
 });
 
 cron.schedule("0 * * * * *", async function () {
