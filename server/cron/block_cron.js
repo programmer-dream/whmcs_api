@@ -122,5 +122,17 @@ user_idpdetailDal.suspendCustomUser({ID:userId,isActive:status},function (data,e
     })
 }
 
+let isBlockModerationEnabled = async function () {
 
-module.exports = { updateDatesInModule, active_suspend_user, suspend_user};
+    let blockStatusQuery = "SELECT block_module_in_moderation FROM settings_table;"
+
+    let setting = await user_idpdetailDal.runRawQuery(blockStatusQuery);
+    
+    if(setting)
+        return setting[0].block_module_in_moderation
+
+    return false
+}
+
+
+module.exports = { updateDatesInModule, active_suspend_user, suspend_user, isBlockModerationEnabled};
