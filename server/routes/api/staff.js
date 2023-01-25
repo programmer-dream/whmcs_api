@@ -1058,6 +1058,11 @@ router.post("/enableDisable", async (req, res) => {
     res.send({status : 'success', message:'Status updated successfully'})
    
 });
+router.post("/updateClientDetail", async (req, res) => {
+    let response = await user_idpdetailDal.updateClientDetail(req.body)
+    res.send({status : 'success', message:'Status updated successfully'})
+   
+});
 router.post("/linkModule", async (req, res) => {
 
     let response = await user_idpdetailDal.linkModule(req.body)

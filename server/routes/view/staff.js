@@ -570,6 +570,7 @@ router.get("/settings", ensureAuthenticated, async function (req, res) {
     teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
     modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    clientDetail:await user_idpdetailDal.clientDetail(),
     supportMenu: {
       main: [
         {

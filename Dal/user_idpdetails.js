@@ -935,6 +935,14 @@ var User_idpdetail = {
      }
      return settings
   },
+  clientDetail: async function (userId, moduleId){
+     
+     let settings= await client_details.findOne();
+     if(settings){
+        settings = settings.toJSON()
+     }
+     return settings
+  },
   getIntakePeriod: async function (todayDate){
      let queryStr = "SELECT teaching_block_intake_description.*, Min(intake_end_date) as date FROM `teaching_block_intake_description` WHERE DATE(intake_end_date) > '"+todayDate+"' GROUP BY teaching_block_period_id limit 1"
             
@@ -1090,6 +1098,14 @@ var User_idpdetail = {
   },
   enabledisablevalue: async function (para) {
      const ipAddress = await settings_table.findOne();
+    const ipAddressData = await ipAddress.update(para);
+    
+    return ipAddressData.toJSON();
+    
+    
+  },
+  updateClientDetail: async function (para) {
+     const ipAddress = await client_details.findOne();
     const ipAddressData = await ipAddress.update(para);
     
     return ipAddressData.toJSON();

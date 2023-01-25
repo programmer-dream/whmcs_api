@@ -32,7 +32,9 @@
 }
          
     </style>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
  </head>   
 <!-- BEGIN: Body-->
 
@@ -263,51 +265,52 @@
                                                 <div class="container">
                                                     <div class="row">
                                                       <div class="col-12">
-                                                        <form class="form-horizontal" role="form">
+                                                        <form class="form-horizontal" id="university_address" role="form">
                                                   
                                                           <p></p>
-                                                          <p></p>                                                                                                                                                            
-                                                          <div class="form-group">
+                                                          <p></p> 
+                                                                       <div class="form-group">
                                                             <p class="col-sm-offset-2 col-sm-10 help-block">Street address, P.O. box, company name, c/o</p>
                                                             <label for="inputAddressLine1" class="col-sm-12 control-label">Address Line 1</label>
                                                             <div class="col-sm-12">
-                                                              <input type="text" class="form-control" id="inputAddressLine1" name="address-line1" placeholder="Address Line 1">
+                                                              <input type="text" class="form-control" id="inputAddressLine1" name="address-line1" placeholder="Address Line 1" value="<%= clientDetail.Address1 %>" required>
                                                             </div>
                                                           </div>
+                                                          <input type="hidden" value="<%= clientDetail.Country %>" id="university_country">
                                                   
                                                           <div class="form-group">
                                                             <p class="col-sm-offset-2 col-sm-10 help-block">Apartment, suite , unit, building, floor, etc.</p>
                                                             <label for="inputAddressLine2" class="col-sm-12 control-label">Address Line 2</label>
                                                             <div class="col-sm-12">
-                                                              <input type="text" class="form-control" id="inputAddressLine2" name="address-line2" placeholder="Address Line 2">
+                                                              <input type="text" class="form-control" id="inputAddressLine2" name="address-line2" placeholder="Address Line 2" value="<%= clientDetail.Address2 %>" required>
                                                             </div>
                                                           </div>
                                                   
                                                           <div class="form-group">
                                                             <label for="inputCityTown" class="col-sm-12 control-label">City / Town</label>
                                                             <div class="col-sm-12">
-                                                              <input type="text" class="form-control" id="inputCityTown" name="city-town" placeholder="City / Town">
+                                                              <input type="text" class="form-control" id="inputCityTown" name="city-town" placeholder="City / Town" value="<%= clientDetail.City %>" required>
                                                             </div>
                                                           </div>
                                                   
                                                           <div class="form-group">
                                                             <label for="inputStateProvinceRegion" class="col-sm-12 control-label">State / Province / Region</label>
                                                             <div class="col-sm-12">
-                                                              <input type="text" class="form-control" id="inputStateProvinceRegion" name="state-province-region" placeholder="State / Province / Region">
+                                                              <input type="text" class="form-control" id="inputStateProvinceRegion" name="state-province-region" placeholder="State / Province / Region" value="<%= clientDetail.State %>" required>
                                                             </div>
                                                           </div>
                                                   
                                                           <div class="form-group">
                                                             <label for="inputZipPostalCode" class="col-sm-12 control-label">Zip / Postal Code</label>
                                                             <div class="col-sm-12">
-                                                              <input type="text" class="form-control" id="inputZipPostalCode" name="zip-postal-code" placeholder="Zip / Postal Code">
+                                                              <input type="text" class="form-control" id="inputZipPostalCode" name="zip-postal-code" placeholder="Zip / Postal Code" value="<%= clientDetail.Postcode %>" required>
                                                             </div>
                                                           </div>
                                                   
                                                           <div class="form-group">
                                                             <label for="selectCountry" class="col-sm-12 control-label">Country</label>
                                                             <div class="col-sm-12">
-                                                              <select class="form-control" id="selectCountry" name="country">
+                                                              <select class="form-control" id="selectCountry" name="country" required>
                                                                 <option value="" selected="selected">(please select a country)</option>
                                                                 <option value="AF">Afghanistan</option>
                                                                 <option value="AL">Albania</option>
@@ -552,8 +555,10 @@
                                                             </div>
                                                           </div>
                                                           <div class="col-md-12 mb-4" style="text-align: right;">
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                            <button type="button" class="btn btn-primary save_changes_university">Save changes</button>
+
                                                           </div>
+                                                      </form>
                                                           
                                                           <p></p>
                                                           <p></p>
@@ -634,7 +639,7 @@
                       </table>
                       <p></p>
                       <p></p>
-                    </form>
+                
                 </div>
               </div>
             </div>
@@ -1168,6 +1173,9 @@
             $(".hide_on_block_ext").hide();
             $(".hide_on_block_mrk").hide();
         }
+        var uc=$('#university_country').val();
+        $('#selectCountry option[value='+uc+']').attr('selected','selected');
+        
         $('#saveLocation').on('click',function(e){
             e.preventDefault();
             var isValid = $('#addLocationForm').valid();
@@ -1483,8 +1491,44 @@
                     };
                     $.ajax(settings);
         }
-
         
+        $('.save_changes_university').on('click',function(e){
+            
+        e.preventDefault();
+        var isValid = $('#university_address').valid();
+        
+        var Address1=$('#inputAddressLine1').val();
+        var Address2=$('#inputAddressLine2').val();
+        var City=$('#inputCityTown').val();
+        var State=$('#inputStateProvinceRegion').val();
+        var Postcode=$('#inputZipPostalCode').val();
+        var Country=$('#selectCountry').val();
+if(isValid){
+        var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/staff/updateClientDetail",
+                        data:{'Address1':Address1,'Address2':Address2,'City':City,'State':State,'Postcode':Postcode,'Country':Country},
+                        success: function(response) {
+                            
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                            
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                    $.ajax(settings);
+                }
+
+        })
+
+
              
 
 
