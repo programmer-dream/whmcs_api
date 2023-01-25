@@ -1096,6 +1096,11 @@ var User_idpdetail = {
     
     
   },
+  updateRunningStatus: async function (para) {
+     const settingsTable = await settings_table.findOne();
+     await settingsTable.update({block_cron_running: sequelize.fn('NOW')});
+    
+  },
   linkModule: async function (para) {
      
     await teaching_block_periods.create(para);
