@@ -164,22 +164,7 @@
                                                         <input type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
                                                 </td>
                                                </tr>
-                                               <tr class="hide_on_chec">
-                                                <th scope="row"><p>Teaching Block</p></th>
-                                                <th scope="row"><p>Block Marking duration</p></th>
-                                                <td>The setting define the periods(days) that a user should granted on extension</td>
-                                                <td>
-                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
-                                                </td>
-                                               </tr>
-                                               <tr class="hide_on_chec">
-                                                <th scope="row"><p>Teaching Block</p></th>
-                                                <th scope="row"><p>Block extension  duration</p></th>
-                                                <td>The setting define the periods(days) that a user should granted on extension</td>
-                                                <td>
-                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg-ext">Modify</button>                                                                                                           
-                                                </td>
-                                               </tr> 
+                                               
                                                 <tr class="hide_on_check">
                                                 <th scope="row"><p>Modules</p></th>
                                                 <th scope="row"><p>Extension duration</p></th>
@@ -205,6 +190,7 @@
                                                     </label>                                                                                                             
                                                 </td>
                                                </tr>
+
                                                <tr>
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Teaching Blocks</p></th>
@@ -221,6 +207,7 @@
                                                         <input type="checkbox" data-name="teaching_block_enabled" data-toggle="toggle"onchange="setting_enable_disable(this)" <%=teaching_check %>> </label>                                                                                                             
                                                 </td>
                                                </tr> 
+                                              
                                                <tr>
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Teaching Blocks module moderation</p></th>
@@ -238,7 +225,25 @@
                                                     <label>
                                                         <input type="checkbox" data-name="block_module_in_moderation" data-toggle="toggle" data-value="<%=teaching_check_block_moderation_value %>" onchange="setting_enable_disable_moderation(this)" <%=teaching_check_block_moderation %>> </label>                                                                                                             
                                                 </td>
-                                               </tr>  
+                                               </tr> 
+
+                                               <tr class="hide_on_block_ext">
+                                                <th scope="row"><p>Teaching Block</p></th>
+                                                <th scope="row"><p>Extension duration</p></th>
+                                                <td>This setting defines the period (days) a user should be granted an extension on a teaching block.</td>
+                                                <td>
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg-ext">Modify</button>                                                                                                           
+                                                </td>
+                                               </tr> 
+                                                <tr class="hide_on_block_mrk">
+                                                <th scope="row"><p>Teaching Block</p></th>
+                                                <th scope="row"><p>Resit extension duration</p></th>
+                                                <td>This setting defines the period (days) a user should be granted an extension on a teaching block IF they have been given a resit.</td>
+                                                <td>
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg">Modify</button>                                                                                                           
+                                                </td>
+                                               </tr>
+
                                                <!-- 26-dec -->
                                             </tbody>
                                           </table>
@@ -728,8 +733,16 @@
                                         <tbody>
                                           <tr>
                                             <th scope="row">1</th>
-                                            <td>The setting define the periods(days) that a user should granted an extension</td>
-                                            <td><input type="number" value="<%= enabledisablevalue.block_marking_duration %>" id="block_marking_duration"></td>
+                                            <td>This setting defines the period (days) a user should be granted an extension on a teaching block IF they have been given a resit.</td>
+                                            <td>
+                                                <% if (enabledisablevalue.block_marking_duration) { %>
+                                                    <input type="number" value="<%= enabledisablevalue.block_marking_duration %>" id="block_marking_duration"> 
+
+                                                    <% }else{ %>
+                                                    <input type="number" value="7" id="block_marking_duration">
+
+                                                    <% } %>
+                                                </td>
                                             <td><button type="button" class="btn btn-primary" onclick="add_marking_duration()">Modify</button></td>
                                           </tr>   
                                                                                 
@@ -783,7 +796,7 @@
                                             
                                           <tr>
                                             <th scope="row">2</th>
-                                            <td>The setting define the periods(days) that a user should granted an extension</td>
+                                            <td>This setting defines the period (days) a user should be granted an extension on a teaching block.</td>
                                             <td><input type="number" value="<%= enabledisablevalue.block_extension_duration %>" id="block_extension_duration"></td>
                                             <td><button type="button" class="btn btn-primary" onclick="add_block_extension_duration()">Modify</button></td>
                                           </tr>                                        
@@ -1147,6 +1160,13 @@
             $(".hide_on_check").show();
         }else{
             $(".hide_on_check").hide();
+        }
+        if($('input[data-name="block_module_in_moderation"]').is(':checked')){
+            $(".hide_on_block_ext").show();
+            $(".hide_on_block_mrk").show();
+        }else{
+            $(".hide_on_block_ext").hide();
+            $(".hide_on_block_mrk").hide();
         }
         $('#saveLocation').on('click',function(e){
             e.preventDefault();
