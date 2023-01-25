@@ -20,21 +20,27 @@ const blockCode = require("./cron/block_cron");
 
 
 cron.schedule("0 */5 * * * *", function () {
-  //console.log("running a task every 5 minutes");
+  console.log("running a task every 5 minutes");
   //student.studentData()
 });
 
-cron.schedule("0 * * * * *", function () {
+cron.schedule("0 * * * * *", async function () {
   console.log("running a task every 00 on second");
-  blockCode.updateDatesInModule()
+  let status = await blockCode.isBlockModerationEnabled()
+  if(status)
+    blockCode.updateDatesInModule()
 });
-cron.schedule("5 * * * * *", function () {
+cron.schedule("5 * * * * *", async function () {
   console.log("running a task every 05 on second");
-  blockCode.suspend_user()
+  let status = await blockCode.isBlockModerationEnabled()
+  if(status)
+    blockCode.suspend_user()
 });
-cron.schedule("10 * * * * *", function () {
+cron.schedule("10 * * * * *", async function () {
   console.log("running a task every 10 on second");
-  blockCode.active_suspend_user()
+  let status = await blockCode.isBlockModerationEnabled()
+  if(status)
+    blockCode.active_suspend_user()
 });
 
 const logger = winston.createLogger({
