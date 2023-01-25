@@ -1049,10 +1049,7 @@ var User_idpdetail = {
   },
   updateModuleData: async function (data, where) {
     let moduleAssigned = await modules_users_assigned.findOne({where:where})
-    moduleAssigned.update(data)
-    //let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
-    
-    //return queryData;
+    await moduleAssigned.update(data)
   },
   updateSyncStatus: async function (id,callback) {
      user_idpdetails
