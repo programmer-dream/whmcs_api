@@ -106,9 +106,9 @@ user_idpdetailDal.suspendCustomUser({ID:userId,isActive:status},function (data,e
                      whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(async function (productsResponse) {
                         await Promise.all(
                             productsResponse.products.product.map( async function(service){
-                                //console.log(service.orderid,"<<<< service")
+                                console.log(service.orderid,"<<<< service")
                                 await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:process.env.PASSWORD_RANDOM}).then(function (changeResponse) {
-                                    //console.log(changeResponse, "<<< changeResponse")
+                                    console.log(changeResponse, "<<< changeResponse")
                                 })
                             })
                         )
