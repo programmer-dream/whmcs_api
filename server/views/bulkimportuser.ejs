@@ -462,6 +462,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="csvInvalidMessage" name="csvInvalidMessage" = value="<%= enabledisablevalue.csv_invalid_message %>">
     <!-- END: Content-->
     <!-- Modal -->
 <div id="Modal" class="modal fade" role="dialog">
@@ -501,6 +502,7 @@
 //    $('#Modal').modal('show');
 // });
 		    $('#csvFileBtn').off('click').on('click', function(e){
+          var invalidMessage = $('#csvInvalidMessage').val();
 		    	e.preventDefault();
 		    	var formData = new FormData();
 				var imagefile = document.querySelector('#csvFileInput');
@@ -512,7 +514,7 @@
 				formData.append("csv_file", imagefile.files[0]);
 
 				if(imagefile.files[0].type != 'text/csv'){
-					swal("Please upload a valid csv file");
+					swal(invalidMessage);
 					$('#csvForm')[0].reset();
 					return false;
 				}
