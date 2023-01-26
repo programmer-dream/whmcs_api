@@ -51,14 +51,15 @@ data-scroll-to-active="true">
                     <% }) %>
                     
                 <li>
-
-                    <li class=" navigation-header"><span data-i18n="nav.category.support">Teaching Blocks</span><i class="material-icons nav-menu-icon" data-toggle="tooltip"
+                <% if(enabledisablevalue.teaching_block_enabled){ %>
+                <li class=" navigation-header blockMenu">
+                    <span data-i18n="nav.category.support" >Teaching Blocks</span>
+                    <i class="material-icons nav-menu-icon" data-toggle="tooltip"
                         data-placement="right" data-original-title="Support">more_horiz</i>
                 </li>
+                
                 <% supportMenu.blocks.forEach(item=> {
-                    if( !enabledisablevalue.teaching_block_enabled && item.label == 'Manage Blocks'){
-                        return;
-                    }
+                    
                     %>
 
                     <li class=" nav-item">
@@ -73,7 +74,8 @@ data-scroll-to-active="true">
                         </a>
                     </li>
 
-                    <% }) %>
+                    <% }) 
+                    } %>
 
                         <!-- Support Menu-->
         <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i
