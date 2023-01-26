@@ -1095,16 +1095,17 @@ var User_idpdetail = {
   },
   enabledisablevalue: async function (para) {
      const ipAddress = await settings_table.findOne();
-
+     //console.log(para, "<< data obj")
     if(para.module_date_enabled){
       para['module_date_enabled']    = 1
       para['teaching_block_enabled'] = 0
     }
+    
     if(para.teaching_block_enabled){
       para['module_date_enabled']    = 0
       para['teaching_block_enabled'] = 1
     }
-    
+
     const ipAddressData = await ipAddress.update(para);
     
     return ipAddressData.toJSON();
