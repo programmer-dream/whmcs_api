@@ -56,6 +56,9 @@ data-scroll-to-active="true">
                         data-placement="right" data-original-title="Support">more_horiz</i>
                 </li>
                 <% supportMenu.blocks.forEach(item=> {
+                    if( !enabledisablevalue.teaching_block_enabled && item.label == 'Manage Blocks'){
+                        return;
+                    }
                     %>
 
                     <li class=" nav-item">
