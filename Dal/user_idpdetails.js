@@ -1105,6 +1105,11 @@ var User_idpdetail = {
       para['module_date_enabled']    = 0
       para['teaching_block_enabled'] = 1
     }
+    if(para.disable_user_registration){
+      para['disable_user_registration'] = 1
+    }else{
+      para['disable_user_registration'] = 0
+    }
 
     const ipAddressData = await ipAddress.update(para);
     

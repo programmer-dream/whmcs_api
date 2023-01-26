@@ -87,7 +87,12 @@ module.exports = function (sequelize, DataTypes) {
       },
       lecturer_dashboard_page_text: {
         type: DataTypes.TEXT('long')
-      }
+      },
+      disable_user_registration: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
+      },
     },
     {
       tableName: "settings_table",

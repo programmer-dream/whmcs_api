@@ -149,9 +149,15 @@
                                                 <th scope="row"><p>System</p></th>
                                                 <th scope="row"><p>Disable user registration</p></th>
                                                 <td>The disable user registration option removes the ability for users to sign up manually. This removes the signup button from the home screen and only allows login to users who are in the system. This is typically turned off if you would like to pre-add your users through the bulk uploader or individual user facilities.</td>
+                                                <% var disable_user_registration=''
+                                                    if(enabledisablevalue.disable_user_registration){
+                                                        disable_user_registration=`checked`
+                                                    }
+
+                                                %>
                                                 <td>
                                                     <label>
-                                                        <input type="checkbox" data-toggle="toggle"> </label>                                                                                                             
+                                                        <input type="checkbox" data-toggle="toggle" data-name="disable_user_registration"  onchange="setting_enable_disable(this)" <%=disable_user_registration %>> </label>                                                                                                             
                                                 </td>
                                                </tr>       
                                                <tr>
