@@ -15,9 +15,10 @@ let updateDatesInModule = async function  () {
   let dueDates  = await user_idpdetailDal.runRawQuery(dueQuery);
   let setting   = await user_idpdetailDal.runRawQuery(setQuery);
   
-  let extension = setting[0].block_extension_duration
+  let extension    = setting[0].block_extension_duration
   let markDuration = setting[0].block_marking_duration
-  //console.log(dueDates, "<<")
+  let block_resit_duration   = setting[0].block_resit_duration
+  let is_block_resit_enabled = setting[0].is_block_resit_enabled
 
   let userAssignedQuery = ''
   let startDate  = ''
@@ -32,6 +33,11 @@ let updateDatesInModule = async function  () {
           let isoDateStart = DateTime.fromISO(tb_start_date_time)
           let isoDateEnd = DateTime.fromISO(tb_end_date_time)
 
+          if(is_block_resit_enabled){
+            startDate = isoDateStart.plus({days:block_resit_duration})
+            endDate   = isoDateEnd.plus({days:block_resit_duration})
+          }
+
           if(moduleData.block_is_extended){
             startDate = isoDateStart.plus({days:extension}).toFormat('yyyy-MM-dd HH:mm:ss')
             endDate   = isoDateEnd.plus({days:extension}).plus({days:markDuration}).toFormat('yyyy-MM-dd HH:mm:ss')
@@ -39,7 +45,8 @@ let updateDatesInModule = async function  () {
             startDate = isoDateStart.toFormat('yyyy-MM-dd HH:mm:ss')
             endDate   = isoDateEnd.plus({days:markDuration}).toFormat('yyyy-MM-dd HH:mm:ss')
           }  
-            
+          
+
           let updateObj = {block_moderation_start_date: startDate, block_moderation_end_date: endDate }
           let whereObj  = {user_id: moduleData.user_id, module_id: moduleData.module_id }
            //console.log(updateObj, whereObj, "<<< ")
