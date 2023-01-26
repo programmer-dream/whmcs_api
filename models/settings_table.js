@@ -61,6 +61,24 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false,
         defaultValue:0
+      },
+      home_page_text: {
+        type: DataTypes.TEXT
+      },
+      dashboard_page_text: {
+        type: DataTypes.TEXT
+      },
+      student_account_text: {
+        type: DataTypes.TEXT
+      },
+      staff_account_notes: {
+        type: DataTypes.TEXT
+      },
+      csv_invalid_message: {
+        type: DataTypes.TEXT
+      },
+      tbc_txt: {
+        type: DataTypes.TEXT
       }
     },
     {

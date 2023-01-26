@@ -1109,6 +1109,14 @@ var User_idpdetail = {
     
     
   },
+   updatePagetext: async function (para) {
+     const ipAddress = await settings_table.findOne();
+    const ipAddressData = await ipAddress.update(para);
+    
+    return ipAddressData.toJSON();
+    
+    
+  },
   updateRunningStatus: async function (para) {
      const settingsTable = await settings_table.findOne();
      await settingsTable.update({block_cron_running: sequelize.fn('NOW')});

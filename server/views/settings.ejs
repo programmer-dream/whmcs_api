@@ -30,7 +30,35 @@
     border-right: 0;
     z-index: 0;
 }
-         
+
+.bd-terminologymodal-modal-lg .modal-dialog {
+    width: 100%;
+    max-width: 70%;
+}
+.bd-terminologymodal-modal-lg .table.table-striped textarea {
+    width: 100%;
+    max-width: 427px;
+    height: 90px;
+}
+        
+@media(max-width:991px){
+    .bd-terminologymodal-modal-lg .modal-dialog {
+        width: 100%;
+        max-width: 95%;
+    }
+    .bd-terminologymodal-modal-lg .modal-dialog .container {
+        max-width: 100%;
+    }
+} 
+ @media(max-width:575px){
+    .bd-terminologymodal-modal-lg .modal-dialog .col-12 {
+        overflow-x: scroll;
+    }
+    .bd-terminologymodal-modal-lg .modal-dialog .table.table-striped {
+        width: 514px;
+        max-width: unset;
+    }
+}
     </style>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -606,38 +634,38 @@
                           <tr>
                             <th scope="row">1</th>
                             <td>Home page text</td>
-                            <td>Sign into your web hosting account with your university account. If this is the first time you have used this service, we will take you through the setup on login.</td>
-                            <td><button type="button" class="btn btn-primary">Modify</button></td>
+                            <td><textarea id="home_page_text" cols="40" rows="3" ><%= enabledisablevalue.home_page_text %></textarea></td>
+                            <td><button type="button" attr_id="home_page_text" class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                           <tr>
                             <th scope="row">2</th>
                             <td>Management Dashboard</td>
-                            <td>Log into the management dashboard to administer your students</td>
-                            <td><button type="button" class="btn btn-primary">Modify</button></td>
+                            <td><textarea id="dashboard_page_text" cols="40" rows="3" ><%= enabledisablevalue.dashboard_page_text %></textarea></td>
+                            <td><button type="button" attr_id="dashboard_page_text"  class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                           <tr>
                             <th scope="row">3</th>
                             <td>Student account notes</td>
-                            <td>Student account - Created through Education Host AD login</td>
-                            <td><button type="button" class="btn btn-primary">Modify</button></td>
+                            <td><textarea id="student_account_text" cols="40" rows="3" ><%= enabledisablevalue.student_account_text %></textarea></td>
+                            <td><button type="button" attr_id="student_account_text" class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                           <tr>
                               <th scope="row">4</th>
                               <td>Staff account notes</td>
-                              <td>Staff account - Created through Education Host AD login</td>
-                              <td><button type="button" class="btn btn-primary">Modify</button></td>
+                              <td><textarea id="staff_account_notes" cols="40" rows="3" ><%= enabledisablevalue.staff_account_notes %></textarea></td>
+                              <td><button type="button" attr_id="staff_account_notes" class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                           <tr>
                               <th scope="row">5</th>
                               <td>CSV invalid message</td>
-                              <td>Please upload a valid csv file</td>
-                              <td><button type="button" class="btn btn-primary">Modify</button></td>
+                              <td><textarea id="csv_invalid_message" cols="40" rows="3" ><%= enabledisablevalue.csv_invalid_message %></textarea></td>
+                              <td><button type="button" attr_id="csv_invalid_message" class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                           <tr>
                               <th scope="row">6</th>
                               <td>TBC</td>
-                              <td>TBC</td>
-                              <td><button type="button" class="btn btn-primary">Modify</button></td>
+                              <td><textarea id="tbc_txt" cols="40" rows="3" ><%= enabledisablevalue.tbc_txt %></textarea></td>
+                              <td><button type="button" attr_id="tbc_txt" class="btn btn-primary saveTerminolgytext">Modify</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -1607,6 +1635,38 @@ if(isValid){
                     };
                     $.ajax(settings);
                 }
+
+        })
+         $('.saveTerminolgytext').on('click',function(e){
+            var attr_id=$(this).attr('attr_id');
+            var text=$('#'+attr_id).val();
+            var data={attr_id:text};
+
+        
+            if(text!=""){
+                var settings= {
+                            type: "POST",
+                            dataType: "json",
+                            url: "/api/staff/updatePagetext",
+                            data:{text:text,index:attr_id},
+                            success: function(response) {
+                                
+                                swal("Text has been updated.", {
+                                    icon: "success",
+                                });
+                                setTimeout(function(){
+                                    location.reload();
+                                }, 2000);
+                                
+                            },
+                            error: function (err, type, httpStatus) {
+                                alert('error has occured');
+                            }
+                        };
+                        $.ajax(settings);
+                    }else{
+                        swal("error", 'text is required');
+                    }
 
         })
 

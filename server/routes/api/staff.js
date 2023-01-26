@@ -1063,6 +1063,15 @@ router.post("/updateClientDetail", async (req, res) => {
     res.send({status : 'success', message:'Status updated successfully'})
    
 });
+
+router.post("/updatePagetext", async (req, res) => {
+    let data={};
+        data[req.body.index] = req.body.text
+    let response = await user_idpdetailDal.updatePagetext(data)
+    console.log(response,'es->>>>>>>');
+    res.send({status : 'success', message:'Status updated successfully'})
+   
+});
 router.post("/linkModule", async (req, res) => {
 
     let response = await user_idpdetailDal.linkModule(req.body)
