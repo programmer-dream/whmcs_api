@@ -8,7 +8,7 @@ const whmcsConfig = require("../config/whmcs");
 let updateDatesInModule = async function  () {
   let start     = DateTime.now().toFormat('yyyy-MM-dd HH:mm:00');
   let end       = DateTime.now().toFormat('yyyy-MM-dd HH:mm:59');
-  let dueQuery  = "SELECT teaching_block_intakes.teaching_block_id, teaching_block_blocks.tb_start_date_time, teaching_block_blocks.tb_end_date_time, teaching_block_intakes.module_id, modules_users_assigned.user_id , modules_users_assigned.block_is_extended from teaching_block_blocks join teaching_block_intakes ON teaching_block_blocks.teaching_block_id=teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.module_id = teaching_block_intakes.module_id WHERE teaching_block_blocks.tb_start_date_time BETWEEN '"+start+"' and '"+end+"' GROUP by teaching_block_intakes.teaching_block_id,teaching_block_intakes.module_id, modules_users_assigned.user_id, modules_users_assigned.block_is_extended"
+  let dueQuery  = "SELECT teaching_block_intakes.teaching_block_id, teaching_block_blocks.tb_start_date_time, teaching_block_blocks.tb_end_date_time, teaching_block_intakes.module_id, modules_users_assigned.user_id , modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled from teaching_block_blocks join teaching_block_intakes ON teaching_block_blocks.teaching_block_id=teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.module_id = teaching_block_intakes.module_id WHERE teaching_block_blocks.tb_start_date_time BETWEEN '"+start+"' and '"+end+"' GROUP by teaching_block_intakes.teaching_block_id,teaching_block_intakes.module_id, modules_users_assigned.user_id, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled"
   let setQuery  = "SELECT * FROM settings_table"
   
 
@@ -18,7 +18,7 @@ let updateDatesInModule = async function  () {
   let extension    = setting[0].block_extension_duration
   let markDuration = setting[0].block_marking_duration
   let block_resit_duration   = setting[0].block_resit_duration
-  let is_block_resit_enabled = setting[0].is_block_resit_enabled
+  //let is_block_resit_enabled = setting[0].is_block_resit_enabled
 
   let userAssignedQuery = ''
   let startDate  = ''
@@ -33,7 +33,7 @@ let updateDatesInModule = async function  () {
           let isoDateStart = DateTime.fromISO(tb_start_date_time)
           let isoDateEnd = DateTime.fromISO(tb_end_date_time)
 
-          if(is_block_resit_enabled){
+          if(moduleData.is_block_resit_enabled){
             startDate = isoDateStart.plus({days:block_resit_duration})
             endDate   = isoDateEnd.plus({days:block_resit_duration})
           }
