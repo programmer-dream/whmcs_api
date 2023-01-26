@@ -1095,24 +1095,18 @@ var User_idpdetail = {
   },
   enabledisablevalue: async function (para) {
      const ipAddress = await settings_table.findOne();
-     //console.log(para, "<< data obj")
+     
     if(para.module_date_enabled && para.module_date_enabled == 'true'){
-      console.log('if condition')
       para['module_date_enabled']    = 1
       para['teaching_block_enabled'] = 0
     }else if(para.module_date_enabled && para.module_date_enabled == 'false'){
-      console.log('else if condition')
       para['module_date_enabled']    = 0
-      para['teaching_block_enabled'] = 1
     }
 
     if(para.teaching_block_enabled && para.teaching_block_enabled == 'true'){
-      console.log('if condition')
       para['module_date_enabled']    = 0
       para['teaching_block_enabled'] = 1
     }else if(para.teaching_block_enabled && para.teaching_block_enabled == 'false'){
-      console.log('else if condition')
-      para['module_date_enabled']    = 1
       para['teaching_block_enabled'] = 0
     }
 
