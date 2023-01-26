@@ -200,7 +200,16 @@
                                                         <input class="toggleBtn" type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
                                                 </td>
                                                </tr>
-                                               
+                                               <tr class="hide_on_check">
+                                                <th scope="row"><p>Modules</p></th>
+                                                <th scope="row"><p>Marking duration</p></th>
+                                                <td>
+                                                    This setting defines the period (days) that a user should be locked out of the module folder, used once a due date has passed.
+                                                </td>
+                                                <td>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-duration-modal-lg-mark">Modify</button>
+                                                </td>
+                                                </tr>
                                                 <tr class="hide_on_check">
                                                 <th scope="row"><p>Modules</p></th>
                                                 <th scope="row"><p>Extension duration</p></th>
@@ -745,7 +754,68 @@
         </div>
     </div>
 </div>
+                <!-- only module marking duration modal -->
+                  <div class="modal fade bd-duration-modal-lg-mark" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="markingModal">Modify the Duration</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col-12">
+                                    
+                                      <!-- Start of text for the duration section -->
+                                      <p></p>
+                                       
+                                      <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Current value</th>
+                                            <th scope="col">Modify</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">1</th>
+                                            <td>The period (days) a block will be given as standard for it to be marked.</td>
+                                            <td>
+                                                <% if (enabledisablevalue.marking_duration) { %>
+                                                    <input type="number" value="<%= enabledisablevalue.marking_duration %>" id="marking_duration"> 
 
+                                                    <% }else{ %>
+                                                    <input type="number" value="7" id="marking_duration">
+
+                                                    <% } %>
+                                                </td>
+                                            <td><button type="button" class="btn btn-primary" onclick="marking_duration()">Modify</button></td>
+                                          </tr>   
+                                                                                
+                                        </tbody>
+                                      </table>
+                                      <p></p>
+                                      <p></p>
+                
+                                  <!-- End of text for the duration section -->
+                
+                
+                
+                                      
+                                      <p></p>
+                                      <p></p>
+                                      <p></p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
                                   
                   <!-- block marking duration modal -->
                   <div class="modal fade bd-duration-modal-lg" tabindex="-1" role="dialog" aria-labelledby="durationmodal" aria-hidden="true">
@@ -1591,6 +1661,31 @@
                         dataType: "json",
                         url: "/api/staff/enableDisable",
                         data:{'block_marking_duration':marking_duration},
+                        success: function(response) {
+                            
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                            
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                    $.ajax(settings);
+        }
+
+        function marking_duration()
+        {
+            var marking_duration=$('#marking_duration').val();
+            var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/staff/enableDisable",
+                        data:{'marking_duration':marking_duration},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
