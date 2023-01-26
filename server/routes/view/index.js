@@ -20,9 +20,9 @@ router.get("/test", (req, res) => {
 // @route 	GET /
 // @desc 	Serves the landing page
 // @access 	Public
-router.get("/", (req, res) => {
-	console.log(JSON.stringify(req.headers));
-	res.render("index");
+router.get("/", async (req, res) => {
+	let setting = await user_idpdetailDal.listEnablevalue()
+	res.render("index",{setting:setting});
 });
 
 // @route 	GET /home

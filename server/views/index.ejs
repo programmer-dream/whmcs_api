@@ -61,12 +61,17 @@
                             </div>
                         </div>
                         <%}%>
-                        <p style="color:#000000">
+                        <!-- <p style="color:#000000">
                             Sign into your web hosting account with your university account.
-                        </p>
-                        <p style="color:#000000">
+                        </p> -->
+                        <!-- <p style="color:#000000">
                             If this is the first time you have used this service, we will
                             take you through the setup on login.
+                        </p> -->
+                        <p style="color:#000000">
+                            <% if (setting.home_page_text){ %>
+                                <%= setting.home_page_text %>
+                            <% } %>
                         </p>
                         <p></p>
                         <div class="form-group" role="button">

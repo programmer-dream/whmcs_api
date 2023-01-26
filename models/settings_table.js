@@ -62,23 +62,31 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue:0
       },
+      is_block_resit_enabled: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue:0
+      },
       home_page_text: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
       },
       dashboard_page_text: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
       },
       student_account_text: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
       },
       staff_account_notes: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
       },
       csv_invalid_message: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
       },
       tbc_txt: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT('long')
+      },
+      lecturer_dashboard_page_text: {
+        type: DataTypes.TEXT('long')
       }
     },
     {

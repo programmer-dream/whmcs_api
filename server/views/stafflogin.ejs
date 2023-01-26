@@ -179,7 +179,10 @@
                                 </h5>
 
                                 <p class="card-text">
-                                    Log into the management dashboard to administer your students.
+                                    <!-- Log into the management dashboard to administer your students. -->
+                                    <% if (setting.dashboard_page_text){ %>
+                                        <%= setting.dashboard_page_text %>
+                                    <% } %>
                                 </p>
 
                                 <a href="/staff/dashboard" id="adminaccount"
@@ -200,7 +203,10 @@
                                 </h5>
 
                                 <p class="card-text">
-                                    Lecturer web hosting account login, as setup on sign up.
+                                    <!-- Lecturer web hosting account login, as setup on sign up. -->
+                                    <% if (setting.lecturer_dashboard_page_text){ %>
+                                        <%= setting.lecturer_dashboard_page_text %>
+                                    <% } %>
                                 </p>
 
                                 <button type="button" id="whmcsaccount" class="btn btn-primary float-right has-spinner">

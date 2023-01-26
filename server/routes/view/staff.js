@@ -1576,8 +1576,9 @@ router.get("/blockintakeperiods", ensureAuthenticated, async function (req, res)
 
 // @access 	Public
 
-router.get("/login", ensureAuthenticated1, function (req, res) {
-  res.render("stafflogin");
+router.get("/login", ensureAuthenticated1, async function (req, res) {
+  let setting = await user_idpdetailDal.listEnablevalue()
+  res.render("stafflogin",{setting:setting});
 });
 
 function ensureAuthenticated1(req, res, next) {
