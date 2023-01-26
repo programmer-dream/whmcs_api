@@ -191,7 +191,7 @@
                                                 %>
                                                 <td>
                                                     <label>
-                                                        <input type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
+                                                        <input class="toggleBtn" type="checkbox" data-name="module_date_enabled" data-toggle="toggle" onchange="setting_enable_disable(this)" <%=module_date_checked %>> </label>                                                                                                             
                                                 </td>
                                                </tr>
                                                
@@ -234,7 +234,7 @@
                                                 %>
                                                 <td>
                                                     <label>
-                                                        <input type="checkbox" data-name="teaching_block_enabled" data-toggle="toggle"onchange="setting_enable_disable(this)" <%=teaching_check %>> </label>                                                                                                             
+                                                        <input class="toggleBtn" type="checkbox" data-name="teaching_block_enabled" data-toggle="toggle"onchange="setting_enable_disable(this)" <%=teaching_check %>> </label>                                                                                                             
                                                 </td>
                                                </tr> 
                                               </tr> 
@@ -1422,10 +1422,10 @@
          let attr = cb.getAttribute("data-name");
          swal({
             title: "Confirm Your Action",
-            text: "Chnage selected setting status?",
+            text: "Change selected setting status?",
             icon: "warning",
             //buttons: true,
-            buttons: ["No, do not change the setting.", "Yes,change the setting."],
+            buttons: ["No, do not change the setting.", "Yes, change the setting."],
             dangerMode: true,
          })
          .then((willDelete) => {
@@ -1669,7 +1669,6 @@ if(isValid){
                     }
 
         })
-
 
              
 
