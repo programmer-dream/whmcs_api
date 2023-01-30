@@ -1618,15 +1618,15 @@ async function module_status (){
 
   async function teaching_block_agent (){
   let setting = await user_idpdetailDal.listEnablevalue()
-    console.log(setting, "<<< setting 1")
+    //console.log(setting, "<<< setting 1")
     if(setting.block_cron_running){
       let endDate = DateTime.now();
-      console.log(endDate, "<<< endDate 2")
+      //console.log(endDate, "<<< endDate 2")
       let strDate  = setting.block_cron_running;
         strDate  = strDate.toISOString().replace('Z','')
       let startDate = DateTime.fromISO(strDate);
       let minDiff = endDate.diff(startDate).as('minutes');
-      console.log(minDiff, "<< minDiff 3")
+      //console.log(minDiff, "<< minDiff 3")
       return parseInt(minDiff);
     }else{
       return null;

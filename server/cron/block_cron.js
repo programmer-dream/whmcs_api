@@ -68,7 +68,7 @@ let suspend_user = async function(){
   let getDueDateModule = "SELECT * FROM modules_users_assigned WHERE block_moderation_start_date BETWEEN '"+startDate+"' AND '"+endDate+"'"
   
   let userModule = await user_idpdetailDal.runRawQuery(getDueDateModule)
-                   await user_idpdetailDal.updateRunningStatus()
+                   await user_idpdetailDal.updateRunningStatus(startDate)
   await Promise.all(
     userModule.map(async function(moduleAssigned){
         //console.log(moduleAssigned, "<<< suspend")

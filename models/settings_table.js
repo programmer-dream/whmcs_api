@@ -55,7 +55,7 @@ module.exports = function (sequelize, DataTypes) {
         defaultValue:0
       },
       block_cron_running: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(150)
       },
       block_resit_duration: {
         type: DataTypes.INTEGER(11),
