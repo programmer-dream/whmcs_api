@@ -1059,6 +1059,20 @@ var User_idpdetail = {
     let moduleAssigned = await modules_users_assigned.findOne({where:where})
     await moduleAssigned.update(data)
   },
+  addPinnedModule: async function (blockId, updateObj) {
+    let query  = "SELECT courses_modules_assigned.module_id FROM `courses_blocks_assigned` JOIN courses_modules_assigned on courses_blocks_assigned.course_id = courses_modules_assigned.course_id JOIN module_details on module_details.module_id = courses_modules_assigned.module_id WHERE teaching_block_id = "+blockId+" AND module_details.module_type = 'pinned';"
+
+    let allModules = await sequelize.query(query,{ type: Sequelize.QueryTypes.SELECT });
+
+    await Promise.all(
+      allModules.map(async function(module){
+          let queryStr  = "Update modules_users_assigned SET block_moderation_start_date='"+updateObj.block_moderation_start_date+"', block_moderation_end_date='"+updateObj.block_moderation_end_date+"' WHERE module_id="+module.module_id
+            console.log(queryStr, "<< queryStr")
+            let allModules = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.UPDATE });
+      })
+    )
+    
+  },
   updateSyncStatus: async function (id,callback) {
      user_idpdetails
       .findAll({ where: { ID: id } })

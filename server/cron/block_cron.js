@@ -51,6 +51,7 @@ let updateDatesInModule = async function  () {
           let whereObj  = {user_id: moduleData.user_id, module_id: moduleData.module_id }
            //console.log(updateObj, whereObj, "<<< ")
           await user_idpdetailDal.updateModuleData(updateObj, whereObj)
+          await user_idpdetailDal.addPinnedModule(moduleData.teaching_block_id, updateObj)
         })
       )
       

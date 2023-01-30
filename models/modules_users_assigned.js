@@ -19,10 +19,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       block_moderation_start_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(150)
       },
       block_moderation_end_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(150)
       },
       block_is_extended: {
         type: DataTypes.INTEGER(11)
