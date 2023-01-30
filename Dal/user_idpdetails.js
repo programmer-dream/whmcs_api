@@ -264,7 +264,7 @@ var User_idpdetail = {
   getAllUsers: function (callback) {
     user_idpdetails
       .findAll({
-        where : {isActive: 1},
+        where : {to_be_deleted: 0},
         attributes: [
           "userid",
           "email",

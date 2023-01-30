@@ -546,12 +546,15 @@ router.get("/suspend/:id?",function (req,res) {
             whmcsClient.getClientsDetails({email:email}).then(function (clientResponse) {
                 console.log(clientResponse, "<<< clientResponse")
                 if(clientResponse.result == 'success'){
+                    
+                    // NW - 30-01-2023 - Added a random password generator variable
+                    var randomcPanelpassword = Math.random().toString(36).slice(2) + Math.random().toString(36).toUpperCase().slice(2);
 
                      whmcsClient.getClientsProducts({clientid:clientResponse.userid}).then(async function (productsResponse) {
                         await Promise.all(
                             productsResponse.products.product.map( async function(service){
                                 console.log(service.orderid,"<<<< service")
-                                await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:process.env.PASSWORD_RANDOM}).then(function (changeResponse) {
+                                await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:randomcPanelpassword}).then(function (changeResponse) {
                                     console.log(changeResponse, "<<< changeResponse")
                                 })
                             })
