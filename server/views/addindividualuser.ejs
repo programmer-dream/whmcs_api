@@ -313,7 +313,7 @@
     });
 
     $("#teaching_location").change (function () {
-        $('#course').html('<option>select course</option');
+        $('#course').html('<option value="">select course</option');
         $('#tableRender').html('')  
         var selected = $(this).children("option:selected").val(); 
         $('#form2Btn').prop('disabled', false); 
@@ -342,37 +342,42 @@
         var selected = $(this).val()
         var table = "<table style='width:100%' class='table table-striped'><tr><th class='select-table-col'>Selection </th><th style='width:10%'> Year</th><th>Type</th><th>Module Name</th></tr>";
         
+        if(selected !=''){
+            var settings= {
+                type: "GET",
+                dataType: "json",
+                url: "/api/user/getModuleWithCourse/"+selected,
+                success: function(modules) {
 
-        var settings= {
-            type: "GET",
-            dataType: "json",
-            url: "/api/user/getModuleWithCourse/"+selected,
-            success: function(modules) {
+                    modules.map(function(moduleData){
+                        if(moduleData.module_type == 'core' || moduleData.module_type == 'pinned'){
+                            var isChecked = 'checked'
+                            var disabled  = "onclick='return false'"
+                        }
+                        table +="<tr><td><input class='moduleCheckced' type='checkbox' name='modules[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>Year "+moduleData.module_course_year+"</td><td>"+moduleData.module_type+"</td><td> "+moduleData.module_code+" - "+moduleData.module_name+"</td></tr>"
+                        isChecked = ''
+                        disabled  = ''
+                        //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
+                    })
+                    
+                    table += '</table>'
+                    $('#tableRender').html(table)
+                    //console.log(moduleData, "<< ")
+                    
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
 
-                modules.map(function(moduleData){
-                    if(moduleData.module_type == 'core' || moduleData.module_type == 'pinned'){
-                        var isChecked = 'checked'
-                        var disabled  = "onclick='return false'"
-                    }
-                    table +="<tr><td><input class='moduleCheckced' type='checkbox' name='modules[]' value='"+moduleData.module_code+"' "+isChecked+" "+disabled+"></td><td>Year "+moduleData.module_course_year+"</td><td>"+moduleData.module_type+"</td><td> "+moduleData.module_code+" - "+moduleData.module_name+"</td></tr>"
-                    isChecked = ''
-                    disabled  = ''
-                    //courseList +="<option value='"+item.id+"'>"+item.course_name+"</option>" 
-                })
-                
-                table += '</table>'
-                $('#tableRender').html(table)
-                //console.log(moduleData, "<< ")
-                
-            },
-            error: function (err, type, httpStatus) {
-                alert('error has occured');
-            }
-        };
+            $.ajax(settings);
+            
+            tableEnd = table+"</table>";
+        }else{
+            $('#tableRender').html('')
+        }
 
-        $.ajax(settings);
-
-        tableEnd = table+"</table>";
+        
         
     });
     </script>
