@@ -340,10 +340,10 @@
                         var oldStartDate = new Date(dateData.startDate)
                         var oldEndDate  = new Date(dateData.endDate)
                         //console.log(oldStartDate, oldEndDate, "old")
-                        var startDate = new Date (oldStartDate.setMonth(oldStartDate.getMonth() - 1))
-                        var endDate   = new Date (oldEndDate.setMonth(oldEndDate.getMonth() - 1))
+                        //var startDate = new Date (oldStartDate.setMonth(oldStartDate.getMonth() - 1))
+                        //var endDate   = new Date (oldEndDate.setMonth(oldEndDate.getMonth() - 1))
                         //console.log(startDate, endDate, "new")
-                        var obj       = {startDate, endDate}
+                        var obj       = { startDate:oldStartDate, endDate:oldEndDate }
 
                         clData.push(obj)
                     })
@@ -373,7 +373,7 @@
                 var intake_end_date = data.intake_end_date;
                 $('#edit_intake_name').val(teaching_block_period_description);
                 $('#edit_intake_start_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
-                $('#edit_intake_end_date').val(new Date(intake_start_date).toISOString().replace('.000Z', ''));
+                $('#edit_intake_end_date').val(new Date(intake_end_date).toISOString().replace('.000Z', ''));
             }).catch(function (error ) {
                 console.log(error)
                 console.log('FAILURE!!');

@@ -15,10 +15,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       intake_start_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(150)
       },
       intake_end_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(150)
       }
     },
     {
