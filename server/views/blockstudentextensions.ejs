@@ -165,43 +165,87 @@
         
         $(document).on('change','.switcheryExtension',function(){
             var ID = $(this).attr('data-id');
-            var status = 1
-            
-            var settings= {
-                type: "POST",
-                dataType: "json",
-                url: "/api/user/setStandardExtension/"+ID,
-                data:{status:status},
-                success: function(blocks) {
-                    
-                },
-                error: function (err, type, httpStatus) {
-                    alert('error has occured');
-                }
-            };
+            var status = 0;
+            if($(this).is(":checked")){
+                status = 1;
+            }   
 
-            $.ajax(settings);   
+            swal({
+                title: "Confirm Your Action",
+                text: "Chnage selected setting status?",
+                icon: "warning",
+                //buttons: true,
+                buttons: ["No, do not change the setting.", "Yes,change the setting."],
+                dangerMode: true,
+             })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/user/setStandardExtension/"+ID,
+                        data:{status:status},
+                        success: function(blocks) {
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                   
+                    $.ajax(settings);
+                }else{
+                    location.reload();
+                }
+            });
         })
 
         $(document).on('change','.switcheryResit',function(){
         
             var ID = $(this).attr('data-id');
-            var status = 1
-            
-            var settings= {
-                type: "POST",
-                dataType: "json",
-                url: "/api/user/setResitExtension/"+ID,
-                data:{status:status},
-                success: function(blocks) {
-                    
-                },
-                error: function (err, type, httpStatus) {
-                    alert('error has occured');
-                }
-            };
+            var status = 0;
+            if($(this).is(":checked")){
+                status = 1;
+            }
 
-            $.ajax(settings);   
+            swal({
+                title: "Confirm Your Action",
+                text: "Chnage selected setting status?",
+                icon: "warning",
+                //buttons: true,
+                buttons: ["No, do not change the setting.", "Yes,change the setting."],
+                dangerMode: true,
+             })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var settings= {
+                        type: "POST",
+                        dataType: "json",
+                        url: "/api/user/setResitExtension/"+ID,
+                        data:{status:status},
+                        success: function(blocks) {
+                            swal("Status has been updated.", {
+                                icon: "success",
+                            });
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                        },
+                        error: function (err, type, httpStatus) {
+                            alert('error has occured');
+                        }
+                    };
+                   
+                    $.ajax(settings);
+                }else{
+                    location.reload();
+                }
+            });
         })
     </script>
 </body>
