@@ -227,7 +227,7 @@ router.get("/staffdashboardusercount", (req, res) => {
 		if (err) throw err;
 
 		connection.query(
-			"SELECT count(ID) AS count FROM user_idpdetails WHERE isActive = 1 && isStaff = 0",
+			"SELECT count(ID) AS count FROM user_idpdetails WHERE to_be_deleted = 0 && isStaff = 0",
 			[sessionid],
 			(err, result, fields) => {
 				if (err) throw err;
@@ -308,7 +308,7 @@ router.get("/staffdashboardstaffcount", (req, res) => {
 		if (err) throw err;
 
 		connection.query(
-			"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && isActive = 1",
+			"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && to_be_deleted = 0",
 			[sessionid],
 			(err, result, fields) => {
 				if (err) throw err;
@@ -341,7 +341,7 @@ router.get("/staffdashboardlistusers", async (req, res) => {
 
 	// 	whmcsconnection.end();
 	// });
-    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, md.module_code, md.module_name, YEAR(mua.user_module_start_date) as mdate, tld.name as location_name, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ,'/', md.module_code) AS domain_name,CONCAT( ud.userid, '.',cd.domainname) AS domain, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid LEFT JOIN modules_users_assigned mua on mua.user_id =ud.ID LEFT JOIN module_details md ON md.module_id = mua.module_id LEFT JOIN teaching_location_details tld ON tld.teaching_location_id= ud.user_location_id WHERE ud.isActive = 1 AND tld.is_active != 0"
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, md.module_code, md.module_name, YEAR(mua.user_module_start_date) as mdate, tld.name as location_name, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ,'/', md.module_code) AS domain_name,CONCAT( ud.userid, '.',cd.domainname) AS domain, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid LEFT JOIN modules_users_assigned mua on mua.user_id =ud.ID LEFT JOIN module_details md ON md.module_id = mua.module_id LEFT JOIN teaching_location_details tld ON tld.teaching_location_id= ud.user_location_id WHERE ud.to_be_deleted = 0 AND tld.is_active != 0"
     let result = await user_idpdetailDal.runRawQuery(query);
     let modifedResult = []
     await Promise.all(
@@ -371,7 +371,7 @@ let SelectAllElements = (whmcsconnection, queryStr) =>{
 };
 
 router.get("/listusers", async (req, res) => {
-    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.to_be_deleted = 0"
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });
@@ -465,13 +465,13 @@ router.get("/getModuleWithCourse/:id", async (req, res) => {
 });
 
 router.get("/usersManager", async (req, res) => {
-    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.to_be_deleted = 0"
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });
 
 router.get("/studentList", async (req, res) => {
-    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.isActive = 1"
+    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.to_be_deleted = 0"
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });
