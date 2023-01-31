@@ -387,6 +387,12 @@ router.get("/getCourseWithLocation/:id", async (req, res) => {
     res.send(result);
 });
 
+router.get("/getBlockWithCourse/:id", async (req, res) => {
+    let query = "SELECT teaching_block_blocks.teaching_block_id, teaching_block_blocks.name FROM teaching_block_blocks JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id= teaching_block_blocks.teaching_block_id WHERE course_id ="+req.params.id
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
 router.get("/getCalenderData/", async (req, res) => {
     let query = "SELECT Date(teaching_block_intake_description.intake_end_date) endDate, Date(teaching_block_intake_description.intake_start_date) startDate FROM teaching_block_intake_description;"
     let result = await user_idpdetailDal.runRawQuery(query);
