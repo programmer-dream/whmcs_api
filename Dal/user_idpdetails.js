@@ -93,6 +93,13 @@ var User_idpdetail = {
 
     return allIntakes;
   },
+  isRegisterationEnabled: async function () {
+  
+    let settingQuery  = "SELECT disable_user_registration FROM settings_table";
+    let setting = await sequelize.query(settingQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    return setting[0].disable_user_registration;
+  },
   getTeachingBlocks: async function (userId, moduleId) {
     let past_2month=DateTime.now().minus({months:2}).toFormat('yyyy-MM-dd HH:mm:ss');
     console.log(past_2month, "<< past_2month")

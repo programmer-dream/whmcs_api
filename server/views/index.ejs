@@ -73,9 +73,17 @@
                                 <%= setting.home_page_text %>
                             <% } %>
                         </p>
-                        <p></p>
+                        <%  var loginbtn = 'Login / Register';
+                            if (setting.disable_user_registration){ 
+                                loginbtn = 'Login';
+                        %>
+
+                        <p>
+                            To register for this service you must be added by your university. Once added, you will be able to login.
+                        </p>
+                        <% } %>
                         <div class="form-group" role="button">
-                            <input type="button" aria-label="Login" value="Login / Register" class="btn float-right login_btn"
+                            <input type="button" aria-label="Login" value="<%= loginbtn %>" class="btn float-right login_btn"
                                    onclick="call_login()" />
                         </div>
                     </main>

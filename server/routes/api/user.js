@@ -28,7 +28,7 @@ const whmcsConfig = require("../../config/whmcs");
 router.post('/auth/openid/return',
 
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
-    function(req, res) {
+    async function(req, res) {
 	var email=req.user.upn;
         var upn1=email.split("@");
         var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
@@ -42,20 +42,24 @@ router.post('/auth/openid/return',
         sessionid:sessionid
 	}
 
-
+    let isRegisterationEnabled = await user_idpdetailDal.isRegisterationEnabled()
+                
+    
         // Decide where the user is going to go, are they new or existing?
 		user_idpdetailBal.getUserIdpDetailByEmail(email,function (result,err) {
             //if no result is passed back then the user data should be stored
             if (result.data.length==0) {
-                //new user logic
-                /////////////// Store the variables in the db for later use
-				user_idpdetailBal.addUser_IdpDetail(para,function (data,err1) {
-					if(data.message=="success"){
-						res.redirect("/home");
-					}else{
-                        res.send(data.data);
-					}
-                })
+                if(!isRegisterationEnabled){
+                    //new user logic
+                    /////////////// Store the variables in the db for later use
+    				user_idpdetailBal.addUser_IdpDetail(para,function (data,err1) {
+    					if(data.message=="success"){
+    						res.redirect("/home");
+    					}else{
+                            res.send(data.data);
+    					}
+                    })
+                }
             } else {
                 // update session id in the database on user login - this is used to pass data from this route to the staff login route
                 user_idpdetailBal.updateUser_IdpDetail({email:email,sessionid:sessionid},function (data,err) {
