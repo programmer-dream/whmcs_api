@@ -8,7 +8,7 @@ const whmcsConfig = require("../config/whmcs");
 let updateDatesInModule = async function  () {
   let start     = DateTime.now().toFormat('yyyy-MM-dd HH:mm:00');
   let end       = DateTime.now().toFormat('yyyy-MM-dd HH:mm:59');
-  let dueQuery  = "SELECT teaching_block_intakes.teaching_block_id, teaching_block_blocks.tb_start_date_time, teaching_block_blocks.tb_end_date_time, teaching_block_intakes.module_id, modules_users_assigned.user_id , modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled from teaching_block_blocks join teaching_block_intakes ON teaching_block_blocks.teaching_block_id=teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.module_id = teaching_block_intakes.module_id WHERE teaching_block_blocks.tb_start_date_time BETWEEN '"+start+"' and '"+end+"' GROUP by teaching_block_intakes.teaching_block_id,teaching_block_intakes.module_id, modules_users_assigned.user_id, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled"
+  let dueQuery  = "SELECT teaching_block_intakes.teaching_block_id, teaching_block_blocks.tb_start_date_time, teaching_block_blocks.tb_end_date_time, teaching_block_intakes.module_id, modules_users_assigned.user_id , modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled from teaching_block_blocks join teaching_block_intakes ON teaching_block_blocks.teaching_block_id=teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.module_id = teaching_block_intakes.module_id WHERE teaching_block_blocks.tb_end_date_time BETWEEN '"+start+"' and '"+end+"' GROUP by teaching_block_intakes.teaching_block_id,teaching_block_intakes.module_id, modules_users_assigned.user_id, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled"
   let setQuery  = "SELECT * FROM settings_table"
   
 
@@ -113,7 +113,8 @@ user_idpdetailDal.suspendCustomUser({ID:userId,isActive:status},function (data,e
 
             const whmcsClient  = new Clients(whmcsConfig);
             const servicClient = new Services(whmcsConfig);
-
+            const newuserpassword = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+            
             whmcsClient.getClientsDetails({email:email}).then(function (clientResponse) {
                 
                 if(clientResponse.result == 'success'){
@@ -122,7 +123,7 @@ user_idpdetailDal.suspendCustomUser({ID:userId,isActive:status},function (data,e
                         await Promise.all(
                             productsResponse.products.product.map( async function(service){
                                 console.log(service.orderid,"<<<< service")
-                                await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:process.env.PASSWORD_RANDOM}).then(function (changeResponse) {
+                                await servicClient.moduleChangePw({serviceid:service.orderid, servicepassword:newuserpassword}).then(function (changeResponse) {
                                     console.log(changeResponse, "<<< changeResponse")
                                 })
                             })
