@@ -87,7 +87,7 @@ $(document).ready(function () {
           var deferred = $.Deferred();
           $.ajax({
             type: "GET",
-            url: "/api/user/usersManager",
+            url: "/api/user/studentList",
             dataType: "json",
             success: function (users) {
               let response = users;
