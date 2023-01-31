@@ -1062,6 +1062,12 @@ var User_idpdetail = {
     
     return queryData;
   },
+  updateRawQuery: async function (queryStr) {
+    
+    await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.UPDATE });
+    return true
+    
+  },
   updateModuleData: async function (data, where) {
     let moduleAssigned = await modules_users_assigned.findOne({where:where})
     await moduleAssigned.update(data)

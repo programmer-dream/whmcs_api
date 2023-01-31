@@ -47,25 +47,6 @@ $(document).ready(function () {
     );
   }
 
-  function isUserDomain(filters, element) {
-    return (
-      filters.domain_name === "" || contains(element.domain_name, filters.domain_name)
-    );
-  }
-
-  function isStaff(filters, element) {
-    return (
-      filters.Is_Staff === "" || contains(element.Is_Staff, filters.Is_Staff)
-    );
-  }
-
-  function isAdmin(filters, element) {
-    return (
-      filters.Is_Admin === "" || contains(element.Is_Admin, filters.Is_Admin)
-    );
-  }
-
-
   function filterResults(filters, results) {
     var filtered = [];
     for (let i = 0; i < results.length; i++) {
@@ -74,10 +55,7 @@ $(document).ready(function () {
         isID(filters, element) &&
         isFullname(filters, element) &&
         isUserId(filters, element) &&
-       isEmail(filters, element) &&
-        isStaff(filters, element) &&
-        isAdmin(filters, element) &&
-        isUserDomain(filters, element)
+        isEmail(filters, element)
       ) {
         filtered.push(element);
       }
@@ -145,7 +123,7 @@ $(document).ready(function () {
         {
           name: "user_ID",
           title: "User ID",
-          width: 75,
+          width: 70,
           align: "center",
           type: "text",
           filtering: true
@@ -159,33 +137,30 @@ $(document).ready(function () {
           filtering: true
         },
         {
-          name: "domain_name",
-          type: "text",
-          title: "User domain",
+          name: "ID",
+          title: "Standard Extension",
+          width: 90,
           align: "center",
-          itemTemplate: function (value) {
+          type: "html",
+          filtering: false,
+          itemTemplate: function (ID) {
             return (
-              '<a href="http://' + value + '" target="_blank">' + value + "</a>"
+              '<div class="form-group mt-1" ><input data-id="'+ID+'" type="checkbox" class="switchery switcheryExtension" data-size="xs" /></div>'
             );
-          },
-          width: 220,
-          filtering: true
+          }
         },
         {
-          name: "Is_Staff",
-          title: "Is staff?",
-          width: 65,
+          name: "ID",
+          title: "Re-sit extension",
+          width: 90,
           align: "center",
-          type: "text",
-          filtering: true
-        },
-        {
-          name: "Is_Admin",
-          title: "Is admin?",
-          width: 65,
-          align: "center",
-          type: "text",
-          filtering: true
+          type: "html",
+          filtering: false,
+          itemTemplate: function (ID) {
+            return (
+              '<div class="form-group mt-1" ><input data-id="'+ID+'" type="checkbox" class="switchery switcheryResit" data-size="xs" /></div>'
+            );
+          }
         },
       ]
     });

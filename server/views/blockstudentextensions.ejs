@@ -9,7 +9,8 @@
 
     <%- include('header'); -%>
 
-
+    
+    <link href="/css/switchery.min.css" rel="stylesheet">
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-content-menu material-vertical-layout material-layout 2-columns   fixed-navbar"
@@ -133,6 +134,7 @@
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
     <script src="/vendors/js/tables/jsgrid/jsgrid.min.js"></script>
     <script src="/js/scripts/tables/jsgrid/studentlist.js"></script>
+    <script src="/js/switch.js"></script>
     <script>
         $('#course').on('change',function(){
             var courseId = $(this).val();
@@ -159,6 +161,47 @@
             }else{
                 $('#block').html('<option value="">Select Block</option>');
             }
+        })
+        
+        $(document).on('change','.switcheryExtension',function(){
+            var ID = $(this).attr('data-id');
+            var status = 1
+            
+            var settings= {
+                type: "POST",
+                dataType: "json",
+                url: "/api/user/setStandardExtension/"+ID,
+                data:{status:status},
+                success: function(blocks) {
+                    
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+
+            $.ajax(settings);   
+        })
+
+        $(document).on('change','.switcheryResit',function(){
+        
+            var ID = $(this).attr('data-id');
+            var status = 1
+            
+            var settings= {
+                type: "POST",
+                dataType: "json",
+                url: "/api/user/setResitExtension/"+ID,
+                data:{status:status},
+                success: function(blocks) {
+                    
+                },
+                error: function (err, type, httpStatus) {
+                    alert('error has occured');
+                }
+            };
+
+            $.ajax(settings);   
         })
     </script>
 </body>

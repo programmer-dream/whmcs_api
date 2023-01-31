@@ -393,6 +393,19 @@ router.get("/getBlockWithCourse/:id", async (req, res) => {
     res.send(result);
 });
 
+router.post("/setStandardExtension/:id", async (req, res) => {
+    let status = req.body.status
+    let query = "UPDATE modules_users_assigned SET block_is_extended='"+status+"'  WHERE user_id ="+req.params.id
+    let result = await user_idpdetailDal.updateRawQuery(query);
+    res.send({message:'success'});
+});
+router.post("/setResitExtension/:id", async (req, res) => {
+    let status = req.body.status
+    let query = "UPDATE modules_users_assigned SET is_block_resit_enabled='"+status+"'  WHERE user_id ="+req.params.id
+    let result = await user_idpdetailDal.updateRawQuery(query);
+    res.send({message:'success'});
+});
+
 router.get("/getCalenderData/", async (req, res) => {
     let query = "SELECT Date(teaching_block_intake_description.intake_end_date) endDate, Date(teaching_block_intake_description.intake_start_date) startDate FROM teaching_block_intake_description;"
     let result = await user_idpdetailDal.runRawQuery(query);
