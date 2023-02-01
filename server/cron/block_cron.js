@@ -90,15 +90,17 @@ let active_suspend_user = async function(){
   
   Promise.all(
     userModule.map(async function(moduleAssigned){
-        await suspendActiveUser(moduleAssigned.userid, 1)
                   
         let updateObj = {moderation_start_date: null, block_moderation_end_date: null }
         let whereObj  = {user_id: moduleAssigned.user_id, module_id: moduleAssigned.module_id }
         
         await user_idpdetailDal.updateModuleData(updateObj, whereObj)
+
+        let activeQuery = 'UPDATE user_idpdetails SET isActive = 1 WHERE ID="'+moduleAssigned.user_id+'"'
+        await user_idpdetailDal.updateRawQuery(activeQuery)
         
     }),
-    ///await updateFlag(userModule)
+    
   )
     
 }
