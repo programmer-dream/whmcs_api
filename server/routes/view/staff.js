@@ -1017,10 +1017,9 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
   res.render("modulestudentview", {
     email: req.user.upn,
     user: req.user,
-    teachingLocation:await user_idpdetailDal.listTeachingLocation(),
-    teachingBlockPeriods:await user_idpdetailDal.listBlockPeriods(),
-    modules:await user_idpdetailDal.listModules(),
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
+    listCourse:await user_idpdetailDal.listCourse(),
+    getTeachingBlocks:await user_idpdetailDal.getTeachingBlocks(),
     supportMenu: {
       main: [
         {

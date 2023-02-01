@@ -396,9 +396,23 @@ router.get("/getBlockWithCourse/:id", async (req, res) => {
     res.send(result);
 });
 
+router.get("/getModulekWithCourse/:id", async (req, res) => {
+
+    let query = "SELECT module_details.module_id, module_details.module_name, module_details.module_code FROM module_details JOIN courses_modules_assigned ON courses_modules_assigned.module_id= module_details.module_id WHERE course_id='"+req.params.id+"' GROUP BY module_id;"
+    //console.log(query, "<<< getModulekWithCourse")
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
 router.post("/setStandardExtension/:id", async (req, res) => {
     let status = req.body.status
     let query = "UPDATE modules_users_assigned SET block_is_extended='"+status+"'  WHERE user_id ="+req.params.id
+    let result = await user_idpdetailDal.updateRawQuery(query);
+    res.send({message:'success'});
+});
+router.post("/setModuleExtension/:id", async (req, res) => {
+    let status = req.body.status
+    let query = "UPDATE modules_users_assigned SET is_extended='"+status+"'  WHERE user_id ="+req.params.id
     let result = await user_idpdetailDal.updateRawQuery(query);
     res.send({message:'success'});
 });
@@ -484,6 +498,23 @@ router.get("/studentList", async (req, res) => {
     }else{
         
         query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled  FROM user_idpdetails ud JOIN teaching_block_intakes ON ud.teaching_block_intake_id = teaching_block_intakes.teaching_block_period_id JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id = teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.user_id= ud.ID WHERE ud.to_be_deleted = 0 GROUP BY ID, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled;"
+    }
+
+    let result = await user_idpdetailDal.runRawQuery(query);
+    res.send(result);
+});
+
+router.get("/studentView", async (req, res) => {
+    let courseId = req.query.courseId
+    let moduleId = req.query.moduleId
+    let query = ''
+
+    if(courseId && moduleId){
+        
+        query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, modules_users_assigned.is_extended FROM user_idpdetails ud JOIN modules_users_assigned ON modules_users_assigned.user_id= ud.ID JOIN courses_modules_assigned ON courses_modules_assigned.module_id=modules_users_assigned.module_id WHERE ud.to_be_deleted = 0 AND  modules_users_assigned.module_id='"+moduleId+"' AND courses_modules_assigned.course_id='"+courseId+"' GROUP BY ID, modules_users_assigned.is_extended;"
+    }else{
+        
+        query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, modules_users_assigned.is_extended FROM user_idpdetails ud JOIN modules_users_assigned ON modules_users_assigned.user_id= ud.ID JOIN courses_modules_assigned ON courses_modules_assigned.module_id=modules_users_assigned.module_id WHERE ud.to_be_deleted = 0 GROUP BY ID, modules_users_assigned.is_extended;"
     }
 
     let result = await user_idpdetailDal.runRawQuery(query);
