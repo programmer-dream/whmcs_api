@@ -14,7 +14,7 @@ $(document).ready(function () {
    ****************************/
 
   
-  populateGrid();
+  //populateGrid();
 
   function contains(element, filters) {
     return element
@@ -63,7 +63,7 @@ $(document).ready(function () {
     return filtered;
   }
 
-  function populateGrid() {
+  function populateGrid(courseId, blockId) {
     $("#jsGrid").jsGrid({
       width: "100%",
       filtering: true,
@@ -89,6 +89,7 @@ $(document).ready(function () {
             type: "GET",
             url: "/api/user/studentList",
             dataType: "json",
+            data:{courseId, blockId},
             success: function (users) {
               let response = users;
               //console.log(response, "<<< data")
@@ -137,28 +138,34 @@ $(document).ready(function () {
           filtering: true
         },
         {
-          name: "ID",
+          name: "block_is_extended",
           title: "Standard Extension",
           width: 90,
           align: "center",
           type: "html",
           filtering: false,
-          itemTemplate: function (ID) {
+          itemTemplate: function (isEnabled, item) {
+            var isChecked  = ''
+            if(isEnabled == '1')
+              isChecked = 'checked'
             return (
-              '<div class="form-group mt-1" ><input data-id="'+ID+'" type="checkbox" class="switchery switcheryExtension" data-size="xs" /></div>'
+              '<div class="form-group mt-1" ><input data-id="'+item.ID+'" type="checkbox" class="switchery switcheryExtension" data-size="xs" '+isChecked+'/></div>'
             );
           }
         },
         {
-          name: "ID",
+          name: "is_block_resit_enabled",
           title: "Re-sit extension",
           width: 90,
           align: "center",
           type: "html",
           filtering: false,
-          itemTemplate: function (ID) {
+          itemTemplate: function (isEnabled, item) {
+            var isChecked  = ''
+            if(isEnabled == '1')
+              isChecked = 'checked'
             return (
-              '<div class="form-group mt-1" ><input data-id="'+ID+'" type="checkbox" class="switchery switcheryResit" data-size="xs" /></div>'
+              '<div class="form-group mt-1" ><input data-id="'+item.ID+'" type="checkbox" class="switchery switcheryResit" data-size="xs" '+isChecked+'/></div>'
             );
           }
         },
@@ -180,4 +187,19 @@ $(document).ready(function () {
       }, 500);
     });
   }
+
+  $('#block').on('change',function(){
+      courseId = $('#course').val();
+      blockId = $('#block').val();
+      
+      if(courseId && blockId){
+        populateGrid(courseId, blockId);
+      }
+      $("#jsGrid").show();
+  })
+
+  $('#course').on('change',function(){
+      $("#jsGrid").hide();
+  })
+
 });

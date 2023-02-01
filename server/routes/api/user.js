@@ -471,7 +471,18 @@ router.get("/usersManager", async (req, res) => {
 });
 
 router.get("/studentList", async (req, res) => {
-    let query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, CONCAT( ud.userid, '.',cd.domainname ) AS domain_name, CASE WHEN ud.isStaff = 1 THEN 'Yes' ELSE 'No' END AS Is_Staff, CASE WHEN ud.is_admin = 1 THEN 'Yes' ELSE 'No' END AS Is_Admin FROM user_idpdetails ud LEFT JOIN client_details cd ON cd.universityid = ud.universityid WHERE ud.to_be_deleted = 0"
+    let blockId = req.query.blockId
+    let courseId = req.query.courseId
+    let query = ''
+
+    if(blockId && courseId){
+        
+        query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled  FROM user_idpdetails ud JOIN teaching_block_intakes ON ud.teaching_block_intake_id = teaching_block_intakes.teaching_block_period_id JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id = teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.user_id= ud.ID WHERE ud.to_be_deleted = 0 AND teaching_block_intakes.teaching_block_id='"+blockId+"' AND courses_blocks_assigned.course_id ='"+courseId+"' GROUP BY ID, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled;"
+    }else{
+        
+        query = "SELECT ud.id AS ID, CONCAT( ud.firstname, ' ', ud.lastname ) AS fullname, ud.userid AS user_ID, ud.email AS email, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled  FROM user_idpdetails ud JOIN teaching_block_intakes ON ud.teaching_block_intake_id = teaching_block_intakes.teaching_block_period_id JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id = teaching_block_intakes.teaching_block_id JOIN modules_users_assigned ON modules_users_assigned.user_id= ud.ID WHERE ud.to_be_deleted = 0 GROUP BY ID, modules_users_assigned.block_is_extended, modules_users_assigned.is_block_resit_enabled;"
+    }
+
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });

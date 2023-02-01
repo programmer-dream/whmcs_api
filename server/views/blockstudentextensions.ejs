@@ -169,6 +169,9 @@
         })
         
         $(document).on('change','.switcheryExtension',function(){
+            var courseId = $('#course').val();
+            var blockId = $('#block').val();
+
             var ID = $(this).attr('data-id');
             var status = 0;
             if($(this).is(":checked")){
@@ -195,7 +198,9 @@
                                 icon: "success",
                             });
                             setTimeout(function(){
-                                location.reload();
+                                var url=window.location.origin+'/staff/blockstudentextensions'+'?courseId='+courseId+'&blockId='+blockId;
+                                window.location.href = url;
+                                //location.reload();
                             }, 2000);
                         },
                         error: function (err, type, httpStatus) {
@@ -211,7 +216,9 @@
         })
 
         $(document).on('change','.switcheryResit',function(){
-        
+            var courseId = $('#course').val();
+            var blockId = $('#block').val();
+
             var ID = $(this).attr('data-id');
             var status = 0;
             if($(this).is(":checked")){
@@ -238,7 +245,9 @@
                                 icon: "success",
                             });
                             setTimeout(function(){
-                                location.reload();
+                                var url=window.location.origin+'/staff/blockstudentextensions'+'?courseId='+courseId+'&blockId='+blockId;
+                                window.location.href = url;
+                                //location.reload();
                             }, 2000);
                         },
                         error: function (err, type, httpStatus) {
@@ -251,6 +260,26 @@
                     location.reload();
                 }
             });
+        })
+        $(document).ready(function(){
+            var urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('courseId')){
+                var courseId=urlParams.get('courseId');
+                if(courseId !=''){
+                    $('#course').val(courseId).change();
+                }
+                console.log(courseId, "courseId")
+            }
+
+            if(urlParams.has('blockId')){
+                var blockId=urlParams.get('blockId');
+                if(blockId !=''){
+                    setTimeout(function(){
+                        $('#block').val(blockId).change();
+                    }, 500);
+                }
+                console.log(blockId, "blockId")
+            }
         })
     </script>
 </body>
