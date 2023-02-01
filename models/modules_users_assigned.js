@@ -25,7 +25,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(150)
       },
       block_is_extended: {
-        type: DataTypes.INTEGER(11)
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
+      },
+      is_block_resit_enabled: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       }
     },
     {

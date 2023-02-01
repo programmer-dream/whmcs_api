@@ -47,7 +47,7 @@ let updateDatesInModule = async function  () {
           }  
           
 
-          let updateObj = {block_moderation_start_date: startDate, block_moderation_end_date: endDate }
+          let updateObj = {block_moderation_start_date: startDate, block_moderation_end_date: endDate, block_is_extended:0, is_block_resit_enabled:0 }
           let whereObj  = {user_id: moduleData.user_id, module_id: moduleData.module_id }
            //console.log(updateObj, whereObj, "<<< ")
           await user_idpdetailDal.updateModuleData(updateObj, whereObj)
