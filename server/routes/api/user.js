@@ -16,6 +16,7 @@ const getTimestamp = require("../../utils/getTimestamp");
 var fs = require('fs');
 const azureConfig=require(process.env.configwithin);
 var axios = require("axios");
+const { DateTime } = require("luxon");
 // Get the modules from whmcs-js
 const { Clients, Orders, Services, System } = require("whmcs-js");
 
@@ -388,7 +389,9 @@ router.get("/getCourseWithLocation/:id", async (req, res) => {
 });
 
 router.get("/getBlockWithCourse/:id", async (req, res) => {
-    let query = "SELECT teaching_block_blocks.teaching_block_id, teaching_block_blocks.name FROM teaching_block_blocks JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id= teaching_block_blocks.teaching_block_id WHERE course_id ="+req.params.id
+    let past_2month=DateTime.now().minus({months:2}).toFormat('yyyy-MM-dd HH:mm:ss');
+    let query = "SELECT teaching_block_blocks.teaching_block_id, teaching_block_blocks.name FROM teaching_block_blocks JOIN courses_blocks_assigned ON courses_blocks_assigned.teaching_block_id= teaching_block_blocks.teaching_block_id WHERE teaching_block_blocks.tb_end_date_time > '"+past_2month+"' AND course_id ="+req.params.id
+    
     let result = await user_idpdetailDal.runRawQuery(query);
     res.send(result);
 });
