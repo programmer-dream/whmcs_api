@@ -1110,7 +1110,7 @@ router.post("/updatePagetext", async (req, res) => {
     let data={};
         data[req.body.index] = req.body.text
     let response = await user_idpdetailDal.updatePagetext(data)
-    console.log(response,'es->>>>>>>');
+    //console.log(response,'es->>>>>>>');
     res.send({status : 'success', message:'Status updated successfully'})
    
 });
@@ -1121,11 +1121,8 @@ router.post("/linkModule", async (req, res) => {
    
 });
 router.post("/unlinkModule", async (req, res) => {
-
-    let module_id=req.body.module_id;
-    let teaching_block_period_id=req.body.teaching_block_period_id;
-    let teaching_block_id=req.body.teaching_block_id;
-    let response = await user_idpdetailDal.unlinkModule(module_id,teaching_block_period_id,teaching_block_id)
+    
+    let response = await user_idpdetailDal.unlinkModule(req.body.unique_id)
     if(response.status=="success"){
         res.send({status : 'success', message:'Module unlinked successfully'})
     }

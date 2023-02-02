@@ -1215,9 +1215,9 @@ var User_idpdetail = {
     
     
   },
-  unlinkModule: async function (module_id,teaching_block_period_id,teaching_block_id) {
+  unlinkModule: async function (unique_id) {
      
-    if(await teaching_block_intakes.destroy({where:{module_id:module_id,teaching_block_period_id:teaching_block_period_id,teaching_block_id:teaching_block_id}})){
+    if(await teaching_block_intakes.destroy({where:{unique_id:unique_id}})){
       return {'status':'success'};
     }
     
@@ -1256,7 +1256,7 @@ var User_idpdetail = {
       let allIntake = await sequelize.query(intakeQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //get inake moudule 
-      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code,module_details.module_id, module_details.module_type, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
+      let intakeModuleQuery="SELECT module_details.module_name, module_details.module_code,module_details.module_id, module_details.module_type, teaching_block_intakes.teaching_block_period_id, teaching_block_intakes.teaching_block_id, teaching_block_intakes.unique_id FROM teaching_block_intakes JOIN module_details ON module_details.module_id = teaching_block_intakes.module_id;";
       let allIntakeModule = await sequelize.query(intakeModuleQuery,{ type: Sequelize.QueryTypes.SELECT });
 
       //console.log(allIntakeModule,'<< allIntakeModule');
@@ -1305,7 +1305,7 @@ var User_idpdetail = {
             color = 'elective_color'
             type = ' (elective)'
           }
-          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">'+intakemodule.module_code+' - '+intakemodule.module_name+type+'<span class="material-symbols-outlined deleteDynamicModule" module-id="'+intakemodule.module_id+'" intake-id="'+intakemodule.teaching_block_period_id+'" block_id="'+intakemodule.teaching_block_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
+          blockobj[intakemodule.teaching_block_period_id+","+intakemodule.teaching_block_id] += '<div class="alert '+color+'" role="alert">'+intakemodule.module_code+' - '+intakemodule.module_name+type+'<span class="material-symbols-outlined deleteDynamicModule" unique_id="'+intakemodule.unique_id+'" data-toggle="modal"  style="cursor: pointer;">close</span></div>'
 
       })
     )

@@ -742,14 +742,10 @@ tbody.draggable span.material-symbols-outlined {
      $(document).on('click', '.deleteDynamicModule', function() {
         var accordian_id=$(this).closest('.get-accordian').attr('id');
         
-        var module_id=$(this).attr('module-id');
-        var intake_id=$(this).attr('intake-id');
-        var block_id=$(this).attr('block_id');
+        var unique_id=$(this).attr('unique_id');
         
         let obj={
-            teaching_block_period_id: intake_id,
-            teaching_block_id: block_id,
-            module_id:module_id 
+            unique_id: unique_id
         }
         swal({
               title: "Are you sure?",
