@@ -313,8 +313,20 @@
                                                         <form class="form-horizontal" id="university_address" role="form">
                                                   
                                                           <p></p>
-                                                          <p></p> 
-                                                                       <div class="form-group">
+                                                          <p></p>
+                                                          <div class="form-group">
+                                                            <label for="inputCityTown" class="col-sm-12 control-label">Domain Name<span class="error">*</span></label>
+                                                            <div class="col-sm-12">
+                                                              <input type="text" class="form-control" id="domainname" name="domainname" placeholder="Domain Name" value="<%= clientDetail.domainname %>" required>
+                                                            </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                            <label for="inputCityTown" class="col-sm-12 control-label">Company Name<span class="error">*</span></label>
+                                                            <div class="col-sm-12">
+                                                              <input type="text" class="form-control" id="companyname" name="CompanyName" placeholder="Company Name" value="<%= clientDetail.CompanyName %>" required>
+                                                            </div>
+                                                          </div> 
+                                                            <div class="form-group">
                                                             <p class="col-sm-offset-2 col-sm-10 help-block">Street address, P.O. box, company name, c/o</p>
                                                             <label for="inputAddressLine1" class="col-sm-12 control-label">Address Line 1<span class="error">*</span></label>
                                                             <div class="col-sm-12">
@@ -597,6 +609,12 @@
                                                                 <option value="ZM">Zambia</option>
                                                                 <option value="ZW">Zimbabwe</option>
                                                               </select>
+                                                            </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                            <label for="inputCityTown" class="col-sm-12 control-label">API Key<span class="error">*</span></label>
+                                                            <div class="col-sm-12">
+                                                              <input type="text" class="form-control" id="APIkey" name="APIkey" placeholder="API Key" value="<%= clientDetail.APIkey %>" required>
                                                             </div>
                                                           </div>
                                                           <div class="col-md-12 mb-4" style="text-align: right;">
@@ -1708,18 +1726,24 @@
         e.preventDefault();
         var isValid = $('#university_address').valid();
         
+    if(isValid){
         var Address1=$('#inputAddressLine1').val();
         var Address2=$('#inputAddressLine2').val();
         var City=$('#inputCityTown').val();
         var State=$('#inputStateProvinceRegion').val();
         var Postcode=$('#inputZipPostalCode').val();
         var Country=$('#selectCountry').val();
-if(isValid){
+
+        var APIkey=$('#APIkey').val();
+        var domainname=$('#domainname').val();
+        var companyname=$('#companyname').val();
+
+
         var settings= {
                         type: "POST",
                         dataType: "json",
                         url: "/api/staff/updateClientDetail",
-                        data:{'Address1':Address1,'Address2':Address2,'City':City,'State':State,'Postcode':Postcode,'Country':Country},
+                        data:{'Address1':Address1,'Address2':Address2,'City':City,'State':State,'Postcode':Postcode,'Country':Country, APIkey: APIkey, domainname: domainname, CompanyName:companyname},
                         success: function(response) {
                             
                             swal("Status has been updated.", {
