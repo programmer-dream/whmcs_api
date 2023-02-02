@@ -202,6 +202,21 @@ var User_idpdetail = {
       return [];
     }
   },
+  getCourseWithLocation: async function (course_id) {
+
+    let queryStr  = "SELECT teaching_location_details.unique_id FROM course_details JOIN course_location ON course_location.course_id = course_details.id JOIN teaching_location_details on teaching_location_details.unique_id = course_location.teaching_location_id WHERE course_details.id ="+course_id;
+    
+    let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
+    let allLocationArray = []
+
+    await Promise.all(
+      queryData.map( async function(location){
+        allLocationArray.push(location.unique_id)
+      })
+    )
+
+    return allLocationArray
+  },
   listcoursesdate: async function () {
     let queryStr  = "SELECT * FROM course_details";
     let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
@@ -1083,6 +1098,12 @@ var User_idpdetail = {
   updateRawQuery: async function (queryStr) {
     
     await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.UPDATE });
+    return true
+    
+  },
+  deleteRawQuery: async function (queryStr) {
+    
+    await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.DELETE });
     return true
     
   },

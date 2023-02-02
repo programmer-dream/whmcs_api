@@ -359,6 +359,7 @@ router.post("/createIntake", async (req, res) => {
     
   });
 
+
 router.post("/createBlock", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();
@@ -430,7 +431,33 @@ router.post("/createCourse", async (req, res) => {
         }
     })
     
-  });
+});
+router.post("/editCourseLocation", async (req, res) => {
+    let response;
+    let form  = new formidable.IncomingForm();
+    form.parse(req, async function (err, fields, files) {
+        let course_id = fields.course_id
+        if(course_id){
+            
+            let queryStr  = "DELETE FROM `course_location` WHERE course_id='"+course_id+"'";
+
+            let result = await user_idpdetailDal.deleteRawQuery(queryStr)
+            if(fields.teaching_location == 'all' || fields.teaching_location.includes("all")){
+                await user_idpdetailDal.addCourseOnlocation(course_id);
+            }else{
+                let teaching_location_id = fields.teaching_location.split(",");
+                    teaching_location_id.forEach(async function(item, index) {
+
+                await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':course_id})
+                });
+            }
+            
+            res.send({status : 'success', message:'Course assigned successfully' })
+            
+        }
+    })
+    
+});
 
 router.post("/addCourse", async (req, res) => {
     let course_name = req.body.course_name
@@ -473,6 +500,12 @@ router.post("/addCourse", async (req, res) => {
     
     let allBlocks = await user_idpdetailDal.getBlock(id)
     res.send({status : 'success', message:'Block data', data: allBlocks})
+  });
+  router.get("/getCourseLocation/:id", async (req, res) => {
+    let id = req.params.id
+    
+    let allCourseLocations = await user_idpdetailDal.getCourseWithLocation(id)
+    res.send({status : 'success', message:'course location', data: allCourseLocations })
   });
 
 router.get("/login/:email", async (req, res) => {

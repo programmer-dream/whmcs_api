@@ -170,32 +170,29 @@
                                         <table class="table table-striped management-course-table">
                                             <thead>
                                               <tr>
-                                                <th scope="col">Course name</th>
-                                                <th scope="col">Teaching Location</th>                                                
+                                                <th scope="col" class="col-md-5">Course name</th>
+                                                <th scope="col" class="col-md-1">Edit</th>
+                                                <th scope="col" class="col-md-6">Teaching Location</th>                            
                                               </tr>
                                             </thead>
                                             <tbody>
                                             <% courseLocations.map(function(course){ %>
                                                <tr>
-                                                <td rowspan="<%= course.locations.length+1 %>" class="align-middle"><p class="text-center">
-                                                <%= course.course_name %></p>
+                                                
+                                                <td rowspan="<%= course.locations.length+1%>" class="align-middle"><p class="text-center">
+                                                    <%= course.course_name %></p>
+                                                </td>
+                                                <td rowspan="<%= course.locations.length+1%>">
+                                                    <span class="material-symbols-outlined editCourseLocation"  data-id="<%= course.id %>">edit</span>
                                                 </td>
                                                 <!-- <td>Location 1</td>                                                 -->
                                               </tr>
                                                <% course.locations.map(function(location){ %>
                                               <tr>                                                
-                                                <td><%= location.location_name %></td>                                                
+                                                <td><%= location.location_name %></td>
                                               </tr>
+                                              
                                               <% }) %>
-                                              <!-- <tr>
-                                                <td>Location 3</td>
-                                              </tr>
-                                              <tr>
-                                                <td>Location 4</td>
-                                              </tr>
-                                              <tr>
-                                                <td>Location 5</td>
-                                              </tr> -->
                                             <% }) %>
                                             </tbody>
                                           </table>
@@ -291,6 +288,51 @@
         </div>
       </div>
     </div>
+
+    <!-- edit modal changes  -->
+    <div class="modal fade modal-btns" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Course</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="editcourseForm" >
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course Name<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="course" id="edit_course_id" required>
+                            <option value="">Select Course</option>
+                            <% listCourse.map(function (course) { %>
+                                <option value="<%= course.id %>"><%= course.course_name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Teaching location<span class="red">*</span></label>
+                    <div class="col-sm-9 add-location-img-field">
+                       <select class="form-control" name="teaching_location" id="edit_teaching_location" multiple required>
+                            <option value="all">Select all locations</option>
+                            <% teachingLocation.forEach(item=> { %>
+                                <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="editsavecourse"> <i class="la la-check-square-o"></i> Save changes</button>
+          </div>       
+        </div>
+      </div>
+    </div>
+
     <!-- add Intake end -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -333,6 +375,41 @@
                 });
             }
         });
+
+        $('#editsavecourse').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#editcourseForm').valid();
+            if(isValid){
+                var formData = new FormData();
+                formData.append("course_id", $('#edit_course_id').val());
+                formData.append("teaching_location", $('#edit_teaching_location').val());
+                axios.post('/api/staff/editCourseLocation', formData,{ 
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function (response) {
+                    // console.log(response)
+                    if(response.data.status == "success"){
+                        $('#editcourseForm')[0].reset();
+                        swal("Success", response.data.message);
+                        $('#editModalCenter').hide();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 3000);
+                    }else{
+                        if(response.data.status == "error"){
+                          swal(response.data.message);  
+                      }else{
+                        swal("Something went wrong");
+                        }
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+            }
+        });
+
         $('#newcourse').on('click',function(e){
             e.preventDefault();
             var isValid = $('#addForm').valid();
@@ -364,6 +441,27 @@
                 });
             }
         });
+
+        $('.editCourseLocation').on('click',function(e){
+            var course_id = $(this).attr('data-id');
+            $('#edit_course_id').val(course_id).change();
+            
+            axios.get('/api/staff/getCourseLocation/'+course_id).
+                then(function (response) {
+                    if(response.data.status == "success"){
+                        $('#edit_teaching_location').val(response.data.data).change();
+                        $('#editModalCenter').modal('show');
+
+                    }else{
+                        swal("Something went wrong");
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+
+        })
+        
     </script>
     
 </body>
