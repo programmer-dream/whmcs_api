@@ -174,6 +174,18 @@ var User_idpdetail = {
       return createcourselocation;
     
   },
+  addCourseOnlocation: async function (courseId) {
+    
+    let teachingLoction  = "SELECT unique_id, name FROM `teaching_location_details` WHERE is_active = 1";
+    let allLocaions = await sequelize.query(teachingLoction,{ type: Sequelize.QueryTypes.SELECT });
+    await Promise.all(
+      allLocaions.map( async function(location){
+          let insertLocation  = "INSERT INTO course_location (teaching_location_id, course_id) VALUES ('"+location.unique_id+"','"+courseId+"');";
+          let saveCourseLocation = await sequelize.query(insertLocation,{ type: Sequelize.INSERT});
+      })
+    )
+    
+  },
   getCourse: async function (course_id) {
     const course_data = await course_details.findOne({
       where:{ course_id:course_id }

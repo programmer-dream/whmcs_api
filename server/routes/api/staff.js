@@ -419,11 +419,15 @@ router.post("/createCourse", async (req, res) => {
                 response = await user_idpdetailDal.createCourse({"course_id":fields.course_id,"course_name":fields.course_name});
                 if(response.id){
                     let Courseid = response.id;
-                    let  teaching_location_id = fields.teaching_location.split(",");
-                    teaching_location_id.forEach(async function(item, index) {
+                    if(fields.teaching_location == 'all' || fields.teaching_location.includes("all")){
+                        await user_idpdetailDal.addCourseOnlocation(Courseid);
+                    }else{
+                        let teaching_location_id = fields.teaching_location.split(",");
+                            teaching_location_id.forEach(async function(item, index) {
 
-                        response = await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':Courseid})
-                    });
+                        await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':Courseid})
+                        });
+                    }
                     
                     res.send({status : 'success', message:'Course saved successfully' })
                 }
