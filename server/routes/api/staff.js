@@ -537,6 +537,7 @@ router.post("/createIndividualUser", async (req, res) => {
         
         let isLecturer = req.body?.is_lecturer
         let isAdmin = req.body?.is_admin
+        let student_id = null 
 
         if( isLecturer == 'on'){
             isLecturer = 1
@@ -549,6 +550,9 @@ router.post("/createIndividualUser", async (req, res) => {
         }else{
             isAdmin = 0
         }
+        if(req.body.student_id)
+            student_id = req.body.student_id
+        
         let upn1        = req.body.email.split("@");
         let userid      = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 
@@ -557,7 +561,7 @@ router.post("/createIndividualUser", async (req, res) => {
           firstname: req.body.first_name,
           lastname: req.body.last_name,
           userid: userid,
-          student_id: req.body.student_id,
+          student_id: student_id,
           sessionid:  generateString(),
           isStaff   : isLecturer,
           is_admin  : isAdmin,
