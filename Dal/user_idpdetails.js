@@ -997,7 +997,7 @@ var User_idpdetail = {
     if(course_details_data.length){
         await Promise.all(
           course_details_data.map( async function(course){
-            let queryStr = "SELECT courses_modules_assigned.*, module_details.module_name, module_details.module_type, module_details.module_course_year   FROM `courses_modules_assigned` JOIN module_details ON module_details.module_id = courses_modules_assigned.module_id WHERE courses_modules_assigned.course_id="+course.id
+            let queryStr = "SELECT courses_modules_assigned.*, module_details.module_name, module_details.module_code, module_details.module_type, module_details.module_course_year   FROM `courses_modules_assigned` JOIN module_details ON module_details.module_id = courses_modules_assigned.module_id WHERE courses_modules_assigned.course_id="+course.id
             
             let queryData = await sequelize.query(queryStr,{ type: Sequelize.QueryTypes.SELECT });
             course = course.toJSON()
