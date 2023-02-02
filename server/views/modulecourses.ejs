@@ -171,7 +171,7 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" class="col-md-5">Course name</th>
-                                                <th scope="col" class="col-md-1">Edit</th>
+                                                <th scope="col" class="col-md-1">Edit course locations</th>
                                                 <th scope="col" class="col-md-6">Teaching Location</th>                            
                                               </tr>
                                             </thead>
@@ -182,7 +182,7 @@
                                                 <td rowspan="<%= course.locations.length+1%>" class="align-middle"><p class="text-center">
                                                     <%= course.course_name %></p>
                                                 </td>
-                                                <td rowspan="<%= course.locations.length+1%>">
+                                                <td rowspan="<%= course.locations.length+1%>" class="text-right">
                                                     <span class="material-symbols-outlined editCourseLocation"  data-id="<%= course.id %>">edit</span>
                                                 </td>
                                                 <!-- <td>Location 1</td>                                                 -->
