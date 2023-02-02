@@ -32,7 +32,7 @@ data-scroll-to-active="true">
                 </li>
                 <% supportMenu.modules.forEach(item=> {
                     if(!enabledisablevalue.module_date_enabled && item.label == 'Module Dates'
-                    || !enabledisablevalue.module_courses_enabled && item.label == 'Courses'){ 
+                    || !enabledisablevalue.module_courses_enabled && item.label == 'Courses' || !enabledisablevalue.module_date_enabled && item.label == 'Student view'){ 
                         return;
                                     
                     }%>
