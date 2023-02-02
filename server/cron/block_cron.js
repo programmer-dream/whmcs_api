@@ -91,7 +91,7 @@ let active_suspend_user = async function(){
   Promise.all(
     userModule.map(async function(moduleAssigned){
                   
-        let updateObj = {moderation_start_date: null, block_moderation_end_date: null }
+        let updateObj = {block_moderation_start_date: null, block_moderation_end_date: null }
         let whereObj  = {user_id: moduleAssigned.user_id, module_id: moduleAssigned.module_id }
         
         await user_idpdetailDal.updateModuleData(updateObj, whereObj)
