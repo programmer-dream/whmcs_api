@@ -85,6 +85,42 @@
                 <section id="basic">
                     <div class="row">
                         <div class="col-12">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title font-weight-bold"><i class="ft-check-square"></i> Course</h3>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i></a>                                    
+                                </div>                                
+                                <div class="card-content collapse show" >
+                                    <div class="card-body card-dashboard ">
+                                        <table class="table table-striped management-course-table">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Course ID</th>
+                                                <th scope="col">Course Name</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            
+                                            <% courseList.map(function(course, index) { %>
+                                              <tr>                                                
+                                                <td><%= index+1 %></td>
+                                                <td><%= course.course_id %></td>
+                                                <td><%= course.course_name %></td>
+                                              </tr>
+                                            <% }) %>
+
+                                            </tbody>
+                                          </table> 
+                                          <div class="col-md-12 mb-2" style="text-align: right;">
+                                            <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#addCourseModal">Add Course</button>  
+                                          </div>                                       
+                                    </div>
+                                </div>     
+                            </div>
+
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title font-weight-bold"><i class="ft-check-square"></i> Course Modules</h3>
@@ -165,7 +201,7 @@
                                           </table>
                                           <div class="col-md-12 mb-4" style="text-align: right;">
 
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModalCenter">Add Course</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModalCenter">Assign Location to Course</button>
                                            </div>
                                     </div>
                                 </div>     
@@ -197,16 +233,15 @@
           </div>
           <div class="modal-body">
             <form class="p-1" id="addcourseForm" >
-                <div class="form-group row" style="display: none;">
-                    <label class="col-sm-3 col-form-label">Course Id<span class="red">*</span></label>
-                    <div class="col-sm-9">
-                        <input type="hidden" class="form-control" value ="<%= course[0].courseId %>" id="course_id" name="course_id" placeholder="Course id" min="0" required>
-                    </div>
-                </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Course Name<span class="red">*</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Course Name" required>
+                        <select class="form-control" name="course" id="course_id" required>
+                            <option value="">Select Course</option>
+                            <% listCourse.map(function (course) { %>
+                                <option value="<%= course.id %>"><%= course.course_name %></option>
+                            <% }) %>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -229,6 +264,33 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade modal-btns" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Course</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="p-1" id="addForm" >
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Course Name<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" id="course_name" name="course_name" placeholder="Course Name" required>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
+            <button type="button" class="btn btn-primary" id="newcourse"> <i class="la la-check-square-o"></i> Save changes</button>
+          </div>       
+        </div>
+      </div>
+    </div>
     <!-- add Intake end -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -244,7 +306,6 @@
             if(isValid){
                 var formData = new FormData();
                 formData.append("course_id", $('#course_id').val());
-                formData.append("course_name", $('#course_name').val());
                 formData.append("teaching_location", $('#teaching_location').val());
                 axios.post('/api/staff/createCourse', formData,{ 
                     headers: {
@@ -259,6 +320,37 @@
                         setTimeout(function(){
                             location.reload();
                         }, 3000);
+                    }else{
+                        if(response.data.status == "error"){
+                          swal(response.data.message);  
+                      }else{
+                        swal("Something went wrong");
+                        }
+                    }
+                }).catch(function (error ) {
+                    console.log(error)
+                    console.log('FAILURE!!');
+                });
+            }
+        });
+        $('#newcourse').on('click',function(e){
+            e.preventDefault();
+            var isValid = $('#addForm').valid();
+            var course_name = $('#course_name').val();
+
+            if(isValid){
+
+                axios.post('/api/staff/addCourse', {course_name}).then(function (response) {
+                    
+                    if(response.data.status == "success"){
+                        $('#addForm')[0].reset();
+                        swal("Success", response.data.message);
+                        $('#addCourseModal').hide();
+
+                        setTimeout(function(){
+                            location.reload();
+                        }, 3000);
+
                     }else{
                         if(response.data.status == "error"){
                           swal(response.data.message);  

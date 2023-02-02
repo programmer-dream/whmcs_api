@@ -414,32 +414,33 @@ router.post("/createCourse", async (req, res) => {
     form.parse(req, async function (err, fields, files) {
         let course_id = fields.course_id
         if(course_id){
-            let course_data = await user_idpdetailDal.getCourse(course_id);
-            if(typeof course_data !== 'undefined' && course_data.length == 0 ){
-                response = await user_idpdetailDal.createCourse({"course_id":fields.course_id,"course_name":fields.course_name});
-                if(response.id){
-                    let Courseid = response.id;
-                    if(fields.teaching_location == 'all' || fields.teaching_location.includes("all")){
-                        await user_idpdetailDal.addCourseOnlocation(Courseid);
-                    }else{
-                        let teaching_location_id = fields.teaching_location.split(",");
-                            teaching_location_id.forEach(async function(item, index) {
-
-                        await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':Courseid})
-                        });
-                    }
-                    
-                    res.send({status : 'success', message:'Course saved successfully' })
-                }
-                
+            
+            if(fields.teaching_location == 'all' || fields.teaching_location.includes("all")){
+                await user_idpdetailDal.addCourseOnlocation(course_id);
             }else{
-                res.send({status : 'error', message:'Course id is already exists' })
-                
+                let teaching_location_id = fields.teaching_location.split(",");
+                    teaching_location_id.forEach(async function(item, index) {
+
+                await user_idpdetailDal.createCourselocation({'teaching_location_id':item, 'course_id':course_id})
+                });
             }
+            
+            res.send({status : 'success', message:'Course assigned successfully' })
+            
         }
     })
     
   });
+
+router.post("/addCourse", async (req, res) => {
+    let course_name = req.body.course_name
+
+    await user_idpdetailDal.createCourse({course_name:course_name})
+      
+    res.send({status : 'success', message:'Course created successfully' })
+            
+  });
+
   router.post("/updateIntake", async (req, res) => {
     let response;
     let form  = new formidable.IncomingForm();
@@ -552,7 +553,7 @@ router.post("/createIndividualUser", async (req, res) => {
         }
         if(req.body.student_id)
             student_id = req.body.student_id
-        
+
         let upn1        = req.body.email.split("@");
         let userid      = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
 

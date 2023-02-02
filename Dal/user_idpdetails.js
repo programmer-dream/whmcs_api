@@ -159,11 +159,17 @@ var User_idpdetail = {
     
   },
   createCourse: async function (para) {
-    
-      var createcoursedetails = await course_details.create(para);
-      if(createcoursedetails)
-           createcoursedetails = createcoursedetails.toJSON();
-      return createcoursedetails;
+    let courseQuery = 'SELECT MAX(course_id)+1 course_id FROM `course_details`;'
+    let courseId    = await sequelize.query(courseQuery,{ type: Sequelize.QueryTypes.SELECT });
+
+    let response = ''
+    if(courseId[0].course_id){
+      para['course_id'] = courseId[0].course_id
+      response = await course_details.create(para);
+      if(response)
+         response = response.toJSON();
+    }
+    return response;
     
   },
   createCourselocation: async function (para) {

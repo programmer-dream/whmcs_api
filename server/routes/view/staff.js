@@ -1122,7 +1122,7 @@ router.get("/modulestudentview", ensureAuthenticated, async function (req, res) 
 });
 
 router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
-  let courseQuery = 'SELECT MAX(course_id)+1 courseId FROM `course_details`;'
+  
   res.render("modulecourses", {
     email: req.user.upn,
     user: req.user,
@@ -1131,7 +1131,7 @@ router.get("/modulecourses", ensureAuthenticated, async function (req, res) {
     enabledisablevalue:await user_idpdetailDal.listEnablevalue(),
     courseLocations:await user_idpdetailDal.courseLocations(),
     courseList:await user_idpdetailDal.courseList(),
-    course:await user_idpdetailDal.runRawQuery(courseQuery),
+    listCourse:await user_idpdetailDal.listCourse(),
     supportMenu: {
       main: [
         {
