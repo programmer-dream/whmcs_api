@@ -146,7 +146,7 @@
                                               </tr>
                                             <% course.modules.map(function(module) { %>
                                               <tr>                                                
-                                                <td><%= module.module_name %></td>
+                                                <td><%= module.module_code %> - <%= module.module_name %></td>
                                                 <td><%= module.module_type %></td>
                                                 <td><%= module.module_course_year %></td>
                                               </tr>
@@ -197,9 +197,6 @@
                                             </tbody>
                                           </table>
                                           <div class="col-md-12 mb-4" style="text-align: right;">
-
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModalCenter">Assign Location to Course</button>
-                                           </div>
                                     </div>
                                 </div>     
                             </div>
@@ -218,49 +215,7 @@
     <!-- BEGIN: Footer-->
 
     <%- include('footer'); -%>
-    <!-- add Intake start -->
-    <div class="modal fade modal-btns" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Add Course</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="p-1" id="addcourseForm" >
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Course Name<span class="red">*</span></label>
-                    <div class="col-sm-9">
-                        <select class="form-control" name="course" id="course_id" required>
-                            <option value="">Select Course</option>
-                            <% listCourse.map(function (course) { %>
-                                <option value="<%= course.id %>"><%= course.course_name %></option>
-                            <% }) %>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Teaching location<span class="red">*</span></label>
-                    <div class="col-sm-9 add-location-img-field">
-                       <select class="form-control" name="teaching_location" id="teaching_location" multiple required>
-                            <option value="all">Select all locations</option>
-                            <% teachingLocation.forEach(item=> { %>
-                                <option value="<%= item.teaching_location_id %>"><%= item.name %></option>
-                            <% }) %>
-                        </select>
-                    </div>
-                </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="ft-x"></i> Close</button>
-            <button type="button" class="btn btn-primary" id="savecourse"> <i class="la la-check-square-o"></i> Save changes</button>
-          </div>       
-        </div>
-      </div>
-    </div>
+    
 
     <div class="modal fade modal-btns" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -342,39 +297,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
     <script type="text/javascript">
-        $('#savecourse').on('click',function(e){
-            e.preventDefault();
-            var isValid = $('#addcourseForm').valid();
-            if(isValid){
-                var formData = new FormData();
-                formData.append("course_id", $('#course_id').val());
-                formData.append("teaching_location", $('#teaching_location').val());
-                axios.post('/api/staff/createCourse', formData,{ 
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(function (response) {
-                    // console.log(response)
-                    if(response.data.status == "success"){
-                        $('#addcourseForm')[0].reset();
-                        swal("Success", response.data.message);
-                        $('#addModalCenter').hide();
-                        setTimeout(function(){
-                            location.reload();
-                        }, 3000);
-                    }else{
-                        if(response.data.status == "error"){
-                          swal(response.data.message);  
-                      }else{
-                        swal("Something went wrong");
-                        }
-                    }
-                }).catch(function (error ) {
-                    console.log(error)
-                    console.log('FAILURE!!');
-                });
-            }
-        });
 
         $('#editsavecourse').on('click',function(e){
             e.preventDefault();
