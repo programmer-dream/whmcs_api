@@ -746,7 +746,7 @@ router.post("/updateLocation", async (req, res) => {
                 let img = fs.readFileSync(files.image.filepath);
                 fields.image=new Buffer(img).toString('base64');
             }
-            let response = await user_idpdetailDal.updateLocation(fields.id, fields)
+            let response = await user_idpdetailDal.updateLocationNew(fields.id, fields)
         }
         
     })
