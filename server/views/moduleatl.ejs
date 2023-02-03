@@ -192,18 +192,21 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <% modulesRecentlyEnd.forEach((item, index)=> { 
+                                            <% var indexNumber = 1;
+                                                modulesRecentlyEnd.forEach((item, index)=> { 
                                                 if(!item.module_duedate)
                                                    return;
                                                  %>
 
                                                 <tr> 
-                                                  <th scope="row"><%= index = index+1 %></th>
+                                                  <th scope="row"><%= indexNumber %></th>
                                                   <td><%= item.module_code %></td>
                                                   <td><%= item.module_name %></td>
                                                   <td><%= item.module_duedate %></td>
                                                 </tr>
-                                            <% }) %>
+                                            <% 
+                                                indexNumber++ 
+                                            }) %>
                                           </tbody>
                                         </table>
 
