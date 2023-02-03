@@ -273,6 +273,9 @@
                       }else{
                          swal(response.data.message);
                       }
+                      setTimeout(function(){
+                        location.reload();
+                      }, 3000);
                     })
                     .catch(function (error ) {
                         console.log(error)
