@@ -740,7 +740,7 @@ let getWhmcsData = (whmcsconnection, queryStr) =>{
     });
 };
 
-let function makeUserId(length) {
+function makeUserId(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
