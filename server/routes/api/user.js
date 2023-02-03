@@ -31,10 +31,14 @@ router.post('/auth/openid/return',
     passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     async function(req, res) {
 	var email=req.user.upn;
-        var upn1=email.split("@");
-        var userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+    var userid = await makeUserId(5)
 
-        const sessionid = req.session.id;
+    if(email){
+        var upn1=email.split("@");
+        userid = upn1[0].toLowerCase().replace(/[\*\^\'\!\.]/g, '').split(' ').join('-');
+    }
+    
+    const sessionid = req.session.id;
 	var para={
         email:req.user.upn,
         firstname:req.user.name.givenName,
@@ -736,4 +740,15 @@ let getWhmcsData = (whmcsconnection, queryStr) =>{
     });
 };
 
+let function makeUserId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
 module.exports = router;
