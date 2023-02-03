@@ -10,57 +10,70 @@
 
     <script type="text/javascript">
 
-        axios.get('/api/user/staffdashboardusercount')
+        // axios.get('/api/user/staffdashboardusercount')
+        //     .then(function (response) {
+        //         // Get the client data from the response
+        //         var data = response.data[0];
+
+        //         // log all data thats returned
+        //         console.log(data);
+
+        //         $("#numberOfUsers").text(data.count);
+
+        //     });
+
+
+
+        // axios.get('/api/user/staffdashboardstaffcount')
+        //     .then(function (response) {
+        //         // Get the client data from the response
+        //         var data = response.data[0];
+
+        //         // log all data thats returned
+        //         console.log(data);
+
+        //         $("#numberOfStaff").text(data.count);
+
+        //     });
+
+        // axios.get('/api/user/staffdashboardusersupportstats')
+        //     .then(function (response) {
+        //         // Get the client data from the response
+        //         var data = response.data[0];
+
+        //         // log all data thats returned
+        //         console.log(data);
+
+        //         $("#supportStats").text(data.Average.toFixed(2));
+        //         $("#supportStatsNumbers").text(data.NumberOfTickets);
+
+        //     });
+
+        // axios.get('/api/user/totalsupporttickets')
+        //     .then(function (response) {
+        //         // Get the client data from the response
+        //         var data = response.data[0];
+
+        //         // log all data thats returned
+        //         console.log(data);
+
+        //         $("#tickets").text(data.Tickets);
+
+
+        //     });
+
+
+        axios.get('/api/user/getDashboardStatistics')
             .then(function (response) {
-                // Get the client data from the response
-                var data = response.data[0];
-
-                // log all data thats returned
-                console.log(data);
-
-                $("#numberOfUsers").text(data.count);
-
-            });
+                
+            $("#numberOfUsers").text(response.data.numberOfUsers);
+            $("#numberOfStaff").text(response.data.numberOfStaff);
+            $("#supportStats").text(response.data.supportStats);
+            $("#supportStatsNumbers").text(response.data.supportStatsNumbers);
+            $("#tickets").text(response.data.tickets);
 
 
-
-        axios.get('/api/user/staffdashboardstaffcount')
-            .then(function (response) {
-                // Get the client data from the response
-                var data = response.data[0];
-
-                // log all data thats returned
-                console.log(data);
-
-                $("#numberOfStaff").text(data.count);
-
-            });
-
-        axios.get('/api/user/staffdashboardusersupportstats')
-            .then(function (response) {
-                // Get the client data from the response
-                var data = response.data[0];
-
-                // log all data thats returned
-                console.log(data);
-
-                $("#supportStats").text(data.Average.toFixed(2));
-                $("#supportStatsNumbers").text(data.NumberOfTickets);
-
-            });
-
-        axios.get('/api/user/totalsupporttickets')
-            .then(function (response) {
-                // Get the client data from the response
-                var data = response.data[0];
-
-                // log all data thats returned
-                console.log(data);
-
-                $("#tickets").text(data.Tickets);
-
-
-            });
+        });
 
     </script>
 

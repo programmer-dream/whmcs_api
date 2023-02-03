@@ -224,25 +224,25 @@ router.get("/", (req, res) => {
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/staffdashboardusercount", (req, res) => {
-	const sessionid = req.session.id;
-	const connection = mysql.createConnection(mysqlConfig);
+// router.get("/staffdashboardusercount", (req, res) => {
+// 	const sessionid = req.session.id;
+// 	const connection = mysql.createConnection(mysqlConfig);
 
-	connection.connect(function (err) {
-		if (err) throw err;
+// 	connection.connect(function (err) {
+// 		if (err) throw err;
 
-		connection.query(
-			"SELECT count(ID) AS count FROM user_idpdetails WHERE to_be_deleted = 0 && isStaff = 0",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
+// 		connection.query(
+// 			"SELECT count(ID) AS count FROM user_idpdetails WHERE to_be_deleted = 0 && isStaff = 0",
+// 			[sessionid],
+// 			(err, result, fields) => {
+// 				if (err) throw err;
+// 				res.send(result);
+// 			}
+// 		);
 
-		connection.end();
-	});
-});
+// 		connection.end();
+// 	});
+// });
 
 // @route 	GET api/user/staffdashboardgetmodules
 // @desc 	Get the modules
@@ -305,25 +305,25 @@ router.get("/getModuleYearLocation", async (req, res) => {
 // @route 	GET api/user/staffdashboardusercount
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/staffdashboardstaffcount", (req, res) => {
-	const sessionid = req.session.id;
-	const connection = mysql.createConnection(mysqlConfig);
+// router.get("/staffdashboardstaffcount", (req, res) => {
+// 	const sessionid = req.session.id;
+// 	const connection = mysql.createConnection(mysqlConfig);
 
-	connection.connect(function (err) {
-		if (err) throw err;
+// 	connection.connect(function (err) {
+// 		if (err) throw err;
 
-		connection.query(
-			"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && to_be_deleted = 0",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
+// 		connection.query(
+// 			"SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && to_be_deleted = 0",
+// 			[sessionid],
+// 			(err, result, fields) => {
+// 				if (err) throw err;
+// 				res.send(result);
+// 			}
+// 		);
 
-		connection.end();
-	});
-});
+// 		connection.end();
+// 	});
+// });
 
 // @route 	GET api/user/staffdashboardlistusers
 // @desc 	Get the user variables
@@ -528,48 +528,74 @@ router.get("/studentView", async (req, res) => {
 // @route 	GET api/user/staffdashboardusersupportstats
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/staffdashboardusersupportstats", (req, res) => {
-	const sessionid = req.session.id;
-	const connection = mysql.createConnection(whmcsmysqlConfig);
+// router.get("/staffdashboardusersupportstats", (req, res) => {
+// 	const sessionid = req.session.id;
+// 	const connection = mysql.createConnection(whmcsmysqlConfig);
 
-	connection.connect(function (err) {
-		if (err) throw err;
+// 	connection.connect(function (err) {
+// 		if (err) throw err;
 
-		connection.query(
-			"SELECT AVG(FORMAT(rating,2)) AS Average, COUNT(id) AS NumberOfTickets FROM tblticketfeedback WHERE datetime >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) && rating != 0",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
+// 		connection.query(
+// 			"SELECT AVG(FORMAT(rating,2)) AS Average, COUNT(id) AS NumberOfTickets FROM tblticketfeedback WHERE datetime >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) && rating != 0",
+// 			[sessionid],
+// 			(err, result, fields) => {
+// 				if (err) throw err;
+// 				res.send(result);
+// 			}
+// 		);
 
-		connection.end();
-	});
-});
+// 		connection.end();
+// 	});
+// });
 
 // @route 	GET api/user/totalsupporttickets
 // @desc 	Get the user variables
 // @access 	Public
-router.get("/totalsupporttickets", (req, res) => {
-	const sessionid = req.session.id;
-	const connection = mysql.createConnection(whmcsmysqlConfig);
+// router.get("/totalsupporttickets", (req, res) => {
+// 	const sessionid = req.session.id;
+// 	const connection = mysql.createConnection(whmcsmysqlConfig);
 
-	connection.connect(function (err) {
-		if (err) throw err;
+// 	connection.connect(function (err) {
+// 		if (err) throw err;
 
-		connection.query(
-			"SELECT COUNT(id) AS Tickets FROM tbltickets WHERE date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)",
-			[sessionid],
-			(err, result, fields) => {
-				if (err) throw err;
-				res.send(result);
-			}
-		);
+// 		connection.query(
+// 			"SELECT COUNT(id) AS Tickets FROM tbltickets WHERE date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)",
+// 			[sessionid],
+// 			(err, result, fields) => {
+// 				if (err) throw err;
+// 				res.send(result);
+// 			}
+// 		);
 
-		connection.end();
-	});
-});
+// 		connection.end();
+// 	});
+// });
+
+router.get("/getDashboardStatistics",async function (req,res) {
+    let connection = mysql.createConnection(whmcsmysqlConfig);
+    let numberOfUsersQuery = "SELECT count(ID) AS count FROM user_idpdetails WHERE to_be_deleted = 0 && isStaff = 0"
+    let numberOfStaffQuery = "SELECT count(ID) AS count FROM user_idpdetails WHERE isStaff = 1 && to_be_deleted = 0"
+    let supportStatsQuery  = "SELECT AVG(FORMAT(rating,2)) AS Average, COUNT(id) AS NumberOfTickets FROM tblticketfeedback WHERE datetime >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) && rating != 0"
+    
+    let ticketsQuery = "SELECT COUNT(id) AS Tickets FROM tbltickets WHERE date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)"
+
+    
+    numberOfUsersQuery = await user_idpdetailDal.runRawQuery(numberOfUsersQuery)
+    numberOfStaffQuery = await user_idpdetailDal.runRawQuery(numberOfStaffQuery)
+
+    let supportStatsQueryData = await getWhmcsData(connection,supportStatsQuery)
+
+        ticketsQuery  = await getWhmcsData(connection,ticketsQuery)
+    
+    res.status(200).json({
+        numberOfUsers : numberOfUsersQuery[0].count,
+        numberOfStaff: numberOfStaffQuery[0].count,
+        supportStats:supportStatsQueryData[0].Average,
+        supportStatsNumbers:supportStatsQueryData[0].NumberOfTickets,
+        tickets:ticketsQuery[0].Tickets
+    });
+})
+
 router.get("/getlogincount",function (req,res) {
 	user_idpdetailBal.getUserLoginCount(function (data,err) {
 		res.status(200).json(data);
