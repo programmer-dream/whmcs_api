@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Items requiring updating
 The following items are becoming end of life and should be coded into the application soon!
 
@@ -208,3 +209,6 @@ Enter the field IDs in the routes/api/student.js
 - WHMCS JS - https://github.com/DamageESP/whmcs-js
 - Passport JS - http://www.passportjs.org/
 - MySQL - https://www.npmjs.com/package/mysql 
+=======
+# whmcs_api
+>>>>>>> 6896d49597faf8f8f8f907ae7faf9442c15ef14b
